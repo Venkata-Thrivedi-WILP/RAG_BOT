@@ -1,3 +1,4 @@
 ﻿Name,URL
-PolicyMangement,https://stoplight.io/api/v1/projects/cyberark/identity-api-reference/nodes/openapi/identity_merged_files/PolicyManagement.yaml?fromExportButton=true&snapshotType=http_service
-UserManagement,https://stoplight.io/api/v1/projects/cyberark/identity-api-reference/nodes/openapi/identity_merged_files/UserManagement.yaml?fromExportButton=true&snapshotType=http_service
+PolicyMangement,https://api.stoplight.io/projects/cHJqOjIxMDg3OQ/branches/main/export/openapi/identity_merged_files/PolicyManagement.yaml
+UserManagement,https://api.stoplight.io/projects/cHJqOjIxMDg3OQ/branches/main/export/openapi/identity_merged_files/UserManagement.yaml
+ApplicationManagement,https://api.stoplight.io/projects/cHJqOjIxMDg3OQ/branches/main/export/openapi/identity_merged_files/ApplicationManagement.yaml

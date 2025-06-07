@@ -1,0 +1,1861 @@
+ENDPOINT: Get application templates and categories
+PATH: /SaasManage/GetTemplatesAndCategories
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageGetTemplatesAndCategories
+  Response Body Properties:
+    * Result (object): A list of application templates
+      Nested properties:
+        * Category (string): Application category
+        * DisplayName (string): Application template display name
+        * AppType (string): Application type
+        * AppTypeDisplayName (string): Display name of application type
+        * Icon (string): Path of application icon image
+        * WebAppType (string): Application web-app-type
+        * Description (string): Application description
+        * Name (string): Application template name
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "Category": "string_value",
+    "DisplayName": "string_value",
+    "AppType": "string_value",
+    "AppTypeDisplayName": "string_value",
+    "Icon": "string_value",
+    "WebAppType": "string_value",
+    "Description": "string_value",
+    "Name": "string_value"
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Checks if Application is still available in the catalog.
+PATH: /SaasManage/IsApplicationAvailableInCatalog
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * appKey (query, Required): No description provided
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageIsApplicationAvailableInCatalog
+  Response Body Properties:
+    * Result (object): False if app is not found in tenants application table OR appKey's template is not found in the global catalog. True otherwise
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Import apps from predefined templates
+PATH: /SaasManage/ImportAppFromTemplate
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: This API retrieves the template and creates an application instance that can be deployed to users. Only system administrators and users with application management rights can invoke this API. Refer guides section https://identity-developer.cyberark.com/docs/manage-access-to-applications-1#create-an-application
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * ID (array): It is the template name of Application configured in the CyberArk Admin Portal. Can provide multiple template names in the array
+      Array items:
+    Required fields: ID
+  Sample Request JSON:
+  ```json
+  {
+  "ID": [
+    "string_value"
+  ]
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageImportAppFromTemplate
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (array): Array of below properties.
+          Array items:
+            * _RowKey (string): It is the name or Unique ID of the application. It is also known as App key. Ex: 1c585369-b077-44f8-972f-78d0ffd9ac87
+            * Exception (string): By default Exception will be null, unless there is an actual exception happened in retrieving the response.
+            * ID (string): It is the template name of Application configured in the CyberArk Admin Portal. Ex: Dropbox
+            * success (boolean): The success will be true if application is found else it's false.
+        * InnerExceptions (string): InnerExceptions
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): The success will be true or false.
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * Invalid_ID (string): This error message is displayed when the invalid Id is provided. Error message: 'This application has been removed from the application catalog.'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": [
+      {
+        "_RowKey": "string_value",
+        "Exception": "string_value",
+        "ID": "string_value",
+        "success": false
+      }
+    ],
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "Invalid_ID": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Delete application.
+PATH: /SaasManage/DeleteApplication
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: Use this API to delete apps added by admin user. The API gets invoked when the admin user wants to delete apps from admin portal.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * _RowKey (array): Application key.
+      Array items:
+    Required fields: _RowKey
+  Sample Request JSON:
+  ```json
+  {
+  "_RowKey": [
+    "string_value"
+  ]
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageDeleteApplication
+  Response Body Properties:
+    * Result (object): The below response is received when request is successful.
+      Nested properties:
+        * ErrorID (string): Error Id of occured error during api execution.
+        * ErrorCode (string): Error message of Error occured.
+        * Exception (string): If any exception has occured.
+        * MessageID (string): Message id.
+        * Result (object): This gives array of application keys with success flag.
+          Nested properties:
+            * _RowKey (string): Application key.
+            * success (boolean): Whether the application is deleted or not.
+        * InnerExceptions (string): Inner Exception, if any, within exception.
+        * Message (string): Message if any exception.
+        * success (boolean): Whether the application is deleted or not.
+        * IsSoftError (string): Error type is soft or not.
+    * Error (object): This error message is displayed when the application is of portal type.
+      Nested properties:
+        * ErrorMessage (string): Application could not be deleted. Applications with type of Portal are system applications.
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "_RowKey": "string_value",
+      "success": false
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": "string_value"
+  },
+  "Error": {
+    "ErrorMessage": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Get application details
+PATH: /SaasManage/GetApplication
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: CyberArk Identity maintains a catalog of application templates that facilitate the process of enabling SSO. Invoke this API to retrieve the metadata information/template of the Application. Only system administrator, users with application management rights can invoke this API.
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * _RowKey (query, Required): It is the name or Unique ID of the application created. It is also known as App key. Can fetch the AppKey from the Admin Portal once we add an application. Can also fetch the RowKey using RedRock query. Note: RowKey can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageGetApplication
+  Response Body Properties:
+    * Result (object): Return object for a successful API call. The response of the API varies w.r.t type and category of the application. Below mentioned properties are response fields of one such type.
+      Nested properties:
+        * Result (object): This API returns Application-related information as the response. Note that the response of the API varies w.r.t type and Category of the Application.
+          Nested properties:
+            * LocalizationMappings (array): These Mappings bring all the language localization capabilities.
+              Array items:
+                * Modified (boolean): It is set to true if any mappings are modified. Else false. By default, it is false.
+                * Default (string): It is set to true if there any default mappings. Else false. By default, it is false.
+                * Code (string): It is the code used to identify the language.
+                * Description (string): It is the description about the application in the specified language.
+                * Name (string): The Application's name in the specified language. Example: User Portal is 'Portail utilisateur' in french
+            * CertificateSubjectName (string): This is the Application's subject name of the certificate. It is specific to the tenant. Ex: CN=ABC0000 Application Signing Certificate
+            * Icon (string): It is the absolute path of the application's icon image. Ex: 'vfslow/lib/branding/Idaptive/userportal.png'
+            * ACL (boolean): ACL(access control list) is a list of rules that specifies whether users have access to an application or any resource. It is true if the user has access to the Application. Else false.
+            * UseLoginPwUseScript (string): It specifies whether to use the user's login password with the mapping script or not. By default, it is false
+            * DefaultAuthProfile (string): It is the default profile extracted from the Auth Challenge Definition. By default, it is 'AlwaysAllowed.'
+            * AdminTag (string): It is the admin tag provided for the Application. It is the same as the Category of the Application. Ex: Finance
+            * TemplateName (string): It is the template name of the Application. The templates can be internal as well as for external applications. Ex: Dropbox
+            * _TableName (string): The Tablename where application-related details are stored. By default, it is 'application'
+            * Handler (string): The application handler is responsible for processing the request and generating a response. Ex: cloudlib; Centrify.Saas.apphandlers.UserPass
+            * AdminPasswordIsSet (boolean): This property will be true if the admin password exists. Else false. By default, it is false.
+            * UserNameStrategy (string): It is the strategy used for mapping username. Possible types of strategies are ADAttribute, Fixed, SetByUser, UseScript, SetByProvisioning, None
+            * DisplayName (string): It is the display name of the application.
+            * _STAMP (string): It is the unique Id created when an application is created/added in the database. Ex: fd4e9ee9-a9a8-4433-80fb-51eac4d12824
+            * UseLoginPwAdAttr (boolean): This property will be true if there is additional authentication for the Application. Else false. Default Value: false
+            * ShowInUP (string): This property is true, then the App is displayed in the user portal. Else false. By default, it is true.
+            * AppTypeDisplayName (string): There are different types of applications that you can add and deploy to your users. It is the Application's type display Name. Ex: Web - User Password
+            * WebAppType (string): It is the type of web application. Like Portal, SAML, OpenIDConnect, OAuth etc.
+            * UseDefaultSigningCert (boolean): This property will be true if there is a default signing certificate for the Application. Else false. Default Value: true
+            * _PartitionKey (string): partition key is a unique identifier for the partition within a given table, specified by the PartitionKey property. Ex: ABC0123
+            * AppType (string): This specifies the type of application like Web, Mobile or Unknown.
+            * State (string): Specifies the Application's state like whether it is active or not. By default, it is 'active'
+            * RegistrationMessage (string): It is the Registration message of the Application if any added while creating the Application. By default, it is null.
+            * ParentDisplayName (string): It is the display name of the parent application. Here parent app is overridden from another app. By default, it is null.
+            * RegistrationLinkMessage (string): It is the message in the registration link of the Application. By default, it is 'null'
+            * PortalApp (boolean): It is set to true if the App belongs to CyberArk. By default, it is false.
+            * Generic (boolean): This property tells Whether the Application is a generic application or not. By default, it is false.
+            * Description (string): It is the description about the application added.
+            * AuthChallengeDefinitionId (string): It is the UniqueId which tells the Authentication requirements to launch the app. Ex: 25ec7578-3397-474c-b0d9-f884b98717dd
+            * UserNameArg (string): InnerExceptions
+            * PasswordIsSet (boolean): This property will be true f there is a Password set for the Application. Else false. Default Value: false
+            * Name (string): It is the name of the Application.
+            * Reference (string): It is the unique Reference Id of the application template.Ex: 36960
+            * AuthRules (object): Auth rules extracted from the Authentication Challenge Definition.
+              Nested properties:
+                * _Value (string): Can be null or empty.
+                * Enabled (boolean): It is set to true if rule is enabled else false.
+                * _UniqueKey (string): It is the unique Id of the Authentication rule.
+                * _Type (string): Ex: RowSet
+            * Thumbprint (string): It is the thumbprint of Certificate for the application. Ex: C1222EFC3D1A54E47AD227C3CDAAE9F4804C82cd
+            * _RowKey (string): It is the name or Unique Id of the Application. It is also known as App key. Ex: '52d1cec-63b7-4415-b4e0-facacb555d4e'
+            * Category (string): It is the Category which application belongs to. Following are the Categories available. Featured Analytics Collaboration Communication CRM Customer Service DevOps Education ERP Finance Government Health Care HR IT and Administration Marketing News and Research Other Product Management Productivity Project Management Sales Security Social Media Software Development Travel
+            * Url (string): When we are adding external applications, it's the actual URL of that Application. Ex:https://www.dropbox.com/saml_login
+        * success (boolean): The success will be true or false
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * Invalid_RowKey (string): This error message is displayed when the invalid rowkey is provided. Error message: 'Please try again or contact your system administrator for assistance.'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "Result": {
+      "LocalizationMappings": [
+        {
+          "Modified": false,
+          "Default": "string_value",
+          "Code": "string_value",
+          "Description": "string_value",
+          "Name": "string_value"
+        }
+      ],
+      "CertificateSubjectName": "string_value",
+      "Icon": "string_value",
+      "ACL": false,
+      "UseLoginPwUseScript": "string_value",
+      "DefaultAuthProfile": "string_value",
+      "AdminTag": "string_value",
+      "TemplateName": "string_value",
+      "_TableName": "string_value",
+      "Handler": "string_value",
+      "AdminPasswordIsSet": false,
+      "UserNameStrategy": "string_value",
+      "DisplayName": "string_value",
+      "_STAMP": "string_value",
+      "UseLoginPwAdAttr": false,
+      "ShowInUP": "string_value",
+      "AppTypeDisplayName": "string_value",
+      "WebAppType": "string_value",
+      "UseDefaultSigningCert": false,
+      "_PartitionKey": "string_value",
+      "AppType": "string_value",
+      "State": "string_value",
+      "RegistrationMessage": "string_value",
+      "ParentDisplayName": "string_value",
+      "RegistrationLinkMessage": "string_value",
+      "PortalApp": false,
+      "Generic": false,
+      "Description": "string_value",
+      "AuthChallengeDefinitionId": "string_value",
+      "UserNameArg": "string_value",
+      "PasswordIsSet": false,
+      "Name": "string_value",
+      "Reference": "string_value",
+      "AuthRules": {
+        "_Value": "string_value",
+        "Enabled": false,
+        "_UniqueKey": "string_value",
+        "_Type": "string_value"
+      },
+      "Thumbprint": "string_value",
+      "_RowKey": "string_value",
+      "Category": "string_value",
+      "Url": "string_value"
+    },
+    "success": false
+  },
+  "Error": {
+    "Invalid_RowKey": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Clone an existing application.
+PATH: /SaasManage/CloneAnApplication
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: Use this API to clone admin added app. The API gets invoked when the admin user wants to clone app from admin portal.
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * Key (query, Required): It is the name or Unique ID of the application, also known as App key. Can also fetch the Key using RedRock query. Note: Key can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageCloneAnApplicaton
+  Response Body Properties:
+    * Result (object): Returns an object for a successful API call. Below mentioned properties are response fields of one such type.
+      Nested properties:
+        * ErrorID (string): Error Id of occured error during api execution.
+        * ErrorCode (string): Error message of Error occured.
+        * Exception (string): If any exception has occured.
+        * MessageID (string): Message id.
+        * Result (object): This gives new application key and old application ID with success flag.
+          Nested properties:
+            * _RowKey (string): The new app key for cloned app.
+            * ID (string): This is key of existing application.
+            * success (boolean): whether the apllication is cloned or not.
+        * InnerExceptions (string): Inner Exception, if any, within exception.
+        * Message (string): Message if any exception.
+        * success (boolean): whether the apllication is cloned or not.
+        * IsSoftError (string): Error type is soft or not.
+    * Error (object): This error message is displayed when app is either portal or global app or template is not found for clonning.
+      Nested properties:
+        * ErrorMessage (string): The application does not support for cloning.
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "_RowKey": "string_value",
+      "ID": "string_value",
+      "success": false
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": "string_value"
+  },
+  "Error": {
+    "ErrorMessage": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Gets the ID of an app from its service name
+PATH: /SaasManage/GetAppIDByServiceName
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * name (query, Required): service name
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageGetAppIDByServiceName
+  Response Body Properties:
+    * Result (object): Resulting object, if any, of the call
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Set application permissions
+PATH: /SaasManage/SetApplicationPermissions
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: You must be a system administrator or have 'Grant' permission on the resource or have global 'Grant' permission on resources. Invoke this API to set permissions for perticular app.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * RowKey (string): Application key.
+    * ID (string): ID of the resource, Set to null for global permissions.
+    * Grants (object): Array of permissions to be set. Each item must include Principal: User name or role name, PType: User, Role.., Rights: ManageSession, Edit, Delete, Grant, AgentAuth.
+      Nested properties:
+        * Rights (string): Permissions: Grant, View, Admin, LimitedAdmin.
+        * Principal (string): User name or role name.
+        * Type (string): It is user role when new user is added.
+        * PrincipalId (string): Uuid of the principal.
+        * PType (string): Principal type: User, Role etc..
+  Sample Request JSON:
+  ```json
+  {
+  "RowKey": "string_value",
+  "ID": "string_value",
+  "Grants": {
+    "Rights": "string_value",
+    "Principal": "string_value",
+    "Type": "string_value",
+    "PrincipalId": "string_value",
+    "PType": "string_value"
+  }
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageSetApplicationPermissions
+  Response Body Properties:
+    * Result (object): Returns an object for a successful API call.
+      Nested properties:
+        * ErrorID (string): Error Id of occured error during api execution.
+        * ErrorCode (string): Error message of Error occured.
+        * Exception (string): If any exception has occured.
+        * MessageID (string): Message id of message.
+        * Result (object): This API returns Application-related information as the response. Note that the response of the API varies w.r.t type and Category of the Application.
+        * InnerExceptions (string): Inner Exception, if any, within exception.
+        * Message (string): Message if any exception.
+        * success (boolean): The success will be true or false.
+        * IsSoftError (string): Error is soft or not.
+    * Error (object): This error message is displayed when you dont have grant access or writable policy or admin rights.
+      Nested properties:
+        * ErrorMessage (string): You are not authorized to perform this operation.Please contact your IT helpdesk.
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {},
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": "string_value"
+  },
+  "Error": {
+    "ErrorMessage": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Get Client Secret for an OIDC Web App
+PATH: /SaasManage/GetOpenIdClientSecret
+METHOD: POST
+TAGS: Application Management, Client Secret
+DESCRIPTION: - This API securely retrieves the client secret for an OIDC web app. - The response includes the client secret in encrypted form as 'e' if encryption is successful, or in plain text as 'p' if encryption fails.
+METADATA:
+  * x-idap-anon: False
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * OIDCAppKey (string): RowKey of the application.
+    * PublicKey (string): An RSA-OAEP public key to encrypt the secret.
+  Sample Request JSON:
+  ```json
+  {
+  "OIDCAppKey": "string_value",
+  "PublicKey": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageGetOpenIdClientSecret
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * success (boolean): The success status is either true or false.
+        * Result (object): The result includes the client secret for the application.
+          Nested properties:
+            * e (string): The client secret in encrypted format if the encryption is successful.
+            * p (string): The client secret in plain text format if the encryption is unsuccessful.
+        * Message (string): Error message for failure response. By default it is 'null'.
+        * MessageID (string): The message ID for a failure response. By default, it is null.
+        * IsSoftError (boolean): If true, SoftError indicates a UI warning popup rather than an exception.
+        * Exception (string): The exception message if an exception is received from the API. By default, it is null.
+        * ErrorID (string): The error ID if an error occurs. By default, it is null.
+        * ErrorCode (string): The error code if an error occurs. By default, it is null.
+        * InnerExceptions (string): InnerExceptions
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * UnAuthorized (string): When the user does not have the required permissions, you will see the error message - You are not authorized to perform this operation. Please contact your IT helpdesk.
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "success": false,
+    "Result": {
+      "e": "string_value",
+      "p": "string_value"
+    },
+    "Message": "string_value",
+    "MessageID": "string_value",
+    "IsSoftError": false,
+    "Exception": "string_value",
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "InnerExceptions": "string_value"
+  },
+  "Error": {
+    "UnAuthorized": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Update application.
+PATH: /SaasManage/UpdateApplicationDE
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: This API is invoked to update several fields related to an application and is also used to assign roles for accessing the applications. Only system administrator, users with application management rights can invoke this API. Refer guides section https://identity-developer.cyberark.com/docs/manage-access-to-applications-1#update-an-application
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * ShowRegistration (boolean): It specifies whether to show registration link or not on the UI. By default it is false.
+    * _RowKey (string): It is the name or Unique ID of the application created. It is also known as App key. Can fetch the AppKey from the CyberArk Admin Portal once we add an application. Can also fetch the RowKey using RedRock query. Note: RowKey can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC. Ex: 52d1cec-63b7-4415-b4e0-facacb555d4e
+    * Handler (string): The application handler is responsible for processing the request and generating a response. Ex: cloudlib Centrify.Saas.apphandlers.UserPass
+    * IconUri (string): It is the absolute path of the Application icon.
+    * Script (string): It is the script used to add complex logic for attribute mappings of SAML response. Applicable only for SAML web based application
+    * AppRoles (object): It is used to assign or un-assign roles for accessing the application.
+      Nested properties:
+        * Publish (array): Array of Roles to be assigned for accessing the application.
+          Array items:
+            * RoleType (string): It is the type of role. Ex: PrincipalList
+            * Role (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query. Ex: 447acf32_5bb8_45d5_8649_4f31dd5d888e
+            * ID (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query. Ex: 447acf32_5bb8_45d5_8649_4f31dd5d888e
+            * Application (string): It is the name or Unique ID of the application created. It is also known as App key.
+            * Automatic (boolean): Specifies whether the application has been set for automatic installation or not. By default it is true.
+            * Name (string): It is the name of the Role which needs to be assigned to application.
+        * UnPublish (array): Array of Roles to be un-assigned for accessing the application.
+          Array items:
+            * RoleType (string): It is the type of role.
+            * Role (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query.
+            * ID (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query.
+            * Application (string): It is the name or Unique ID of the application created. It is also known as App key.
+            * Automatic (boolean): Automatic
+            * Name (string): It is the name of the Role which needs to be un-assigned to application.
+    * SamlAttributes (string): This attributes are applicable only to SAML web based application. By default it is null
+    * Description (string): It is the description about the application added.
+    * Name (string): It is the name of the Application.
+    Required fields: _RowKey
+  Sample Request JSON:
+  ```json
+  {
+  "ShowRegistration": false,
+  "_RowKey": "string_value",
+  "Handler": "string_value",
+  "IconUri": "string_value",
+  "Script": "string_value",
+  "AppRoles": {
+    "Publish": [
+      {
+        "RoleType": "string_value",
+        "Role": "string_value",
+        "ID": "string_value",
+        "Application": "string_value",
+        "Automatic": false,
+        "Name": "string_value"
+      }
+    ],
+    "UnPublish": [
+      {
+        "RoleType": "string_value",
+        "Role": "string_value",
+        "ID": "string_value",
+        "Application": "string_value",
+        "Automatic": false,
+        "Name": "string_value"
+      }
+    ]
+  },
+  "SamlAttributes": "string_value",
+  "Description": "string_value",
+  "Name": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageUpdateApplicationDE
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (object): Result for the update application request.
+          Nested properties:
+            * State (integer): If State is '0' then application fields are updated as expected.
+        * InnerExceptions (string): InnerExceptions
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): The success will be true or false.
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * Invalid_RowKey (string): This error message is displayed when the invalid rowkey is provided. Error message: 'The application does not exist or has been deleted.'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "State": 0
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "Invalid_RowKey": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Create a tag with no apps for the current user.
+PATH: /UPRest/CreateTagWithNoApp
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * tagname (string): tag name
+    Required fields: tagname
+  Sample Request JSON:
+  ```json
+  {
+  "tagname": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Delete a tag
+PATH: /UPRest/DeleteTag
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * tagname (string): tag name
+    Required fields: tagname
+  Sample Request JSON:
+  ```json
+  {
+  "tagname": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestDeleteTag
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Downloads logs for the imported accounts file.
+PATH: /UPRest/DownloadImportAccountsLogFile
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * fileKey (query, Required): The unique identifier for imported file.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestDownloadImportAccountsLogFile
+  Response Body Properties:
+    * Result (object): File containing logs for imported accounts.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Get an application's data.
+PATH: /UPRest/GetAppByKey
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+PARAMETERS:
+  * appkey (query, Required): Application key
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * markAppVisited (string): Should the application be mark as visited.
+  Sample Request JSON:
+  ```json
+  {
+  "markAppVisited": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestGetAppByKey
+  Response Body Properties:
+    * Result (object): Application data
+      Nested properties:
+        * Shortcut (boolean): Whether the application has been set for optional installation
+        * Url (string): Application Url
+        * AdminTag (string): Application admin tag
+        * Description (string): Application description
+        * Category (string): Application category
+        * Name (string): Application name
+        * TemplateName (string): Application template name
+        * PasswordIsSet (boolean): Whether the password has been set
+        * WebAppType (string): Application web-app-type
+        * DisplayName (string): Application display name
+        * UsernameRO (boolean): Whether user name is read-only
+        * WebAppTypeDisplayName (string): Display name of web-app-type
+        * AppTypeDisplayName (string): Display name of application type
+        * Intranet (boolean): Whether the application is an intranet app
+        * AppType (string): Application type
+        * AppKey (string): Application key
+        * Rank (integer): Application rank
+        * Icon (string): Path of application icon image
+        * Username (string): Application username
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "Shortcut": false,
+    "Url": "string_value",
+    "AdminTag": "string_value",
+    "Description": "string_value",
+    "Category": "string_value",
+    "Name": "string_value",
+    "TemplateName": "string_value",
+    "PasswordIsSet": false,
+    "WebAppType": "string_value",
+    "DisplayName": "string_value",
+    "UsernameRO": false,
+    "WebAppTypeDisplayName": "string_value",
+    "AppTypeDisplayName": "string_value",
+    "Intranet": false,
+    "AppType": "string_value",
+    "AppKey": "string_value",
+    "Rank": 0,
+    "Icon": "string_value",
+    "Username": "string_value"
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Returns list of credential providers.
+PATH: /UPRest/GetCredentialsProviderListForImport
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestGetCredentialsProviderListForImport
+  Response Body Properties:
+    * Result (object): List of credential providers.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Returns list of details for recently uploaded files.
+PATH: /UPRest/GetRecentImportedAccountsFile
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * fileCount (query, Required): The number of recent files.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestGetRecentImportedAccountsFile
+  Response Body Properties:
+    * Result (object): List of details for recently uploaded files.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Get applications for user
+PATH: /UPRest/GetResultantAppsForUser
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: Invoke this API to retrieve the resultant applications where user has access to. Only system administrator, users with application management rights and user management rights can invoke this API. NOTE: This call caches the list of applications and roles. Personal apps are not included in the result.
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * userUuid (query, Required): The unique ID of the user who is having access to applications should be provided. The unique ID is generated when the user is created or invited.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestGetResultantAppsForUser
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (object): Result includes Count and Columns definition.
+          Nested properties:
+            * ReturnID (string): ReturnID for the successful api call. By default it is null
+            * Count (integer): It is the number of records that the call returns.
+            * Columns (array): Array list of definition of all Columns.
+              Array items:
+                * TableKey (string): specifies whether column is a key and if so what kind of key it is. It can be primary key or foreign key. Ex: 'Primary'
+                * Description (string): It is the brief description of the column. Ex: 'Row Identifier (primary key)'
+                * Name (string): It is the name of the column.
+                * Format (string): Currently It is not applicable. By default it is null.
+                * TableName (string): It is the name of the table. By default it is null.
+                * DDName (string): It is the Data dictionary name of the column. Ex: 'ID'
+                * DDTitle (string): It is the Data dictionary title of the column. Ex: 'ID'
+                * Type (string): It is the numeric indicator of the type of data in the column. Ex: '12'
+                * IsHidden (boolean): specifies whether column is hidden or not. default: false
+                * Width (integer): Currently It is not applicable. By default it is 0.
+                * Title (string): Title of the column. Ex: 'ID'
+                * ForeignKey (string): specifies whether column holds a foreign key or not. By default it is null.
+            * Results (object): Results the rows from the table.
+              Nested properties:
+                * Shortcut (boolean): Specifies whether the application has been set for optional installation or not. by default it is false.
+                * Entities (array): Array list of definition of all Columns.
+                  Array items:
+                    * IsForeignKey (string): Specifies whether the entity has foreign key or not. By default it is false.
+                    * Type (string): It is type of the entity. Ex: Application
+                    * Key (string): Unique Id of the Entity. Ex:'cb9b5761-6cfe-45a5-8ecf-ce9fa9e0ff82'
+                * Url (string): When we are adding external applications, it's the actual URL of that Application. Ex:https://www.dropbox.com/saml_login
+                * BypassLoginMFA (boolean): Specifies whether the application can bypass the login MFA or not. By default it is false.
+                * Row (string): Row consists of Entities list and Specifies the details about user accessible applications; each entry is a dictionary including 'Type' (User, Role), 'ID' (role/user UUID), and 'Name' (role name or 'User' if user is granted direct access)
+                * Category (string): It is the Category which application belongs to. Following are the Categories available. Featured Analytics Collaboration Communication CRM Customer Service DevOps Education ERP Finance Government Health Care HR IT and Administration Marketing News and Research Other Product Management Productivity Project Management Sales Security Social Media Software Development Travel
+                * AdminTag (string): It is the admin tag provided for the Application. It is the same as the Category of the Application. Ex: Finance
+                * Name (string): It is the name of the Application.
+                * TemplateName (string): It is the template name of the Application. The templates can be internal as well as for external applications. Ex: Dropbox
+                * WebAppType (string): It is the type of web application. Like Portal, SAML, OpenIDConnect, OAuth etc.
+                * PasswordIsSet (boolean): This property will be true f there is a Password set for the Application. Else false. Default Value: false
+                * CertBasedAuthEnabled (boolean): Specifies whether Certificate based Authentication is enabled or not. By default it is false.
+                * DisplayName (string): It is the display name of the application.
+                * RegistrationMessage (string): It is the Registration message of the Application if any configured while creating the Application. By default, it is null.
+                * AuthChallengeDefinitionId (string): It is the UniqueId which tells the Authentication requirements to launch the app. Ex: 25ec7578-3397-474c-b0d9-f884b98717dd
+                * DerivedCredsSupported (boolean): Specifies whether any derived credentials are supported or not. By default it is false.
+                * IsCredsAccessible (boolean): Specifies whether credentials are accessible for the application or not. By default it is false.
+                * UsernameRO (boolean): specifies whether user name is read-only or not. By default it is false.
+                * ParentDisplayName (string): It is the display name of the parent application. Here parent app is overridden from another app. By default, it is null.
+                * WebAppTypeDisplayName (string): It is the Display name of application. Ex: web-application-type
+                * IsNewApp (boolean): It specifies whether the application is newly added or not.
+                * RegistrationLinkMessage (string): It is the message in the registration link of the Application. By default, it is 'null'
+                * AppTypeDisplayName (string): There are different types of applications that you can add and deploy to your users. It is the Application's type display Name. Ex: Web - User Password
+                * AppType (string): This specifies the type of application like Web, Mobile or Unknown.
+                * Intranet (boolean): Specifies whether the application is an intranet app or not.
+                * AppKey (string): It is the Unique ID of the application, also known as app key.
+                * Automatic (boolean): Specifies whether the application has been set for automatic installation or not. By default it is true.
+                * Rank (integer): It is the rank of the Application.
+                * ID (string): It is the Unique ID of the application, also known as app key.
+                * Icon (string): It is the absolute path of the application's icon image. Ex: https://example.com/vfslow/lib/branding/Idaptive/userportal.png
+                * Username (string): Username. By default it is null.
+            * FullCount (integer): It specifies number of tables.
+            * IsAggregate (boolean): It is an attribute.
+        * InnerExceptions (string): InnerExceptions
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): The success will be true or false
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * UnAuthorized (string): This error message is displayed when the invalid user Id is provided or if user does not have rights. Error message: 'You are not authorized to perform this operation. Please contact your IT helpdesk.'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "ReturnID": "string_value",
+      "Count": 0,
+      "Columns": [
+        {
+          "TableKey": "string_value",
+          "Description": "string_value",
+          "Name": "string_value",
+          "Format": "string_value",
+          "TableName": "string_value",
+          "DDName": "string_value",
+          "DDTitle": "string_value",
+          "Type": "string_value",
+          "IsHidden": false,
+          "Width": 0,
+          "Title": "string_value",
+          "ForeignKey": "string_value"
+        }
+      ],
+      "Results": {
+        "Shortcut": false,
+        "Entities": [
+          {
+            "IsForeignKey": "string_value",
+            "Type": "string_value",
+            "Key": "string_value"
+          }
+        ],
+        "Url": "string_value",
+        "BypassLoginMFA": false,
+        "Row": "string_value",
+        "Category": "string_value",
+        "AdminTag": "string_value",
+        "Name": "string_value",
+        "TemplateName": "string_value",
+        "WebAppType": "string_value",
+        "PasswordIsSet": false,
+        "CertBasedAuthEnabled": false,
+        "DisplayName": "string_value",
+        "RegistrationMessage": "string_value",
+        "AuthChallengeDefinitionId": "string_value",
+        "DerivedCredsSupported": false,
+        "IsCredsAccessible": false,
+        "UsernameRO": false,
+        "ParentDisplayName": "string_value",
+        "WebAppTypeDisplayName": "string_value",
+        "IsNewApp": false,
+        "RegistrationLinkMessage": "string_value",
+        "AppTypeDisplayName": "string_value",
+        "AppType": "string_value",
+        "Intranet": false,
+        "AppKey": "string_value",
+        "Automatic": false,
+        "Rank": 0,
+        "ID": "string_value",
+        "Icon": "string_value",
+        "Username": "string_value"
+      },
+      "FullCount": 0,
+      "IsAggregate": false
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "UnAuthorized": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Get tags for application
+PATH: /UPRest/GetTagsForApp
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: This API retrieves the tags applied for an application. Tags allow users to organize applications by type. Only system administrators and users with application management rights can invoke this API. Refer guides section https://identity-developer.cyberark.com/docs/manage-applications-for-usersnew#create-user-tags-for-an-application
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * appkey (query, Required): It is the name or Unique ID of the application. Can fetch the AppKey from the Admin Portal once we add an application. Can also fetch the RowKey using RedRock query. Note: RowKey can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestGetTagsForApp
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * AppKey_NotProvided (string): This error message is displayed when the invalid rowkey is provided. Error message: 'Parameter 'appkey' must be specified.'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {
+    "AppKey_NotProvided": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Rename a tag
+PATH: /UPRest/RenameTag
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * newTagname (string): new tag name
+    * tagname (string): tag name
+    Required fields: newTagname, tagname
+  Sample Request JSON:
+  ```json
+  {
+  "newTagname": "string_value",
+  "tagname": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Set user credentials for an application.
+PATH: /UPRest/SetUserCredsForApp
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * Password (string): Application password
+    * PublicKeyHash (string): SHA256 Hex of the public key used to encrypt the password
+    * appkey (string): Application key
+    * Username (string): Application user name
+    * ConnectorId (string): ID of the connector were a public key used to encrypt exists
+    Required fields: Password, appkey, Username
+  Sample Request JSON:
+  ```json
+  {
+  "Password": "string_value",
+  "PublicKeyHash": "string_value",
+  "appkey": "string_value",
+  "Username": "string_value",
+  "ConnectorId": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: update captured user application .
+PATH: /UPRest/UpdateCapturedUserApplication
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * appName (string): Application Name
+    * appkey (string): Application key
+    * appDescription (string): Application Description
+    * notes (string): Application notes
+    * appUrl (string): Application Url
+    Required fields: appkey
+  Sample Request JSON:
+  ```json
+  {
+  "appName": "string_value",
+  "appkey": "string_value",
+  "appDescription": "string_value",
+  "notes": "string_value",
+  "appUrl": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestDeleteTag
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Update secured item credentials.
+PATH: /UPRest/UpdateCredsForSecuredItem
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * Password (string): User password
+    * CustomFields (string): Custom user fields
+    * Notes (string): Notes for secured item
+    * Username (string): Username
+  Sample Request JSON:
+  ```json
+  {
+  "Password": "string_value",
+  "CustomFields": "string_value",
+  "Notes": "string_value",
+  "Username": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestDeleteTag
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Update personal user application.
+PATH: /UPRest/UpdatePersonalApplication
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * appName (string): Application Name
+    * appkey (string): Application key
+    * appDescription (string): Application Description
+    * notes (string): Application notes
+    * appUrl (string): Application Url
+    Required fields: appkey
+  Sample Request JSON:
+  ```json
+  {
+  "appName": "string_value",
+  "appkey": "string_value",
+  "appDescription": "string_value",
+  "notes": "string_value",
+  "appUrl": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: update user application for the current user.
+PATH: /UPRest/UpdateUserApplication
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * appkey (string): Application key
+    * notes (string): Application Notes
+    Required fields: appkey, notes
+  Sample Request JSON:
+  ```json
+  {
+  "appkey": "string_value",
+  "notes": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Upload personal app icon.
+PATH: /UPRest/UploadPersonalAppIcon
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * appkey (string): Personal app key
+    Required fields: appkey
+  Sample Request JSON:
+  ```json
+  {
+  "appkey": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Upload secured item icon.
+PATH: /UPRest/UploadSecuredItemIcon
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * sItemkey (string): Name of secured item
+    Required fields: sItemkey
+  Sample Request JSON:
+  ```json
+  {
+  "sItemkey": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Add and update application tags for the current user.
+PATH: /UPRest/UpsertTagsForApp
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * appkey (string): Application key
+    * tagnames (array): list of tag names
+      Array items:
+    Required fields: appkey, tagnames
+  Sample Request JSON:
+  ```json
+  {
+  "appkey": "string_value",
+  "tagnames": [
+    "string_value"
+  ]
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Add and update secured item tags for the current user.
+PATH: /UPRest/UpsertTagsForSecuredItem
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * tagnames (array): list of tag names
+      Array items:
+    * itemkey (string): Secured item key
+    Required fields: tagnames, itemkey
+  Sample Request JSON:
+  ```json
+  {
+  "tagnames": [
+    "string_value"
+  ],
+  "itemkey": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestDeleteTag
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Gets all available data for the user portal in one call.
+PATH: /UPRest/GetUPData
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: This call caches the list of applications but does not cache tag information.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+PARAMETERS:
+  * force (query, Required): Whether to use the cache. If set to true, the call does not use the cache.
+  * username (query, Required): Target user name.
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestGetUPData
+  Response Body Properties:
+    * Result (object): A list of applications
+      Nested properties:
+        * Shortcut (boolean): Whether the application has been set for optional installation
+        * _RowKey (string): Application ID
+        * Url (string): Application Url
+        * Description (string): Application description
+        * Category (string): Application category
+        * AdminTag (string): Application admin tag
+        * Name (string): Application name
+        * TemplateName (string): Application template name
+        * WebAppType (string): Application web-app-type
+        * PasswordIsSet (boolean): Whether the password has been set
+        * DisplayName (string): Application display name
+        * UsernameRO (boolean): Whether user name is read-only
+        * WebAppTypeDisplayName (string): Display name of web-app-type
+        * Personal (boolean): Whether the application is a self-service application.
+        * AppTypeDisplayName (string): Display name of application type
+        * AppType (string): Application type
+        * Intranet (boolean): Whether the application is an intranet app
+        * AppKey (string): Application key
+        * Automatic (boolean): Whether the application has been set for automatic installation
+        * Rank (integer): Application rank
+        * Icon (string): Path of application icon image
+        * Username (string): Application username
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "Shortcut": false,
+    "_RowKey": "string_value",
+    "Url": "string_value",
+    "Description": "string_value",
+    "Category": "string_value",
+    "AdminTag": "string_value",
+    "Name": "string_value",
+    "TemplateName": "string_value",
+    "WebAppType": "string_value",
+    "PasswordIsSet": false,
+    "DisplayName": "string_value",
+    "UsernameRO": false,
+    "WebAppTypeDisplayName": "string_value",
+    "Personal": false,
+    "AppTypeDisplayName": "string_value",
+    "AppType": "string_value",
+    "Intranet": false,
+    "AppKey": "string_value",
+    "Automatic": false,
+    "Rank": 0,
+    "Icon": "string_value",
+    "Username": "string_value"
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Verify if username provided for personal app or secured item is allowed.
+PATH: /UPRest/ValidateUsernameIsAllowed
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * userName (string): WPM user name
+    Required fields: userName
+  Sample Request JSON:
+  ```json
+  {
+  "userName": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Get TOTP codes for a Secured Password.
+PATH: /UPRest/GetTotpCodesForSecuredPassword
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: - Get n TOTP codes for a Secured Password. - The default value for n is 3, but it can be configured. - The response includes the period for TOTP calculation and a list of TOTP tokens in Base64 format.
+METADATA:
+  * x-idap-anon: False
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * sItemkey (string): Secured Item's' Unique ID.
+    * actionType (string): Optional. The action item for audit events includes the type of action (AutoFill, IBECopy, ContextMenuCopy). By default, it is set to 'null'.
+  Sample Request JSON:
+  ```json
+  {
+  "sItemkey": "string_value",
+  "actionType": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestGetTotpCodesForSecuredPassword
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * success (boolean): The success status is either true or false.
+        * Result (object): Result includes TOTP Codes.
+          Nested properties:
+            * Period (integer): Verification code validity period.
+            * TOTPCodes (object): Results the n TOTP codes.Here the n value is 3.
+              Nested properties:
+                * 1 (string): First TOTP Code.
+                * 2 (string): Second TOTP Code.
+                * 3 (string): Third TOTP Code.
+            * EpochTimeInSec (integer): The epoch time for TOTP codes is the number of 30-second periods since January 1, 1970, which determines the current TOTP code.
+        * Message (string): Error message for failure response. By default it is 'null'.
+        * MessageID (string): Message Id for failure response. By default it is 'null'.
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'.
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'.
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'.
+        * InnerExceptions (string): InnerExceptions
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * UnAuthorized (string): This error message is displayed when user does not have rights. Error message: 'You are not authorized to perform this operation. Please contact your IT helpdesk.'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "success": false,
+    "Result": {
+      "Period": 0,
+      "TOTPCodes": {
+        "1": "string_value",
+        "2": "string_value",
+        "3": "string_value"
+      },
+      "EpochTimeInSec": 0
+    },
+    "Message": "string_value",
+    "MessageID": "string_value",
+    "IsSoftError": false,
+    "Exception": "string_value",
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "InnerExceptions": "string_value"
+  },
+  "Error": {
+    "UnAuthorized": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Set TOTP seed for a secured password.
+PATH: /UPRest/SaveTotpSeedForSecuredPassword
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: - This API sets the TOTP seed for a secured password. - If you do not provide a value for totpSecret , then the system clears the secret for the secured password.
+METADATA:
+  * x-idap-anon: False
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * sItemkey (string): The Secured Item's Unique ID.
+    * algorithm (string): The algorithm used for TOTP verification code generation. The default algorithm is SHA1.
+    * digits (number): This defines the number of verification code digits.
+    * issuer (string): Issuer of the TOTP authentication key.
+    * label (string): Label for the TOTP authentication key.
+    * totpSecret (string): This is the TOTP authentication key secret for an application.
+    * type (string): Optional. This specifies the type of OTP being used.
+    * period (number): Verification code validity period. The default validity period is 30 seconds.
+  Sample Request JSON:
+  ```json
+  {
+  "sItemkey": "string_value",
+  "algorithm": "string_value",
+  "digits": 0,
+  "issuer": "string_value",
+  "label": "string_value",
+  "totpSecret": "string_value",
+  "type": "string_value",
+  "period": 0
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestSaveTotpSeedForSecuredPassword
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * success (boolean): The success status is either true or false.
+        * Result (object): Result for a response.By default it is 'null'.
+        * Message (string): Error message for failure response. By default it is 'null'.
+        * MessageID (string): Message Id for failure response. By default it is 'null'.
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'.
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'.
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'.
+        * InnerExceptions (string): InnerExceptions
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * UnAuthorized (string): This error message is displayed when user does not have rights. Error message: 'You are not authorized to perform this operation. Please contact your IT helpdesk.'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "success": false,
+    "Result": {},
+    "Message": "string_value",
+    "MessageID": "string_value",
+    "IsSoftError": false,
+    "Exception": "string_value",
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "InnerExceptions": "string_value"
+  },
+  "Error": {
+    "UnAuthorized": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Add/Update/Delete files for a Secured Item.
+PATH: /UPRest/UpRestSaveFilesForSecuredItem
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: This endpoint is called when the user clicks Save to save the file attachment from the User Portal.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * Metadata (array): Holds file metadata.
+      Array items:
+        * Name (string): Filename.
+        * Id (string): Unique file identifier.
+        * Hidden (boolean): Enables or disables the file.
+        * Size (number): File size.
+    * File (object): File is in the form-data. (Not as a parameter.)
+    Required fields: File
+  Sample Request JSON:
+  ```json
+  {
+  "Metadata": [
+    {
+      "Name": "string_value",
+      "Id": "string_value",
+      "Hidden": false,
+      "Size": 0
+    }
+  ],
+  "File": {}
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaveFilesForSecuredItem
+  Response Body Properties:
+    * Result (object): Indicates whether the operation is successful.
+    * Error (object): Error message text on failure, may be null.
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Returns a list of secured files attached to a Secured Item.
+PATH: /UPRest/GetSecureFiles
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: This endpoint is called when the user clicks on a Secured Item from the User Portal.
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * sItemkey (query, Required): Secured item _RowKye.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestGetRecentImportedAccountsFile
+  Response Body Properties:
+    * Result (object): List of details for recently uploaded files.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+
+ENDPOINT: Get consumed storage space for the current user.
+PATH: /UPRest/UpRestGetConsumedStorageForSecuredItem
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: This endpoint is called when clicks to add a Secured Item from the User Portal.
+METADATA:
+  * x-idap-anon: False
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UpRestGetConsumedStorageForSecuredItem
+  Response Body Properties:
+    * Result (object): File storage consumed per user.
+      Nested properties:
+        * StorageSpaceConsumed (number): Total amount of space consumed per user for file storage.
+    * Error (object): Error message text on failure, may be null.
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "StorageSpaceConsumed": 0
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
