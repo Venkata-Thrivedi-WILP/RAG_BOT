@@ -1,0 +1,2009 @@
+{
+  "openapi": "3.0.1",
+  "x-stoplight": {
+    "id": "fwqm8kvoanyj4"
+  },
+  "info": {
+    "title": "User Management",
+    "description": null,
+    "termsOfService": "https://www.idaptive.com/eula/",
+    "version": "22.7.201-a104ccbac3"
+  },
+  "servers": [
+    {
+      "url": "https://{tenant_url}/",
+      "variables": {
+        "tenant_url": {
+          "default": "example.id.cyberark.cloud"
+        }
+      }
+    }
+  ],
+  "tags": [
+    {
+      "name": "Create Users",
+      "description": "APIs to create users in CyberArk Identity directory"
+    },
+    {
+      "name": "Bulk Import",
+      "description": "APIs to bulk import users in CyberArk Identity directory"
+    },
+    {
+      "name": "Send User Invites",
+      "description": "APIs to send email / SMS invites to the users in CyberArk Identity directory"
+    },
+    {
+      "name": "Manage User Data",
+      "description": "APIs to manage the data of the user in CyberArk Identity directory"
+    },
+    {
+      "name": "Manage User Structure",
+      "description": "APIs to manage the state of the user in CyberArk Identity directory"
+    },
+    {
+      "name": "Manage User Attributes",
+      "description": "APIs to manage the attributes of the user in CyberArk Identity directory"
+    },
+    {
+      "name": "Delete Users",
+      "description": "APIs to delete the users in CyberArk Identity directory"
+    },
+    {
+      "name": "Additional User Management APIs",
+      "description": "Additional APIs for user management"
+    },
+    {
+      "name": "Start Authentication",
+      "description": "Use this API to start user authentication by creating a new session and fetch the challenges to verify the user's identity."
+    },
+    {
+      "name": "Send Identity Verification",
+      "description": "Use this API to verify the user's identity against CyberArk Identity."
+    }
+  ],
+  "paths": {
+    "/CDirectoryService/CreateUser": {
+      "post": {
+        "tags": [
+          "Create Users"
+        ],
+        "summary": "Create user",
+        "description": "<p><ul><li>Invoke this API to create a new user.</li>\n            <li>Only system administrator or users with user management rights can invoke this API.</li>\n            <li>Specifying 'ServiceUser' will override the 'InEveryBodyRole' property if both are provided.</li>\n            <li>Refer guides section <a href=https://identity-developer.cyberark.com/docs/create-and-manage-cloud-directory-users-_new#create-a-user >Create a User</a></li></ul></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "Mail",
+                  "Name"
+                ],
+                "type": "object",
+                "properties": {
+                  "InEverybodyRole": {
+                    "type": "boolean",
+                    "description": "Place user in Everybody role (default=true)"
+                  },
+                  "SendSmsInvite": {
+                    "type": "boolean",
+                    "description": "Send user an sms invite to enroll their mobile device in the protal (default=false)"
+                  },
+                  "InSysAdminRole": {
+                    "type": "boolean",
+                    "description": "Place user in System Adminstrator role (default=false)"
+                  },
+                  "Description": {
+                    "type": "string",
+                    "description": "Description of user (default=null)"
+                  },
+                  "Name": {
+                    "type": "string",
+                    "description": "Username of the user. The username can be 'username@suffix if suffix is required, else 'username'. The username can be optional only when Primary Identifier is provided. Ex: mark@aak7163"
+                  },
+                  "MobileNumber": {
+                    "type": "string",
+                    "description": "User's mobile number (default=null); note this field is required if SendSmsInvite is true"
+                  },
+                  "useAlternateMfaAccount": {
+                    "type": "boolean",
+                    "description": "Does the user have an alternate MFA Account?"
+                  },
+                  "OrgPath": {
+                    "type": "string",
+                    "description": "The organisation name to which the user is added"
+                  },
+                  "Password": {
+                    "type": "string",
+                    "description": "Strong password of the user that meets the complexity requirements. Password must be at least 8 characters long, not be longer than 64 characters, contain at least one digit, contain at least one upper and one lower case letter. (default=randomly generated strong password)"
+                  },
+                  "CmaRedirectedUserUuid": {
+                    "type": "string",
+                    "description": "Unique id of the redirected user."
+                  },
+                  "ServiceUser": {
+                    "type": "boolean",
+                    "description": "User is a service user (default=false)"
+                  },
+                  "OfficeNumber": {
+                    "type": "string",
+                    "description": "User's office number (default=null)"
+                  },
+                  "ReportsTo": {
+                    "type": "string",
+                    "description": "Uuid of user this user reports to (default=null)"
+                  },
+                  "SendEmailInvite": {
+                    "type": "boolean",
+                    "description": "Send user an email invite to login to the portal. (default=true)"
+                  },
+                  "HomeNumber": {
+                    "type": "string",
+                    "description": "User's home number (default=null)"
+                  },
+                  "DisplayName": {
+                    "type": "string",
+                    "description": "Display name of user (default=null)"
+                  },
+                  "PrimaryIdentifier": {
+                    "type": "string",
+                    "description": "Identifier Type used while login"
+                  },
+                  "VerifyEmail": {
+                    "type": "boolean",
+                    "description": "Enforce user to verify the registered email address"
+                  },
+                  "ForcePasswordChangeNext": {
+                    "type": "boolean",
+                    "description": "Force password change at first login (default=true)"
+                  },
+                  "PasswordNeverExpire": {
+                    "type": "boolean",
+                    "description": "User's password never expires (default=false)"
+                  },
+                  "Mail": {
+                    "type": "string",
+                    "description": "Email address of user; Note this field is required if 'SendEmailInvite' is true, or 'VerifyEmail' is true. Ex: mark@yahoo.com"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceCreateUser.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "cma6nw3o9iw6y"
+        }
+      }
+    },
+    "/CDirectoryService/GetUsersFromCsvFile": {
+      "post": {
+        "tags": [
+          "Bulk Import"
+        ],
+        "summary": "Start Bulk User Import",
+        "description": "<p><ul><li>Use this API to initiate the bulk user import in the CyberArk Identity cloud directory.</li>\n            <li>Only system administrators and users with user management rights can invoke this API.</li>\n            <li>This API is the first part of the two API calls to upload a bulk of users in the cloud directory. Refer to <a href=https://identity-developer.cyberark.com/reference/post_cdirectoryservice-submituploadedfile>SubmitUploadedFile</a> for the second part, which performs the actual upload.</li>\n            <li>This API takes a CSV file containing the users' information for bulk import and the file name as form-data in request.</li>\n            <li>When this API is invoked, the list of users and their information will be read from the CSV file sent as a request to this API, and the Identity cloud will store the file in the cloud storage and returns a ReturnID that contains the formatted name of the CSV.</li>\n            <li>The CSV file will be validated to ensure the data is correct in the CSV file, and validation errors are thrown if the information is not correctly formatted.</li></ul></p>",
+        "parameters": [
+          {
+            "name": "importType",
+            "in": "query",
+            "description": "Bulk import type to process. Default type is Bulk User Import i.e. \"ImportBulkUser\"",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "FileName",
+                  "File_Name"
+                ],
+                "type": "object",
+                "properties": {
+                  "File_Name": {
+                    "type": "object",
+                    "properties": {
+                      "InEverybodyRole": {
+                        "type": "boolean",
+                        "description": "Place user in Everybody role (default=true)"
+                      },
+                      "SendSmsInvite": {
+                        "type": "boolean",
+                        "description": "Send user an SMS invite to enroll their mobile device in the portal (default=false)"
+                      },
+                      "InSysAdminRole": {
+                        "type": "boolean",
+                        "description": "Place user in System Adminstrator role (default=false)"
+                      },
+                      "Description": {
+                        "type": "string",
+                        "description": "Description of user (default=null)"
+                      },
+                      "Name": {
+                        "type": "string",
+                        "description": "Name of user"
+                      },
+                      "MobileNumber": {
+                        "type": "string",
+                        "description": "User's mobile number (default=null); note this field is required if SendSmsInvite is true"
+                      },
+                      "Password": {
+                        "type": "string",
+                        "description": "URL encoded password of the user (default=randomly generated strong password)"
+                      },
+                      "CmaRedirectedUserUuid": {
+                        "type": "string",
+                        "description": "Idaptive mobile authenticator redirected user uuid"
+                      },
+                      "ServiceUser": {
+                        "type": "boolean",
+                        "description": "User is a service user (default=false)"
+                      },
+                      "OfficeNumber": {
+                        "type": "string",
+                        "description": "User's office number (default=null)."
+                      },
+                      "ReportsTo": {
+                        "type": "string",
+                        "description": "Uuid of user this user reports to (default=null)"
+                      },
+                      "SendEmailInvite": {
+                        "type": "boolean",
+                        "description": "Send user an email invite to the portal (default=true)"
+                      },
+                      "HomeNumber": {
+                        "type": "string",
+                        "description": "User's home number (default=null)"
+                      },
+                      "DisplayName": {
+                        "type": "string",
+                        "description": "Display name of user (default=null)"
+                      },
+                      "ForcePasswordChangeNext": {
+                        "type": "boolean",
+                        "description": "Force password change at first login (default=true)"
+                      },
+                      "PasswordNeverExpire": {
+                        "type": "boolean",
+                        "description": "User's password never expires (default=false)"
+                      },
+                      "Mail": {
+                        "type": "string",
+                        "description": "Email of user (default=null); note this field is required if 'SendEmailInvite' is true"
+                      }
+                    },
+                    "description": "The csv file containing user information"
+                  },
+                  "FileName": {
+                    "type": "string",
+                    "description": "The CSV file name that contains a list of users and related data to be read to import. Ex: bulkImportUserTemplate.csv"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceGetUsersFromCsvFile.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "h4yuoph5jpeyz"
+        }
+      }
+    },
+    "/CDirectoryService/SubmitUploadedFile": {
+      "post": {
+        "tags": [
+          "Bulk Import"
+        ],
+        "summary": "Advance Bulk User Import",
+        "description": "<p><ul><li>Use this API to create users in bulk in the CyberArk Identity cloud directory.</li>\n            <li>Only system administrators and users with user management rights can invoke this API.</li>\n            <li>This API is the second part of the two API calls to upload a bulk of users in the cloud directory. Refer to <a href=\"https://identity-developer.cyberark.com/reference/post_cdirectoryservice-getusersfromcsvfile\">GetUsersFromCsvFile</a> for the first part, which initiates the import.</li>\n            <li>This API creates a scheduled task to process the uploaded CSV file containing the users information for the bulk import and creation.</li>\n            <li>When this API is invoked, admin submits the file uploaded to cloud for bulk user import.</li>\n            <li>This API request takes a query parameter 'importType' which should be 'ImportBulkUser' in this particular case.</li>\n            <li>In request body, the email address of the admin making the import and the returnId from preceeding API call are mandatory to be passed.</li></ul></p>",
+        "parameters": [
+          {
+            "name": "importType",
+            "in": "query",
+            "description": "Bulk import type to process. Default type is Bulk User Import i.e. \"ImportBulkUser\"",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "AdminEmail",
+                  "ReturnID",
+                  "SendEmailInvite",
+                  "SendSmsInvite"
+                ],
+                "type": "object",
+                "properties": {
+                  "ReturnID": {
+                    "type": "string",
+                    "description": "Return id recieved in response from preceeding API call '/GetUsersFromCsvFile'",
+                    "default": "ABC0123bulkImportUsersTemplatecsv132886499808062649.csv"
+                  },
+                  "AdminEmail": {
+                    "type": "string",
+                    "description": "Email address of the admin or user with user management rights whois trying to create these users on the cloud",
+                    "default": "admin@example.com"
+                  },
+                  "SendSmsInvite": {
+                    "type": "boolean",
+                    "description": "Indicate if you want to send all the users created via this API an sms invite to enroll their mobile device in the portal",
+                    "default": false
+                  },
+                  "SendEmailInvite": {
+                    "type": "boolean",
+                    "description": "Indicate if you want to send all the users created via this API an email invite to the portal",
+                    "default": true
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceSubmitUploadedFile.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "nlbaj86czhxq7"
+        }
+      }
+    },
+    "/UserMgmt/InviteUsers": {
+      "post": {
+        "tags": [
+          "Send User Invites"
+        ],
+        "summary": "Invite Cloud Users",
+        "description": "You must be a system administrator or have user management permissions.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "EmailInvite",
+                  "Entities"
+                ],
+                "type": "object",
+                "properties": {
+                  "SmsInvite": {
+                    "type": "boolean",
+                    "description": "Send SMS invitations to invited entities if possible (default=false)"
+                  },
+                  "Entities": {
+                    "type": "array",
+                    "description": "Users or groups to invite; each entry is a dictionary including 'Type' (User, Group, Role), 'Guid' (entity UUID), and 'Name' (entity name, only applicable to User entities)",
+                    "items": {
+                      "type": "object",
+                      "properties": {}
+                    }
+                  },
+                  "Role": {
+                    "type": "string",
+                    "description": "Add each invited user to this role name if specified (default=null)"
+                  },
+                  "GroupInvite": {
+                    "type": "boolean",
+                    "description": "For invited groups, send a single email invitation to the group rather than to each user within the group (default=true)"
+                  },
+                  "EmailInvite": {
+                    "type": "boolean",
+                    "description": "Send email invitations to invited entities if possible (default=true)"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtInviteUsers.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "12l5f8079hwzv"
+        }
+      }
+    },
+    "/UserMgmt/SendLoginEmails": {
+      "post": {
+        "tags": [
+          "Send User Invites"
+        ],
+        "summary": "Send Invitation Email",
+        "description": "You must be a system administrator.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "ID"
+                ],
+                "type": "object",
+                "properties": {
+                  "ID": {
+                    "type": "array",
+                    "description": "List of user UUIDs to send invitations to",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtSendLoginEmails.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "ptytzii3536qp"
+        }
+      }
+    },
+    "/UserMgmt/SendSmsInvite": {
+      "post": {
+        "tags": [
+          "Send User Invites"
+        ],
+        "summary": "Send Invitation SMS",
+        "description": "You must be a system administrator or have user management permissions.",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "query",
+            "description": "User UUID to send invitation to",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtSendSmsInvite.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "u1qpny0ndf41k"
+        }
+      }
+    },
+    "/CDirectoryService/GetUser": {
+      "post": {
+        "tags": [
+          "Manage User Data"
+        ],
+        "summary": "Get user details",
+        "description": "<p><ul><li>Use this API to fetch the details of any specific existing user in the cloud directory.</li>\n            <li>Only system administrators, users with user management rights, or the user itself can invoke this API.</li>\n            <li>This API is a GET request that needs the desired user's unique id as parameters in the body arguments.</li>\n            <li>Only system admin or users with user management permission can execute this API to get the details of other cloud users.</li>\n            <li>Standard users can fetch only their details using this API call.</li>\n            <li>The API call returns the ID, name and various details for the requested user.</li></ul></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "ID"
+                ],
+                "type": "object",
+                "properties": {
+                  "ID": {
+                    "type": "string",
+                    "description": "The Unique Id of the Cloud user to fetch. The unique ID is generated when the user is created. Ex: abc-e2e-123"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceGetUser.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "u1ongc1gobi5b"
+        }
+      }
+    },
+    "/UserMgmt/GetUserInfo": {
+      "post": {
+        "tags": [
+          "Manage User Data"
+        ],
+        "summary": "Get user information",
+        "description": "<p><ul><li>Invoke this API to get the user information for a given user.</li>\n             <li>Only system administrator, users with user management rights, or the user itself can invoke this API.</li>\n             <li>NOTE: This is a high CPU intensive call, so it should be used appropriately. (Cache the result as needed).</li></ul></p>",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "query",
+            "description": "The unique ID of the user to fetch attributes for. The unique ID is generated when the user is created.(default=current user)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtGetUserInfo.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "ebzz7r0mc3pum"
+        }
+      }
+    },
+    "/CDirectoryService/GetUserByName": {
+      "post": {
+        "tags": [
+          "Manage User Data"
+        ],
+        "summary": "Get user details by name",
+        "description": "Specified user must be you, you must be a system administrator, or have user management permissions.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "description": "User name of the cloud user to fetch (default=current user)."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceGetUserByName.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "srert3lmk8c48"
+        }
+      }
+    },
+    "/CDirectoryService/GetUsers": {
+      "post": {
+        "tags": [
+          "Manage User Data"
+        ],
+        "summary": "Get users details",
+        "description": "<p><ul><li>Use this API to fetch the list with details of all existing users in the cloud directory.</li>\n            <li>Only system administrators and users with user management rights can invoke this API.</li>\n            <li>This API is a simple GET request which doesn't need any parameters in the body arguments.</li>\n            <li>Only system admin or any user with user management permission can execute this to get a successful response with a list of all cloud users.</li>\n            <li>The API call returns the ID, name and various details for all users present in the cloud directory.</li>\n            <li>Before adding a new user, you can determine whether the user already exists by calling this API.</li></ul></p>",
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceGetUsers.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "fvfd3tdwm13mf"
+        }
+      }
+    },
+    "/CDirectoryService/ChangeUser": {
+      "post": {
+        "tags": [
+          "Manage User Data"
+        ],
+        "summary": "Update Base Profile",
+        "description": "<p><ul><li>Invoke this API to update the information for the specified user.</li>\n            <li>User must be a cloud user.</li>\n            <li>Only system administrator, users with user management rights, or the user itself can invoke this API.</li>\n            <li>Specifying 'ServiceUser' will override the 'InEveryBodyRole' property if both are provided.</li>\n            <li>Refer guides section <a href=https://identity-developer.cyberark.com/docs/create-and-manage-cloud-directory-users-_new#update-user-information >Update User Information</a></li></ul></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "ID"
+                ],
+                "type": "object",
+                "properties": {
+                  "CmaRedirectedUserUuid": {
+                    "type": "string",
+                    "description": "Idaptive mobile authenticator redirected user unique id."
+                  },
+                  "HomeNumber": {
+                    "type": "string",
+                    "description": "User home number."
+                  },
+                  "useAlternateMfaAccount": {
+                    "type": "boolean",
+                    "description": "Does the user have an alternate MFA Account?"
+                  },
+                  "OrgPath": {
+                    "type": "string",
+                    "description": "The organisation name to which the user is added"
+                  },
+                  "AccountExp": {
+                    "type": "string",
+                    "description": "Account expiry date/time.",
+                    "format": "date-time"
+                  },
+                  "ReportsTo": {
+                    "type": "string",
+                    "description": "Unique Id of the user to whom the user reports."
+                  },
+                  "DisplayName": {
+                    "type": "string",
+                    "description": "User display name."
+                  },
+                  "PasswordNeverExpire": {
+                    "type": "boolean",
+                    "description": "Does user's password expire?"
+                  },
+                  "ID": {
+                    "type": "string",
+                    "description": "Unique Id of the cloud user to change. Ex: a3e5bab3-9104-49cb-9d3a-e5da7gcef3a3"
+                  },
+                  "OfficeNumber": {
+                    "type": "string",
+                    "description": "User office number."
+                  },
+                  "ForcePasswordChangeNext": {
+                    "type": "boolean",
+                    "description": "Should the user change password on first login?"
+                  },
+                  "MobileNumber": {
+                    "type": "string",
+                    "description": "User mobile number."
+                  },
+                  "InEverybodyRole": {
+                    "type": "boolean",
+                    "description": "Is user in the Everybody role?"
+                  },
+                  "ServiceUser": {
+                    "type": "boolean",
+                    "description": "Is User a service user?"
+                  },
+                  "VerifyEmail": {
+                    "type": "boolean",
+                    "description": "Enforce user to verify the registered email address"
+                  },
+                  "PreferredCulture": {
+                    "type": "string",
+                    "description": "User preferred culture."
+                  },
+                  "Mail": {
+                    "type": "string",
+                    "description": "User email address."
+                  },
+                  "Description": {
+                    "type": "string",
+                    "description": "User description."
+                  },
+                  "Name": {
+                    "type": "string",
+                    "description": "Username of the user. The username can be 'username@suffix' if suffix is required, else 'username'."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceChangeUser.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "fzj2os6bo3krr"
+        }
+      }
+    },
+    "/User/UpdateProfile": {
+      "post": {
+        "tags": [
+          "Manage User Data"
+        ],
+        "summary": "Update user profile",
+        "description": "<p><ul><li>Use this API to update an existing cloud user properties.</li>\n            <li>Only system administrators, users with user management rights, or the user itself can invoke this API.</li>\n            <li>The profile information includes username, email address, display name, mobile number, etc.</li>\n            <li>The user for which update is made must be a cloud user.</li>\n            <li>This API updates also additional attributes which are present in the system.</li>\n            <li>All the parameters other than those mentioned in the body args are treated as additional attributes.</li></ul></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "ID"
+                ],
+                "type": "object",
+                "properties": {
+                  "HomeNumber": {
+                    "type": "string",
+                    "description": "Home number of the user",
+                    "default": 917878787878
+                  },
+                  "DisplayName": {
+                    "type": "string",
+                    "description": "Name of the the user, suitable for display to end users",
+                    "default": "John Smith"
+                  },
+                  "ID": {
+                    "type": "string",
+                    "description": "The Unique Id of the Cloud user to update. The unique ID is generated when the user is created.",
+                    "default": "abc-e2e-123"
+                  },
+                  "OfficeNumber": {
+                    "type": "string",
+                    "description": "Office number of the user",
+                    "default": 919876543210
+                  },
+                  "MobileNumber": {
+                    "type": "string",
+                    "description": "Mobile phone number of the user",
+                    "default": 91565656565
+                  },
+                  "VerifyEmail": {
+                    "type": "boolean",
+                    "description": "Enforce user to verify the registered email address",
+                    "default": false
+                  },
+                  "Mail": {
+                    "type": "string",
+                    "description": "Email address of the user. Note this field is required if either mobile number is not provided or 'SendEmailInvite' is true, or Identity Verification has to be done, or VerifyEmail is true",
+                    "default": "john@example.com"
+                  },
+                  "Description": {
+                    "type": "string",
+                    "description": "Can provide some information related to the user.",
+                    "default": "Updated display name"
+                  },
+                  "Name": {
+                    "type": "string",
+                    "description": "This is the name of the user which must be of the form 'name@suffix', not contain restricted characters, and must match an existing User Service suffix. Format:username@suffix. You must be a system administrator or have user management permissions to change this field.",
+                    "default": "John"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserUpdateProfile.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "wuwjv2r0r1bv1"
+        }
+      }
+    },
+    "/CDirectoryService/GetUserAttributes": {
+      "post": {
+        "tags": [
+          "Manage User Attributes"
+        ],
+        "summary": "Get user attributes",
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceGetUserAttributes.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "tmbyd4fdk5hpv"
+        }
+      }
+    },
+    "/UserMgmt/ChangeUserAttributes": {
+      "post": {
+        "tags": [
+          "Manage User Data"
+        ],
+        "summary": "Update AD user attributes",
+        "description": "This API is used to update the value of different attributes for an CyberArk Identity active directory users.\n  - System administrators and users with user management rights, or the user itself can invoke this API.\n  - To update multiple attributes add them in the request body and make the update call with this API.\n  - Use this endpoint to set the active directory user attributes from cloud.\n  - The JSON in the request body must include the unique id of the target active directory user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "ID"
+                ],
+                "type": "object",
+                "properties": {
+                  "CmaRedirectedUserUuid": {
+                    "type": "string",
+                    "description": "Unique id of the user account that you want to redirect multi-factor authentication to. Send null to remove existing the value.",
+                    "default": "def-s2s-654"
+                  },
+                  "ID": {
+                    "type": "string",
+                    "description": "Unique id of the target user.",
+                    "default": "abc-e2e-123"
+                  },
+                  "MobileNumber": {
+                    "type": "string",
+                    "description": "User's mobile number (default=null). This field is required if SendSmsInvite is true.",
+                    "default": 18005550100
+                  },
+                  "OrgPath": {
+                    "type": "string",
+                    "description": "The organization name (default=null) that you want to add the user to.",
+                    "default": "Org A"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtChangeUserAttributes.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "sdufuydczqa2j"
+        }
+      }
+    },
+    "/Core/GetUserSettings": {
+      "post": {
+        "tags": [
+          "Manage User Data"
+        ],
+        "summary": "Get user settings",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "query",
+            "description": "The user name.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SettingType",
+            "in": "query",
+            "description": "The setting type to get.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CoreGetUserSettings.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "05x4xgiwh3eh6"
+        }
+      }
+    },
+    "/UserMgmt/GetUsersRolesAndAdministrativeRights": {
+      "post": {
+        "tags": [
+          "Manage User Data"
+        ],
+        "summary": "Get user roles and administrative rights",
+        "description": "<ul><li>This API is used to show a list of user roles and administrative rights associated with the roles.</li>\n             <li>Only system administrators, users with user management rights can invoke this API.</li>\n             <li>In response, it will return userid along with associated administrative rights.</li></ul></p>",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "query",
+            "description": "The unique ID of the user to fetch administrative rights",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "Args"
+                ],
+                "type": "object",
+                "properties": {
+                  "Args": {
+                    "type": "object",
+                    "properties": {
+                      "Limit": {
+                        "type": "integer",
+                        "description": "The maximum number of results to return for the specified page."
+                      },
+                      "PageNumber": {
+                        "type": "integer",
+                        "description": "The number of pages of results to return."
+                      },
+                      "PageSize": {
+                        "type": "integer",
+                        "description": "The number of entities to return per page."
+                      },
+                      "Caching": {
+                        "type": "integer",
+                        "description": "<p><ul>Can be set to the following values:</ul><li>-1: returns live data but writes to the cache for query results.</li><li> <-1: don't read from or write to the cache for query results.</li><li>0: use the cache for both read/write with 'caching in minutes as TTL of the results.</li></ul></p>"
+                      },
+                      "SortBy": {
+                        "type": "string",
+                        "description": "Comma-separated list of column names to sort by."
+                      }
+                    },
+                    "description": "The script arguments"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtGetUsersRolesAndAdministrativeRights.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "pleq7045s2tkh"
+        }
+      }
+    },
+    "/CDirectoryService/SetUserPicture": {
+      "post": {
+        "tags": [
+          "Manage User Attributes"
+        ],
+        "summary": "Set users picture",
+        "description": "<p><ul><li>Use this API to set a user picture/photo for a particular user.</li> <li>Only system administrators, users with user management rights, or the user itself can invoke this API.</li> <li>In Response, the attached picture/photo will be set for a particular user</li></ul></p>",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "query",
+            "description": "The User UUID.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "File"
+                ],
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "object",
+                    "properties": {},
+                    "description": "File containing the users picture, in the form-data.  (Not as a parameter.)"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceSetUserPicture.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "dtgtpc98oqton"
+        }
+      }
+    },
+    "/UserMgmt/GetUserAttributes": {
+      "post": {
+        "tags": [
+          "Manage User Attributes"
+        ],
+        "summary": "Fetch attributes for a specified user.",
+        "description": "Attributes will vary depending on the type of the directory service the user belongs to.",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "query",
+            "description": "User UUID to fetch attributes for (default=current user)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "directoryServiceUuid",
+            "in": "query",
+            "description": "Directory service UUID of the user (default=null)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtGetUserAttributes.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "rgxhlaw1i9yxh"
+        }
+      }
+    },
+    "/ExtData/GetSchema": {
+      "post": {
+        "tags": [
+          "Manage User Attributes"
+        ],
+        "summary": "Get Schema",
+        "description": "<p><ul><li>Use this API to obtain a list of the current attributes(columns) for a table in the Tenant's extended schema.</li>\n            <li>Only system administrators, users with user management rights, or the user itself can invoke this API.</li>\n            <li>When a user invokes this API for a given table, the list of all extensible attributes present in the table, along with their details, is returned.</li>\n            <li>This API is necessary because all existing attributes must be included when adding/updating the Tenant schema.</li>\n            <li>For more details, please refer to <a href=https://identity-developer.cyberark.com/docs/use-extensible-attributes-via-the-api#adding-or-updating-a-user-attribute-using-the-api>Use extensible attributes.</a></li></ul></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "Table"
+                ],
+                "type": "object",
+                "properties": {
+                  "Table": {
+                    "type": "string",
+                    "description": "Name of the table to examine",
+                    "default": "Users"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\ExtDataGetSchema.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "ox3y2vpz5ha7l"
+        }
+      }
+    },
+    "/ExtData/GetColumns": {
+      "post": {
+        "tags": [
+          "Manage User Attributes"
+        ],
+        "summary": "Get additional attributes",
+        "description": "<p><ul><li>This API is used to get the list of all the current attributes and their values for a CyberArk Identity user.</li>\n            <li>Only system administrators, users with user management rights, or the user itself can invoke this API.</li>\n            <li>When this API is invoked for a user, the list of all extensible attributes set for that particular user with their respective values is returned.</li>\n            <li>Extended unset attributes (i.e., null values) for the user in this request are not returned in the response unless specified in the API request using parameter 'IncludeNulls'.</li>\n            <li>For more details, please refer to <a href=https://identity-developer.cyberark.com/docs/use-extensible-attributes-via-the-api#adding-or-updating-a-user-attribute-using-the-api>Use extensible attributes.</a></li></ul></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "ID",
+                  "Table"
+                ],
+                "type": "object",
+                "properties": {
+                  "ID": {
+                    "type": "string",
+                    "description": "ID of the user to fetch list of attributes",
+                    "default": "abc-e2e-123"
+                  },
+                  "IncludeNulls": {
+                    "type": "boolean",
+                    "description": "Include columns with null values or not",
+                    "default": false
+                  },
+                  "Table": {
+                    "type": "string",
+                    "description": "Name of the table to fetch the attributes from",
+                    "default": "Users"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\ExtDataGetColumns.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "p2fg5hcqaahr2"
+        }
+      }
+    },
+    "/ExtData/SetColumns": {
+      "post": {
+        "tags": [
+          "Manage User Attributes"
+        ],
+        "summary": "Set additional attributes",
+        "description": "<p><ul><li>This API is used to update the extended attribute values for a CyberArk Identity user.</li>\n            <li>Only system administrators, users with user management rights, or the user itself can invoke this API.</li>\n            <li>When this API is invoked for the user along with the attribute name and new value, this value replaces the old one in the tenant.</li>\n            <li>The attribute value can be a string, date, boolean, double, or integer and must match the column definition.</li>\n            <li>To clear an attribute's value, we can set it to null.</li>\n            <li>For more details, please refer to <a href=https://identity-developer.cyberark.com/docs/use-extensible-attributes-via-the-api#adding-or-updating-a-user-attribute-using-the-api>Use extensible attributes.</a></li></ul></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "Columns",
+                  "ID",
+                  "Table"
+                ],
+                "type": "object",
+                "properties": {
+                  "Columns": {
+                    "type": "object",
+                    "properties": {
+                      "PhoneNumber": {
+                        "type": "string",
+                        "description": "A column's new value which needs to be set",
+                        "default": 919876543210
+                      }
+                    },
+                    "description": "A list of extended columns to update"
+                  },
+                  "ID": {
+                    "type": "string",
+                    "description": "User ID of the user to set the attributes for",
+                    "default": "abc-e2e-123"
+                  },
+                  "Table": {
+                    "type": "string",
+                    "description": "Name of the table to modify attributes",
+                    "default": "Users"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\ExtDataSetColumns.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "i2lhw3dutmegz"
+        }
+      }
+    },
+    "/ExtData/UpdateSchema": {
+      "post": {
+        "tags": [
+          "Manage User Data"
+        ],
+        "summary": "Add additional attributes",
+        "description": "<p><ul><li>This API is used to add new attributes to the tenant schema or edit/update an existing attribute in the schema.</li>\n            <li>Only system administrators can invoke this API.</li>\n            <li>To add multiple attributes to an empty schema, add them to the list and make the update call with this API.</li>\n            <li>To add a single attribute to a schema that already has attributes, use the <a href=https://identity-developer.cyberark.com/reference/post_extdata-getschema> GetSchema</a> endpoint to get a list of attributes currently in the schema, add the new attribute to the list, and then call this API with the updated complete list.</li>\n            <li>The JSON in the request body must include all current attributes in the schema plus the new attributes.</li>\n            <li>For more details refer to <a href=https://identity-developer.cyberark.com/docs/use-extensible-attributes-via-the-api>User attributes using API.</a></li></ul></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "Columns",
+                  "Table"
+                ],
+                "type": "object",
+                "properties": {
+                  "Columns": {
+                    "type": "object",
+                    "properties": {
+                      "StreetAddress": {
+                        "type": "object",
+                        "properties": {
+                          "Title": {
+                            "type": "string",
+                            "description": "The column title",
+                            "default": "Street Address"
+                          },
+                          "Type": {
+                            "type": "string",
+                            "description": "The column data type",
+                            "default": "text"
+                          },
+                          "Description": {
+                            "type": "string",
+                            "description": "Description of data stored in the column",
+                            "default": "4817 Hide A Way Road"
+                          }
+                        },
+                        "description": "An extended column"
+                      }
+                    },
+                    "description": "A list of extended columns to update"
+                  },
+                  "AllowDelete": {
+                    "type": "boolean",
+                    "description": "Delete columns which do not exist in updated columns",
+                    "default": true
+                  },
+                  "Table": {
+                    "type": "string",
+                    "description": "Name of the table to modify",
+                    "default": "Users"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\ExtDataUpdateSchema.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "n15t8pkhfay7u"
+        }
+      }
+    },
+    "/UserMgmt/RemoveUsers": {
+      "post": {
+        "tags": [
+          "Delete Users"
+        ],
+        "summary": "Delete users",
+        "description": "You must be a system administrator or have user management permissions.  Will delete cloud users.  Users for other directory services are only removed from the cloud.\n            This API will fail if any of the ids specified are the current user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "Users"
+                ],
+                "type": "object",
+                "properties": {
+                  "Users": {
+                    "type": "array",
+                    "description": "List of user UUIDs to send invitations to",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtRemoveUsers.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "t7bib8t8wf23w"
+        }
+      }
+    },
+    "/CDirectoryService/ChangeUserState": {
+      "post": {
+        "tags": [
+          "Manage User State"
+        ],
+        "summary": "Change user state",
+        "description": "<p><ul><li>Invoke this API when you want to change the user state from disabled to active or vice versa</li>\n             <li>Only system administrator, users with user management rights, or the user itself can invoke this API.</li>\n             <li>The API will fail, if the user itself will try to change its user state.</li></ul></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "state",
+                  "uuid"
+                ],
+                "type": "object",
+                "properties": {
+                  "uuid": {
+                    "type": "string",
+                    "description": "The unique ID of the user. The unique ID is generated when the user is created"
+                  },
+                  "state": {
+                    "type": "boolean",
+                    "description": "Boolean value to change the user state. True = Active and False = Suspended"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceChangeUserState.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "ao5njl32d15yx"
+        }
+      }
+    },
+    "/CDirectoryService/SetUserState": {
+      "post": {
+        "tags": [
+          "Manage User State"
+        ],
+        "summary": "Set user state",
+        "description": "<p><ul><li>CyberArk Identity provides this API to lock, disable, or set a Cloud Directory account to expired.</li>\n            <li>Only system administrator and users with user management permissions, can invoke this API.</li>\n            <li>Specified new state may either be 'None' or include one or more of the following values (comma separated): Locked, Disabled, or Expired.</li>\n            <li>For example to lock an account, after too many failed logins, make a call with state as \"Expired\".</li>\n            <li>You can reenable a locked account by setting the state to \"None\".</li></p></ul>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "ID",
+                  "state"
+                ],
+                "type": "object",
+                "properties": {
+                  "ID": {
+                    "type": "string",
+                    "description": "Unique id of the cloud user to change the state for",
+                    "default": "abc-e2e-123"
+                  },
+                  "state": {
+                    "type": "string",
+                    "description": "New state of the user to set. The states available are None, Locked, Disabled or Expired",
+                    "default": "None"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceSetUserState.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "esv6uh9o5j1t0"
+        }
+      }
+    },
+    "/UserMgmt/IsUserCloudLocked": {
+      "post": {
+        "tags": [
+          "Manage User State"
+        ],
+        "summary": "Check if user is locked",
+        "description": "<p>You must be a system administrator or have user management permissions or user may be checking for him/herself.</p>",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "query",
+            "description": "The name or uuid of the user to check.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtIsUserCloudLocked.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "r28bm46fv0fpu"
+        }
+      }
+    },
+    "/UserMgmt/IsUserLockedOutByPolicy": {
+      "post": {
+        "tags": [
+          "Manage User State"
+        ],
+        "summary": "Check if user is locked out by policy",
+        "description": "<p><ul><li>Use this API to check if a user can answer the MFA challenges and authenticates itself against CyberArk Identity.</li>\n            <li>Only system administrators, users with user management rights, or the user itself can invoke this API.</li>\n            <li>The user id of the user is passed as query parameter to the API request.</li>\n            <li>Pass an empty string to test the currently logged-in user.</li>\n            <li>Note that only administrative users can test other users.</li>\n            <li>The server returns True if the user is locked out (i.e. cannot answer MFA challenges) and false otherwise.</li></ul></p>",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "query",
+            "description": "The name or unique id of the user to test. Pass an empty string to test the currently logged-in user. Note that users with administrative rights can test other users",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtIsUserLockedOutByPolicy.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "nr0yfuru5tg8n"
+        }
+      }
+    },
+    "/UserMgmt/SetCloudLock": {
+      "post": {
+        "tags": [
+          "Manage User State"
+        ],
+        "summary": "Disable/enable a user",
+        "description": "<p><ul><li>Invoke this API if you want to lock the user account of a given user</li>\n             <li>Only system administrator, users with user management rights, or the user itself can invoke this API.</li></ul></p>",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "query",
+            "description": "The unique ID of the user. The unique ID is generated when the user is created.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lockUser",
+            "in": "query",
+            "description": "This parameter specifies if the user account should be locked or not.The default value is 'false'.",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtSetCloudLock.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "j6k6iordy0q9u"
+        }
+      }
+    },
+    "/CDirectoryService/ExemptUserFromMfa": {
+      "post": {
+        "tags": [
+          "Additional User Management APIs"
+        ],
+        "summary": "Exempt a user from MFA",
+        "description": "You must be a system administrator or have user management permissions.  User is exempt from MFA login for a specified amount of time.",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "query",
+            "description": "User UUID to except from MFA",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timespan",
+            "in": "query",
+            "description": "Amount of time to exempt the user from MFA (default=10 minutes)",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceExemptUserFromMfa.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "42c7ica7c7ezo"
+        }
+      }
+    },
+    "/CDirectoryService/GetTechSupportUser": {
+      "post": {
+        "tags": [
+          "Additional User Management APIs"
+        ],
+        "summary": "Fetch technical support user.",
+        "description": "You must be a system administrator or have user management permissions.",
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceGetTechSupportUser.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "q66r1qs1ziql5"
+        }
+      }
+    },
+    "/UserMgmt/GetUserRiskLevel": {
+      "post": {
+        "tags": [
+          "Get User Risk Level"
+        ],
+        "summary": "Get Risk Level for a specified user",
+        "description": "<p><ul> <li>This API enables you to fetch the details of an existing user in the Cloud Directory.</li> <li>It retrieves the latest risky event of a user and the point-in-time risk generated by the system.</li> <li>Only system administrators with user management rights can invoke this API.</li> <li>To fetch the Cloud Directory, enter the user\u2019s unique ID as an input parameter in the request body.</li> </ul></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "ID"
+                ],
+                "properties": {
+                  "ID": {
+                    "type": "string",
+                    "description": "This is the user unique ID of the user that is generated when the user is created. This ID is used to fetch the user\u2019s attributes from the Cloud Directory."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\UserMgmtGetUserRiskLevel.yaml"
+                },
+                "examples": {
+                  "Valid User ID": {
+                    "summary": "Valid User UUID",
+                    "value": {
+                      "success": true,
+                      "Result": {
+                        "Uuid": "c2cc7bcc6-9560-44e0-8dff-5be221cd37ee",
+                        "RiskLevel": "High"
+                      },
+                      "Message": null,
+                      "MessageID": null,
+                      "Exception": null,
+                      "ErrorID": null,
+                      "ErrorCode": null,
+                      "IsSoftError": false,
+                      "InnerExceptions": null
+                    }
+                  },
+                  "Invalid User Id": {
+                    "summary": "Invalid user UUID",
+                    "value": {
+                      "success": false,
+                      "Result": null,
+                      "Message": "The user with the specified UUID is not found. The user ID may have been deleted or the directory may be unavailable.",
+                      "MessageID": "The message ID is a unique identifier for the failure response.",
+                      "Exception": "No additional diagnostic information is available.",
+                      "ErrorID": "The error ID is a unique identifier for a particular error scenario, enabling users to trace the problem back to the source.",
+                      "ErrorCode": "404",
+                      "IsSoftError": false,
+                      "InnerExceptions": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized access to the API.",
+            "content": {
+              "text/html": {
+                "examples": {
+                  "UnauthourizedError": {
+                    "summary": "Unauthorized access",
+                    "value": "You do not have access to this content. Please contact your system administrator."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": false,
+        "x-stoplight": {
+          "id": "ey00ejr6s7xts"
+        }
+      }
+    },
+    "/CDirectoryService/StartAuthentication": {
+      "post": {
+        "tags": [
+          "Start authentication"
+        ],
+        "summary": "Start Authentication",
+        "security": [],
+        "description": "CyberArk Identity uses the API to initiate the user's authentication process. If the user exists then the response contains challenges.\n- If the user does not have any challenges then the following message is returned: User does not have the attributes required to login.\n- Contact CyberArk Support for more information.\n- The request body must include the UUID attribute. CyberArk supports SMS, Email, OATH, Phone call, and Mobile Authenticator.\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "UUID"
+                ],
+                "type": "object",
+                "properties": {
+                  "UUID": {
+                    "type": "string",
+                    "description": "This is the UUID of the user whose identity the admin is trying to verify.           \n",
+                    "default": "abc-123"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceStartAuthentication.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": true,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "m6tq6dupbkeza"
+        }
+      }
+    },
+    "/CDirectoryService/SendIdentityVerification": {
+      "post": {
+        "tags": [
+          "Send Identity Verification"
+        ],
+        "summary": "Send Identity Verification",
+        "security": [],
+        "description": "Use this API to verify identity against CyberArk Identity.\n- Once start authentication API is invoked and a user authentication session has been created successfully, the SendIdentityVerification API is invoked to further advance the user authentication process.\n- SessionId and MechanismId returned as part of the \u201c/startAuthentication\u201d API are passed as request parameters to this API.\n- Actions can be passed as one of the following options:\n  startoob\n  pool\n  answer\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "Action",
+                  "MechanismId",
+                  "SessionId",
+                  "TenantId",
+                  "UUID"
+                ],
+                "type": "object",
+                "properties": {
+                  "Action": {
+                    "type": "string",
+                    "description": "Depending on the type of mechanism you are advancing, use one of the following actions:\n* `Answer` (advance an in-band or answerable OOB mechanism)\n* `StartOOB` (initiate an out-of-band mechanism)\n* `Poll` (wait for a user to pass or fail an OOB mechanism)\n",
+                    "default": "Answer"
+                  },
+                  "Answer": {
+                    "type": "string",
+                    "description": "This is the user-provided value to advance in-band or answerable 008 mechanisms. For example, a password, or OTP.",
+                    "default": "password1234"
+                  },
+                  "MechanismId": {
+                    "type": "string",
+                    "description": "This is the mechanism ID you are advancing. This is provided in the [/CDirectoryService/StartAuthentication] response.",
+                    "default": "DKetaPxIW0yn8e-jBi7fTUz0H8OdsCNCscUijVXUR6s1"
+                  },
+                  "SessionId": {
+                    "type": "string",
+                    "description": "The ID of the authentication session in which the mechanism was created. This is provided in the [/CDirectoryService/StartAuthentication].",
+                    "default": "3RrrrhXFcUS3UEvl-3wfgMYojGz44P76Or2Ym3zztyM1"
+                  },
+                  "TenantId": {
+                    "type": "string",
+                    "description": "The tenant ID where the user is authenticating. This value should be consistent with the tenant used in the [/CDirectoryService/StartAuthentication].",
+                    "default": "abc-123"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "API-Result",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "..\\components\\schemas\\CDirectoryServiceSendIdentityVerification.yaml"
+                }
+              }
+            }
+          }
+        },
+        "x-idap-anon": true,
+        "x-codegen-request-body-name": "payload",
+        "x-stoplight": {
+          "id": "qzyvsi7sil575"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}
