@@ -34,7 +34,7 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
-
+--------------------------------------------------------------------------------
 ENDPOINT: Get authentication profile
 PATH: /AuthProfile/GetProfile
 METHOD: POST
@@ -89,7 +89,7 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
-
+--------------------------------------------------------------------------------
 ENDPOINT: Set authentication profile
 PATH: /AuthProfile/SaveProfile
 METHOD: POST
@@ -159,7 +159,7 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
-
+--------------------------------------------------------------------------------
 ENDPOINT: Delete policy
 PATH: /Policy/DeletePolicyBlock
 METHOD: POST
@@ -194,7 +194,7 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
-
+--------------------------------------------------------------------------------
 ENDPOINT: Gets policy links.
 PATH: /Policy/GetNicePlinks
 METHOD: POST
@@ -247,7 +247,7 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
-
+--------------------------------------------------------------------------------
 ENDPOINT: Get password complexity requirements
 PATH: /Policy/GetPasswordComplexityRequirements
 METHOD: POST
@@ -272,7 +272,7 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
-
+--------------------------------------------------------------------------------
 ENDPOINT: Gets authentication assurance level
 PATH: /AuthProfile/GetProfileMFAScoring
 METHOD: POST
@@ -297,7 +297,7 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
-
+--------------------------------------------------------------------------------
 ENDPOINT: Get policy block
 PATH: /Policy/GetPolicyBlock
 METHOD: POST
@@ -343,7 +343,7 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
-
+--------------------------------------------------------------------------------
 ENDPOINT: Set policy
 PATH: /Policy/SavePolicyBlock3
 METHOD: POST
@@ -396,3 +396,4 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
+--------------------------------------------------------------------------------
