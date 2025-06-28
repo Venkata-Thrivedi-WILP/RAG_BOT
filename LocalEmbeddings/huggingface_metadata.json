@@ -1,6 +1,0 @@
-{
-  "model": "HuggingFace",
-  "dimensions": 384,
-  "document_count": 77,
-  "description": "Embeddings generated using HuggingFace model with 384 dimensions"
-}
