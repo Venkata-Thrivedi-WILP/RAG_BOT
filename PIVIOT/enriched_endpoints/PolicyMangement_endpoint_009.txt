@@ -1,100 +1,52 @@
-**Human-Friendly Summary**
-==========================
+**Overview**
+------------
 
-Update policy with revision stamp functionality to prevent change loss when multiple users edit policies.
+The Set policy endpoint allows users to update and manage policies. This endpoint is used to replace and deprecate SavePolicyBlock2, adding a "rev stamp" functionality to prevent change loss when policies are being edited by multiple users. The endpoint accepts a JSON payload containing the details of the policy being added or updated.
+
+To use this endpoint, you will need to provide authentication using bearerAuth. The path for this endpoint is `/Policy/SavePolicyBlock3`, and it uses the POST method.
 
 **Key Search Terms**
---------------------
+-------------------
 
+* Set policy
 * Policy management
-* Save policy block
-* Revision stamp
+* Update policy
+* Manage policies
+* Rev stamp functionality
 * Bearer authentication
 
-**Example Questions**
----------------------
+**Example User Questions**
+-------------------------
 
-1. How do I update an existing policy with the new revision stamp functionality?
-2. What is the purpose of the "rev stamp" in the policy object?
-3. Can I create a new policy without specifying a version number?
-4. How does bearer authentication work for this endpoint?
-5. What happens if I omit the "RevStamp" field when updating a policy?
-6. Can I use this endpoint to update multiple policies at once?
-7. How do I handle errors when saving a policy using this endpoint?
-8. Is there a limit on the number of plinks that can be included in the request body?
+* What is the purpose of the Set policy endpoint?
+* How do I update a policy using this endpoint?
+* Can I use bearer authentication with this endpoint?
+* What is the rev stamp functionality, and how does it work?
+* How can I prevent change loss when editing policies by multiple users?
 
-**Important Details for Developers**
---------------------------------------
+**Developer Notes**
+------------------
 
-* The `policy` object is required and must contain the following properties: `Newpolicy`, `Version`, `Path`, `RevStamp`, and `Description`.
-* The `plinks` array is also required and must contain at least one plink object.
-* The `RevStamp` field is required if `Newpolicy` is false.
-* Bearer authentication is used for this endpoint.
+### Required Fields
 
-**Original Formatted Documentation**
---------------------------------------
+* `policy`: JSON object containing the details of the policy being added or updated.
+	+ `Newpolicy` (boolean): boolean set to true if this is a new policy (add)
+	+ `Version` (integer): Policy structure version number. 1, at this time.
+	+ `Path` (string): path of the policy
+	+ `RevStamp` (string): Revision stamp returned from latest call to getPolicyBlock. This is required if Newpolicy is false.
+	+ `Description` (string): policy description
+* `plinks`: Array of plink objects representing the current plinks file.
+	+ Array items: empty object
 
-### ENDPOINT: Set policy
-#### PATH: `/Policy/SavePolicyBlock3`
-#### METHOD: `POST`
-#### TAGS: `Policy Management`
+### Request/Response Structure
 
-#### DESCRIPTION
-Replaces and deprecates SavePolicyBlock2, by adding the "rev stamp" functionality that helps prevent change loss when policies are being edited by multiple users.
+The request body should be a JSON payload containing the `policy` and `plinks` fields. The response will contain a JSON object with an `Result` field, which may contain error information on failure.
 
-### METADATA
+### Error Handling
 
-* `x-idap-anon`: `False`
-* `x-codegen-request-body-name`: `payload`
+* If the `Newpolicy` field is false, the `RevStamp` field is required.
+* If any of the fields in the request payload are invalid or missing, the endpoint will return an error response.
 
-#### REQUEST BODY
-Required
-* `Content Type`: `application/json`
-* `Schema Properties`:
-	+ `policy` (object): JSON object containing the details of the policy being added or updated.
-		- Nested properties:
-			- `Newpolicy` (boolean): boolean set to true if this is a new policy (add)
-			- `Version` (integer): Policy structure version number. 1, at this time.
-			- `Path` (string): path of the policy
-			- `RevStamp` (string): Revision stamp returned from latest call to getPolicyBlock. This is required if Newpolicy is false.
-			- `Description` (string): policy description
-	+ `plinks` (array): Array of plink objects representing the current plinks file.
-		- Array items:
-			- Required fields: `policy`, `plinks`
+### Security Considerations
 
-#### SAMPLE REQUEST JSON
-```json
-{
-  "policy": {
-    "Newpolicy": false,
-    "Version": 0,
-    "Path": "string_value",
-    "RevStamp": "string_value",
-    "Description": "string_value"
-  },
-  "plinks": [
-    {}
-  ]
-}
-```
-
-#### RESPONSES
-
-* `Status Code`: 200
-* `Description`: API-Result
-* `Content Type`: `*/*`
-* `Response Schema`: PolicySavePolicyBlock3
-* `Response Body Properties`:
-	+ `Result` (object): Standard JSON response, with error information on failure.
-	+ `Error` (object): Error message text on failure, may be null
-
-#### SAMPLE RESPONSE JSON
-```json
-{
-  "Result": {},
-  "Error": {}
-}
-```
-
-### SECURITY
-* bearerAuth
+* The endpoint uses bearer authentication to authenticate requests.

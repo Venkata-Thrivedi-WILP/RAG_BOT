@@ -1,119 +1,82 @@
-**Human-Friendly Summary**
-Get Policy Block API Endpoint
-==========================
+**Overview**
+-----------
 
-Retrieve a specific policy block from the system.
+The Get policy block endpoint allows users to retrieve a specific policy block from the system. This endpoint is used in policy management and requires authentication using the bearer token.
+
+To use this endpoint, send a POST request to `/Policy/GetPolicyBlock` with the `name` parameter set to the ID of the policy block you want to retrieve.
+
+**Security:** The endpoint uses bearer authentication, which means you need to provide an authorization token in the `Authorization` header of your request. This token is used to verify the identity of the user making the request.
 
 **Key Search Terms**
+-------------------
 
-* Policy Management
-* Get Policy Block
-* Policy Block Retrieval
+* Get policy block
+* Policy management API
+* Retrieve policy block by ID
+* Bearer authentication
+* Policy block retrieval
 
-**Example Questions**
+**Example User Questions**
+-------------------------
 
-1. What is the syntax for retrieving a policy block using the GET Policy Block API endpoint?
-2. How do I specify the name of the policy block to retrieve in the query parameter?
-3. Can I use the GET Policy Block API endpoint to update or modify an existing policy block?
-4. What is the expected response format for the Get Policy Block API endpoint?
-5. How can I handle authentication errors when using the Get Policy Block API endpoint?
+* What is the syntax for retrieving a policy block using this endpoint?
+* How do I authenticate with this endpoint to access my own policy blocks?
+* Can I retrieve multiple policy blocks at once using this endpoint?
+* What happens if the policy block does not exist?
+* How can I modify the authentication token used for this endpoint?
 
-**Important Details for Developers**
+**Developer Notes**
+-------------------
 
-* The Get Policy Block API endpoint uses bearer authentication.
-* The `name` query parameter is required to specify the policy block to retrieve.
-* The response schema includes a nested object structure with properties such as `RiskAnalysisLevels`, `AuthProfiles`, and `PolicyModifiers`.
-* The sample response JSON demonstrates the expected format of the API result.
+### Required Parameters
 
-**Original Formatted Documentation**
+* `name`: The ID of the policy block to retrieve (query parameter, required)
 
-### ENDPOINT: Get Policy Block
+### Request/Response Structure
 
-#### PATH
-`/Policy/GetPolicyBlock`
+The request body should contain the `name` parameter. The response will be in JSON format and will include a `Result` object with properties such as `RiskAnalysisLevels`, `AuthProfiles`, `PolicyModifiers`, `RevStamp`, and `RadiusClientList`. If an error occurs, the response will include an `Error` object.
 
-#### METHOD
-`POST`
+### Error Handling
 
-#### TAGS
-`Policy Management`
+The endpoint returns a 200 status code if successful. If an error occurs, it will return a 500 status code with an error message in the response body.
 
-#### METADATA
-```json
-{
-  "x-idap-anon": false
-}
-```
-#### PARAMETERS
-* `name`: The policy block to get. (query, Required)
+### Security Considerations
 
-#### RESPONSES
-Status Code: 200
+This endpoint uses bearer authentication, which means you need to provide an authorization token in the `Authorization` header of your request. Make sure to handle this token securely and do not store it in plain text.
 
-Description: API-Result
+**Raw Endpoint Documentation (Formatted)**
+------------------------------------------
 
-Content Type: `*/*`
+### ENDPOINT: Get policy block
+#### PATH: `/Policy/GetPolicyBlock`
+#### METHOD: `POST`
+#### TAGS: `Policy Management`
 
-Response Schema:
-```json
-{
-  "$ref": "#/definitions/PolicyGetPolicyBlock"
-}
-```
-Response Body Properties:
-```json
-{
-  "Result": {
-    "RiskAnalysisLevels": {},
-    "AuthProfiles": [
-      {}
-    ],
-    "PolicyModifiers": [
-      "string_value"
-    ],
-    "RevStamp": "string_value",
-    "RadiusClientList": [
-      {}
-    ]
-  },
-  "Error": {
-    "description": "The policy block.",
-    "type": "object",
-    "properties": {
-      "AuthProfiles": {
-        "description": "A list of authentication profiles.",
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/AuthProfile"
-        }
-      },
-      "RiskAnalysisLevels": {
-        "description": "The risk analysis mapping.",
-        "type": "object"
-      },
-      "PolicyModifiers": {
-        "description": "The policy modifiers.",
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      },
-      "RevStamp": {
-        "description": "The policy revision stamp.",
-        "type": "string"
-      },
-      "RadiusClientList": {
-        "description": "The list of radius clients.",
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/RadiusClient"
-        }
-      }
-    }
-  }
-}
-```
-Sample Response JSON:
+### METADATA:
+* `x-idap-anon`: `False`
+
+### PARAMETERS:
+* `name` (query, Required): The policy block to get.
+
+### RESPONSES:
+#### Status Code: `200`
+#### Description: API-Result
+#### Content Type: `*/*`
+#### Response Schema: PolicyGetPolicyBlock
+#### Response Body Properties:
+* `Result` (object): The policy block.
+	+ Nested properties:
+		- `RiskAnalysisLevels` (object): The risk analysis mapping.
+		- `AuthProfiles` (array): A list of authentication profiles.
+			- Array items:
+				- `PolicyModifiers` (array): The policy modifiers.
+					- Array items:
+						- `RevStamp` (string): The policy revision stamp.
+						- `RadiusClientList` (array): The list of radius clients.
+							- Array items:
+
+### ERROR RESPONSE
+#### Sample Response JSON:
 ```json
 {
   "Result": {
@@ -132,3 +95,4 @@ Sample Response JSON:
   "Error": {}
 }
 ```
+### SECURITY: bearerAuth

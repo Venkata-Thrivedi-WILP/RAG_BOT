@@ -1,69 +1,71 @@
-**Human-Friendly Summary**
-==========================
+**Overview**
+===============
 
-Get the authentication assurance level (AAL) for an individual's profile.
+The `/AuthProfile/GetProfileMFAScoring` endpoint allows users to retrieve their authentication assurance level. This endpoint is used for security purposes and requires a valid bearer token for authentication.
+
+To use this endpoint, send a POST request to the `/AuthProfile/GetProfileMFAScoring` path with the `challenges` query parameter containing profile factors.
 
 **Key Search Terms**
---------------------
+==================
 
 * Authentication assurance level
-* AAL
+* MFAScoring
+* Bearer token authentication
 * Profile factors
-* API authentication
+* Security API
 
-**Example Questions**
----------------------
+**Example User Questions**
+=========================
 
-1. What is the maximum authentication assurance level for a given profile?
-2. How does the AAL scoring work in this API endpoint?
-3. Can I get an error message if the AAL calculation fails?
-4. What are the profile factors used to calculate the AAL?
-5. Is the AAL score always returned, or can it be null in case of failure?
+* What is my current authentication assurance level?
+* How can I improve my security profile?
+* Can I retrieve my maximum and minimum AAL values?
+* What happens if I fail the authentication test?
+* How do I authenticate with this endpoint?
 
-**Important Details for Developers**
---------------------------------------
+**Developer Notes**
+==================
 
-* This endpoint uses bearer authentication.
-* The `challenges` query parameter is required and contains the profile factors.
-* The response body contains two properties: `Result` (object) with maximum and minimum AAL values, and `Error` (object) with error message text on failure.
+### Required Parameters
 
-**Original Formatted Documentation**
-------------------------------------
-
-### Endpoint: Gets authentication assurance level
-
-#### Path
-/AuthProfile/GetProfileMFAScoring
-
-#### Method
-POST
-
-#### Tags
-Authentication Profile
-
-#### Metadata
-* x-idap-anon: False
-
-#### Parameters
 * `challenges` (query, Required): Profile factors
 
-#### Responses
-| Status Code | Description |
-| --- | --- |
-| 200 | API-Result |
-| Content Type: */* |
-| Response Schema: AuthProfileGetProfileMFAScoring |
-| Response Body Properties:
-	+ `Result` (object): returns Maximum and minimum AAL in Success or null in Failure
-	+ `Error` (object): Error message text on failure, may be null |
+### Request/Response Structure
 
-#### Sample Response JSON
-```json
+The request body should contain the `challenges` query parameter. The response will be in JSON format and include a `Result` object containing the maximum and minimum AAL values, or an `Error` object with an error message if authentication fails.
+
+### Error Handling
+
+If authentication fails, the response will include an `Error` object with an error message. If successful, the response will contain a `Result` object with the maximum and minimum AAL values.
+
+### Security Considerations
+
+This endpoint requires bearer token authentication. The `x-idap-anon: False` metadata indicates that anonymous access is not allowed.
+
+**Raw Endpoint Documentation (Formatted)**
+==========================================
+
+ENDPOINT: Gets authentication assurance level
+PATH: `/AuthProfile/GetProfileMFAScoring`
+METHOD: POST
+TAGS: Authentication Profile
+METADATA:
+  * `x-idap-anon`: False
+PARAMETERS:
+  * `challenges` (query, Required): Profile factors
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: AuthProfileGetProfileMFAScoring
+  Response Body Properties:
+    * `Result` (object): returns Maximum and minimum AAL in Success or null in Failure
+    * `Error` (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
 {
   "Result": {},
   "Error": {}
 }
 ```
-
-#### Security
-bearerAuth
+SECURITY: bearerAuth

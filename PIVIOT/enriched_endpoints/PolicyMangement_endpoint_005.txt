@@ -1,75 +1,105 @@
-**Human-Friendly Summary**
-Get policy links with RevStamp for requesting and setting policy links. Returns a dictionary containing the policy link details.
+**Overview**
+-----------
+
+The `/Policy/GetNicePlinks` endpoint allows users to retrieve a list of policy links in UI Query Response format. This endpoint requires authentication using the `bearerAuth` security mechanism.
+
+To use this endpoint, send a POST request to `/Policy/GetNicePlinks`. The request body should contain any required parameters.
 
 **Key Search Terms**
+-------------------
 
-* Policy Management
-* API-Result
-* Policy Get Nice Plinks
+* Policy management
+* Get policy links
 * RevStamp
-* Bearer Authentication
+* UI Query Response format
 
-**Example Questions**
+**Example User Questions**
+-------------------------
 
-1. How do I get policy links using the RevStamp?
-2. What is the format of the response body for Policy Get Nice Plinks?
-3. Can I use bearer authentication to access this endpoint?
-4. How do I handle errors in the response?
-5. What is the purpose of the `x-idap-anon` metadata tag?
-6. Can I filter policy links by specific criteria?
-7. How do I set policy links using this endpoint?
-8. What are the allowed policies for each link type?
-9. Can I enable compliant policies for certain links?
-10. How can I use RevStamp to request and set policy links?
+* What is the RevStamp requirement for this endpoint?
+* How do I use the `/Policy/GetNicePlinks` endpoint to retrieve policy links?
+* What is the format of the response body for the `/Policy/GetNicePlinks` endpoint?
+* Can I use this endpoint without authentication?
 
-**Important Details or Notes for Developers**
+**Developer Notes**
+-------------------
 
-* RevStamp is required for both requesting and setting policy links.
-* The response body contains a dictionary with `Result` and `Error` properties.
-* The `Result` property contains an array of policy link details in UI Query Response format.
-* The `Error` property contains the error message text on failure, which may be null.
-* Bearer authentication is used for security.
+### Required Parameters
 
-**Original Formatted Documentation (nicely preserved)**
+* None specified in the raw documentation, but `RevStamp` is required.
 
-### Endpoint: Gets policy links
-#### PATH: `/Policy/GetNicePlinks`
-#### METHOD: `POST`
-#### TAGS: Policy Management
+### Request/Response Structure
 
-The `GET Nice Plinks` endpoint retrieves the policy link details. RevStamp is required for both requesting and setting policy links.
+* The request body should contain any required parameters.
+* The response body is a dictionary with two properties: `Result` and `Error`.
+* `Result` contains an array of policy links in UI Query Response format.
+* `Error` may be null or contain error message text on failure.
 
-#### Metadata
-* `x-idap-anon`: False
+### Error Handling
 
-#### Responses
-| Status Code | Description |
-| --- | --- |
-| 200 | API-Result |
+* If the request fails, the response will contain an `Error` object with error message text.
 
-#### Response Schema
+### Security Considerations
+
+* This endpoint requires authentication using the `bearerAuth` security mechanism.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+```markdown
+ENDPOINT: Gets policy links.
+PATH: /Policy/GetNicePlinks
+METHOD: POST
+TAGS: Policy Management
+DESCRIPTION: RevStamp is required for both requesting and setting policy links. Return is a dictionary(plink name, plink fields as below) with RevStamp as the last entry.
+
+METADATA:
+  * x-idap-anon: False
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: PolicyGetNicePlinks
+  Response Body Properties:
+    * Result (array): The list of policy links in UI Query Response format.
+      Array items:
+        * Description (string): The policy link description.
+        * I18NDescriptionTag (string): Localized version of the description.
+        * PolicySet (string): The policy link policy set.
+        * LinkType (string): The policy link type.
+        * Params (array): The policy link parameters.
+          Array items:
+        * Filters (array): The policy link filters.
+          Array items:
+        * AllowedPolicies (array): The policy link allowed policies.
+          Array items:
+        * EnableCompliant (boolean): The policy link enable compliant.
+    * Error (object): Error message text on failure, may be null
+
+  Sample Response JSON:
 ```json
 {
-  "Result": {
-    "array": [
-      {
-        "Description": "string_value",
-        "I18NDescriptionTag": "string_value",
-        "PolicySet": "string_value",
-        "LinkType": "string_value",
-        "Params": ["string_value"],
-        "Filters": ["string_value"],
-        "AllowedPolicies": ["string_value"],
-        "EnableCompliant": false
-      }
-    ],
-    "Error": {
-      "object": {}
+  "Result": [
+    {
+      "Description": "string_value",
+      "I18NDescriptionTag": "string_value",
+      "PolicySet": "string_value",
+      "LinkType": "string_value",
+      "Params": [
+        "string_value"
+      ],
+      "Filters": [
+        "string_value"
+      ],
+      "AllowedPolicies": [
+        "string_value"
+      ],
+      "EnableCompliant": false
     }
-  },
-  "Content Type": "*/*"
+  ],
+  "Error": {}
 }
 ```
 
-#### Security
-Bearer authentication is used for security.
+SECURITY: bearerAuth

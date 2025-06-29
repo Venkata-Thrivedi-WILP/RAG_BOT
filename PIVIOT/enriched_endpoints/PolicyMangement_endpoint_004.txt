@@ -1,84 +1,84 @@
-**Delete Policy Endpoint**
-==========================
+**Overview**
+-----------
 
-**Summary**
-------------
+The Delete policy endpoint allows users to delete a specific policy block from their API. This endpoint is used in conjunction with the Policy Management tags.
 
-Deletes a policy block from the system.
+To use this endpoint, you will need to send a POST request to `/Policy/DeletePolicyBlock` and provide a JSON payload containing the path of the policy block to be deleted. The `x-idap-anon` tag indicates that authentication is required for this endpoint.
 
-**Search Terms**
-----------------
+**Key Search Terms**
+-------------------
 
 * Delete policy
 * Policy management
-* Policy block deletion
-* API request body
-* Response schema
+* API policy block deletion
+* Policy delete endpoint
+* Bearer authentication
 
-**Example Questions**
----------------------
-
-1. How do I delete a policy block using this endpoint?
-2. What is the required format for the request body in JSON?
-3. Can I use bearer authentication to secure this endpoint?
-4. What happens if the policy block does not exist?
-5. How can I handle errors in the response?
-6. Is there a specific error message for unsuccessful deletion attempts?
-7. Can I specify additional parameters or query strings with this request?
-8. How do I know if the policy block was successfully deleted?
-9. Are there any limitations on the length of the `path` field?
-10. Can I use this endpoint to delete multiple policy blocks at once?
-
-**Important Details for Developers**
---------------------------------------
-
-* The `x-idap-anon` header is set to `False`, indicating that anonymous access is not allowed.
-* The request body must be in JSON format with a single property `path`.
-* The `Content-Type` header must be set to `application/json`.
-* The response schema includes a `Result` field indicating whether the policy block was successfully deleted, and an `Error` field containing error message text on failure.
-
-**Original Documentation**
+**Example User Questions**
 -------------------------
 
-### Endpoint: Delete Policy
+* What is the syntax for deleting a policy block using the DELETE policy endpoint?
+* How do I authenticate with the DELETE policy endpoint?
+* Can I use the DELETE policy endpoint to modify existing policy blocks?
+* What happens if the policy block deletion fails?
+* How can I retrieve the result of a successful policy block deletion?
 
-#### Path: `/Policy/DeletePolicyBlock`
+**Developer Notes**
+-----------------
 
-#### Method: `POST`
+### Required Parameters
 
-#### Tags: `Policy Management`
+* `path`: The policy block to delete (required)
 
-#### Metadata:
+### Request/Response Structure
 
-| Key | Value |
-| --- | --- |
-| `x-idap-anon` | `False` |
-| `x-codegen-request-body-name` | `payload` |
+* Request Body:
+	+ `Content-Type: application/json`
+	+ Schema Properties:
+		- `path` (string): The policy block to delete
+		- `Required fields`: `path`
+* Response Body:
+	+ `Result` (boolean): Did the policy block deletion succeed?
+	+ `Error` (object): Error message text on failure, may be null
 
-#### Request Body
+### Security Considerations
 
-* Required
-* `Content-Type`: `application/json`
-* Schema Properties:
-	+ `path` (string): The policy block to delete.
-	+ Required fields: `path`
+* Bearer authentication is required for this endpoint.
 
-#### Sample Request JSON:
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
 
+ENDPOINT: Delete policy
+PATH: `/Policy/DeletePolicyBlock`
+METHOD: POST
+TAGS: Policy Management
+METADATA:
+  * `x-idap-anon`: False
+  * `x-codegen-request-body-name`: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * path (string): The policy block to delete.
+    Required fields: path
+  Sample Request JSON:
 ```json
 {
   "path": "string_value"
 }
 ```
-
-#### Responses:
-
-| Status Code | Description | Content Type | Response Schema |
-| --- | --- | --- | --- |
-| 200 | API-Result | */* | PolicyDeletePolicyBlock |
-|  |  |  | `Result` (boolean): Did the policy block delete succeed. |
-|  |  |  | `Error` (object): Error message text on failure, may be null |
-
-#### Security:
-
-* bearerAuth
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: PolicyDeletePolicyBlock
+  Response Body Properties:
+    * Result (boolean): Did the policy block delete succeed.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+```json
+{
+  "Result": false,
+  "Error": {}
+}
+```
+SECURITY: bearerAuth
