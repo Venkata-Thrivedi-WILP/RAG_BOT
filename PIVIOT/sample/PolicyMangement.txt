@@ -1,0 +1,399 @@
+ENDPOINT: Delete authentication profile
+PATH: /AuthProfile/DeleteProfile
+METHOD: POST
+TAGS: Authentication Profile
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+PARAMETERS:
+  * uuid (query, Required): Authentication UUID.
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * uuid (string): The authentication profile uuid either passed in by method call or as part of the payload.
+    Required fields: uuid
+  Sample Request JSON:
+  ```json
+  {
+  "uuid": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: AuthProfileDeleteProfile
+  Response Body Properties:
+    * Result (boolean): Success or failure of the delete
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": false,
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+--------------------------------------------------------------------------------
+ENDPOINT: Get authentication profile
+PATH: /AuthProfile/GetProfile
+METHOD: POST
+TAGS: Authentication Profile
+DESCRIPTION: The profile get uses the uuid passed in by method call or as part of the payload.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+PARAMETERS:
+  * uuid (query, Required): Profile UUID
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * uuid (string): The authentication profile uuid either passed in by method call or as part of the payload.
+    Required fields: uuid
+  Sample Request JSON:
+  ```json
+  {
+  "uuid": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: AuthProfileGetProfile
+  Response Body Properties:
+    * Result (object): Authentication profile.
+      Nested properties:
+        * Challenges (array): Selected authentication mechanisms.
+          Array items:
+        * AdditionalData (object): DataEntity with additional data (default=null).
+        * Uuid (string): Profile UUID.
+        * SingleChallengeMechanisms (string): Selected single authentication mechanisms.
+        * DurationInMinutes (integer): How many minutes the profile is valid.
+        * Name (string): Profile name.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "Challenges": [
+      "string_value"
+    ],
+    "AdditionalData": {},
+    "Uuid": "string_value",
+    "SingleChallengeMechanisms": "string_value",
+    "DurationInMinutes": 0,
+    "Name": "string_value"
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+--------------------------------------------------------------------------------
+ENDPOINT: Set authentication profile
+PATH: /AuthProfile/SaveProfile
+METHOD: POST
+TAGS: Authentication Profile
+DESCRIPTION: If the profile contains a UUID an update is performed, otherwise it's a write.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * settings (object): The authentication profile.
+      Nested properties:
+        * Challenges (array): Selected authentication mechanisms.
+          Array items:
+        * AdditionalData (object): DataEntity with additional data (default=null).
+        * Uuid (string): Profile UUID.
+        * SingleChallengeMechanisms (string): Selected single authentication mechanisms.
+        * DurationInMinutes (integer): How many minutes the profile is valid.
+        * Name (string): Profile name.
+    Required fields: settings
+  Sample Request JSON:
+  ```json
+  {
+  "settings": {
+    "Challenges": [
+      "string_value"
+    ],
+    "AdditionalData": {},
+    "Uuid": "string_value",
+    "SingleChallengeMechanisms": "string_value",
+    "DurationInMinutes": 0,
+    "Name": "string_value"
+  }
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: AuthProfileSaveProfile
+  Response Body Properties:
+    * Result (object): An authentication profile.
+      Nested properties:
+        * Challenges (array): Selected authentication mechanisms.
+          Array items:
+        * AdditionalData (object): DataEntity with additional data (default=null).
+        * Uuid (string): Profile UUID.
+        * SingleChallengeMechanisms (string): Selected single authentication mechanisms.
+        * DurationInMinutes (integer): How many minutes the profile is valid.
+        * Name (string): Profile name.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "Challenges": [
+      "string_value"
+    ],
+    "AdditionalData": {},
+    "Uuid": "string_value",
+    "SingleChallengeMechanisms": "string_value",
+    "DurationInMinutes": 0,
+    "Name": "string_value"
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+--------------------------------------------------------------------------------
+ENDPOINT: Delete policy
+PATH: /Policy/DeletePolicyBlock
+METHOD: POST
+TAGS: Policy Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * path (string): The policy block to delete.
+    Required fields: path
+  Sample Request JSON:
+  ```json
+  {
+  "path": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: PolicyDeletePolicyBlock
+  Response Body Properties:
+    * Result (boolean): Did the policy block delete succeed.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": false,
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+--------------------------------------------------------------------------------
+ENDPOINT: Gets policy links.
+PATH: /Policy/GetNicePlinks
+METHOD: POST
+TAGS: Policy Management
+DESCRIPTION: RevStamp is required for both requesting and setting policy links. Return is a dictionary(plink name, plink fields as below) with RevStamp as the last entry.
+METADATA:
+  * x-idap-anon: False
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: PolicyGetNicePlinks
+  Response Body Properties:
+    * Result (array): The list of policy links in UI Query Response format.
+      Array items:
+        * Description (string): The policy link description.
+        * I18NDescriptionTag (string): Localized version of the description.
+        * PolicySet (string): The policy link policy set.
+        * LinkType (string): The policy link type.
+        * Params (array): The policy link parameters.
+          Array items:
+        * Filters (array): The policy link filters.
+          Array items:
+        * AllowedPolicies (array): The policy link allowed policies.
+          Array items:
+        * EnableCompliant (boolean): The policy link enable compliant.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": [
+    {
+      "Description": "string_value",
+      "I18NDescriptionTag": "string_value",
+      "PolicySet": "string_value",
+      "LinkType": "string_value",
+      "Params": [
+        "string_value"
+      ],
+      "Filters": [
+        "string_value"
+      ],
+      "AllowedPolicies": [
+        "string_value"
+      ],
+      "EnableCompliant": false
+    }
+  ],
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+--------------------------------------------------------------------------------
+ENDPOINT: Get password complexity requirements
+PATH: /Policy/GetPasswordComplexityRequirements
+METHOD: POST
+TAGS: Policy Management
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * uuidOrName (query, Required): User's unique identifier or name to use when retrieving password complexity requirements.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: PolicyGetPasswordComplexityRequirements
+  Response Body Properties:
+    * Result (string): The password complexity requirements for the user.
+    * Error (object): { description: "The password complexity requirements for the user.", type: "string" }
+  Sample Response JSON:
+  ```json
+  {
+  "Result": "string_value",
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+--------------------------------------------------------------------------------
+ENDPOINT: Gets authentication assurance level
+PATH: /AuthProfile/GetProfileMFAScoring
+METHOD: POST
+TAGS: Authentication Profile
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * challenges (query, Required): Profile factors
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: AuthProfileGetProfileMFAScoring
+  Response Body Properties:
+    * Result (object): returns Maximum and minimun AAL in Success or null in Failure
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+--------------------------------------------------------------------------------
+ENDPOINT: Get policy block
+PATH: /Policy/GetPolicyBlock
+METHOD: POST
+TAGS: Policy Management
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * name (query, Required): The policy block to get.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: PolicyGetPolicyBlock
+  Response Body Properties:
+    * Result (object): The policy block.
+      Nested properties:
+        * RiskAnalysisLevels (object): The risk analysis mapping.
+        * AuthProfiles (array): A list of authentication profiles.
+          Array items:
+        * PolicyModifiers (array): The policy modifiers.
+          Array items:
+        * RevStamp (string): The policy revision stamp.
+        * RadiusClientList (array): The list of radius clients.
+          Array items:
+    * Error (object): { description: "The policy block.", type: "object", properties: { AuthProfiles: { description: "A list of authentication profiles.", type: "array", items: { type: "object" } }, RiskAnalysisLevels: { description: "The risk analysis mapping.", type: "object" }, PolicyModifiers: { description: "The policy modifiers.", type: "array", items: { type: "string" } }, RevStamp: { description: "The policy revision stamp.", type: "string" }, RadiusClientList: { description: "The list of radius clients.", type: "array", items: { type: "object" } } } }
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "RiskAnalysisLevels": {},
+    "AuthProfiles": [
+      {}
+    ],
+    "PolicyModifiers": [
+      "string_value"
+    ],
+    "RevStamp": "string_value",
+    "RadiusClientList": [
+      {}
+    ]
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+--------------------------------------------------------------------------------
+ENDPOINT: Set policy
+PATH: /Policy/SavePolicyBlock3
+METHOD: POST
+TAGS: Policy Management
+DESCRIPTION: Replaces and deprecates SavePolicyBlock2, by adding the "rev stamp" functionality that helps prevent change loss when policies are being edited by multiple users.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * policy (object): JSON object containing the details of the policy being added or updated.
+      Nested properties:
+        * Newpolicy (boolean): boolean set to true if this is a new policy (add)
+        * Version (integer): Policy structure version number. 1, at this time.
+        * Path (string): path of the policy
+        * RevStamp (string): Revision stamp returned from latest call to getPolicyBlock. This is required if Newpolicy is false.
+        * Description (string): policy description
+    * plinks (array): Array of plink objects representing the current plinks file.
+      Array items:
+    Required fields: policy, plinks
+  Sample Request JSON:
+  ```json
+  {
+  "policy": {
+    "Newpolicy": false,
+    "Version": 0,
+    "Path": "string_value",
+    "RevStamp": "string_value",
+    "Description": "string_value"
+  },
+  "plinks": [
+    {}
+  ]
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: PolicySavePolicyBlock3
+  Response Body Properties:
+    * Result (object): Standard JSON response, with error information on failure.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+--------------------------------------------------------------------------------

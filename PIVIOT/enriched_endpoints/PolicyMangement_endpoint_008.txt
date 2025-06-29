@@ -1,0 +1,134 @@
+**Human-Friendly Summary**
+Get Policy Block API Endpoint
+==========================
+
+Retrieve a specific policy block from the system.
+
+**Key Search Terms**
+
+* Policy Management
+* Get Policy Block
+* Policy Block Retrieval
+
+**Example Questions**
+
+1. What is the syntax for retrieving a policy block using the GET Policy Block API endpoint?
+2. How do I specify the name of the policy block to retrieve in the query parameter?
+3. Can I use the GET Policy Block API endpoint to update or modify an existing policy block?
+4. What is the expected response format for the Get Policy Block API endpoint?
+5. How can I handle authentication errors when using the Get Policy Block API endpoint?
+
+**Important Details for Developers**
+
+* The Get Policy Block API endpoint uses bearer authentication.
+* The `name` query parameter is required to specify the policy block to retrieve.
+* The response schema includes a nested object structure with properties such as `RiskAnalysisLevels`, `AuthProfiles`, and `PolicyModifiers`.
+* The sample response JSON demonstrates the expected format of the API result.
+
+**Original Formatted Documentation**
+
+### ENDPOINT: Get Policy Block
+
+#### PATH
+`/Policy/GetPolicyBlock`
+
+#### METHOD
+`POST`
+
+#### TAGS
+`Policy Management`
+
+#### METADATA
+```json
+{
+  "x-idap-anon": false
+}
+```
+#### PARAMETERS
+* `name`: The policy block to get. (query, Required)
+
+#### RESPONSES
+Status Code: 200
+
+Description: API-Result
+
+Content Type: `*/*`
+
+Response Schema:
+```json
+{
+  "$ref": "#/definitions/PolicyGetPolicyBlock"
+}
+```
+Response Body Properties:
+```json
+{
+  "Result": {
+    "RiskAnalysisLevels": {},
+    "AuthProfiles": [
+      {}
+    ],
+    "PolicyModifiers": [
+      "string_value"
+    ],
+    "RevStamp": "string_value",
+    "RadiusClientList": [
+      {}
+    ]
+  },
+  "Error": {
+    "description": "The policy block.",
+    "type": "object",
+    "properties": {
+      "AuthProfiles": {
+        "description": "A list of authentication profiles.",
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/AuthProfile"
+        }
+      },
+      "RiskAnalysisLevels": {
+        "description": "The risk analysis mapping.",
+        "type": "object"
+      },
+      "PolicyModifiers": {
+        "description": "The policy modifiers.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "RevStamp": {
+        "description": "The policy revision stamp.",
+        "type": "string"
+      },
+      "RadiusClientList": {
+        "description": "The list of radius clients.",
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/RadiusClient"
+        }
+      }
+    }
+  }
+}
+```
+Sample Response JSON:
+```json
+{
+  "Result": {
+    "RiskAnalysisLevels": {},
+    "AuthProfiles": [
+      {}
+    ],
+    "PolicyModifiers": [
+      "string_value"
+    ],
+    "RevStamp": "string_value",
+    "RadiusClientList": [
+      {}
+    ]
+  },
+  "Error": {}
+}
+```

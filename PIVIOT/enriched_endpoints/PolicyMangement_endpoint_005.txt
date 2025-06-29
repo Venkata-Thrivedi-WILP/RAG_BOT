@@ -1,0 +1,75 @@
+**Human-Friendly Summary**
+Get policy links with RevStamp for requesting and setting policy links. Returns a dictionary containing the policy link details.
+
+**Key Search Terms**
+
+* Policy Management
+* API-Result
+* Policy Get Nice Plinks
+* RevStamp
+* Bearer Authentication
+
+**Example Questions**
+
+1. How do I get policy links using the RevStamp?
+2. What is the format of the response body for Policy Get Nice Plinks?
+3. Can I use bearer authentication to access this endpoint?
+4. How do I handle errors in the response?
+5. What is the purpose of the `x-idap-anon` metadata tag?
+6. Can I filter policy links by specific criteria?
+7. How do I set policy links using this endpoint?
+8. What are the allowed policies for each link type?
+9. Can I enable compliant policies for certain links?
+10. How can I use RevStamp to request and set policy links?
+
+**Important Details or Notes for Developers**
+
+* RevStamp is required for both requesting and setting policy links.
+* The response body contains a dictionary with `Result` and `Error` properties.
+* The `Result` property contains an array of policy link details in UI Query Response format.
+* The `Error` property contains the error message text on failure, which may be null.
+* Bearer authentication is used for security.
+
+**Original Formatted Documentation (nicely preserved)**
+
+### Endpoint: Gets policy links
+#### PATH: `/Policy/GetNicePlinks`
+#### METHOD: `POST`
+#### TAGS: Policy Management
+
+The `GET Nice Plinks` endpoint retrieves the policy link details. RevStamp is required for both requesting and setting policy links.
+
+#### Metadata
+* `x-idap-anon`: False
+
+#### Responses
+| Status Code | Description |
+| --- | --- |
+| 200 | API-Result |
+
+#### Response Schema
+```json
+{
+  "Result": {
+    "array": [
+      {
+        "Description": "string_value",
+        "I18NDescriptionTag": "string_value",
+        "PolicySet": "string_value",
+        "LinkType": "string_value",
+        "Params": ["string_value"],
+        "Filters": ["string_value"],
+        "AllowedPolicies": ["string_value"],
+        "EnableCompliant": false
+      }
+    ],
+    "Error": {
+      "object": {}
+    }
+  },
+  "Content Type": "*/*"
+}
+```
+
+#### Security
+Bearer authentication is used for security.

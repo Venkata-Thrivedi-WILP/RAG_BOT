@@ -1,0 +1,110 @@
+**Human-Friendly Summary**
+==========================
+
+Update or create an authentication profile.
+
+**Key Search Terms**
+------------------
+
+* Authentication profile
+* Update profile
+* Create profile
+* Set authentication settings
+
+**Example Questions**
+--------------------
+
+1. How do I update my existing authentication profile?
+2. Can I create a new authentication profile?
+3. What are the required fields for the authentication profile request body?
+4. How do I specify multiple authentication mechanisms in the profile?
+5. What happens if the profile UUID is missing or invalid?
+6. Can I retrieve the updated authentication profile after saving it?
+7. How do I handle errors when updating or creating a profile?
+8. Are there any specific security considerations for this endpoint?
+
+**Important Details for Developers**
+--------------------------------------
+
+* The `x-idap-anon` metadata indicates that anonymous access is not allowed.
+* The request body is required and must contain the `settings` object with the specified properties.
+* The `Sample Request JSON` provides a template for constructing the request body.
+* The response schema is defined by the `AuthProfileSaveProfile` structure, which includes fields such as `Result`, `Error`, and nested properties.
+
+**Original Formatted Documentation**
+------------------------------------
+
+### Set Authentication Profile
+
+#### Endpoint: `/AuthProfile/SaveProfile`
+
+#### Method: `POST`
+
+#### Tags: `Authentication Profile`
+
+#### Description
+If the profile contains a UUID an update is performed, otherwise it's a write.
+
+#### Metadata
+
+| Field | Value |
+| --- | --- |
+| `x-idap-anon` | `False` |
+| `x-codegen-request-body-name` | `payload` |
+
+#### Request Body
+
+* Required
+* `Content Type`: `application/json`
+* `Schema Properties`:
+	+ `settings` (object):
+		- `Challenges` (array): Selected authentication mechanisms.
+			- Array items:
+				- AdditionalData (object): DataEntity with additional data (default=null).
+				- Uuid (string): Profile UUID.
+				- SingleChallengeMechanisms (string): Selected single authentication mechanisms.
+				- DurationInMinutes (integer): How many minutes the profile is valid.
+				- Name (string): Profile name.
+	+ Required fields: `settings`
+
+#### Sample Request JSON
+```json
+{
+  "settings": {
+    "Challenges": [
+      "string_value"
+    ],
+    "AdditionalData": {},
+    "Uuid": "string_value",
+    "SingleChallengeMechanisms": "string_value",
+    "DurationInMinutes": 0,
+    "Name": "string_value"
+  }
+}
+```
+
+#### Responses
+
+| Status Code | Description | Content Type | Response Schema |
+| --- | --- | --- | --- |
+| `200` | API-Result | `*/*` | `AuthProfileSaveProfile` |
+
+#### Sample Response JSON
+```json
+{
+  "Result": {
+    "Challenges": [
+      "string_value"
+    ],
+    "AdditionalData": {},
+    "Uuid": "string_value",
+    "SingleChallengeMechanisms": "string_value",
+    "DurationInMinutes": 0,
+    "Name": "string_value"
+  },
+  "Error": {}
+}
+```
+
+#### Security
+ bearerAuth

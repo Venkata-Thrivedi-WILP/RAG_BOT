@@ -1,0 +1,101 @@
+**Human-Friendly Summary**
+Get Authentication Profile
+==========================
+
+Retrieve the authentication profile for a given UUID.
+
+**Key Search Terms**
+--------------------
+
+* Authentication profile
+* Get profile
+* UUID-based authentication
+
+**Example Questions**
+---------------------
+
+1. What is the authentication profile for a specific UUID?
+2. How to retrieve an authentication profile using its UUID?
+3. Can I get an authentication profile without logging in?
+4. What are the available authentication mechanisms for a given profile?
+5. How long is an authentication profile valid?
+
+**Important Details or Notes for Developers**
+---------------------------------------------
+
+* The `uuid` parameter is required and can be passed as part of the query string or payload.
+* The request body must contain a JSON object with a single property `uuid`.
+* The response contains a `Result` object with properties such as `Challenges`, `AdditionalData`, `Uuid`, `SingleChallengeMechanisms`, and `DurationInMinutes`.
+* If an error occurs, the response will contain an `Error` object with an error message.
+
+**Original Formatted Documentation**
+-----------------------------------
+
+### ENDPOINT: Get authentication profile
+
+#### PATH: `/AuthProfile/GetProfile`
+
+#### METHOD: `POST`
+
+#### TAGS: Authentication Profile
+
+#### DESCRIPTION
+The profile get uses the uuid passed in by method call or as part of the payload.
+
+#### METADATA
+* `x-idap-anon`: `False`
+* `x-codegen-request-body-name`: `payload`
+
+#### PARAMETERS
+* `uuid` (query, Required): Profile UUID
+
+#### REQUEST BODY
+Required
+* Content Type: `application/json`
+* Schema Properties:
+	+ `uuid` (string): The authentication profile uuid either passed in by method call or as part of the payload.
+	+ Required fields: `uuid`
+
+#### SAMPLE REQUEST JSON
+```json
+{
+  "uuid": "string_value"
+}
+```
+
+#### RESPONSES
+* Status Code: `200`
+* Description: API-Result
+* Content Type: `*/*`
+* Response Schema: AuthProfileGetProfile
+* Response Body Properties:
+	+ `Result` (object): Authentication profile.
+		- Nested properties:
+			- `Challenges` (array): Selected authentication mechanisms.
+				Array items:
+			- `AdditionalData` (object): DataEntity with additional data (default=null).
+			- `Uuid` (string): Profile UUID.
+			- `SingleChallengeMechanisms` (string): Selected single authentication mechanisms.
+			- `DurationInMinutes` (integer): How many minutes the profile is valid.
+			- `Name` (string): Profile name.
+	+ `Error` (object): Error message text on failure, may be null
+
+#### SAMPLE RESPONSE JSON
+```json
+{
+  "Result": {
+    "Challenges": [
+      "string_value"
+    ],
+    "AdditionalData": {},
+    "Uuid": "string_value",
+    "SingleChallengeMechanisms": "string_value",
+    "DurationInMinutes": 0,
+    "Name": "string_value"
+  },
+  "Error": {}
+}
+```
+
+#### SECURITY
+bearerAuth

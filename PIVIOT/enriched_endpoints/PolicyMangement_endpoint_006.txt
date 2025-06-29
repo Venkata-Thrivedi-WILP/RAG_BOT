@@ -1,0 +1,70 @@
+**Get Password Complexity Requirements**
+=====================================
+
+**Summary**
+------------
+
+ Retrieves the password complexity requirements for a specified user.
+
+**Search Terms**
+----------------
+
+* password complexity
+* policy management
+* GetPasswordComplexityRequirements
+* user authentication
+
+**Example Questions**
+--------------------
+
+1. What are the password complexity requirements for a specific user?
+2. How do I retrieve the password complexity requirements for an anonymous user?
+3. Can I use the `uuidOrName` parameter to specify the user's unique identifier or name?
+4. What is the expected response format for the GetPasswordComplexityRequirements endpoint?
+5. How can I handle errors in the response data?
+
+**Developer Notes**
+-------------------
+
+* The `x-idap-anon` metadata field indicates that anonymous users are not supported.
+* The `bearerAuth` security tag requires authentication using a Bearer token.
+* The `uuidOrName` parameter is required and must be specified in the query string.
+
+**Original Documentation (Preserved)**
+--------------------------------------
+
+### ENDPOINT: Get password complexity requirements
+
+#### PATH
+/Policy/GetPasswordComplexityRequirements
+
+#### METHOD
+POST
+
+#### TAGS
+Policy Management
+
+#### METADATA
+* x-idap-anon: False
+
+#### PARAMETERS
+* `uuidOrName` (query, Required): User's unique identifier or name to use when retrieving password complexity requirements.
+
+#### RESPONSES
+Status Code: 200
+Description: API-Result
+Content Type: */*
+Response Schema: PolicyGetPasswordComplexityRequirements
+Response Body Properties:
+	* Result (string): The password complexity requirements for the user.
+	* Error (object): { description: "The password complexity requirements for the user.", type: "string" }
+Sample Response JSON:
+```json
+{
+  "Result": "string_value",
+  "Error": {}
+}
+```
+
+#### SECURITY
+bearerAuth
