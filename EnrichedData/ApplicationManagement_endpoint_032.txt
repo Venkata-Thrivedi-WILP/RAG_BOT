@@ -1,0 +1,67 @@
+**Overview**
+================
+
+This endpoint allows you to set the TOTP seed for a secured password. The HTTP POST request is used, and the path is `/UPRest/SaveTotpSeedForSecuredPassword`. This API is part of the Application Management tags.
+
+To use this endpoint, you need to provide a JSON body with the required parameters: `sItemkey`, `algorithm`, `digits`, `issuer`, `label`, `totpSecret`, and optionally `type` and `period`.
+
+**Key Search Terms**
+================
+
+* Set TOTP seed for secured password
+* UPRest/SaveTotpSeedForSecuredPassword endpoint
+* Application Management API
+* Secured password management
+* TOTP authentication key secret
+* JSON request body
+
+**Example User Questions**
+=========================
+
+* What is the purpose of the `/UPRest/SaveTotpSeedForSecuredPassword` endpoint?
+* How do I set the TOTP seed for a secured password using this API?
+* What parameters are required in the JSON request body?
+* Can I use this endpoint to clear the TOTP secret for a secured password if no value is provided?
+
+**Developer Notes**
+================
+
+### Required Fields
+
+* `sItemkey`: The Secured Item's Unique ID
+* `algorithm`: The algorithm used for TOTP verification code generation (default: SHA1)
+* `digits`: This defines the number of verification code digits
+* `issuer`: Issuer of the TOTP authentication key
+* `label`: Label for the TOTP authentication key
+* `totpSecret`: This is the TOTP authentication key secret for an application
+* `type` (optional): Specifies the type of OTP being used
+* `period` (optional): Verification code validity period (default: 30 seconds)
+
+### Request/Response Structure
+
+* Request Body: JSON object with required parameters
+	+ Content Type: application/json
+* Response:
+	+ Status Code: 200
+	+ Description: API-Result
+	+ Content Type: */*
+	+ Response Schema: UPRestSaveTotpSeedForSecuredPassword
+	+ Response Body Properties:
+		- `Result`: Return object for a successful API call
+			- Nested properties:
+				- `success` (boolean): The success status is either true or false.
+				- `Result` (object): Result for a response. Default: null.
+				- `Message` (string): Error message for failure response. Default: null.
+				- `MessageID` (string): Message Id for failure response. Default: null.
+				- `IsSoftError` (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+				- `Exception` (string): Exception message if any exception is received from the API. Default: null.
+				- `ErrorID` (string): Error ID if any error is received from the API. Default: null.
+				- `ErrorCode` (string): Error code if any error is received from the API. Default: null.
+				- `InnerExceptions` (string): InnerExceptions
+		- `Error`: Error message text on failure
+			- Nested properties:
+				- `UnAuthorized` (string): This error message is displayed when user does not have rights. Error message: 'You are not authorized to perform this operation. Please contact your IT helpdesk.'
+
+### Security
+
+* bearerAuth

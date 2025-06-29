@@ -1,0 +1,110 @@
+**Overview**
+-----------
+
+The `/Policy/GetNicePlinks` endpoint allows users to retrieve policy links. This endpoint is part of the Policy Management tags and requires a POST request.
+
+To use this endpoint, you will need to authenticate with a bearer token. The response will be in JSON format and include a list of policy links in UI Query Response format.
+
+**Key Search Terms**
+-------------------
+
+* Policy links
+* Get policy links
+* RevStamp
+* Bearer authentication
+* Policy management
+
+**Example User Questions**
+-------------------------
+
+* What is the RevStamp required for?
+* How do I authenticate with this endpoint?
+* What is the response format for this endpoint?
+* Can I retrieve policy links without authentication?
+* How do I handle errors in this endpoint?
+
+**Developer Notes**
+-------------------
+
+### Required Fields
+
+* `RevStamp`: A unique identifier required for both requesting and setting policy links.
+
+### Request Structure
+
+* HTTP Method: POST
+* Path: `/Policy/GetNicePlinks`
+* Authentication: Bearer token required
+
+### Response Structure
+
+* Content Type: `*/*`
+* Response Schema: `PolicyGetNicePlinks`
+* Response Body Properties:
+	+ `Result` (array): The list of policy links in UI Query Response format.
+	+ `Error` (object): Error message text on failure, may be null
+
+### Security Considerations
+
+* Bearer authentication required for all requests.
+
+**Raw Endpoint Documentation**
+-----------------------------
+
+```markdown
+ENDPOINT: Gets policy links.
+PATH: /Policy/GetNicePlinks
+METHOD: POST
+TAGS: Policy Management
+DESCRIPTION: RevStamp is required for both requesting and setting policy links. Return is a dictionary(plink name, plink fields as below) with RevStamp as the last entry.
+
+METADATA:
+  * x-idap-anon: False
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: PolicyGetNicePlinks
+  Response Body Properties:
+    * Result (array): The list of policy links in UI Query Response format.
+      Array items:
+        * Description (string): The policy link description.
+        * I18NDescriptionTag (string): Localized version of the description.
+        * PolicySet (string): The policy link policy set.
+        * LinkType (string): The policy link type.
+        * Params (array): The policy link parameters.
+          Array items:
+        * Filters (array): The policy link filters.
+          Array items:
+        * AllowedPolicies (array): The policy link allowed policies.
+          Array items:
+        * EnableCompliant (boolean): The policy link enable compliant.
+    * Error (object): Error message text on failure, may be null
+
+Sample Response JSON:
+```json
+{
+  "Result": [
+    {
+      "Description": "string_value",
+      "I18NDescriptionTag": "string_value",
+      "PolicySet": "string_value",
+      "LinkType": "string_value",
+      "Params": [
+        "string_value"
+      ],
+      "Filters": [
+        "string_value"
+      ],
+      "AllowedPolicies": [
+        "string_value"
+      ],
+      "EnableCompliant": false
+    }
+  ],
+  "Error": {}
+}
+```
+
+SECURITY: bearerAuth

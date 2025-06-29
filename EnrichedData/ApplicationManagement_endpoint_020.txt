@@ -1,0 +1,96 @@
+**Overview**
+==========
+
+Set user credentials for an application. This endpoint allows you to securely store and manage application passwords, public keys, and usernames.
+
+* HTTP Method: POST
+* Path: `/UPRest/SetUserCredsForApp`
+* Security Requirement: Bearer Authentication
+
+**Key Search Terms**
+==================
+
+* Set user credentials
+* Application management
+* Password storage
+* Public key encryption
+* Username authentication
+
+**Example User Questions**
+=========================
+
+* What is the format of the request body for setting user credentials?
+* How do I use bearer authentication with this endpoint?
+* Can I set multiple user credentials at once?
+* What happens if the password or public key hash is invalid?
+* How can I retrieve a list of all stored user credentials?
+
+**Developer Notes**
+==================
+
+### Required Fields
+
+* `Password` (string): Application password
+* `appkey` (string): Application key
+* `Username` (string): Application user name
+* `ConnectorId` (string): ID of the connector where a public key used to encrypt exists
+
+### Request Response Structure
+
+* Status Code: 200 (API-Result)
+* Content Type: `*/*`
+* Response Schema: `UPRestCreateTagWithNoApp`
+* Response Body Properties:
+	+ `Result` (object): Whether the operation is successful or not.
+	+ `Error` (object): Error message text on failure, may be null.
+
+### Security Considerations
+
+* Bearer Authentication required
+* Public key encryption used for password storage
+* SHA256 Hex of public key hash stored in `PublicKeyHash`
+
+**Raw Endpoint Documentation (Formatted)**
+==========================================
+
+ENDPOINT: Set user credentials for an application.
+PATH: `/UPRest/SetUserCredsForApp`
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: `application/json`
+  Schema Properties:
+    * Password (string): Application password
+    * PublicKeyHash (string): SHA256 Hex of the public key used to encrypt the password
+    * appkey (string): Application key
+    * Username (string): Application user name
+    * ConnectorId (string): ID of the connector were a public key used to encrypt exists
+  Sample Request JSON:
+```json
+{
+  "Password": "string_value",
+  "PublicKeyHash": "string_value",
+  "appkey": "string_value",
+  "Username": "string_value",
+  "ConnectorId": "string_value"
+}
+```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+SECURITY: bearerAuth

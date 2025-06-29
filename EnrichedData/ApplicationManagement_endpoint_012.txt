@@ -1,0 +1,83 @@
+**Overview**
+-----------
+
+The Delete a tag endpoint allows you to remove a specific tag from your application. To use this endpoint, send a POST request to `/UPRest/DeleteTag` and include the `tagname` in the request body.
+
+You will need to authenticate using bearerAuth before making the request.
+
+**Key Search Terms**
+-------------------
+
+* delete tag
+* remove tag
+* update tags
+* API deletion
+* UPRestDeleteTag endpoint
+
+**Example User Questions**
+-------------------------
+
+* What is the syntax for deleting a tag in the UPRest API?
+* How do I authenticate to use the Delete a tag endpoint?
+* Can I specify multiple tags to delete at once?
+* What happens if the requested tag does not exist?
+* How can I check if the deletion was successful?
+
+**Developer Notes**
+-------------------
+
+### Required Parameters
+
+* `tagname`: The name of the tag to be deleted.
+
+### Request Response Structure
+
+The response will contain a JSON object with two properties:
+- `Result`: An object indicating whether the operation is successful or not.
+- `Error`: An object containing an error message text on failure, which may be null.
+
+### Security Considerations
+
+* The endpoint requires bearerAuth for authentication.
+
+### Error Handling
+
+* If the requested tag does not exist, a 404 response will be returned with an appropriate error message.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+ENDPOINT: Delete a tag
+PATH: `/UPRest/DeleteTag`
+METHOD: `POST`
+TAGS: Application Management
+METADATA:
+  * `x-idap-anon`: `False`
+  * `x-codegen-request-body-name`: `payload`
+REQUEST BODY: Required
+  Content Type: `application/json`
+  Schema Properties:
+    * `tagname` (string): tag name
+    Required fields: `tagname`
+  Sample Request JSON:
+```json
+{
+ "tagname": "string_value"
+}
+```
+RESPONSES:
+  Status Code: `200`
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: UPRestDeleteTag
+  Response Body Properties:
+    * `Result` (object): Whether the operation is successful or not.
+    * `Error` (object): Error message text on failure, may be null
+  Sample Response JSON:
+```json
+{
+ "Result": {},
+ "Error": {}
+}
+```
+SECURITY: bearerAuth

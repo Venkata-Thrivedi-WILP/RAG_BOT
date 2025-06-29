@@ -1,0 +1,102 @@
+**Overview**
+-----------
+
+Update secured item credentials endpoint allows users to update the password, custom fields, notes, and username for a secured item. This endpoint is used in application management and requires authentication using the Bearer token.
+
+* HTTP Method: POST
+* Path: `/UPRest/UpdateCredsForSecuredItem`
+* Security Requirements: bearerAuth
+
+**Key Search Terms**
+-------------------
+
+* Update secured item credentials
+* Application management API
+* Update user credentials
+* Secured item updates
+* Bearer authentication
+* UP Rest API
+
+**Example User Questions**
+-------------------------
+
+* What is the format of the request body for updating secured item credentials?
+* How do I authenticate using bearer token in the request header?
+* Can I update multiple fields at once in the request body?
+* What happens if the update operation fails?
+* Is there a sample response JSON available?
+
+**Developer Notes**
+------------------
+
+### Required Fields
+
+* `Password` (string): User password
+* `CustomFields` (string): Custom user fields
+* `Notes` (string): Notes for secured item
+* `Username` (string): Username
+
+### Request/Response Structure
+
+* Request Body: application/json, schema properties as described above
+* Response Body:
+	+ `Result` (object): Whether the operation is successful or not.
+	+ `Error` (object): Error message text on failure, may be null.
+
+### Security Considerations
+
+* bearerAuth required for authentication
+* Sample request body JSON provided in metadata section
+
+**Raw Endpoint Documentation (Formatted)**
+------------------------------------------
+
+```markdown
+# Update secured item credentials endpoint
+
+## ENDPOINT: /UPRest/UpdateCredsForSecuredItem
+
+### METHOD: POST
+
+### TAGS: Application Management
+
+### METADATA:
+  * `x-idap-anon`: False
+  * `x-codegen-request-body-name`: payload
+
+### REQUEST BODY:
+  Required
+  Content Type: application/json
+  Schema Properties:
+    * Password (string): User password
+    * CustomFields (string): Custom user fields
+    * Notes (string): Notes for secured item
+    * Username (string): Username
+  Sample Request JSON:
+  ```json
+{
+  "Password": "string_value",
+  "CustomFields": "string_value",
+  "Notes": "string_value",
+  "Username": "string_value"
+}
+```
+
+### RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestDeleteTag
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+
+### SECURITY: bearerAuth
+```

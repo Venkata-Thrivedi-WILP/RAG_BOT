@@ -1,0 +1,208 @@
+**Overview**
+===============
+
+Get applications for user endpoint retrieves the resultant applications where the user has access to. This API can be invoked by system administrators, users with application management rights, and users with user management rights. The call caches the list of applications and roles.
+
+* HTTP Method: POST
+* Path: `/UPRest/GetResultantAppsForUser`
+* Security: Bearer Auth
+
+**Key Search Terms**
+==================
+
+* Get resultant applications for user
+* Application access control
+* User management API
+* System administrator API
+* Role-based access control (RBAC)
+
+**Example User Questions**
+==========================
+
+1. What are the applications accessible to a specific user?
+2. How do I invoke the application access control API?
+3. Can I use this API as a system administrator?
+4. What are the roles required for invoking this API?
+5. How does this API handle role-based access control?
+
+**Developer Notes**
+==================
+
+### Required Parameters
+
+* `userUuid` (query, Required): The unique ID of the user who is having access to applications.
+
+### Request/Response Structure
+
+The request body should contain the `userUuid` parameter in query format. The response will be a JSON object containing the resultant applications and their details.
+
+### Error Handling
+
+* If an invalid user ID is provided or if the user does not have rights, the API returns an error message with code "UnAuthorized".
+
+### Security Considerations
+
+* Bearer Auth is used for security.
+
+**Raw Endpoint Documentation (Formatted)**
+==========================================
+
+ENDPOINT: Get applications for user
+PATH: `/UPRest/GetResultantAppsForUser`
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: Invoke this API to retrieve the resultant applications where user has access to. Only system administrator, users with application management rights and user management rights can invoke this API. NOTE: This call caches the list of applications and roles.
+
+METADATA:
+  * x-idap-anon: False
+
+PARAMETERS:
+  * `userUuid` (query, Required): The unique ID of the user who is having access to applications should be provided. The unique ID is generated when the user is created or invited.
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: UPRestGetResultantAppsForUser
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (object): Result includes Count and Columns definition.
+          Nested properties:
+            * ReturnID (string): ReturnID for the successful api call. By default it is null
+            * Count (integer): It is the number of records that the call returns.
+            * Columns (array): Array list of definition of all Columns.
+              Array items:
+                * TableKey (string): specifies whether column is a key and if so what kind of key it is. It can be primary key or foreign key. Ex: 'Primary'
+                * Description (string): It is the brief description of the column. Ex: 'Row Identifier (primary key)'
+                * Name (string): It is the name of the column.
+                * Format (string): Currently It is not applicable. By default it is null.
+                * TableName (string): It is the name of the table. By default it is null.
+                * DDName (string): It is the Data dictionary name of the column. Ex: 'ID'
+                * DDTitle (string): It is the Data dictionary title of the column. Ex: 'ID'
+                * Type (string): It is the numeric indicator of the type of data in the column. Ex: '12'
+                * IsHidden (boolean): specifies whether column is hidden or not. default: false
+                * Width (integer): Currently It is not applicable. By default it is 0.
+                * Title (string): Title of the column. Ex: 'ID'
+                * ForeignKey (string): specifies whether column holds a foreign key or not. By default it is null.
+            * Results (object): Results the rows from the table.
+              Nested properties:
+                * Shortcut (boolean): Specifies whether the application has been set for optional installation or not. by default it is false.
+                * Entities (array): Array list of definition of all Columns.
+                  Array items:
+                    * IsForeignKey (string): Specifies whether the entity has foreign key or not. By default it is false.
+                    * Type (string): It is type of the entity. Ex: Application
+                    * Key (string): Unique Id of the Entity. Ex:'cb9b5761-6cfe-45a5-8ecf-ce9fa9e0ff82'
+                * Url (string): When we are adding external applications, it's the actual URL of that Application. Ex:https://www.dropbox.com/saml_login
+                * BypassLoginMFA (boolean): Specifies whether the application can bypass the login MFA or not. By default it is false.
+                * Row (string): Row consists of Entities list and Specifies the details about user accessible applications; each entry is a dictionary including 'Type' (User, Role), 'ID' (role/user UUID), and 'Name' (role name or 'User' if user is granted direct access)
+                * Category (string): It is the Category which application belongs to. Following are the Categories available. Featured Analytics Collaboration Communication CRM Customer Service DevOps Education ERP Finance Government Health Care HR IT and Administration Marketing News and Research Other Product Management Productivity Project Management Sales Security Social Media Software Development Travel
+                * AdminTag (string): It is the admin tag provided for the Application. It is the same as the Category of the Application. Ex: Finance
+                * Name (string): It is the name of the Application.
+                * TemplateName (string): It is the template name of the Application. The templates can be internal as well as for external applications. Ex: Dropbox
+                * WebAppType (string): It is the type of web application. Like Portal, SAML, OpenIDConnect, OAuth etc.
+                * PasswordIsSet (boolean): This property will be true f there is a Password set for the Application. Else false. Default Value: false
+                * CertBasedAuthEnabled (boolean): Specifies whether Certificate based Authentication is enabled or not. By default it is false.
+                * DisplayName (string): It is the display name of the application.
+                * RegistrationMessage (string): It is the registration message for the application.
+                * AuthChallengeDefinitionId (string): It is the authentication challenge definition ID for the application.
+                * DerivedCredsSupported (boolean): It specifies whether derived credentials are supported for the application. By default it is false.
+                * IsCredsAccessible (boolean): It specifies whether credentials are accessible for the application. By default it is false.
+                * UsernameRO (boolean): It specifies whether username read-only is enabled for the application. By default it is false.
+                * ParentDisplayName (string): It is the display name of the parent application.
+                * WebAppTypeDisplayName (string): It is the display name of the web app type.
+                * IsNewApp (boolean): It specifies whether a new application is being created or not. By default it is false.
+                * RegistrationLinkMessage (string): It is the registration link message for the application.
+                * AppTypeDisplayName (string): It is the display name of the application type.
+                * AppType (string): It is the application type.
+                * Intranet (boolean): It specifies whether the application is intranet or not. By default it is false.
+                * AppKey (string): It is the application key.
+                * Automatic (boolean): It specifies whether the application is automatic or not. By default it is false.
+                * Rank (integer): It is the rank of the application. By default it is 0.
+                * ID (string): It is the unique ID of the application.
+                * Icon (string): It is the icon URL for the application.
+                * Username (string): It is the username associated with the application.
+
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "ReturnID": "string_value",
+      "Count": 0,
+      "Columns": [
+        {
+          "TableKey": "string_value",
+          "Description": "string_value",
+          "Name": "string_value",
+          "Format": "string_value",
+          "TableName": "string_value",
+          "DDName": "string_value",
+          "DDTitle": "string_value",
+          "Type": "string_value",
+          "IsHidden": false,
+          "Width": 0,
+          "Title": "string_value",
+          "ForeignKey": "string_value"
+        }
+      ],
+      "Results": {
+        "Shortcut": false,
+        "Entities": [
+          {
+            "IsForeignKey": "string_value",
+            "Type": "string_value",
+            "Key": "string_value"
+          }
+        ],
+        "Url": "string_value",
+        "BypassLoginMFA": false,
+        "Row": "string_value",
+        "Category": "string_value",
+        "AdminTag": "string_value",
+        "Name": "string_value",
+        "TemplateName": "string_value",
+        "WebAppType": "string_value",
+        "PasswordIsSet": false,
+        "CertBasedAuthEnabled": false,
+        "DisplayName": "string_value",
+        "RegistrationMessage": "string_value",
+        "AuthChallengeDefinitionId": "string_value",
+        "DerivedCredsSupported": false,
+        "IsCredsAccessible": false,
+        "UsernameRO": false,
+        "ParentDisplayName": "string_value",
+        "WebAppTypeDisplayName": "string_value",
+        "IsNewApp": false,
+        "RegistrationLinkMessage": "string_value",
+        "AppTypeDisplayName": "string_value",
+        "AppType": "string_value",
+        "Intranet": false,
+        "AppKey": "string_value",
+        "Automatic": false,
+        "Rank": 0,
+        "ID": "string_value",
+        "Icon": "string_value",
+        "Username": "string_value"
+      },
+      "FullCount": 0,
+      "IsAggregate": false
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "UnAuthorized": "string_value"
+  }
+}
+```

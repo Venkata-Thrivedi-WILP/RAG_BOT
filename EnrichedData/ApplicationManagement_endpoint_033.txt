@@ -1,0 +1,113 @@
+**Overview**
+-----------
+
+This endpoint allows users to add, update, or delete files for a secured item. It can be accessed by sending a POST request to the `/UPRest/UpRestSaveFilesForSecuredItem` path.
+
+The endpoint requires authentication using bearer tokens and accepts JSON payload with file metadata and file attachment.
+
+**Key Search Terms**
+-------------------
+
+* Add file to secured item
+* Update file for secured item
+* Delete file from secured item
+* Save files for secured item
+* File management API
+* Secured item attachments
+
+**Example User Questions**
+-------------------------
+
+* What is the format of the JSON payload required for this endpoint?
+* How do I authenticate using bearer tokens for this endpoint?
+* Can I update multiple files at once using this endpoint?
+* What happens if the file attachment is missing from the request body?
+* How can I retrieve a list of all attached files for a secured item?
+
+**Developer Notes**
+------------------
+
+### Required Parameters
+
+* `File`: File attachment in form-data format.
+
+### Request/Response Structure
+
+* Request Body: JSON payload with `Metadata` and `File` properties.
+	+ `Metadata`: Array of file metadata objects with `Name`, `Id`, `Hidden`, and `Size` properties.
+	+ `File`: File attachment in form-data format (not as a parameter).
+* Response Body: JSON object with `Result` and `Error` properties.
+
+### Error Handling
+
+* If the request is missing the required `File` parameter, an error response will be returned with a 400 status code.
+* If the file attachment is invalid or cannot be processed, an error response will be returned with a 500 status code.
+
+### Security Considerations
+
+* Authentication: Bearer tokens are required for this endpoint.
+* Data Validation: The request body must contain a valid JSON payload with the required `File` parameter.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+### ENDPOINT: Add/Update/Delete files for a Secured Item
+#### PATH: `/UPRest/UpRestSaveFilesForSecuredItem`
+#### METHOD: `POST`
+#### TAGS: `Application Management`
+
+This endpoint is called when the user clicks Save to save the file attachment from the User Portal.
+
+### METADATA
+
+* `x-idap-anon`: `False`
+* `x-codegen-request-body-name`: `payload`
+
+### REQUEST BODY
+
+* Required
+	+ `Content Type`: `application/json`
+	+ `Schema Properties`:
+		- `Metadata` (array): Holds file metadata.
+			- Array items:
+				- `Name` (string): Filename.
+				- `Id` (string): Unique file identifier.
+				- `Hidden` (boolean): Enables or disables the file.
+				- `Size` (number): File size.
+		- `File` (object): File is in the form-data. (Not as a parameter.)
+	+ Required fields: `File`
+* Sample Request JSON:
+```json
+{
+  "Metadata": [
+    {
+      "Name": "string_value",
+      "Id": "string_value",
+      "Hidden": false,
+      "Size": 0
+    }
+  ],
+  "File": {}
+}
+```
+
+### RESPONSES
+
+#### Status Code: `200`
+#### Description: API-Result
+#### Content Type: `*/*`
+#### Response Schema: SaveFilesForSecuredItem
+#### Response Body Properties:
+	+ `Result` (object): Indicates whether the operation is successful.
+	+ `Error` (object): Error message text on failure, may be null.
+* Sample Response JSON:
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+
+### SECURITY
+
+Bearer authentication required.

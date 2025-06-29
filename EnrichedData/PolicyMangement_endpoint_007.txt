@@ -1,0 +1,77 @@
+**Overview**
+================
+
+Get authentication assurance level for a user's profile.
+
+*   **Endpoint:** `/AuthProfile/GetProfileMFAScoring`
+*   **HTTP Method:** `POST`
+*   This endpoint retrieves the authentication assurance level (AAL) of a user's profile using Multi-Factor Authentication (MFA) scoring.
+*   To use this endpoint, you must provide the required `challenges` query parameter.
+
+**Key Search Terms**
+==================
+
+*   `authentication assurance level`
+*   `multi-factor authentication`
+*   `profile mfas scoring`
+*   `get auth profile`
+*   `api authentication`
+*   `user profile`
+
+**Example User Questions**
+=========================
+
+*   What is the authentication assurance level for my user's profile?
+*   How does multi-factor authentication impact my user's profile?
+*   Can I get a list of challenges used in my user's MFA scoring?
+*   What if there is an error with the request? How do I handle it?
+*   Is this endpoint secure and how do I authenticate?
+
+**Developer Notes**
+==================
+
+### Required Parameters:
+
+*   `challenges` (query, Required): Profile factors
+
+### Request/Response Structure:
+
+*   The request body should contain a JSON object with the required `challenges` parameter.
+*   The response will be in JSON format and include a `Result` property containing the AAL values or an error message.
+
+### Error Handling:
+
+*   If there is an error with the request, the response will include an `Error` property with an error message text.
+*   You can handle errors by checking for the presence of the `Error` property in the response.
+
+### Security Considerations:
+
+*   This endpoint uses bearer authentication. You must provide a valid token in the `Authorization` header to access this endpoint.
+
+**Raw Endpoint Documentation (Formatted)**
+=====================================
+
+ENDPOINT: Gets authentication assurance level
+PATH: /AuthProfile/GetProfileMFAScoring
+METHOD: POST
+TAGS: Authentication Profile
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * challenges (query, Required): Profile factors
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: AuthProfileGetProfileMFAScoring
+  Response Body Properties:
+    * Result (object): returns Maximum and minimun AAL in Success or null in Failure
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth

@@ -1,0 +1,98 @@
+**Overview**
+==========
+
+Verify if a username provided for a personal app or secured item is allowed. This endpoint accepts a POST request to `/UPRest/ValidateUsernameIsAllowed`. The request body must contain a JSON payload with a single field `userName` of type string.
+
+Security: Bearer authentication is required for this endpoint.
+
+**Key Search Terms**
+==================
+
+* Validate username
+* Allow or deny access
+* Personal app security
+* Secured item validation
+* Bearer authentication
+* UPRest/ValidateUsernameIsAllowed
+
+**Example User Questions**
+=========================
+
+* What is the status of my username verification?
+* Is my username allowed for this app?
+* Can I use this endpoint to validate a username without authentication?
+* How do I format the request body for this endpoint?
+* What happens if my username is not found or invalid?
+
+**Developer Notes**
+==================
+
+### Request Parameters
+
+* `userName` (string): WPM user name
+	+ Required: Yes
+	+ Example: "string_value"
+
+### Response Structure
+
+* `Result` (object): Whether the operation is successful or not.
+	+ Example: `{}` (empty object)
+* `Error` (object): Error message text on failure, may be null.
+	+ Example: `{}` (empty object)
+
+### Request/Response Body
+
+* Request body:
+	+ Content type: application/json
+	+ Schema properties: `userName` (string) is required
+	+ Sample request JSON:
+```json
+{
+  "userName": "string_value"
+}
+```
+* Response body:
+	+ Content type: */*
+	+ Response schema: UPRestCreateTagWithNoApp
+
+### Security Considerations
+
+* Bearer authentication is required for this endpoint.
+
+**Raw Endpoint Documentation (Formatted)**
+==========================================
+
+ENDPOINT: Verify if username provided for personal app or secured item is allowed.
+PATH: `/UPRest/ValidateUsernameIsAllowed`
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * `x-idap-anon`: False
+  * `x-codegen-request-body-name`: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * `userName` (string): WPM user name
+    Required fields: `userName`
+  Sample Request JSON:
+```json
+{
+  "userName": "string_value"
+}
+```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * `Result` (object): Whether the operation is successful or not.
+    * `Error` (object): Error message text on failure, may be null
+  Sample Response JSON:
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+SECURITY: bearerAuth

@@ -1,0 +1,107 @@
+**Overview**
+-----------
+
+The `/UPRest/UpsertTagsForApp` endpoint allows users to add and update application tags for the current user. This endpoint is accessible via a POST request.
+
+To use this endpoint, you will need to provide an authentication token in the `Authorization` header using bearerAuth. The request body should be in JSON format with the required fields: `appkey` and `tagnames`.
+
+**Key Search Terms**
+-------------------
+
+* Add application tags
+* Update application tags
+* Current user API access
+* Bearer authentication
+* UpsertTagsForApp endpoint
+
+**Example User Questions**
+-------------------------
+
+* What is the syntax for adding a new tag to an existing application?
+* How do I update multiple tags at once using this endpoint?
+* Can I use this endpoint to create a new application if none exists?
+* What happens when I try to add a duplicate tag name?
+* How can I retrieve the list of all tags associated with my current user?
+
+**Developer Notes**
+-------------------
+
+### Request Structure
+
+* HTTP Method: POST
+* Path: `/UPRest/UpsertTagsForApp`
+* Content Type: `application/json`
+* Required Fields:
+	+ `appkey` (string): Application key
+	+ `tagnames` (array): list of tag names
+* Sample Request JSON:
+```json
+{
+  "appkey": "string_value",
+  "tagnames": [
+    "string_value"
+  ]
+}
+```
+
+### Response Structure
+
+* Status Code: 200
+* Content Type: `*/*`
+* Response Schema: `UPRestCreateTagWithNoApp`
+* Sample Response JSON:
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+
+### Security Considerations
+
+* Bearer authentication required in the `Authorization` header.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+ENDPOINT: Add and update application tags for the current user.
+PATH: `/UPRest/UpsertTagsForApp`
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: `application/json`
+  Schema Properties:
+    * appkey (string): Application key
+    * tagnames (array): list of tag names
+      Array items:
+  Required fields: `appkey`, `tagnames`
+  Sample Request JSON:
+```json
+{
+  "appkey": "string_value",
+  "tagnames": [
+    "string_value"
+  ]
+}
+```
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+
+SECURITY: bearerAuth

@@ -1,0 +1,123 @@
+**Overview**
+================
+
+Get application details API endpoint. This endpoint is used to retrieve metadata information/template of an Application. Only system administrator and users with application management rights can invoke this API.
+
+**Key Search Terms**
+-------------------
+
+* Get application details
+* SaasManage/GetApplication
+* Application Management
+* CyberArk Identity
+* SSO
+* Application metadata
+
+**Example User Questions**
+-------------------------
+
+* What is the name of an application?
+* How do I get the row key of an application?
+* What is the category of an application?
+* How do I retrieve the certificate subject name of an application?
+* What is the thumbprint of a certificate for an application?
+
+**Developer Notes**
+------------------
+
+### Required Parameters
+
+* `_RowKey` (query, Required): It is the name or Unique ID of the application created.
+
+### Response Structure
+
+The response will be in JSON format with the following structure:
+
+```json
+{
+  "Result": {
+    // Application metadata properties
+  },
+  "success": boolean,
+  "Error": {
+    // Error message text on failure
+  }
+}
+```
+
+### Security Considerations
+
+* The API uses bearer authentication.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+### ENDPOINT: Get application details
+#### PATH: `/SaasManage/GetApplication`
+#### METHOD: `POST`
+#### TAGS: `Application Management`
+#### DESCRIPTION:
+CyberArk Identity maintains a catalog of application templates that facilitate the process of enabling SSO. Invoke this API to retrieve the metadata information/template of the Application. Only system administrator, users with application management rights can invoke this API.
+
+### METADATA
+* `x-idap-anon`: `False`
+
+### PARAMETERS
+* `_RowKey` (query, Required): It is the name or Unique ID of the application created. It is also known as App key. Can fetch the AppKey from the Admin Portal once we add an application. Can also fetch the RowKey using RedRock query. Note: RowKey can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC.
+
+### RESPONSES
+#### Status Code: 200
+#### Description: API-Result
+#### Content Type: `*/*`
+#### Response Schema: SaasManageGetApplication
+#### Response Body Properties:
+* `Result` (object): Return object for a successful API call. The response of the API varies w.r.t type and category of the application.
+	+ Nested properties:
+		- `LocalizationMappings` (array):
+			- Array items:
+				- `Modified` (boolean): It is set to true if any mappings are modified. Else false. By default, it is false.
+				- `Default` (string): It is set to true if there any default mappings. Else false. By default, it is false.
+				- `Code` (string): It is the code used to identify the language.
+				- `Description` (string): It is the description about the application in the specified language.
+				- `Name` (string): The Application's name in the specified language. Example: User Portal is 'Portail utilisateur' in french
+		- `CertificateSubjectName` (string): This is the Application's subject name of the certificate. It is specific to the tenant. Ex: CN=ABC0000 Application Signing Certificate
+		- `Icon` (string): It is the absolute path of the application's icon image. Ex: 'vfslow/lib/branding/Idaptive/userportal.png'
+		- `ACL` (boolean): ACL(access control list) is a list of rules that specifies whether users have access to an application or any resource. It is true if the user has access to the Application. Else false.
+		- `UseLoginPwUseScript` (string): It specifies whether to use the user's login password with the mapping script or not. By default, it is false
+		- `DefaultAuthProfile` (string): It is the default profile extracted from the Auth Challenge Definition. By default, it is 'AlwaysAllowed.'
+		- `AdminTag` (string): It is the admin tag provided for the Application. It is the same as the Category of the Application. Ex: Finance
+		- `TemplateName` (string): It is the template name of the Application. The templates can be internal as well as for external applications. Ex: Dropbox
+		- `_TableName` (string): The Tablename where application-related details are stored. By default, it is 'application'
+		- `Handler` (string): The application handler is responsible for processing the request and generating a response. Ex: cloudlib; Centrify.Saas.apphandlers.UserPass
+		- `AdminPasswordIsSet` (boolean): This property will be true if the admin password exists. Else false. By default, it is false.
+		- `UserNameStrategy` (string): It is the strategy used for mapping username. Possible types of strategies are ADAttribute, Fixed, SetByUser, UseScript, SetByProvisioning, None
+		- `DisplayName` (string): It is the display name of the application.
+		- `_STAMP` (string): It is the unique Id created when an application is created/added in the database. Ex: fd4e9ee9-a9a8-4433-80fb-51eac4d12824
+		- `UseLoginPwAdAttr` (boolean): This property will be true if there is additional authentication for the Application. Else false. Default Value: false
+		- `ShowInUP` (string): This property is true, then the App is displayed in the user portal. Else false. By default, it is true.
+		- `AppTypeDisplayName` (string): There are different types of applications that you can add and deploy to your users. It is the Application's type display Name. Ex: Web - User Password
+		- `WebAppType` (string): It is the type of web application. Like Portal, SAML, OpenIDConnect, OAuth etc.
+		- `UseDefaultSigningCert` (boolean): This property will be true if there is a default signing certificate for the Application. Else false. Default Value: true
+		- `_PartitionKey` (string): partition key is a unique identifier for the partition within a given table, specified by the PartitionKey property. Ex: ABC0123
+		- `AppType` (string): This specifies the type of application like Web, Mobile or Unknown.
+		- `State` (string): Specifies the Application's state like whether it is active or not. By default, it is 'active'
+		- `RegistrationMessage` (string): It is the Registration message of the Application if any added while creating the Application. By default, it is null.
+		- `ParentDisplayName` (string): It is the display name of the parent application. Here parent app is overridden from another app. By default, it is null.
+		- `RegistrationLinkMessage` (string): It is the message in the registration link of the Application. By default, it is 'null'
+		- `PortalApp` (boolean): It is set to true if the App belongs to the portal. Else false
+		- `Generic` (boolean): It indicates whether the application is generic or not. Else false
+		- `Description` (string): It is the description of the Application.
+		- `AuthChallengeDefinitionId` (string): It is the ID of the Auth Challenge Definition.
+		- `UserNameArg` (string): It is the username argument for the application.
+		- `PasswordIsSet` (boolean): This property will be true if the password is set. Else false
+		- `Name` (string): The name of the Application.
+		- `Reference` (string): It is the reference to the Application.
+		- `AuthRules` (object):
+			+ Nested properties:
+				- `_Value` (string): It is the value of the Auth Rule.
+				- `Enabled` (boolean): It indicates whether the Auth Rule is enabled or not. Else false
+				- `_UniqueKey` (string): It is the unique key for the Auth Rule.
+				- `_Type` (string): It is the type of the Auth Rule.
+
+### SECURITY
+* The API uses bearer authentication.

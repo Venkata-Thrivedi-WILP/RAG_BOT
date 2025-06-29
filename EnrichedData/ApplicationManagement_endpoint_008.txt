@@ -1,0 +1,123 @@
+**Overview**
+-----------
+
+Set application permissions endpoint allows system administrators or users with 'Grant' permission to set permissions for specific applications. This endpoint is used to grant or revoke access to resources, and it requires a valid bearer token for authentication.
+
+* HTTP Method: POST
+* Path: /SaasManage/SetApplicationPermissions
+* Security Requirement: bearerAuth
+
+**Key Search Terms**
+-------------------
+
+* Set application permissions
+* Grant access to resources
+* SaasManage endpoint
+* Bearer token authentication
+* Application management API
+
+**Example User Questions**
+-------------------------
+
+* What are the steps to grant access to a specific resource using this endpoint?
+* How do I revoke permission for an application using this endpoint?
+* Can I use this endpoint to set permissions for multiple applications at once?
+* What is the format of the request body for this endpoint?
+* How do I handle errors when calling this endpoint?
+
+**Developer Notes**
+------------------
+
+### Required Parameters
+
+* `RowKey`: Application key
+* `ID`: ID of the resource (set to null for global permissions)
+* `Grants`: Array of permissions to be set
+
+### Request Response Structure
+
+* `Result` object:
+	+ `ErrorID`
+	+ `ErrorCode`
+	+ `Exception`
+	+ `MessageID`
+	+ `Result` (application-related information)
+	+ `InnerExceptions`
+	+ `Message`
+	+ `success` (boolean)
+	+ `IsSoftError` (string)
+* `Error` object:
+	+ `ErrorMessage`
+
+### Error Handling
+
+* If the user does not have 'Grant' permission or writable policy, an error message is displayed with a 401 status code.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+```markdown
+ENDPOINT: Set application permissions
+PATH: /SaasManage/SetApplicationPermissions
+METHOD: POST
+TAGS: Application Management
+
+DESCRIPTION:
+You must be a system administrator or have 'Grant' permission on the resource or have global 'Grant' permission on resources. Invoke this API to set permissions for perticular app.
+
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+
+REQUEST BODY:
+Required
+  Content Type: application/json
+  Schema Properties:
+    * RowKey (string): Application key.
+    * ID (string): ID of the resource, Set to null for global permissions.
+    * Grants (object): Array of permissions to be set. Each item must include Principal: User name or role name, PType: User, Role.., Rights: ManageSession, Edit, Delete, Grant, AgentAuth.
+      Nested properties:
+        * Rights (string): Permissions: Grant, View, Admin, LimitedAdmin.
+        * Principal (string): User name or role name.
+        * Type (string): It is user role when new user is added.
+        * PrincipalId (string): Uuid of the principal.
+        * PType (string): Principal type: User, Role etc..
+
+SAMPLE REQUEST JSON:
+```json
+{
+  "RowKey": "string_value",
+  "ID": "string_value",
+  "Grants": {
+    "Rights": "string_value",
+    "Principal": "string_value",
+    "Type": "string_value",
+    "PrincipalId": "string_value",
+    "PType": "string_value"
+  }
+}
+```
+
+RESPONSES:
+Status Code: 200
+Description: API-Result
+Content Type: */*
+Response Schema: SaasManageSetApplicationPermissions
+Response Body Properties:
+  * Result (object): Returns an object for a successful API call.
+    Nested properties:
+      * ErrorID (string): Error Id of occured error during api execution.
+      * ErrorCode (string): Error message of Error occured.
+      * Exception (string): If any exception has occured.
+      * MessageID (string): Message id of message.
+      * Result (object): This API returns Application-related information as the response. Note that the response of the API varies w.r.t type and Category of the Application.
+      * InnerExceptions (string): Inner Exception, if any, within exception.
+      * Message (string): Message if any exception.
+      * success (boolean): The success will be true or false.
+      * IsSoftError (string): Error is soft or not.
+  * Error (object): This error message is displayed when you dont have grant access or writable policy or admin rights.
+    Nested properties:
+      * ErrorMessage (string): You are not authorized to perform this operation.Please contact your IT helpdesk.
+
+SECURITY: bearerAuth
+```

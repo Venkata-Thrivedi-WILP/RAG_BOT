@@ -1,0 +1,145 @@
+**Overview**
+==========
+
+Get user details API allows system administrators, users with user management rights, or the user itself to fetch the details of any specific existing user in the cloud directory. This API is a POST request that requires the desired user's unique ID as parameters in the body arguments.
+
+**Key Search Terms**
+==================
+
+* Get user details
+* Cloud directory service
+* User management
+* System administrator
+* Bearer authentication
+* Unique user ID
+
+**Example User Questions**
+=========================
+
+* What is the unique ID of a cloud user?
+* How do I fetch the details of another user in the cloud directory?
+* Can standard users fetch their own details using this API call?
+* What happens if a system administrator tries to fetch details of another user without permission?
+* How can I authenticate for bearer authentication?
+
+**Developer Notes**
+==================
+
+### Required Fields
+
+* `ID` (string): The Unique Id of the Cloud user to fetch.
+
+### Request Body
+
+* Content Type: application/json
+* Schema Properties:
+	+ `ID` (string): The Unique Id of the Cloud user to fetch.
+	+ `ErrorID`, `ErrorCode`, `Exception`, `MessageID`, `InnerExceptions`, and `Message` are optional fields that may be returned in the response.
+
+### Response
+
+* Status Code: 200
+* Content Type: */*
+* Response Schema:
+	+ `Result`: Return object for a successful API call
+		- Nested properties:
+			- `ErrorID`, `ErrorCode`, `Exception`, `MessageID`, and `InnerExceptions` are optional fields that may be returned in the response.
+			- `Alias`, `Version`, `DisplayName`, `CreateDate`, `LastPasswordChangeDate`, `MobileNumber`, `InEverybodyRole`, `LastModifiedDate`, `State`, `Mail`, and `Name` are required fields that return user details.
+	+ `Error`: Error message text on failure, below message, would be returned if a user without administrative/user management permission is trying to fetch the detail of any other existing cloud user.
+
+### Security
+
+* bearerAuth: Authentication method used for this API call.
+
+**Raw Endpoint Documentation (Formatted)**
+==========================================
+
+ENDPOINT: Get user details
+PATH: `/CDirectoryService/GetUser`
+METHOD: POST
+TAGS: Manage User Data
+DESCRIPTION: Use this API to fetch the details of any specific existing user in the cloud directory. Only system administrators, users with user management rights, or the user itself can invoke this API.
+
+METADATA:
+  * `x-idap-anon`: False
+  * `x-codegen-request-body-name`: payload
+
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * ID (string): The Unique Id of the Cloud user to fetch. The unique ID is generated when the user is created. Ex: abc-e2e-123
+    Required fields: ID
+
+SAMPLE REQUEST JSON:
+```json
+{
+  "ID": "string_value"
+}
+```
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: CDirectoryServiceGetUser
+  Response Body Properties:
+    * Result (object): Return object for a successful API call
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (object): Result includes total count and details of all cloud users
+          Nested properties:
+            * Alias (string): Suffix for the tenant. Ex:@acme.inc
+            * Version (string): Version of the data being recieved. Ex: 1.0
+            * DisplayName (string): Display name of user. Default: null
+            * CreateDate (string): Date/time user was created
+            * LastPasswordChangeDate (string): Date/time user last changed their password
+            * MobileNumber (string): User's mobile number. Default: null
+            * InEverybodyRole (boolean): Is user in the Everybody role?
+            * LastModifiedDate (string): Date/time user was last modified
+            * State (string): User state (locked, enabled, expired)
+            * Mail (string): Email address of the user. Ex: 'mark@email.com'
+            * Name (string): Username of the user. The username will be 'username@suffix' if suffix is required, else 'username'. Ex: 'mark@acme.inc'
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): The success will be true or false
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup
+    * Error (object): Error message text on failure, below message, would be returned if a user without administrative/user management permission is trying to fetch the detail of any other existing cloud user
+      Nested properties:
+        * UnauthorizedUser (string): You are not authorized to perform this operation. Please contact your IT helpdesk
+
+SAMPLE RESPONSE JSON:
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "Alias": "string_value",
+      "Version": "string_value",
+      "DisplayName": "string_value",
+      "CreateDate": "string_value",
+      "LastPasswordChangeDate": "string_value",
+      "MobileNumber": "string_value",
+      "InEverybodyRole": false,
+      "LastModifiedDate": "string_value",
+      "State": "string_value",
+      "Mail": "string_value",
+      "Name": "string_value"
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "UnauthorizedUser": "string_value"
+  }
+}
+```
+
+SECURITY: bearerAuth

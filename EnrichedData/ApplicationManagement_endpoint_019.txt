@@ -1,0 +1,89 @@
+**Overview**
+-----------
+
+The Rename a tag endpoint allows users to update the name of an existing tag. This endpoint is part of the Application Management tags and requires authentication using the Bearer token.
+
+To use this endpoint, send a POST request to `/UPRest/RenameTag` with a JSON payload containing the new tag name and the current tag name. The `x-idap-anon` header should be set to `False`, indicating that an anonymous user is not requesting access.
+
+**Key Search Terms**
+--------------------
+
+* Rename a tag
+* Update tag name
+* Application Management tags
+* Bearer authentication
+* JSON payload
+
+**Example User Questions**
+-------------------------
+
+* What is the format of the request body for renaming a tag?
+* How do I authenticate using the Bearer token?
+* Can I rename a tag without logging in?
+* What happens if the new tag name already exists?
+* How can I get an error message if the operation fails?
+
+**Developer Notes**
+-------------------
+
+### Required Fields
+
+* `newTagname`: The new name of the tag (string)
+* `tagname`: The current name of the tag (string)
+
+### Request/Response Structure
+
+* Request Body: JSON payload with `newTagname` and `tagname`
+	+ Content Type: application/json
+	+ Schema Properties:
+		- `newTagname` (string): new tag name
+		- `tagname` (string): tag name
+* Response Body: UPRestCreateTagWithNoApp schema with `Result` and `Error` properties
+
+### Error Handling
+
+* If the operation fails, an error message will be returned in the `Error` property of the response body.
+
+### Security Considerations
+
+* Bearer authentication is required for this endpoint.
+* The `x-idap-anon` header should be set to `False` to indicate that an anonymous user is not requesting access.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+ENDPOINT: Rename a tag
+PATH: `/UPRest/RenameTag`
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * `x-idap-anon`: False
+  * `x-codegen-request-body-name`: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * `newTagname` (string): new tag name
+    * `tagname` (string): tag name
+  Sample Request JSON:
+```json
+{
+  "newTagname": "string_value",
+  "tagname": "string_value"
+}
+```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * `Result` (object): Whether the operation is successful or not.
+    * `Error` (object): Error message text on failure, may be null
+  Sample Response JSON:
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+SECURITY: bearerAuth

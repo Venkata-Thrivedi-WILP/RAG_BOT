@@ -1,0 +1,52 @@
+**Overview**
+-----------
+
+The `/UPRest/UpsertTagsForSecuredItem` endpoint allows users to add and update secured item tags for the current user. This endpoint is used in the Application Management section.
+
+To use this endpoint, you must authenticate using bearerAuth. The request body should be a JSON object containing the `tagnames` array and the `itemkey` string.
+
+**Key Search Terms**
+-------------------
+
+* Add secured item tags
+* Update secured item tags
+* Bearer authentication
+* Application Management
+* UPRest/UpsertTagsForSecuredItem endpoint
+
+**Example User Questions**
+-------------------------
+
+* What is the format of the request body for adding and updating secured item tags?
+* How do I authenticate using bearerAuth with this endpoint?
+* Can I update multiple tag names at once using this endpoint?
+* What happens if the `itemkey` is missing from the request body?
+* Can I use this endpoint to delete secured item tags?
+
+**Developer Notes**
+------------------
+
+### Required Fields
+
+* `tagnames`: list of tag names (array)
+* `itemkey`: Secured item key (string)
+
+### Request/Response Structure
+
+* Request Body: JSON object with `tagnames` array and `itemkey` string
+	+ Content Type: application/json
+	+ Schema Properties:
+		- `tagnames`: list of tag names (array)
+			- Array items:
+				- `string_value`
+		- `itemkey`: Secured item key (string)
+* Response Body: JSON object with `Result` and optional `Error` properties
+
+### Error Handling
+
+* If the request body is missing required fields, an error response will be returned.
+* If the operation is successful, a 200 status code will be returned.
+
+### Security Considerations
+
+* Bearer authentication is required for this endpoint.

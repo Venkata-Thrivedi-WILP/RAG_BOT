@@ -1,0 +1,94 @@
+**Overview**
+-----------
+
+Send Invitation Email Endpoint
+================================
+
+This endpoint allows system administrators to send login invitations to users. You must be a system administrator to use this endpoint.
+
+* HTTP Method: POST
+* Path: `/UserMgmt/SendLoginEmails`
+* Security Requirement: Bearer Authentication
+
+**Key Search Terms**
+-------------------
+
+* Send user invites
+* User management API
+* Login email invitations
+* System admin API
+* Invitation sending
+* User UUIDs
+
+**Example User Questions**
+-------------------------
+
+* What is the format of the request body for sending login invitations?
+* How do I specify multiple user UUIDs in the ID array field?
+* What happens if the system administrator does not have bearer authentication credentials?
+* Can I use this endpoint to send invitations to users who are already logged in?
+
+**Developer Notes**
+------------------
+
+### Required Parameters
+
+* `ID`: List of user UUIDs to send invitations to (Array items: string)
+
+### Request/Response Structure
+
+* Request Body:
+	+ Content Type: application/json
+	+ Schema Properties:
+		- `ID` (array): List of user UUIDs to send invitations to
+			- Array items: string
+			- Required fields: ID
+* Response Body:
+	+ `Result`: Standard result object
+	+ `Error`: Error message text on failure, may be null
+
+### Security Considerations
+
+* Bearer Authentication required for system administrators only
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+ENDPOINT: Send Invitation Email
+PATH: `/UserMgmt/SendLoginEmails`
+METHOD: POST
+TAGS: Send User Invites
+DESCRIPTION: You must be a system administrator.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * ID (array): List of user UUIDs to send invitations to
+      Array items:
+    Required fields: ID
+  Sample Request JSON:
+  ```json
+  {
+  "ID": [
+    "string_value"
+  ]
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UserMgmtInviteUsers
+  Response Body Properties:
+    * Result (object): Standard result
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth

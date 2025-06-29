@@ -1,0 +1,162 @@
+**Overview**
+================
+
+Update user profile API allows system administrators, users with user management rights, or the user itself to update existing cloud user properties. The profile information includes username, email address, display name, mobile number, etc.
+
+To use this API, you need to send a POST request to `/User/UpdateProfile` with a JSON payload containing the updated user data. The `x-idap-anon: False` metadata indicates that anonymous access is not allowed for this endpoint.
+
+**Key Search Terms**
+==================
+
+* Update user profile
+* Manage user data
+* Cloud user properties
+* User management rights
+* System administrators
+* API update
+* Profile information
+* JSON payload
+
+**Example User Questions**
+=====================
+
+* What is the format of the `Name` field in the request body?
+* How do I handle errors when updating a user's profile using this API?
+* Can I use this API to update multiple users at once?
+* What happens if I provide an invalid email address for a user?
+* How can I verify that a user has verified their registered email address?
+
+**Developer Notes**
+================
+
+### Required Parameters
+
+* `ID`: The Unique Id of the Cloud user to update.
+
+### Request/Response Structure
+
+* The request body should be in JSON format with the following structure:
+```json
+{
+  "HomeNumber": "string_value",
+  "DisplayName": "string_value",
+  "ID": "string_value",
+  "OfficeNumber": "string_value",
+  "MobileNumber": "string_value",
+  "VerifyEmail": false,
+  "Mail": "string_value",
+  "Description": "string_value",
+  "Name": "string_value"
+}
+```
+* The response will be in JSON format with the following structure:
+```json
+{
+  "Result": {
+    ...
+  },
+  "Error": {
+    ...
+  }
+}
+```
+
+### Error Handling
+
+* If `ID` is empty or null, an error message will be returned.
+* If the provided user name is invalid (e.g., does not match the format `name@suffix`, contains restricted characters), an error message will be returned.
+
+### Security Considerations
+
+* This API uses bearer authentication. Make sure to include a valid token in the `Authorization` header of your request.
+
+**Raw Endpoint Documentation**
+=============================
+
+```markdown
+ENDPOINT: Update user profile
+PATH: /User/UpdateProfile
+METHOD: POST
+TAGS: Manage User Data
+
+DESCRIPTION: Use this API to update an existing cloud user properties. Only system administrators, users with user management rights, or the user itself can invoke this API. The profile information includes username, email address, display name, mobile number, etc.
+
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * HomeNumber (string): Home number of the user
+    * DisplayName (string): Name of the the user, suitable for display to end users
+    * ID (string): The Unique Id of the Cloud user to update. The unique ID is generated when the user is created.
+    * OfficeNumber (string): Office number of the user
+    * MobileNumber (string): Mobile phone number of the user
+    * VerifyEmail (boolean): Enforce user to verify the registered email address
+    * Mail (string): Email address of the user. Note this field is required if either mobile number is not provided or 'SendEmailInvite' is true, or Identity Verification has to be done, or VerifyEmail is true
+    * Description (string): Can provide some information related to the user.
+    * Name (string): This is the name of the user which must be of the form 'name@suffix', not contain restricted characters, and must match an existing User Service suffix. Format:username@suffix. You must be a system administrator or have user management permissions to change this field.
+    Required fields: ID
+
+SAMPLE REQUEST JSON:
+```json
+{
+  "HomeNumber": "string_value",
+  "DisplayName": "string_value",
+  "ID": "string_value",
+  "OfficeNumber": "string_value",
+  "MobileNumber": "string_value",
+  "VerifyEmail": false,
+  "Mail": "string_value",
+  "Description": "string_value",
+  "Name": "string_value"
+}
+```
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UserUpdateProfile
+  Response Body Properties:
+    * Result (object): Return object for a successful API call
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (string): The result for the API call
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): It will be true for a successful API call
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup
+    * Error (object): Error message text on failure, below message, would be returned if provided user id or name is invalid/empty
+      Nested properties:
+        * EmptyUserId (string): When provided UserId is empty or null, you would see this message 'Parameter 'ID' must be specified.'
+        * InvalidName (string): When Invalid name is provided, you would see this message 'User name is invalid; user names must be of the form 'name@suffix', not contain restricted characters, and suffix must match an existing User Service suffix.'
+        * InvalidUserId (string): When Invalid UserId is provided, you would see this message 'You are not authorized to perform this operation'
+
+SAMPLE RESPONSE JSON:
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "EmptyUserId": "string_value",
+    "InvalidName": "string_value",
+    "InvalidUserId": "string_value"
+  }
+}
+```
+
+SECURITY: bearerAuth

@@ -1,0 +1,72 @@
+**Overview**
+================
+
+This endpoint allows users to retrieve a list of secured files attached to a Secured Item. The request is made via a POST method to the `/UPRest/GetSecureFiles` path.
+
+To use this endpoint, you will need to authenticate using bearer authentication. No specific permissions are required for this endpoint.
+
+**Key Search Terms**
+==================
+
+* Secured files
+* UPRest Get Secure Files
+* Application Management
+* Bearer Authentication
+* Secured Item
+* User Portal
+
+**Example User Questions**
+=========================
+
+* What is the list of secured files attached to a Secured Item?
+* How do I retrieve a specific secured file using the UPRest endpoint?
+* What authentication method is required for this endpoint?
+* Can I use bearer authentication with this endpoint?
+* How do I handle errors when retrieving secured files?
+
+**Developer Notes**
+==================
+
+### Required Parameters
+
+* `sItemkey`: Secured item RowKey (query, Required)
+
+### Request/Response Structure
+
+* The request body should contain the required parameters in JSON format.
+* The response will be in JSON format with a `Result` object containing a list of details for recently uploaded files and an optional `Error` object.
+
+### Error Handling
+
+* If an error occurs during the processing of the request, an `Error` object will be included in the response body with a message describing the error.
+* The error message may be null if no error occurred.
+
+### Security Considerations
+
+* Bearer authentication is required for this endpoint. Ensure that you are using a valid access token to authenticate your requests.
+
+**Raw Endpoint Documentation (Formatted)**
+=============================================
+
+ENDPOINT: Returns a list of secured files attached to a Secured Item.
+PATH: `/UPRest/GetSecureFiles`
+METHOD: `POST`
+TAGS: Application Management
+DESCRIPTION: This endpoint is called when the user clicks on a Secured Item from the User Portal.
+
+METADATA:
+  * `x-idap-anon`: `False`
+
+PARAMETERS:
+  * `sItemkey` (query, Required): Secured item RowKey
+
+RESPONSES:
+  Status Code: `200`
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: UPRestGetRecentImportedAccountsFile
+  Response Body Properties:
+    * Result (object): List of details for recently uploaded files.
+    * Error (object): Error message text on failure, may be null
+
+SECURITY: bearerAuth

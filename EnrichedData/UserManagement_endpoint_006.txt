@@ -1,0 +1,82 @@
+**Overview**
+-----------
+
+Send Invitation SMS endpoint allows system administrators to send SMS invitations to users. This endpoint requires authentication via bearer token and is accessible only to users with user management permissions.
+
+To use this endpoint, you can send a POST request to `/UserMgmt/SendSmsInvite` with the `ID` query parameter containing the user UUID to which the invitation should be sent.
+
+**Key Search Terms**
+-------------------
+
+* Send SMS invitations
+* User management API
+* System administrator permissions
+* Bearer token authentication
+* User UUID
+
+**Example User Questions**
+-------------------------
+
+* How do I send an SMS invitation to a specific user?
+* What is the required parameter for sending SMS invitations?
+* Can I use this endpoint without being a system administrator?
+* How do I authenticate with bearer token for this API?
+* What happens if the user does not exist in the database?
+
+**Developer Notes**
+-----------------
+
+### Required Parameters
+
+* `ID` (query): User UUID to send invitation to
+
+### Request/Response Structure
+
+* The request body should be empty.
+* The response will contain a JSON object with `Result` and `Error` properties.
+
+### Error Handling
+
+* If the user does not exist in the database, an error message will be returned in the `Error` property.
+* If any other error occurs, an error message will be returned in the `Error` property.
+
+### Security Considerations
+
+* This endpoint requires authentication via bearer token. Ensure that only authorized users can access this endpoint.
+* The `x-idap-anon: False` metadata indicates that anonymous requests are not allowed for this endpoint.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+ENDPOINT: Send Invitation SMS
+PATH: `/UserMgmt/SendSmsInvite`
+METHOD: POST
+TAGS: Send User Invites
+
+DESCRIPTION:
+You must be a system administrator or have user management permissions.
+
+METADATA:
+  * `x-idap-anon`: False
+
+PARAMETERS:
+  * `ID` (query, Required): User UUID to send invitation to
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: UserMgmtInviteUsers
+  Response Body Properties:
+    * `Result` (object): Standard result
+    * `Error` (object): Error message text on failure, may be null
+
+SAMPLE RESPONSE JSON:
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+
+SECURITY: bearerAuth

@@ -1,0 +1,139 @@
+**Overview**
+-----------
+
+The `/AuthProfile/SaveProfile` endpoint allows users to save their authentication profile. This endpoint is used for updating an existing profile or creating a new one if no UUID is provided.
+
+To use this endpoint, you must include a JSON payload in the request body with the required `settings` field. The HTTP method is POST and the path is `/AuthProfile/SaveProfile`.
+
+Security authentication is required using bearer tokens.
+
+**Key Search Terms**
+-------------------
+
+* Authentication profile
+* Save authentication profile
+* Update authentication profile
+* Create new authentication profile
+* Bearer authentication
+
+**Example User Questions**
+-------------------------
+
+* What is the format of the JSON payload for saving an authentication profile?
+* How do I update my existing authentication profile using this endpoint?
+* Can I create a new authentication profile if no UUID is provided?
+* What security authentication method does this endpoint use?
+* How can I obtain a bearer token to use with this endpoint?
+
+**Developer Notes**
+------------------
+
+### Required Fields
+
+* `settings`: The authentication profile.
+
+### Request/Response Structure
+
+* Request Body:
+	+ `Content Type`: application/json
+	+ `Schema Properties`:
+		- `settings`: The authentication profile.
+			Nested properties:
+				- `Challenges`: Selected authentication mechanisms.
+					Array items:
+				- `AdditionalData`: DataEntity with additional data (default=null).
+				- `Uuid`: Profile UUID.
+				- `SingleChallengeMechanisms`: Selected single authentication mechanisms.
+				- `DurationInMinutes`: How many minutes the profile is valid.
+				- `Name`: Profile name.
+			Required fields: `settings`
+* Response Body:
+	+ `Result`: An authentication profile.
+		Nested properties:
+			- `Challenges`: Selected authentication mechanisms.
+				Array items:
+			- `AdditionalData`: DataEntity with additional data (default=null).
+			- `Uuid`: Profile UUID.
+			- `SingleChallengeMechanisms`: Selected single authentication mechanisms.
+			- `DurationInMinutes`: How many minutes the profile is valid.
+			- `Name`: Profile name.
+	+ `Error`: Error message text on failure, may be null
+
+### Security Considerations
+
+* Bearer authentication is required for this endpoint.
+
+**Raw Endpoint Documentation (Formatted)**
+------------------------------------------
+
+```markdown
+ENDPOINT: Set authentication profile
+PATH: /AuthProfile/SaveProfile
+METHOD: POST
+TAGS: Authentication Profile
+DESCRIPTION: If the profile contains a UUID an update is performed, otherwise it's a write.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * settings (object): The authentication profile.
+      Nested properties:
+        * Challenges (array): Selected authentication mechanisms.
+          Array items:
+        * AdditionalData (object): DataEntity with additional data (default=null).
+        * Uuid (string): Profile UUID.
+        * SingleChallengeMechanisms (string): Selected single authentication mechanisms.
+        * DurationInMinutes (integer): How many minutes the profile is valid.
+        * Name (string): Profile name.
+    Required fields: settings
+  Sample Request JSON:
+```json
+{
+  "settings": {
+    "Challenges": [
+      "string_value"
+    ],
+    "AdditionalData": {},
+    "Uuid": "string_value",
+    "SingleChallengeMechanisms": "string_value",
+    "DurationInMinutes": 0,
+    "Name": "string_value"
+  }
+}
+```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: AuthProfileSaveProfile
+  Response Body Properties:
+    * Result (object): An authentication profile.
+      Nested properties:
+        * Challenges (array): Selected authentication mechanisms.
+          Array items:
+        * AdditionalData (object): DataEntity with additional data (default=null).
+        * Uuid (string): Profile UUID.
+        * SingleChallengeMechanisms (string): Selected single authentication mechanisms.
+        * DurationInMinutes (integer): How many minutes the profile is valid.
+        * Name (string): Profile name.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+```json
+{
+  "Result": {
+    "Challenges": [
+      "string_value"
+    ],
+    "AdditionalData": {},
+    "Uuid": "string_value",
+    "SingleChallengeMechanisms": "string_value",
+    "DurationInMinutes": 0,
+    "Name": "string_value"
+  },
+  "Error": {}
+}
+```
+SECURITY: bearerAuth
+```

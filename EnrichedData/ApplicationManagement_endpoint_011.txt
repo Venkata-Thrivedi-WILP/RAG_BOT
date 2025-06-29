@@ -1,0 +1,96 @@
+**Overview**
+-----------
+
+Create a tag with no apps for the current user. This endpoint allows users to create a new tag without assigning it to any app.
+
+* HTTP Method: POST
+* Path: `/UPRest/CreateTagWithNoApp`
+* Security Requirement: Bearer Authentication
+
+**Key Search Terms**
+-------------------
+
+* Create tag with no apps
+* UPRest_CreateTagWithNoApp
+* Tag creation API
+* App management without assignment
+* User-created tags
+
+**Example User Questions**
+-------------------------
+
+* What is the format for creating a new tag with no app assignment?
+* Can I create multiple tags at once using this endpoint?
+* How do I know if my tag was created successfully?
+* What happens if I try to assign an app to a tag that doesn't exist?
+* Can I retrieve all tags created by the current user?
+
+**Developer Notes**
+------------------
+
+### Required Parameters
+
+* `tagname`: string (required)
+
+### Request/Response Structure
+
+* Request Body: application/json
+	+ `tagname` (string): tag name
+* Response:
+	+ Status Code: 200
+	+ Content Type: */*
+	+ Response Schema: UPRestCreateTagWithNoApp
+	+ Response Body Properties:
+		- `Result`: object (success or failure)
+		- `Error`: object (error message text on failure, may be null)
+
+### Error Handling
+
+* Bearer authentication error handling not specified in raw documentation. Consider adding a note about implementing custom error handling.
+
+### Security Considerations
+
+* Bearer Authentication required for this endpoint.
+* Implement proper security measures to prevent unauthorized access and ensure secure data transmission.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+ENDPOINT: Create a tag with no apps for the current user.
+PATH: `/UPRest/CreateTagWithNoApp`
+METHOD: POST
+TAGS: Application Management
+
+METADATA:
+  * `x-idap-anon`: False
+  * `x-codegen-request-body-name`: payload
+
+REQUEST BODY:
+  Required
+  Content Type: application/json
+  Schema Properties:
+    * `tagname` (string): tag name
+  Sample Request JSON:
+  ```json
+{
+  "tagname": "string_value"
+}
+```
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * `Result` (object): Whether the operation is successful or not.
+    * `Error` (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+
+SECURITY: bearerAuth

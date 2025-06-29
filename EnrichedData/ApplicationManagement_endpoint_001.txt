@@ -1,0 +1,100 @@
+**Overview**
+===============
+
+Get application templates and categories endpoint allows you to retrieve a list of available application templates along with their respective categories. This endpoint is part of the Application Management API.
+
+To use this endpoint, send a POST request to `/SaasManage/GetTemplatesAndCategories`. The request should be authenticated using bearer authentication.
+
+**Key Search Terms**
+==================
+
+* Get application templates
+* SaasManage GetTemplatesAndCategories
+* Application management API
+* Bearer authentication
+* Templates and categories
+
+**Example User Questions**
+=========================
+
+* What are the available application templates?
+* How do I get a list of application categories?
+* Can I use bearer authentication for this endpoint?
+* What is the response format for this endpoint?
+* How can I handle errors in this endpoint?
+
+**Developer Notes**
+==================
+
+### Required Parameters
+
+* None
+
+### Request Structure
+
+The request body should be empty.
+
+### Response Structure
+
+The response will contain a `Result` object with a list of application templates, and an optional `Error` object if the request fails.
+
+#### Result Object Properties
+
+* `Category`: The category of the application template
+* `DisplayName`: The display name of the application template
+* `AppType`: The type of the application
+* `AppTypeDisplayName`: The display name of the application type
+* `Icon`: The path of the application icon image
+* `WebAppType`: The web-app-type of the application
+* `Description`: The description of the application
+* `Name`: The name of the application template
+
+#### Error Object Properties
+
+* `Error`: The error message text on failure, may be null
+
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "Category": "string_value",
+    "DisplayName": "string_value",
+    "AppType": "string_value",
+    "AppTypeDisplayName": "string_value",
+    "Icon": "string_value",
+    "WebAppType": "string_value",
+    "Description": "string_value",
+    "Name": "string_value"
+  },
+  "Error": {}
+}
+```
+
+**Raw Endpoint Documentation (Formatted)**
+==========================================
+
+### ENDPOINT: Get application templates and categories
+### PATH: `/SaasManage/GetTemplatesAndCategories`
+### METHOD: `POST`
+### TAGS: `Application Management`
+### METADATA:
+* `x-idap-anon`: `False`
+### RESPONSES:
+#### Status Code: 200
+#### Description: API-Result
+#### Content Type: `*/*`
+#### Response Schema: SaasManageGetTemplatesAndCategories
+#### Response Body Properties:
+* `Result` (object): A list of application templates
+	+ Nested properties:
+		- `Category` (string): Application category
+		- `DisplayName` (string): Application template display name
+		- `AppType` (string): Application type
+		- `AppTypeDisplayName` (string): Display name of application type
+		- `Icon` (string): Path of application icon image
+		- `WebAppType` (string): Application web-app-type
+		- `Description` (string): Application description
+		- `Name` (string): Application template name
+* `Error` (object): Error message text on failure, may be null
+
+### SECURITY: bearerAuth

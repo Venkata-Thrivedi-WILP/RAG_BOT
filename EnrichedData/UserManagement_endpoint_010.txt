@@ -1,0 +1,197 @@
+**Overview**
+================
+
+Get users details endpoint allows system administrators and users with user management rights to fetch the list of all existing users in the cloud directory. This API is a simple GET request which doesn't need any parameters in the body arguments.
+
+### HTTP Method
+POST
+
+### Path
+/CDirectoryService/GetUsers
+
+### Security Requirements
+Bearer authentication is required for this endpoint.
+
+**Key Search Terms**
+=====================
+
+* Get users details
+* Cloud directory users
+* User management API
+* Bearer authentication
+* CDirectoryServiceGetUsers
+
+**Example User Questions**
+=========================
+
+* What are the details of all existing users in the cloud directory?
+* How to check if a user already exists before adding a new one?
+* What is the format of the response from this API endpoint?
+* How to handle errors and exceptions in this API call?
+
+**Developer Notes**
+==================
+
+### Required Parameters
+None
+
+### Request Structure
+The request body should be empty.
+
+### Response Structure
+```json
+{
+  "Result": {
+    ...
+  },
+  "Error": {
+    ...
+  }
+}
+```
+
+### Error Handling
+If the user does not have administrative/user management permission, an error message will be returned with a code of "UnauthorizedUser".
+
+### Security Considerations
+Bearer authentication is required for this endpoint. The `x-idap-anon` metadata field indicates that anonymous access is not allowed.
+
+**Raw Endpoint Documentation (Formatted)**
+=============================================
+
+ENDPOINT: Get users details
+PATH: /CDirectoryService/GetUsers
+METHOD: POST
+TAGS: Manage User Data
+DESCRIPTION: Use this API to fetch the list with details of all existing users in the cloud directory. Only system administrators and users with user management rights can invoke this API.
+
+METADATA:
+  * x-idap-anon: False
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: CDirectoryServiceGetUsers
+  Response Body Properties:
+    * Result (object): Return object for a successful API call
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (object): Result includes total count and details of all cloud users
+          Nested properties:
+            * ReturnID (string): ReturnID for the successful api call. By default it is null
+            * Count (integer): It is the total number of users in the cloud directory
+            * Columns (array): Array list of definition of all columns for the users
+              Array items:
+                * TableKey (string): Specifies whether the column is a key and if so what kind of key it is. It can be a primary key or a foreign key. Ex: 'Primary'
+                * Description (string): It is the brief description of the column. Ex: 'Row Identifier (primary key)'
+                * Name (string): It is the name of the column
+                * Format (string): Currently It is not applicable. By default it is null
+                * TableName (string): It is the name of the table. By default it is null
+                * DDName (string): It is the Data dictionary name of the column. Ex: 'ID'
+                * DDTitle (string): It is the Data dictionary title of the column. Ex: 'ID'
+                * Type (string): It is the numeric indicator of the type of data in the column. Ex: '12'
+                * IsHidden (boolean): Specifies whether column is hidden or not. default: false
+                * Width (integer): Currently It is not applicable. By default it is 0
+                * Title (string): Title of the column. Ex: 'ID'
+                * ForeignKey (string): Specifies whether column holds a foreign key or not. By default, it is null
+            * Results (array): List of all cloud users
+              Array items:
+                * Entities (array): Array list of definition of all Columns
+                  Array items:
+                    * IsForeignKey (string): Specifies whether the entity has a foreign key or not. By default, it is false
+                    * Type (string): It is type of the entity. Ex: CDUser
+                    * Key (string): Unique Id of the Entity. Ex:'cb9b5761-6cfe-45a5-8ecf-ce9fa9e0ff82'
+                * Row (object): Cloud user details
+                  Nested properties:
+                    * HomeNumber (string): User's home number. Default: null
+                    * ReportsTo (string): Unique id of the cloud user this user reports to. Default: null
+                    * PictureUri (string): File system path to user picture file. Default: null
+                    * DisplayName (string): Display name of user. Default: null
+                    * Uuid (string): Unique Id of the user. Ex: 'cb9b5761-6cfe-45a5-8ecf-ce9fa9e0ff82'
+                    * OfficeNumber (string): User's office number. Default: null
+                    * MobileNumber (integer): User's mobile number. Default: null
+                    * PreferredCulture (string): User preferred culture. Default: null
+                    * StartDate (string): Start date for the user. Default: null
+                    * Mail (string): Email address of the user. Ex: 'mark@email.com'
+                    * EndDate (string): End date for the user. Default: null
+                    * Description (string): Some information describing the user. Default: null
+                    * Name (string): Username of the user. The username will be 'username@suffix' if suffix is required, else 'username'. Ex: 'mark@acme.inc'
+            * FullCount (integer): It specifies number of cloud users present currently
+            * IsAggregate (boolean): It is an attribute
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): The success will be true or false
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup
+    * Error (object): Error message text on failure, below message, would be returned if a user without administrative/user management permission is trying to fetch the list of all cloud users
+      Nested properties:
+        * UnauthorizedUser (string): You are not authorized to perform this operation. Please contact your IT helpdesk
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "ReturnID": "string_value",
+      "Count": 0,
+      "Columns": [
+        {
+          "TableKey": "string_value",
+          "Description": "string_value",
+          "Name": "string_value",
+          "Format": "string_value",
+          "TableName": "string_value",
+          "DDName": "string_value",
+          "DDTitle": "string_value",
+          "Type": "string_value",
+          "IsHidden": false,
+          "Width": 0,
+          "Title": "string_value",
+          "ForeignKey": "string_value"
+        }
+      ],
+      "Results": [
+        {
+          "Entities": [
+            {
+              "IsForeignKey": "string_value",
+              "Type": "string_value",
+              "Key": "string_value"
+            }
+          ],
+          "Row": {
+            "HomeNumber": "string_value",
+            "ReportsTo": "string_value",
+            "PictureUri": "string_value",
+            "DisplayName": "string_value",
+            "Uuid": "string_value",
+            "OfficeNumber": "string_value",
+            "MobileNumber": 0,
+            "PreferredCulture": "string_value",
+            "StartDate": "string_value",
+            "Mail": "string_value",
+            "EndDate": "string_value",
+            "Description": "string_value",
+            "Name": "string_value"
+          }
+        }
+      ],
+      "FullCount": 0,
+      "IsAggregate": false
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "UnauthorizedUser": "string_value"
+  }
+}
+```

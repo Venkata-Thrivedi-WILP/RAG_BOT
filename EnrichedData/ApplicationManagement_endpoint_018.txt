@@ -1,0 +1,79 @@
+**Overview**
+------------
+
+Get tags for an application
+==========================
+
+This API retrieves the tags applied for an application. Use this endpoint to organize applications by type.
+
+* HTTP Method: POST
+* Path: `/UPRest/GetTagsForApp`
+* Security Requirement: Bearer authentication
+
+**Key Search Terms**
+------------------
+
+* Get tags for application
+* Application management API
+* Retrieve application metadata
+* Organize applications by type
+* Bearer authentication required
+
+**Example User Questions**
+-------------------------
+
+* What are the tags applied to my application?
+* How do I organize my applications by type using this API?
+* Can I use bearer authentication to access this endpoint?
+* What happens if I provide an invalid app key?
+* How can I retrieve the AppKey for an application?
+
+**Developer Notes**
+------------------
+
+### Required Parameters
+
+* `appkey` (query, Required): The name or Unique ID of the application. Can fetch the AppKey from the Admin Portal once we add an application.
+
+### Request/Response Structure
+
+* Response Status Code: 200
+* Response Content Type: `*/*`
+* Response Schema: UPRestGetTagsForApp
+* Response Body Properties:
+	+ `Result` (object): Return object for a successful API call.
+	+ `Error` (object): Error message text on failure.
+		- Nested properties:
+			- `AppKey_NotProvided` (string): This error message is displayed when the invalid rowkey is provided.
+
+### Security Considerations
+
+* Bearer authentication required.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+ENDPOINT: Get tags for application
+PATH: `/UPRest/GetTagsForApp`
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: This API retrieves the tags applied for an application. Tags allow users to organize applications by type. Only system administrators and users with application management rights can invoke this API. Refer guides section <https://identity-developer.cyberark.com/docs/manage-applications-for-usersnew#create-user-tags-for-an-application>
+
+METADATA:
+  * `x-idap-anon`: False
+
+PARAMETERS:
+  * `appkey` (query, Required): It is the name or Unique ID of the application. Can fetch the AppKey from the Admin Portal once we add an application. Can also fetch the RowKey using RedRock query. Note: RowKey can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC.
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: UPRestGetTagsForApp
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * AppKey_NotProvided (string): This error message is displayed when the invalid rowkey is provided. Error message: 'Parameter ''appkey'' must be specified.'
+
+SECURITY: bearerAuth

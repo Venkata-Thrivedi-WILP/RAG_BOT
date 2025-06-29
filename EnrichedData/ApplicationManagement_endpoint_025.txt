@@ -1,0 +1,86 @@
+**Overview**
+===============
+
+Upload personal app icon endpoint allows users to upload their personal app icon. This endpoint is used for application management and requires authentication using bearer token.
+
+To use this endpoint, send a POST request to `/UPRest/UploadPersonalAppIcon` with the required `appkey` in the request body. The content type of the request body should be `application/json`.
+
+**Key Search Terms**
+==================
+
+* Upload personal app icon
+* Application management API
+* Bearer authentication
+* Personal app key upload
+* UPRest/UploadPersonalAppIcon endpoint
+
+**Example User Questions**
+=========================
+
+* What is the format for uploading my personal app icon?
+* Can I use this endpoint without authentication?
+* How do I handle errors if the upload fails?
+* Is there a limit on the size of the uploaded image?
+* Can I update my personal app icon later?
+
+**Developer Notes**
+==================
+
+### Required Parameters
+
+* `appkey`: Personal app key (string)
+
+### Request/Response Structure
+
+* Request Body:
+	+ Content Type: `application/json`
+	+ Schema Properties:
+		- `appkey` (string): Personal app key
+		- `Required fields`: `appkey`
+* Response Body:
+	+ `Result` (object): Whether the operation is successful or not.
+	+ `Error` (object): Error message text on failure, may be null.
+
+### Security Considerations
+
+* Bearer authentication required for this endpoint.
+
+**Raw Endpoint Documentation (Formatted)**
+=============================================
+
+```markdown
+ENDPOINT: Upload personal app icon.
+PATH: /UPRest/UploadPersonalAppIcon
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * appkey (string): Personal app key
+    Required fields: appkey
+  Sample Request JSON:
+  ```json
+{
+  "appkey": "string_value"
+}
+```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+SECURITY: bearerAuth
+```

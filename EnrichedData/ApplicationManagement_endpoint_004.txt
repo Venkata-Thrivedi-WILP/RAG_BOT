@@ -1,0 +1,121 @@
+**Overview**
+------------
+
+Delete application endpoint allows administrators to delete apps added by admin user from the admin portal. This API is invoked when an admin user wants to delete apps from the admin portal. The HTTP method used for this endpoint is POST, and the path is /SaasManage/DeleteApplication.
+
+To use this endpoint, you need to authenticate with a valid bearer token. Security measures include bearerAuth.
+
+**Key Search Terms**
+-------------------
+
+* Delete application
+* SaasManage/DeleteApplication
+* Application Management API
+* Bearer authentication
+* Admin portal
+
+**Example User Questions**
+-------------------------
+
+* Can I delete an app from the admin portal using this endpoint?
+* How do I authenticate with the bearer token for this API?
+* What happens if the application is of portal type when trying to delete it?
+* Can I use this endpoint to delete multiple applications at once?
+* How do I handle errors and exceptions in this API?
+
+**Developer Notes**
+------------------
+
+### Required Fields
+
+* `_RowKey` (array): Application key. Array items:
+	+ Required fields: `_RowKey`
+
+### Request/Response Structure
+
+* Request Body: Required
+	+ Content Type: application/json
+	+ Schema Properties:
+		- `_RowKey` (array): Application key.
+			Array items:
+				Required fields: `_RowKey`
+* Response Body Properties:
+	+ `Result` (object): The below response is received when request is successful.
+		Nested properties:
+			- `ErrorID` (string): Error Id of occured error during api execution.
+			- `ErrorCode` (string): Error message of Error occured.
+			- `Exception` (string): If any exception has occured.
+			- `MessageID` (string): Message id.
+			- `Result` (object): This gives array of application keys with success flag.
+				Nested properties:
+					- `_RowKey` (string): Application key.
+					- `success` (boolean): Whether the application is deleted or not.
+			- `InnerExceptions` (string): Inner Exception, if any, within exception.
+			- `Message` (string): Message if any exception.
+			- `success` (boolean): Whether the application is deleted or not.
+			- `IsSoftError` (string): Error type is soft or not.
+	+ `Error` (object): This error message is displayed when the application is of portal type.
+		Nested properties:
+			- `ErrorMessage` (string): Application could not be deleted. Applications with type of Portal are system applications.
+
+### Security Considerations
+
+* Bearer authentication required for this endpoint.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+### ENDPOINT: Delete application.
+#### PATH: `/SaasManage/DeleteApplication`
+#### METHOD: `POST`
+#### TAGS: `Application Management`
+
+### DESCRIPTION:
+`Use this API to delete apps added by admin user. The API gets invoked when the admin user wants to delete apps from admin portal.`
+
+### METADATA:
+* `x-idap-anon`: `False`
+* `x-codegen-request-body-name`: `payload`
+
+### REQUEST BODY:
+#### Required
+* `Content Type`: `application/json`
+* `Schema Properties`:
+	+ `_RowKey` (array): Application key.
+		Array items:
+			Required fields: `_RowKey`
+* `Sample Request JSON`:
+```json
+{
+  "_RowKey": [
+    "string_value"
+  ]
+}
+```
+
+### RESPONSES:
+#### Status Code: `200`
+#### Description: `API-Result`
+#### Content Type: `*/*`
+#### Response Schema: `SaasManageDeleteApplication`
+#### Response Body Properties:
+	+ `Result` (object): The below response is received when request is successful.
+		Nested properties:
+			- `ErrorID` (string): Error Id of occured error during api execution.
+			- `ErrorCode` (string): Error message of Error occured.
+			- `Exception` (string): If any exception has occured.
+			- `MessageID` (string): Message id.
+			- `Result` (object): This gives array of application keys with success flag.
+				Nested properties:
+					- `_RowKey` (string): Application key.
+					- `success` (boolean): Whether the application is deleted or not.
+			- `InnerExceptions` (string): Inner Exception, if any, within exception.
+			- `Message` (string): Message if any exception.
+			- `success` (boolean): Whether the application is deleted or not.
+			- `IsSoftError` (string): Error type is soft or not.
+	+ `Error` (object): This error message is displayed when the application is of portal type.
+		Nested properties:
+			- `ErrorMessage` (string): Application could not be deleted. Applications with type of Portal are system applications.
+
+### SECURITY:
+`bearerAuth`

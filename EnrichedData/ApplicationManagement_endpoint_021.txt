@@ -1,0 +1,68 @@
+**Overview**
+================
+
+Update captured user application. This endpoint allows you to update an existing application in the system.
+
+* HTTP Method: POST
+* Path: `/UPRest/UpdateCapturedUserApplication`
+* Security Requirement: Bearer Authentication
+
+**Key Search Terms**
+-------------------
+
+* Update captured user application
+* Application management API
+* Update application details
+* Bearer authentication required
+* UPRest/UpdateCapturedUserApplication endpoint
+
+**Example User Questions**
+-------------------------
+
+* What is the format of the request body for updating an application?
+* How do I authenticate with bearer token to use this endpoint?
+* Can I update multiple applications at once using this API?
+* What happens if the application key is missing from the request body?
+* How can I check the status of my application updates?
+
+**Developer Notes**
+-------------------
+
+### Required Fields
+
+* `appkey` (string): Application key
+* `appName` (string): Application Name
+* `appDescription` (string): Application Description
+* `notes` (string): Application notes
+* `appUrl` (string): Application Url
+
+### Request/Response Structure
+
+* Request Body: JSON object with required fields
+	+ Sample Request JSON:
+```json
+{
+  "appName": "string_value",
+  "appkey": "string_value",
+  "appDescription": "string_value",
+  "notes": "string_value",
+  "appUrl": "string_value"
+}
+```
+* Response Body: JSON object with `Result` and optional `Error` properties
+	+ Sample Response JSON:
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+
+### Error Handling
+
+* If the request body is missing required fields, a 400 Bad Request error will be returned.
+* If the application key is invalid or missing, a 401 Unauthorized error will be returned.
+
+### Security Considerations
+
+* Bearer authentication is required for this endpoint.

@@ -1,0 +1,139 @@
+**Overview**
+===============
+
+This API endpoint allows system administrators and users with application management rights to import apps from predefined templates. The endpoint takes a template name or array of template names as input and creates an application instance that can be deployed to users.
+
+To use this endpoint, you must include the `Authorization` header with a valid bearer token. The request body should contain the `ID` field with the template name(s) or array of template names.
+
+**Key Search Terms**
+==================
+
+* Import apps from predefined templates
+* Application management API
+* SaasManage/ImportAppFromTemplate endpoint
+* Template import
+* Application creation
+* CyberArk Admin Portal
+
+**Example User Questions**
+=========================
+
+* What is the syntax for importing an app from a predefined template using this API?
+* How do I specify multiple template names in the request body?
+* Can I use this API to create a new application instance without logging in?
+* What error messages are returned if the provided ID is invalid or not found?
+* How can I customize the application creation process using this API?
+
+**Developer Notes**
+==================
+
+### Required Parameters
+
+* `ID`: The template name(s) or array of template names. This field is required.
+
+### Request Response Structure
+
+The response body will contain an object with the following properties:
+
+* `Result`: An array of objects containing information about the created application instance.
+	+ `_RowKey`: The unique ID of the application instance.
+	+ `Exception`: Any error message or exception details.
+	+ `ID`: The template name used to create the application instance.
+	+ `success`: A boolean indicating whether the application instance was created successfully.
+* `Error`: An object containing an error message with a specific code (e.g., `Invalid_ID`).
+
+### Error Handling
+
+The API returns a 200 status code with a JSON response body if the request is successful. If an error occurs, the API returns a 500 status code with a JSON response body containing an error message.
+
+### Security Considerations
+
+This endpoint uses bearer authentication to verify the user's identity and authorization level. Only system administrators and users with application management rights can invoke this API.
+
+**Raw Endpoint Documentation (Formatted)**
+==========================================
+
+```markdown
+ENDPOINT: Import apps from predefined templates
+PATH: /SaasManage/ImportAppFromTemplate
+METHOD: POST
+TAGS: Application Management
+
+DESCRIPTION: This API retrieves the template and creates an application instance that can be deployed to users. Only system administrators and users with application management rights can invoke this API. Refer guides section https://identity-developer.cyberark.com/docs/manage-access-to-applications-1#create-an-application
+
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+
+REQUEST BODY:
+  Required
+  Content Type: application/json
+  Schema Properties:
+    * ID (array): It is the template name of Application configured in the CyberArk Admin Portal. Can provide multiple template names in the array
+      Array items:
+        Required fields: ID
+
+  Sample Request JSON:
+  ```json
+{
+  "ID": [
+    "string_value"
+  ]
+}
+```
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageImportAppFromTemplate
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (array): Array of below properties.
+          Array items:
+            * _RowKey (string): It is the name or Unique ID of the application. It is also known as App key. Ex: 1c585369-b077-44f8-972f-78d0ffd9ac87
+            * Exception (string): By default Exception will be null, unless there is an actual exception happened in retrieving the response.
+            * ID (string): It is the template name of Application configured in the CyberArk Admin Portal. Ex: Dropbox
+            * success (boolean): The success will be true if application is found else it's false.
+        * InnerExceptions (string): InnerExceptions
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): The success will be true or false.
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * Invalid_ID (string): This error message is displayed when the invalid Id is provided. Error message: 'This application has been removed from the application catalog.'
+
+  Sample Response JSON:
+  ```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": [
+      {
+        "_RowKey": "string_value",
+        "Exception": "string_value",
+        "ID": "string_value",
+        "success": false
+      }
+    ],
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "Invalid_ID": "string_value"
+  }
+}
+```
+
+SECURITY: bearerAuth
+```

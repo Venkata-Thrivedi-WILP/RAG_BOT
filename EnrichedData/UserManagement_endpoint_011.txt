@@ -1,0 +1,165 @@
+**Overview**
+================
+
+Update Base Profile API
+------------------------
+
+This API is used to update the information for a specified user. The user must be a cloud user. Only system administrators, users with user management rights, or the user itself can invoke this API.
+
+The API accepts a JSON payload containing various fields that need to be updated. The required field is 'ID'. The HTTP method used for this API is POST and the path is /CDirectoryService/ChangeUser.
+
+**Key Search Terms**
+==================
+
+* Update user profile
+* Change user information
+* Cloud user management
+* User authentication
+* API update
+* Directory service
+
+**Example User Questions**
+=========================
+
+* What fields can be updated in a user's profile?
+* How do I invoke the Update Base Profile API?
+* Can anyone update another user's profile?
+* What is the required field for this API?
+* How do I handle errors when updating a user's profile?
+
+**Developer Notes**
+==================
+
+### Required Fields
+
+* `ID`: Unique Id of the cloud user to change.
+
+### Request/Response Structure
+
+The request body should be in JSON format with the following properties:
+
+| Property | Type | Description |
+| --- | --- | --- |
+| CmaRedirectedUserUuid | string | Idaptive mobile authenticator redirected user unique id. |
+| HomeNumber | string | User home number. |
+| useAlternateMfaAccount | boolean | Does the user have an alternate MFA Account? |
+| OrgPath | string | The organisation name to which the user is added |
+| AccountExp | string | Account expiry date/time. |
+| ReportsTo | string | Unique Id of the user to whom the user reports. |
+| DisplayName | string | User display name. |
+| PasswordNeverExpire | boolean | Does user's password expire? |
+| ID | string | Unique Id of the cloud user to change. Ex: a3e5bab3-9104-49cb-9d3a-e5da7gcef3a3 |
+| OfficeNumber | string | User office number. |
+| ForcePasswordChangeNext | boolean | Should the user change password on first login? |
+| MobileNumber | string | User mobile number. |
+| InEverybodyRole | boolean | Is user in the Everybody role? |
+| ServiceUser | boolean | Is User a service user? |
+| VerifyEmail | boolean | Enforce user to verify the registered email address |
+| PreferredCulture | string | User preferred culture. |
+| Mail | string | User email address. |
+| Description | string | User description. |
+| Name | string | Username of the user. The username can be 'username@suffix' if suffix is required, else 'username'. |
+
+The response body will contain a `Result` object with various properties that indicate the success or failure of the API call.
+
+### Security
+
+This API uses bearer authentication for security purposes.
+
+**Raw Endpoint Documentation (Formatted)**
+=============================================
+
+ENDPOINT: Update Base Profile
+PATH: /CDirectoryService/ChangeUser
+METHOD: POST
+TAGS: Manage User Data
+DESCRIPTION: Invoke this API to update the information for the specified user. User must be a cloud user. Only system administrator, users with user management rights, or the user itself can invoke this API. Specifying 'ServiceUser' will override the 'InEveryBodyRole' property if both are provided. Refer guides section Update User Information
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * CmaRedirectedUserUuid (string): Idaptive mobile authenticator redirected user unique id.
+    * HomeNumber (string): User home number.
+    * useAlternateMfaAccount (boolean): Does the user have an alternate MFA Account?
+    * OrgPath (string): The organisation name to which the user is added
+    * AccountExp (string): Account expiry date/time.
+    * ReportsTo (string): Unique Id of the user to whom the user reports.
+    * DisplayName (string): User display name.
+    * PasswordNeverExpire (boolean): Does user's password expire?
+    * ID (string): Unique Id of the cloud user to change. Ex: a3e5bab3-9104-49cb-9d3a-e5da7gcef3a3
+    * OfficeNumber (string): User office number.
+    * ForcePasswordChangeNext (boolean): Should the user change password on first login?
+    * MobileNumber (string): User mobile number.
+    * InEverybodyRole (boolean): Is user in the Everybody role?
+    * ServiceUser (boolean): Is User a service user?
+    * VerifyEmail (boolean): Enforce user to verify the registered email address
+    * PreferredCulture (string): User preferred culture.
+    * Mail (string): User email address.
+    * Description (string): User description.
+    * Name (string): Username of the user. The username can be 'username@suffix' if suffix is required, else 'username'.
+  Sample Request JSON:
+  ```json
+  {
+  "CmaRedirectedUserUuid": "string_value",
+  "HomeNumber": "string_value",
+  "useAlternateMfaAccount": false,
+  "OrgPath": "string_value",
+  "AccountExp": "string_value",
+  "ReportsTo": "string_value",
+  "DisplayName": "string_value",
+  "PasswordNeverExpire": false,
+  "ID": "string_value",
+  "OfficeNumber": "string_value",
+  "ForcePasswordChangeNext": false,
+  "MobileNumber": "string_value",
+  "InEverybodyRole": false,
+  "ServiceUser": false,
+  "VerifyEmail": false,
+  "PreferredCulture": "string_value",
+  "Mail": "string_value",
+  "Description": "string_value",
+  "Name": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: CDirectoryServiceChangeUser
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (object): The result for the API call.
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default it is 'null'
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): It will be true for a successful API call.
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * InvalidId (string): This error occurs when the unique user Id is not correct. By default, the below error message will be displayed: You are not authorized to perform this operation. Please contact your IT helpdesk.
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {},
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "InvalidId": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth

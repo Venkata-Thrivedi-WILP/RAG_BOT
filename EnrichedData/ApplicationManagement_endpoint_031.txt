@@ -1,0 +1,156 @@
+**Overview**
+-----------
+
+Get TOTP codes for a Secured Password
+=====================================
+
+This endpoint allows users to retrieve TOTP (Time-Based One-Time Password) codes for a secured password. The default value for the number of TOTP codes (`n`) is 3, but it can be configured.
+
+To use this endpoint, you must provide the `sItemkey` of the secured item and optionally specify an `actionType`. The request body should contain the required fields in JSON format.
+
+**Key Search Terms**
+-------------------
+
+* Get TOTP codes
+* Secured password
+* Time-Based One-Time Password
+* UPRestGetTotpCodesForSecuredPassword
+
+**Example User Questions**
+-------------------------
+
+* What is the default value for the number of TOTP codes?
+* How do I specify an action type in the request body?
+* Can I retrieve more than 3 TOTP codes?
+* What happens if I don't provide the sItemkey?
+
+**Developer Notes**
+------------------
+
+### Required Fields
+
+* `sItemkey` (string): Secured item's unique ID
+* `actionType` (string): Optional. The action item for audit events includes the type of action (AutoFill, IBECopy, ContextMenuCopy). By default, it is set to 'null'.
+
+### Request Body
+
+The request body should contain the required fields in JSON format:
+```json
+{
+  "sItemkey": "string_value",
+  "actionType": "string_value"
+}
+```
+
+### Response Structure
+
+The response will be in the following format:
+```json
+{
+  "Result": {
+    "success": boolean,
+    "Result": {
+      "Period": integer,
+      "TOTPCodes": {
+        "1": string,
+        "2": string,
+        "3": string
+      },
+      "EpochTimeInSec": integer
+    },
+    "Message": string,
+    "MessageID": string,
+    "IsSoftError": boolean,
+    "Exception": string,
+    "ErrorID": string,
+    "ErrorCode": string,
+    "InnerExceptions": string
+  },
+  "Error": {
+    "UnAuthorized": string
+  }
+}
+```
+
+### Security
+
+This endpoint uses bearer authentication.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+ENDPOINT: Get TOTP codes for a Secured Password.
+PATH: /UPRest/GetTotpCodesForSecuredPassword
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: - Get n TOTP codes for a Secured Password. - The default value for n is 3, but it can be configured. - The response includes the period for TOTP calculation and a list of TOTP tokens in Base64 format.
+METADATA:
+  * x-idap-anon: False
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * sItemkey (string): Secured Item's Unique ID.
+    * actionType (string): Optional. The action item for audit events includes the type of action (AutoFill, IBECopy, ContextMenuCopy). By default, it is set to 'null'.
+  Sample Request JSON:
+  ```json
+  {
+  "sItemkey": "string_value",
+  "actionType": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestGetTotpCodesForSecuredPassword
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * success (boolean): The success status is either true or false.
+        * Result (object): Result includes TOTP Codes.
+          Nested properties:
+            * Period (integer): Verification code validity period.
+            * TOTPCodes (object): Results the n TOTP codes.Here the n value is 3.
+              Nested properties:
+                * 1 (string): First TOTP Code.
+                * 2 (string): Second TOTP Code.
+                * 3 (string): Third TOTP Code.
+            * EpochTimeInSec (integer): The epoch time for TOTP codes is the number of 30-second periods since January 1, 1970, which determines the current TOTP code.
+        * Message (string): Error message for failure response. By default it is 'null'.
+        * MessageID (string): Message Id for failure response. By default it is 'null'.
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'.
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'.
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'.
+        * InnerExceptions (string): InnerExceptions
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * UnAuthorized (string): This error message is displayed when user does not have rights. Error message: 'You are not authorized to perform this operation. Please contact your IT helpdesk.'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "success": false,
+    "Result": {
+      "Period": 0,
+      "TOTPCodes": {
+        "1": "string_value",
+        "2": "string_value",
+        "3": "string_value"
+      },
+      "EpochTimeInSec": 0
+    },
+    "Message": "string_value",
+    "MessageID": "string_value",
+    "IsSoftError": false,
+    "Exception": "string_value",
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "InnerExceptions": "string_value"
+  },
+  "Error": {
+    "UnAuthorized": "string_value"
+  }
+}
+```
+SECURITY: bearerAuth

@@ -1,0 +1,142 @@
+**Overview**
+-----------
+
+Get user details by name
+==========================
+
+This endpoint allows you to retrieve cloud user details by their username. You must be a system administrator or have user management permissions to access this data.
+
+* HTTP Method: POST
+* Path: `/CDirectoryService/GetUserByName`
+* Tags: Manage User Data
+
+Security Note: This endpoint requires bearer authentication.
+
+**Key Search Terms**
+-------------------
+
+* Get user details by name
+* Cloud user data retrieval
+* User management permissions
+* Bearer authentication
+* API-Result response format
+
+**Example User Questions**
+-------------------------
+
+* What is the username of a specific cloud user?
+* How do I retrieve a user's details using their UUID?
+* Can I use this endpoint to manage user roles and permissions?
+* What is the format of the response data for GetUserByName?
+* How do I authenticate with bearer authentication?
+
+**Developer Notes**
+------------------
+
+### Required Fields
+
+* `username`: The username of the cloud user to fetch (default: current user).
+
+### Request/Response Structure
+
+* Request Body:
+	+ `Content Type`: application/json
+	+ `Schema Properties`:
+		- `username` (string): User name of the cloud user to fetch (default: current user).
+* Response Body:
+	+ `Result` (object):
+		- Nested properties:
+			- `InEverybodyRole` (boolean)
+			- `Description` (string)
+			- `Name` (string)
+			- `MobileNumber` (string)
+			- `LastPasswordChangeDate` (string)
+			- `OfficeNumber` (string)
+			- `PictureUri` (string)
+			- `ReportsTo` (string)
+			- `HomeNumber` (string)
+			- `DisplayName` (string)
+			- `PreferredCulture` (string)
+			- `Alias` (string)
+			- `State` (string)
+			- `PasswordNeverExpire` (boolean)
+			- `Uuid` (string)
+			- `Mail` (string)
+	+ `Error` (object): Error message text on failure, may be null
+
+### Security Considerations
+
+* Bearer authentication is required for this endpoint.
+
+**Raw Endpoint Documentation**
+-----------------------------
+
+```markdown
+ENDPOINT: Get user details by name
+PATH: /CDirectoryService/GetUserByName
+METHOD: POST
+TAGS: Manage User Data
+DESCRIPTION: Specified user must be you, you must be a system administrator, or have user management permissions.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * username (string): User name of the cloud user to fetch (default=current user).
+  Sample Request JSON:
+  ```json
+  {
+  "username": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: CDirectoryServiceGetUserByName
+  Response Body Properties:
+    * Result (object): Cloud user details.
+      Nested properties:
+        * InEverybodyRole (boolean): Is user in the Everybody role.
+        * Description (string): User description.
+        * Name (string): User name.
+        * MobileNumber (string): User mobile phone number.
+        * LastPasswordChangeDate (string): Date/time user last changed their password.
+        * OfficeNumber (string): User office phone number.
+        * PictureUri (string): File system path to user picture file.
+        * ReportsTo (string): User reports to user UUID.
+        * HomeNumber (string): User home phone number.
+        * DisplayName (string): User display name.
+        * PreferredCulture (string): User preferred culture.
+        * Alias (string): Login suffix of the user.
+        * State (string): User state (locked, enabled, expired).
+        * PasswordNeverExpire (boolean): Does the user's password never expire.
+        * Uuid (string): User UUID.
+        * Mail (string): User email.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "InEverybodyRole": false,
+    "Description": "string_value",
+    "Name": "string_value",
+    "MobileNumber": "string_value",
+    "LastPasswordChangeDate": "string_value",
+    "OfficeNumber": "string_value",
+    "PictureUri": "string_value",
+    "ReportsTo": "string_value",
+    "HomeNumber": "string_value",
+    "DisplayName": "string_value",
+    "PreferredCulture": "string_value",
+    "Alias": "string_value",
+    "State": "string_value",
+    "PasswordNeverExpire": false,
+    "Uuid": "string_value",
+    "Mail": "string_value"
+  },
+  "Error": {}
+}
+```
+SECURITY: bearerAuth

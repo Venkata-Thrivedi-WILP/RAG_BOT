@@ -1,0 +1,106 @@
+**Overview**
+-----------
+
+Get an application's data.
+
+This endpoint allows you to retrieve detailed information about a specific application. You can use this endpoint by sending a POST request to `/UPRest/GetAppByKey` and providing the application key in the query parameters or request body.
+
+To authenticate, you must include a valid bearer token in the `Authorization` header.
+
+**Key Search Terms**
+--------------------
+
+* Get application data
+* Application management API
+* UPRest GetAppByKey endpoint
+* Retrieve application information
+* Bearer authentication
+
+**Example User Questions**
+-------------------------
+
+* What is the URL of my application?
+* How do I get the details of a specific application?
+* Can I retrieve the application's admin tag?
+* What is the display name of the web-app-type for my application?
+* How can I check if the password has been set for my application?
+
+**Developer Notes**
+-------------------
+
+### Required Parameters
+
+* `appkey` (query, Required): Application key
+* `markAppVisited` (request body, Optional): Whether the application should be marked as visited
+
+### Request Response Structure
+
+The response will contain a `Result` object with various properties, such as `Shortcut`, `Url`, and `DisplayName`. The response may also include an `Error` object if the request fails.
+
+### Sample Request JSON
+```json
+{
+  "markAppVisited": "string_value"
+}
+```
+
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "Shortcut": false,
+    "Url": "string_value",
+    "AdminTag": "string_value",
+    ...
+  },
+  "Error": {}
+}
+```
+
+### Security Considerations
+
+* Bearer authentication is required for this endpoint.
+* Ensure that the bearer token is valid and not expired.
+
+**Raw Endpoint Documentation (Formatted)**
+------------------------------------------
+
+### ENDPOINT: Get an application's data.
+
+#### PATH
+`/UPRest/GetAppByKey`
+
+#### METHOD
+`POST`
+
+#### TAGS
+`Application Management`
+
+#### METADATA
+| Field | Value |
+| --- | --- |
+| `x-idap-anon` | False |
+| `x-codegen-request-body-name` | payload |
+
+#### PARAMETERS
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| `appkey` | query | Yes | Application key |
+
+#### REQUEST BODY
+| Field | Type | Description |
+| --- | --- | --- |
+| `markAppVisited` | string | Whether the application should be marked as visited |
+
+#### RESPONSES
+| Status Code | Description |
+| --- | --- |
+| 200 | API-Result |
+
+| Response Body Properties | Description |
+| --- | --- |
+| `Result` | Application data |
+| `Error` | Error message text on failure (may be null) |
+
+#### SECURITY
+Bearer authentication is required.

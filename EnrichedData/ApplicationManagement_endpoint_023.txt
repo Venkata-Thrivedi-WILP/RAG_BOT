@@ -1,0 +1,91 @@
+**Overview**
+===============
+
+Update personal user application endpoint allows users to update their application details. This endpoint is used for managing applications and requires authentication via bearer token.
+
+* HTTP Method: POST
+* Path: `/UPRest/UpdatePersonalApplication`
+* Security Requirement: Bearer Authentication
+
+**Key Search Terms**
+==================
+
+* Update personal user application
+* Application management
+* Bearer authentication
+* User profile update
+* API request body JSON
+* Response schema UPRestCreateTagWithNoApp
+
+**Example User Questions**
+=========================
+
+* What is the format of the request body for updating my application?
+* How do I authenticate for this endpoint?
+* Can I update multiple fields at once in the request body?
+* What happens if the update operation fails?
+* Is there any specific security consideration for this endpoint?
+
+**Developer Notes**
+==================
+
+### Required Fields
+
+* `appkey`
+
+### Request/Response Structure
+
+* Request Body: JSON object with required fields (`appname`, `appkey`, `appDescription`, `notes`, and `appUrl`)
+* Response Body:
+	+ `Result` (object): Whether the operation is successful or not
+	+ `Error` (object): Error message text on failure, may be null
+
+### Security Considerations
+
+* Bearer Authentication required for all requests
+
+**Raw Endpoint Documentation (Formatted)**
+=====================================
+
+ENDPOINT: Update personal user application.
+PATH: `/UPRest/UpdatePersonalApplication`
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * `x-idap-anon`: False
+  * `x-codegen-request-body-name`: payload
+REQUEST BODY: Required
+  Content Type: `application/json`
+  Schema Properties:
+    * `appName` (string): Application Name
+    * `appkey` (string): Application key
+    * `appDescription` (string): Application Description
+    * `notes` (string): Application notes
+    * `appUrl` (string): Application Url
+  Required fields: `appkey`
+  Sample Request JSON:
+```json
+{
+  "appName": "string_value",
+  "appkey": "string_value",
+  "appDescription": "string_value",
+  "notes": "string_value",
+  "appUrl": "string_value"
+}
+```
+RESPONSES:
+  Status Code: `200`
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * `Result` (object): Whether the operation is successful or not.
+    * `Error` (object): Error message text on failure, may be null
+  Sample Response JSON:
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+SECURITY: bearerAuth

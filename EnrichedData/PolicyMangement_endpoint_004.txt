@@ -1,0 +1,83 @@
+**Overview**
+==========
+
+Delete policy endpoint allows users to delete a specific policy block from their system. This endpoint is used in policy management and requires authentication via bearer token.
+
+To use this endpoint, you need to send a POST request to `/Policy/DeletePolicyBlock` with the policy block path as a JSON payload. The endpoint uses bearer authentication for security purposes.
+
+**Key Search Terms**
+================
+
+* Delete policy
+* Policy block deletion
+* API policy management
+* Bearer authentication
+* Policy management endpoint
+
+**Example User Questions**
+=====================
+
+* What is the syntax to delete a policy block using this endpoint?
+* How do I authenticate with bearer token for this endpoint?
+* Can I use this endpoint to delete multiple policy blocks at once?
+* What happens if the policy block does not exist in my system?
+* How can I handle errors when deleting a policy block?
+
+**Developer Notes**
+================
+
+### Required Fields
+
+* `path`: The policy block to delete. (string)
+
+### Request/Response Structure
+
+* Request Body: JSON payload with `path` field.
+* Response Body: JSON object with `Result` and `Error` fields.
+
+### Error Handling
+
+* If the policy block does not exist, an error message will be returned in the response body.
+* If the deletion fails for any reason, a boolean value of `false` will be returned in the `Result` field, along with an error message in the `Error` field.
+
+### Security Considerations
+
+* Bearer authentication is required for this endpoint. A valid bearer token must be included in the request headers.
+
+**Raw Endpoint Documentation (Formatted)**
+=====================================
+
+ENDPOINT: Delete policy
+PATH: `/Policy/DeletePolicyBlock`
+METHOD: POST
+TAGS: Policy Management
+METADATA:
+  * `x-idap-anon`: False
+  * `x-codegen-request-body-name`: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * `path` (string): The policy block to delete.
+    Required fields: path
+  Sample Request JSON:
+```json
+{
+  "path": "string_value"
+}
+```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: PolicyDeletePolicyBlock
+  Response Body Properties:
+    * `Result` (boolean): Did the policy block delete succeed.
+    * `Error` (object): Error message text on failure, may be null
+  Sample Response JSON:
+```json
+{
+  "Result": false,
+  "Error": {}
+}
+```
+SECURITY: bearerAuth

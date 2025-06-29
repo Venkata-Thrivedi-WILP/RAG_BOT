@@ -1,0 +1,92 @@
+**Overview**
+------------
+
+Get policy block endpoint allows users to retrieve a specific policy block by providing the policy block name as a query parameter. This endpoint is used for policy management and requires authentication using bearer tokens.
+
+The GET /Policy/GetPolicyBlock method sends a POST request with the policy block name in the query parameter. The security requirement is bearerAuth, which means that an API key or token must be provided in the Authorization header to access this endpoint.
+
+**Key Search Terms**
+------------------
+
+* Get policy block
+* Policy management
+* Bearer authentication
+* Radius clients
+* Risk analysis mapping
+
+**Example User Questions**
+-------------------------
+
+* What is the policy block for a specific risk level?
+* How do I get the list of radius clients associated with a policy?
+* Can I retrieve the policy modifiers for a given policy block?
+* What is the error response when the policy block does not exist?
+* How do I authenticate using bearer token for this endpoint?
+
+**Developer Notes**
+------------------
+
+### Required Parameters
+
+* `name` (query, Required): The policy block to get.
+
+### Request/Response Structure
+
+The request body is empty. The response body contains a JSON object with two properties: `Result` and `Error`. The `Result` property contains the policy block details, including risk analysis mapping, authentication profiles, policy modifiers, revision stamp, and radius client list. The `Error` property contains an error message if the policy block does not exist.
+
+### Error Handling
+
+* If the policy block does not exist, an error response is returned with a 404 status code.
+* If any other error occurs during processing, an error response is returned with a 500 status code.
+
+### Security Considerations
+
+* Bearer authentication is required for this endpoint. An API key or token must be provided in the Authorization header to access this endpoint.
+
+**Raw Endpoint Documentation (Formatted)**
+------------------------------------------
+
+ENDPOINT: Get policy block
+PATH: /Policy/GetPolicyBlock
+METHOD: POST
+TAGS: Policy Management
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * name (query, Required): The policy block to get.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: PolicyGetPolicyBlock
+  Response Body Properties:
+    * Result (object): The policy block.
+      Nested properties:
+        * RiskAnalysisLevels (object): The risk analysis mapping.
+        * AuthProfiles (array): A list of authentication profiles.
+          Array items:
+        * PolicyModifiers (array): The policy modifiers.
+          Array items:
+        * RevStamp (string): The policy revision stamp.
+        * RadiusClientList (array): The list of radius clients.
+          Array items:
+    * Error (object): { description: "The policy block.", type: "object", properties: { AuthProfiles: { description: "A list of authentication profiles.", type: "array", items: { type: "object" } }, RiskAnalysisLevels: { description: "The risk analysis mapping.", type: "object" }, PolicyModifiers: { description: "The policy modifiers.", type: "array", items: { type: "string" } }, RevStamp: { description: "The policy revision stamp.", type: "string" }, RadiusClientList: { description: "The list of radius clients.", type: "array", items: { type: "object" } } } }
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "RiskAnalysisLevels": {},
+    "AuthProfiles": [
+      {}
+    ],
+    "PolicyModifiers": [
+      "string_value"
+    ],
+    "RevStamp": "string_value",
+    "RadiusClientList": [
+      {}
+    ]
+  },
+  "Error": {}
+}
+```

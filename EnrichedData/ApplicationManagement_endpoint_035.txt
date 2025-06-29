@@ -1,0 +1,73 @@
+**Overview**
+===============
+
+Get consumed storage space for the current user.
+
+This endpoint is used to retrieve the amount of file storage space consumed by a user. It requires authentication using the `bearerAuth` scheme.
+
+**Key Search Terms**
+==================
+
+* Consumed storage space
+* File storage usage
+* User portal API
+* Secured item management
+* Bearer authentication
+
+**Example User Questions**
+=========================
+
+* What is my current file storage consumption?
+* How much space have I used up for file storage?
+* Can I view my stored files and their sizes?
+* Does this endpoint require any specific permissions or access levels?
+
+**Developer Notes**
+==================
+
+### Required Parameters
+
+* `Authorization`: bearer token (required)
+
+### Request/Response Structure
+
+* The request body should contain an empty JSON object (`{}`)
+* The response will be a JSON object with the following properties:
+	+ `Result` (object): File storage consumed per user
+	+ `Error` (object): Error message text on failure (may be null)
+
+### Security Considerations
+
+* Authentication is required using the `bearerAuth` scheme
+* No sensitive data is stored or transmitted in this endpoint
+
+**Raw Endpoint Documentation (Formatted)**
+==========================================
+
+ENDPOINT: Get consumed storage space for the current user.
+PATH: `/UPRest/UpRestGetConsumedStorageForSecuredItem`
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: This endpoint is called when clicks to add a Secured Item from the User Portal.
+METADATA:
+  * `x-idap-anon`: False
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: UpRestGetConsumedStorageForSecuredItem
+  Response Body Properties:
+    * `Result` (object): File storage consumed per user.
+      Nested properties:
+        * `StorageSpaceConsumed` (number): Total amount of space consumed per user for file storage.
+    * `Error` (object): Error message text on failure, may be null.
+  Sample Response JSON:
+```json
+{
+  "Result": {
+    "StorageSpaceConsumed": 0
+  },
+  "Error": {}
+}
+```
+SECURITY: bearerAuth

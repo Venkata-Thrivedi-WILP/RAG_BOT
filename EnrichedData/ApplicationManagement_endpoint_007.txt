@@ -1,0 +1,82 @@
+**Overview**
+===============
+
+Get the ID of an app from its service name. This endpoint allows you to retrieve the ID of an application based on its service name.
+
+*   HTTP Method: POST
+*   Path: `/SaasManage/GetAppIDByServiceName`
+*   Security Requirement: Bearer Authentication
+
+**Key Search Terms**
+==================
+
+*   `app id by service name`
+*   `get app id from service name`
+*   `saas manage get app id`
+*   `application management api`
+*   `service name to app id`
+
+**Example User Questions**
+=========================
+
+*   "What is the ID of an app based on its service name?"
+*   "How do I retrieve the ID of an application using its service name?"
+*   "Can I use bearer authentication for this endpoint?"
+*   "What happens if the service name is not found?"
+*   "How can I handle errors when calling this API?"
+
+**Developer Notes**
+==================
+
+### Required Parameters
+
+*   `name` (query, Required): Service name
+
+### Request/Response Structure
+
+*   Request Body:
+    *   `name`: Service name
+*   Response Body:
+    *   `Result`: Object containing the result of the call (may be null)
+    *   `Error`: Error message text on failure (may be null)
+
+### Sample Response JSON:
+
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+
+### Security Considerations
+
+*   Bearer Authentication is required for this endpoint.
+
+**Raw Endpoint Documentation (Formatted)**
+==========================================
+
+ENDPOINT: Gets the ID of an app from its service name
+PATH: `/SaasManage/GetAppIDByServiceName`
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * `x-idap-anon`: False
+PARAMETERS:
+  * `name` (query, Required): Service name
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: SaasManageGetAppIDByServiceName
+  Response Body Properties:
+    * Result (object): Resulting object, if any, of the call
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth

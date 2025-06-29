@@ -1,0 +1,173 @@
+**Overview**
+===============
+
+Use this API to initiate the bulk user import in the CyberArk Identity cloud directory. Only system administrators and users with user management rights can invoke this API. This API is the first part of the two API calls to upload a bulk of users in the cloud directory.
+
+To use this endpoint, you need to send a POST request to `/CDirectoryService/GetUsersFromCsvFile` with a CSV file containing the users' information for bulk import and the file name as form-data in the request body. The Identity cloud will store the file in the cloud storage and returns a ReturnID that contains the formatted name of the CSV.
+
+Security: bearerAuth is required to use this endpoint.
+
+**Key Search Terms**
+==================
+
+* Bulk Import
+* CyberArk Identity cloud directory
+* User management rights
+* System administrators
+* CSV file import
+* Cloud storage
+* ReturnID
+
+**Example User Questions**
+=========================
+
+* What is the purpose of the `GetUsersFromCsvFile` API in the CyberArk Identity cloud directory?
+* How do I initiate bulk user import using this API?
+* What security measures are required to use this endpoint?
+* How does the CSV file need to be formatted for successful import?
+* What happens if the data in the CSV file is invalid?
+
+**Developer Notes**
+==================
+
+### Required Parameters:
+
+* `importType` (query, Required): Bulk import type to process. Default type is Bulk User Import i.e. "ImportBulkUser"
+* `File_Name`: The csv file containing user information
+	+ Nested properties:
+		- `InEverybodyRole` (boolean): Place user in Everybody role (default=true)
+		- `SendSmsInvite` (boolean): Send user an SMS invite to enroll their mobile device in the portal (default=false)
+		- `InSysAdminRole` (boolean): Place user in System Adminstrator role (default=false)
+		- `Description` (string): Description of user (default=null)
+		- `Name` (string): Name of user
+		- `MobileNumber` (string): User's mobile number (default=null); note this field is required if SendSmsInvite is true
+		- `Password` (string): URL encoded password of the user (default=randomly generated strong password)
+		- `CmaRedirectedUserUuid` (string): Idaptive mobile authenticator redirected user uuid
+		- `ServiceUser` (boolean): User is a service user (default=false)
+		- `OfficeNumber` (string): User's office number (default=null).
+		- `ReportsTo` (string): Uuid of user this user reports to (default=null)
+		- `SendEmailInvite` (boolean): Send user an email invite to the portal (default=true)
+		- `HomeNumber` (string): User's home number (default=null)
+		- `DisplayName` (string): Display name of user (default=null)
+		- `ForcePasswordChangeNext` (boolean): Force password change at first login (default=true)
+		- `PasswordNeverExpire` (boolean): User's password never expires (default=false)
+		- `Mail` (string): Email of user (default=null); note this field is required if 'SendEmailInvite' is true
+* `FileName`: The CSV file name that contains a list of users and related data to be read to import. Ex: bulkImportUserTemplate.csv
+
+### Request Body:
+
+* Required:
+	+ `File_Name`
+	+ `FileName`
+
+### Response Schema:
+
+* `Result` (object): Return object for a successful API call
+	+ Nested properties:
+		- `ErrorID` (string): Error ID if any error is received from the API. By default, it is 'null'
+		- `ErrorCode` (string): Error code if any error is received from the API. By default, it is 'null'
+		- `Exception` (string): Exception message if an exception is received from the API. By default, it is 'null'
+		- `MessageID` (string): Message Id for failure response. By default it is 'null'
+		- `ReturnID` (string): ReturnID for the successful api call. By default it is null
+		- `Count` (integer): It is the number of records that the call returns
+		- `Columns` (array): Array list of definition of all Columns
+			+ Array items:
+				- `TableKey` (string): Specifies whether the column is a key and if so what kind of key it is. It can be a primary key or a foreign key. Ex: 'Primary'
+				- `Description` (string): It is the brief description of the column. Ex: 'Row Identifier (primary key)'
+				- `Name` (string): It is the name of the column
+				- `Format` (string): Currently It is not applicable. By default it is null
+				- `TableName` (string): It is the name of the table. By default it is null
+				- `DDName` (string): It is the Data dictionary name of the column. Ex: 'ID'
+				- `DDTitle` (string): It is the Data dictionary title of the column. Ex: 'ID'
+				- `Type` (string): It is the numeric indicator of the type of data in the column. Ex: '12'
+				- `IsHidden` (boolean): Specifies whether column is hidden or not. default: false
+				- `Width` (integer): Currently It is not applicable. By default it is 0
+				- `Title` (string): Title of the column. Ex: 'ID'
+				- `ForeignKey` (string): Specifies whether column holds a foreign key or not. By default, it is null
+			+ Results the rows/users details from the csv file
+			+ Array items:
+				- `Entities` (array): Array list of definition of all Columns
+					+ Array items:
+						- `IsForeignKey` (string): Specifies whether the entity has a foreign key or not. By default, it is false
+						- `Type` (string): It is type of the entity. Ex: Application
+						- `Key` (string): Unique Id of the Entity. Ex:'cb9b5761-6cfe-45a5-8ecf-ce9fa9e0ff82'
+				- `Row` (object): Details of the user that is to be imported
+					+ Nested properties:
+						- `Password` (string): This is the password for the user and must meet the CyberArk Cloud Directory password requirements. Default: null
+						- `HomeNumber` (string): User's home number
+						- `Mobile Number` (integer): User's mobile number
+						- `OfficeNumber` (string): User's office number
+						- `Roles` (string): User's roles
+						- `Expiration Date` (string): User's expiration date
+						- `Require Password Change` (string): Whether password change is required or not
+						- `Email Address` (string): User's email address
+						- `Login Name` (integer): User's login name
+						- `Description` (string): User's description
+						- `Display Name` (string): User's display name
+
+### Error Response:
+
+* `Error` (object): Error message text on failure, below message, will be returned if data present in the file is invalid
+	+ Nested properties:
+		- `InvalidSuffix` (string): When provided Table is empty or null, you would see this message 'User name 'temp@abc' has an invalid suffix - suffix must be one of the defined suffixes.'
+		- `InvalidFileFormat` (string): When provided Table is empty or null, you would see this message 'Imported file temp is not a valid Excel or CSV file - The file extension is not currently supported.'
+
+**Sample Response JSON:**
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "ReturnID": "string_value",
+    "Count": 0,
+    "Columns": [
+      {
+        "TableKey": "string_value",
+        "Description": "string_value",
+        "Name": "string_value",
+        "Format": "string_value",
+        "TableName": "string_value",
+        "DDName": "string_value",
+        "DDTitle": "string_value",
+        "Type": "string_value",
+        "IsHidden": false,
+        "Width": 0,
+        "Title": "string_value",
+        "ForeignKey": "string_value"
+      }
+    ],
+    "Results": [
+      {
+        "Entities": [
+          {
+            "IsForeignKey": "string_value",
+            "Type": "string_value",
+            "Key": "string_value"
+          }
+        ],
+        "Row": {
+          "Password": "string_value",
+          "HomeNumber": "string_value",
+          "Mobile Number": 0,
+          "OfficeNumber": "string_value",
+          "Roles": "string_value",
+          "Expiration Date": "string_value",
+          "Require Password Change": "string_value",
+          "Email Address": "string_value",
+          "Login Name": 0,
+          "Description": "string_value",
+          "Display Name": "string_value"
+        }
+      }
+    ],
+    "FullCount": 0,
+    "IsAggregate": false
+  },
+  "Error": {
+    "InvalidSuffix": "string_value",
+    "InvalidFileFormat": "string_value"
+  }
+}
+```

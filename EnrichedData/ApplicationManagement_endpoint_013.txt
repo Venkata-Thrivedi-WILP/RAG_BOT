@@ -1,0 +1,80 @@
+**Overview**
+================
+
+This endpoint allows users to download logs for the imported accounts file. To use this endpoint, you will need to send a POST request to `/UPRest/DownloadImportAccountsLogFile` and include the `fileKey` query parameter.
+
+The `fileKey` is required and must be provided in order to authenticate the request. The endpoint uses bearer authentication with the `x-idap-anon` header set to `False`.
+
+**Key Search Terms**
+================
+
+* Download logs for imported accounts file
+* UPRest/DownloadImportAccountsLogFile endpoint
+* Bearer authentication
+* x-idap-anon header
+* File key query parameter
+
+**Example User Questions**
+=========================
+
+* Can I download the logs for my imported accounts file?
+* How do I authenticate with the UPRest/DownloadImportAccountsLogFile endpoint?
+* What is the format of the `fileKey` query parameter?
+* How do I handle errors when downloading the logs?
+* Can I use bearer authentication with this endpoint?
+
+**Developer Notes**
+==================
+
+### Required Parameters
+
+* `fileKey`: The unique identifier for imported file (query, Required)
+
+### Request/Response Structure
+
+* Request:
+	+ Method: POST
+	+ Path: `/UPRest/DownloadImportAccountsLogFile`
+	+ Query parameters:
+		- `fileKey` (string): Unique identifier for imported file
+* Response:
+	+ Status Code: 200
+	+ Content Type: `*/*`
+	+ Response Schema: UPRestDownloadImportAccountsLogFile
+
+### Error Handling
+
+* The response will contain an error object with a null value if the request is successful.
+* If an error occurs, the response will contain an error message text.
+
+### Security Considerations
+
+* Bearer authentication required; set `x-idap-anon` header to `False`.
+
+**Raw Endpoint Documentation (Formatted)**
+==========================================
+
+ENDPOINT: Downloads logs for the imported accounts file.
+PATH: `/UPRest/DownloadImportAccountsLogFile`
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * `x-idap-anon`: False
+PARAMETERS:
+  * `fileKey` (query, Required): The unique identifier for imported file.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: UPRestDownloadImportAccountsLogFile
+  Response Body Properties:
+    * Result (object): File containing logs for imported accounts.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+SECURITY: bearerAuth

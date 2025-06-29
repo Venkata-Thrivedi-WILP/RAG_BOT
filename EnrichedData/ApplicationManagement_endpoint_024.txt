@@ -1,0 +1,80 @@
+**Overview**
+-----------
+
+The `/UPRest/UpdateUserApplication` endpoint allows users to update their current application settings. This endpoint requires authentication via bearer token and accepts JSON payload with `appkey` and `notes` fields.
+
+**Key Search Terms**
+-------------------
+
+* Update user application
+* Application management API
+* Bearer authentication
+* User profile updates
+
+**Example User Questions**
+-------------------------
+
+* How do I update my current application settings?
+* Can I use bearer token to authenticate for this endpoint?
+* What fields are required in the JSON payload?
+* How do I handle errors if the update fails?
+
+**Developer Notes**
+------------------
+
+### Required Parameters
+
+* `appkey`: Application key (string)
+* `notes`: Application notes (string)
+
+### Request/Response Structure
+
+* Request Body: JSON payload with `appkey` and `notes` fields
+* Response Body:
+	+ `Result`: Object indicating operation success or failure
+	+ `Error`: Error message text on failure, may be null
+
+### Security Considerations
+
+* Bearer authentication required for this endpoint
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+```markdown
+ENDPOINT: update user application for the current user.
+PATH: /UPRest/UpdateUserApplication
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * appkey (string): Application key
+    * notes (string): Application Notes
+  Sample Request JSON:
+  ```json
+  {
+  "appkey": "string_value",
+  "notes": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+```

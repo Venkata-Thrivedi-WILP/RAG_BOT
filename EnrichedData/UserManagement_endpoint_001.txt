@@ -1,0 +1,201 @@
+**Overview**
+==========
+
+Create a new user in the system. This API is only accessible to system administrators or users with user management rights.
+
+* HTTP Method: POST
+* Path: `/CDirectoryService/CreateUser`
+
+Security Requirement: Bearer Authentication
+
+**Key Search Terms**
+==================
+
+* Create User
+* Add New User
+* Register User
+* System Administrator API
+* User Management API
+
+**Example User Questions**
+========================
+
+* What is the format for a valid username?
+* How do I create a new user with a specific role?
+* Can I add a new user without specifying their email address?
+* What happens if the specified username already exists in the system?
+
+**Developer Notes**
+==================
+
+### Required Fields
+
+* `Name`: Username of the user
+* `Mail`: Email address of the user (required for sending invites)
+
+### Request Structure
+
+```json
+{
+  "InEverybodyRole": boolean,
+  "SendSmsInvite": boolean,
+  "InSysAdminRole": boolean,
+  "Description": string,
+  "Name": string,
+  "MobileNumber": string,
+  "useAlternateMfaAccount": boolean,
+  "OrgPath": string,
+  "Password": string,
+  "CmaRedirectedUserUuid": string,
+  "ServiceUser": boolean,
+  "OfficeNumber": string,
+  "ReportsTo": string,
+  "SendEmailInvite": boolean,
+  "HomeNumber": string,
+  "DisplayName": string,
+  "PrimaryIdentifier": string,
+  "VerifyEmail": boolean,
+  "ForcePasswordChangeNext": boolean,
+  "PasswordNeverExpire": boolean,
+  "Mail": string
+}
+```
+
+### Response Structure
+
+```json
+{
+  "Result": {
+    "ErrorID": string,
+    "ErrorCode": string,
+    "Exception": string,
+    "MessageID": string,
+    "Result": string,
+    "InnerExceptions": string,
+    "Message": string,
+    "success": boolean,
+    "IsSoftError": boolean
+  },
+  "Error": {
+    "UsernameNotAvailable": string,
+    "MissingParameter": string,
+    "InvalidUsername": string
+  }
+}
+```
+
+### Security
+
+* Bearer Authentication required for all requests.
+
+**Raw Endpoint Documentation (Formatted)**
+=====================================
+
+### ENDPOINT: Create user
+#### PATH: `/CDirectoryService/CreateUser`
+#### METHOD: `POST`
+#### TAGS: `Create Users`
+#### DESCRIPTION: Invoke this API to create a new user. Only system administrator or users with user management rights can invoke this API. Specifying 'ServiceUser' will override the 'InEveryBodyRole' property if both are provided. Refer guides section Create a User
+
+### METADATA
+* `x-idap-anon`: False
+* `x-codegen-request-body-name`: payload
+
+### REQUEST BODY
+#### Required
+  * Content Type: application/json
+  Schema Properties:
+    * InEverybodyRole (boolean): Place user in Everybody role (default=true)
+    * SendSmsInvite (boolean): Send user an sms invite to enroll their mobile device in the protal (default=false)
+    * InSysAdminRole (boolean): Place user in System Adminstrator role (default=false)
+    * Description (string): Description of user (default=null)
+    * Name (string): Username of the user. The username can be 'username@suffix if suffix is required, else 'username'. The username can be optional only when Primary Identifier is provided. Ex: mark@aak7163
+    * MobileNumber (string): User's mobile number (default=null); note this field is required if SendSmsInvite is true
+    * useAlternateMfaAccount (boolean): Does the user have an alternate MFA Account?
+    * OrgPath (string): The organisation name to which the user is added
+    * Password (string): Strong password of the user that meets the complexity requirements. Password must be at least 8 characters long, not be longer than 64 characters, contain at least one digit, contain at least one upper and one lower case letter. (default=randomly generated strong password)
+    * CmaRedirectedUserUuid (string): Unique id of the redirected user.
+    * ServiceUser (boolean): User is a service user (default=false)
+    * OfficeNumber (string): User's office number (default=null)
+    * ReportsTo (string): Uuid of user this user reports to (default=null)
+    * SendEmailInvite (boolean): Send user an email invite to login to the portal. (default=true)
+    * HomeNumber (string): User's home number (default=null)
+    * DisplayName (string): Display name of user (default=null)
+    * PrimaryIdentifier (string): Identifier Type used while login
+    * VerifyEmail (boolean): Enforce user to verify the registered email address
+    * ForcePasswordChangeNext (boolean): Force password change at first login (default=true)
+    * PasswordNeverExpire (boolean): User's password never expires (default=false)
+    * Mail (string): Email address of user; Note this field is required if 'SendEmailInvite' is true, or 'VerifyEmail' is true. Ex: mark@yahoo.com
+  Sample Request JSON:
+```json
+{
+  "InEverybodyRole": false,
+  "SendSmsInvite": false,
+  "InSysAdminRole": false,
+  "Description": "string_value",
+  "Name": "string_value",
+  "MobileNumber": "string_value",
+  "useAlternateMfaAccount": false,
+  "OrgPath": "string_value",
+  "Password": "string_value",
+  "CmaRedirectedUserUuid": "string_value",
+  "ServiceUser": false,
+  "OfficeNumber": "string_value",
+  "ReportsTo": "string_value",
+  "SendEmailInvite": false,
+  "HomeNumber": "string_value",
+  "DisplayName": "string_value",
+  "PrimaryIdentifier": "string_value",
+  "VerifyEmail": false,
+  "ForcePasswordChangeNext": false,
+  "PasswordNeverExpire": false,
+  "Mail": "string_value"
+}
+```
+
+### RESPONSES
+#### Status Code: 200
+#### Description: API-Result
+#### Content Type: */*
+#### Response Schema: CDirectoryServiceCreateUser
+#### Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (string): Unique Id of the created user.
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default it is 'null'
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): It will be true for a successful API call.
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * UsernameNotAvailable (string): This error occurs when the given username is already present. By default, the below error message will be displayed: User name user@aak7736 is already in use. Please contact your IT helpdesk.
+        * MissingParameter (string): This error occurs when the parameter mail id is not passed. By default, the below error message will be displayed: Parameter 'Mail' must be specified.
+        * InvalidUsername (string): This error occurs when the given username is not in correct format. By default, the below error message will be displayed: User name is invalid; user names must be of the form 'name@suffix', not contain restricted characters, and suffix must match an existing User Service suffix..
+  Sample Response JSON:
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "UsernameNotAvailable": "string_value",
+    "MissingParameter": "string_value",
+    "InvalidUsername": "string_value"
+  }
+}
+```
+
+### SECURITY
+* Bearer Authentication required for all requests.

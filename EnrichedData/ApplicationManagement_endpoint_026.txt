@@ -1,0 +1,90 @@
+**Overview**
+-----------
+
+The Upload secured item icon endpoint allows users to upload a secured item icon. This endpoint is used in Application Management and requires authentication using the bearer token.
+
+To use this endpoint, you need to send a POST request to `/UPRest/UploadSecuredItemIcon` with a JSON payload containing the `sItemkey` field. The request body must be in the format specified by the schema properties.
+
+**Key Search Terms**
+-----------------
+
+* Upload secured item icon
+* Application Management API
+* Bearer authentication
+* Secure item icon upload
+
+**Example User Questions**
+------------------------
+
+* What is the correct format for uploading a secured item icon?
+* How do I authenticate using bearer token for this endpoint?
+* Can I use this endpoint to create multiple secure items at once?
+* What happens if the upload fails?
+* How can I check the status of my uploaded secure item?
+
+**Developer Notes**
+-----------------
+
+### Required Fields
+
+* `sItemkey` (string): Name of secured item
+
+### Request Structure
+
+* HTTP Method: POST
+* Path: `/UPRest/UploadSecuredItemIcon`
+* Content Type: application/json
+* Schema Properties:
+	+ `sItemkey` (string): Name of secured item (required)
+
+### Response Structure
+
+* Status Code: 200
+* Description: API-Result
+* Content Type: `*/*`
+* Response Schema: UPRestCreateTagWithNoApp
+* Response Body Properties:
+	+ `Result` (object): Whether the operation is successful or not.
+	+ `Error` (object): Error message text on failure, may be null
+
+### Security Considerations
+
+* Bearer authentication required for this endpoint.
+
+**Raw Endpoint Documentation (Formatted)**
+-----------------------------------------
+
+ENDPOINT: Upload secured item icon.
+PATH: `/UPRest/UploadSecuredItemIcon`
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * `x-idap-anon`: False
+  * `x-codegen-request-body-name`: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * `sItemkey` (string): Name of secured item
+    Required fields: `sItemkey`
+  Sample Request JSON:
+```json
+{
+  "sItemkey": "string_value"
+}
+```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: `*/*`
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * `Result` (object): Whether the operation is successful or not.
+    * `Error` (object): Error message text on failure, may be null
+  Sample Response JSON:
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+SECURITY: bearerAuth

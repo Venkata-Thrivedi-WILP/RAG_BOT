@@ -1,0 +1,122 @@
+**Overview**
+================
+
+This API is used to create users in bulk in the CyberArk Identity cloud directory. It is the second part of a two-API-call process, initiated by the `GetUsersFromCsvFile` API. Only system administrators and users with user management rights can invoke this API.
+
+To use this API, you need to send a POST request to `/CDirectoryService/SubmitUploadedFile` with a JSON payload containing the required fields: `ReturnID`, `AdminEmail`, `SendSmsInvite`, and `SendEmailInvite`. The `importType` query parameter should be set to `"ImportBulkUser"`.
+
+**Key Search Terms**
+================
+
+* Bulk import
+* CyberArk Identity cloud directory
+* User creation API
+* POST request
+* JSON payload
+* Required fields: ReturnID, AdminEmail, SendSmsInvite, SendEmailInvite
+
+**Example User Questions**
+=========================
+
+* What is the purpose of this API?
+* How do I create users in bulk in the CyberArk Identity cloud directory?
+* What are the required fields for this API request?
+* How do I handle errors and exceptions in this API call?
+* Can anyone use this API, or only system administrators and users with user management rights?
+
+**Developer Notes**
+==================
+
+### Required Parameters
+
+* `importType` (query): Bulk import type to process. Default type is `"ImportBulkUser"`.
+* `ReturnID`: Return id received in response from preceeding API call `/GetUsersFromCsvFile`.
+* `AdminEmail`: Email address of the admin or user with user management rights who is trying to create these users on the cloud.
+* `SendSmsInvite` (boolean): Indicate if you want to send all the users created via this API an SMS invite to enroll their mobile device in the portal.
+* `SendEmailInvite` (boolean): Indicate if you want to send all the users created via this API an email invite to the portal.
+
+### Request Body
+
+The request body is required and should be sent as a JSON payload with the following structure:
+```json
+{
+  "ReturnID": "string_value",
+  "AdminEmail": "string_value",
+  "SendSmsInvite": false,
+  "SendEmailInvite": false
+}
+```
+### Response
+
+The response will contain a `Result` object with the following properties:
+
+* `ErrorID`: Error ID if any error is received from the API.
+* `ErrorCode`: Error code if any error is received from the API.
+* `Exception`: Exception message if an exception is received from the API.
+* `MessageID`: Message Id for failure response. By default it is `null`.
+* `Result`: The result for the API call.
+* `InnerExceptions`: Inner Exceptions if any received from the API. By default, it is `null`.
+* `Message`: Error message for failure response. By default it is `null`.
+* `success`: It will be true for a successful API call.
+
+### Security
+
+This API uses bearer authentication.
+
+**Raw Endpoint Documentation (Formatted)**
+==========================================
+
+ENDPOINT: Advance Bulk User Import
+PATH: `/CDirectoryService/SubmitUploadedFile`
+METHOD: POST
+TAGS: Bulk Import
+DESCRIPTION: Use this API to create users in bulk in the CyberArk Identity cloud directory. Only system administrators and users with user management rights can invoke this API. This API is the second part of the two API calls to upload a bulk of users in the cloud directory. Refer to GetUsersFromCsvFile for the first part, which initiates the import. This API creates a scheduled task to process the uploaded CSV file containing the users information for the bulk import and creation. When this API is invoked, admin submits the file uploaded to cloud for bulk user import. This API request takes a query parameter 'importType' which should be 'ImportBulkUser' in this particular case. In request body, the email address of the admin making the import and the returnId from preceeding API call are mandatory to be passed.
+
+METADATA:
+  * `x-idap-anon`: False
+  * `x-codegen-request-body-name`: payload
+
+PARAMETERS:
+  * `importType` (query, Required): Bulk import type to process. Default type is Bulk User Import i.e. "ImportBulkUser"
+
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * ReturnID (string): Return id recieved in response from preceeding API call '/GetUsersFromCsvFile'
+    * AdminEmail (string): Email address of the admin or user with user management rights whois trying to create these users on the cloud
+    * SendSmsInvite (boolean): Indicate if you want to send all the users created via this API an sms invite to enroll their mobile device in the portal
+    * SendEmailInvite (boolean): Indicate if you want to send all the users created via this API an email invite to the portal
+    Required fields: ReturnID, AdminEmail, SendSmsInvite, SendEmailInvite
+
+SAMPLE REQUEST JSON:
+```json
+{
+  "ReturnID": "string_value",
+  "AdminEmail": "string_value",
+  "SendSmsInvite": false,
+  "SendEmailInvite": false
+}
+```
+
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: CDirectoryServiceSubmitUploadedFile
+  Response Body Properties:
+    * Result (object): Return object for a successful API call
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (string): The result for the API call. Ex: 'Your job for creating users has been submitted successfully. An email will be sent to you after the job has been completed.'
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): It will be true for a successful API call
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup
+    * Error (object): Error message text on failure, below message would be returned if file did not get uploaded
+      Nested properties:
+        * ErrorMessage (string): File upload fail.
+
+SECURITY: bearerAuth
