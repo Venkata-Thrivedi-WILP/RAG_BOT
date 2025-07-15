@@ -1,50 +1,67 @@
-**Overview**
------------
+# Overview
+The **Set Authentication Profile** endpoint allows users to create or update an authentication profile. This is done by sending a POST request to the path `/AuthProfile/SaveProfile`. If the profile includes a UUID, the endpoint performs an update; otherwise, it creates a new profile. Security for this endpoint is managed through bearer token authentication.
 
-The `/AuthProfile/SaveProfile` endpoint allows users to save their authentication profile. This endpoint is used for updating an existing profile if it contains a UUID, or creating a new profile.
+# Key Search Terms
+- Set authentication profile
+- Save authentication profile
+- Update authentication profile
+- Authentication mechanisms
+- Profile UUID
+- Bearer token authentication
+- JSON request body
+- API response structure
+- Authentication profile settings
+- Duration in minutes
 
-To use this endpoint, you will need to send a POST request with the required `settings` object in the request body. The request body should be in JSON format and contain the following properties:
+# Example User Questions
+- How do I create a new authentication profile?
+- What is the endpoint to update an authentication profile?
+- How can I specify authentication mechanisms for a profile?
+- What fields are required when saving an authentication profile?
+- How do I handle errors when saving an authentication profile?
+- What is the format for the request body when saving a profile?
+- How can I retrieve the UUID of an authentication profile?
+- What does the response look like when I save a profile?
+- How do I specify the duration for which the profile is valid?
+- What authentication methods can I use in the profile?
 
-*   `Challenges`: An array of selected authentication mechanisms.
-*   `AdditionalData`: DataEntity with additional data (default=null).
-*   `Uuid`: Profile UUID.
-*   `SingleChallengeMechanisms`: Selected single authentication mechanisms.
-*   `DurationInMinutes`: How many minutes the profile is valid.
-*   `Name`: Profile name.
+# Developer Notes
+- **HTTP Method**: POST
+- **Path**: `/AuthProfile/SaveProfile`
+- **Security**: Requires bearer token authentication.
+- **Required Parameters**: 
+  - `settings` (object): The authentication profile.
+- **Request Structure**: Must be in JSON format.
+- **Response Structure**: Returns a JSON object with either the result or an error message.
+- **Error Handling**: The response may contain an error object if the operation fails.
 
-The endpoint requires bearer authentication and returns a 200 status code if successful. The response body will contain an authentication profile object with the same properties as the request body, or an error message if the operation fails.
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **settings** (object): The authentication profile.
+  - **Challenges** (array): Selected authentication mechanisms. 
+    - Example: `["password", "otp"]`
+  - **AdditionalData** (object): DataEntity with additional data (default is null).
+    - Example: `{}`
+  - **Uuid** (string): Profile UUID.
+    - Example: `"123e4567-e89b-12d3-a456-426614174000"`
+  - **SingleChallengeMechanisms** (string): Selected single authentication mechanisms.
+    - Example: `"password"`
+  - **DurationInMinutes** (integer): How many minutes the profile is valid.
+    - Example: `30`
+  - **Name** (string): Profile name.
+    - Example: `"UserProfile1"`
 
-**Key Search Terms**
--------------------
+### Response Parameters
+- **Result** (object): An authentication profile.
+  - **Challenges** (array): Selected authentication mechanisms.
+  - **AdditionalData** (object): DataEntity with additional data (default is null).
+  - **Uuid** (string): Profile UUID.
+  - **SingleChallengeMechanisms** (string): Selected single authentication mechanisms.
+  - **DurationInMinutes** (integer): How many minutes the profile is valid.
+  - **Name** (string): Profile name.
+- **Error** (object): Error message text on failure, may be null.
 
-*   `/AuthProfile/SaveProfile`
-*   Authentication Profile
-*   Update Authentication Profile
-*   Create Authentication Profile
-*   Bearer Authentication
-*   API-Result
-
-**Example User Questions**
--------------------------
-
-*   What is the `/AuthProfile/SaveProfile` endpoint used for?
-*   How do I update my authentication profile using this endpoint?
-*   Can I create a new authentication profile using this endpoint?
-*   What are the required fields for the request body?
-*   How do I authenticate with this endpoint?
-*   What happens if the operation fails?
-
-**Developer Notes**
-------------------
-
-### Required Fields
-
-*   `settings`
-
-### Request/Response Structure
-
-The request body should be in JSON format and contain the following properties:
-
+### Sample Request JSON
 ```json
 {
   "settings": {
@@ -60,20 +77,25 @@ The request body should be in JSON format and contain the following properties:
 }
 ```
 
-The response body will contain an authentication profile object with the same properties as the request body, or an error message if the operation fails.
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "Challenges": [
+      "string_value"
+    ],
+    "AdditionalData": {},
+    "Uuid": "string_value",
+    "SingleChallengeMechanisms": "string_value",
+    "DurationInMinutes": 0,
+    "Name": "string_value"
+  },
+  "Error": {}
+}
+```
 
-### Error Handling
-
-If the operation fails, the endpoint will return a 200 status code with an error message in the response body.
-
-### Security Considerations
-
-This endpoint requires bearer authentication. The `x-idap-anon` metadata indicates that anonymous access is not allowed.
-
-**Raw Endpoint Documentation (Formatted)**
-------------------------------------------
-
-```markdown
+# Raw Endpoint Documentation (Formatted)
+```
 ENDPOINT: Set authentication profile
 PATH: /AuthProfile/SaveProfile
 METHOD: POST

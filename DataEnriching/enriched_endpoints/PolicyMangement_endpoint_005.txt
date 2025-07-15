@@ -1,83 +1,73 @@
-**Overview**
------------
+# Overview
+The **Get Policy Links** endpoint allows users to retrieve policy links associated with a specific policy set. This is done via a **POST** request to the path **/Policy/GetNicePlinks**. To access this endpoint, a valid **RevStamp** is required for both requesting and setting policy links. The response will return a dictionary containing the policy link details, with the **RevStamp** included as the last entry. Security is managed through **bearer authentication**.
 
-The `/Policy/GetNicePlinks` endpoint allows users to retrieve a list of policy links in UI Query Response format. This endpoint requires authentication using the `bearerAuth` security mechanism.
+# Key Search Terms
+- Get Policy Links
+- Policy Management API
+- RevStamp requirement
+- Policy link details
+- POST /Policy/GetNicePlinks
+- API response structure
+- Policy link parameters
+- Error handling in API
+- Bearer authentication
 
-To use this endpoint, send a POST request to `/Policy/GetNicePlinks`. The request body should contain any required parameters.
+# Example User Questions
+- How can I retrieve policy links using the API?
+- What information do I need to provide to get policy links?
+- What does the response from the Get Policy Links endpoint look like?
+- Is there a RevStamp requirement for accessing policy links?
+- How do I handle errors when calling the Get Policy Links endpoint?
+- What types of data are included in the policy link response?
+- Can I filter the policy links returned by the API?
+- What authentication method is required for this endpoint?
+- How do I set policy links using the API?
 
-**Key Search Terms**
--------------------
+# Developer Notes
+- **Required Parameters**: 
+  - RevStamp (must be included in the request)
+- **Request Structure**: 
+  - The request must be a POST to the endpoint `/Policy/GetNicePlinks`.
+- **Response Structure**: 
+  - The response will include a **Result** array with policy link details and an **Error** object if applicable.
+- **Error Handling**: 
+  - The **Error** object may contain error message text on failure, which can be null.
+- **Security Considerations**: 
+  - Bearer authentication is required to access this endpoint.
 
-* Policy management
-* Get policy links
-* RevStamp
-* UI Query Response format
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **RevStamp**: 
+  - Type: String
+  - Description: A unique token required for both requesting and setting policy links.
 
-**Example User Questions**
--------------------------
-
-* What is the RevStamp requirement for this endpoint?
-* How do I use the `/Policy/GetNicePlinks` endpoint to retrieve policy links?
-* What is the format of the response body for the `/Policy/GetNicePlinks` endpoint?
-* Can I use this endpoint without authentication?
-
-**Developer Notes**
--------------------
-
-### Required Parameters
-
-* None specified in the raw documentation, but `RevStamp` is required.
-
-### Request/Response Structure
-
-* The request body should contain any required parameters.
-* The response body is a dictionary with two properties: `Result` and `Error`.
-* `Result` contains an array of policy links in UI Query Response format.
-* `Error` may be null or contain error message text on failure.
-
-### Error Handling
-
-* If the request fails, the response will contain an `Error` object with error message text.
-
-### Security Considerations
-
-* This endpoint requires authentication using the `bearerAuth` security mechanism.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-```markdown
-ENDPOINT: Gets policy links.
-PATH: /Policy/GetNicePlinks
-METHOD: POST
-TAGS: Policy Management
-DESCRIPTION: RevStamp is required for both requesting and setting policy links. Return is a dictionary(plink name, plink fields as below) with RevStamp as the last entry.
-
-METADATA:
-  * x-idap-anon: False
-
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: */*
-  Response Schema: PolicyGetNicePlinks
-  Response Body Properties:
-    * Result (array): The list of policy links in UI Query Response format.
-      Array items:
-        * Description (string): The policy link description.
-        * I18NDescriptionTag (string): Localized version of the description.
-        * PolicySet (string): The policy link policy set.
-        * LinkType (string): The policy link type.
-        * Params (array): The policy link parameters.
-          Array items:
-        * Filters (array): The policy link filters.
-          Array items:
-        * AllowedPolicies (array): The policy link allowed policies.
-          Array items:
-        * EnableCompliant (boolean): The policy link enable compliant.
-    * Error (object): Error message text on failure, may be null
-
-  Sample Response JSON:
+### Response Parameters
+- **Result** (array): 
+  - Description: The list of policy links in UI Query Response format.
+  - Array items:
+    - **Description** (string): The policy link description.
+      - Example: `"User Data Policy"`
+    - **I18NDescriptionTag** (string): Localized version of the description.
+      - Example: `"user_data_policy"`
+    - **PolicySet** (string): The policy link policy set.
+      - Example: `"default_policy_set"`
+    - **LinkType** (string): The policy link type.
+      - Example: `"internal"`
+    - **Params** (array): The policy link parameters.
+      - Array items:
+        - Example: `["param1", "param2"]`
+    - **Filters** (array): The policy link filters.
+      - Array items:
+        - Example: `["filter1", "filter2"]`
+    - **AllowedPolicies** (array): The policy link allowed policies.
+      - Array items:
+        - Example: `["policy1", "policy2"]`
+    - **EnableCompliant** (boolean): Indicates if the policy link is enabled for compliance.
+      - Example: `true`
+- **Error** (object): 
+  - Description: Error message text on failure, may be null.
+  
+### Sample Response JSON
 ```json
 {
   "Result": [
@@ -102,4 +92,58 @@ RESPONSES:
 }
 ```
 
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Gets policy links.
+PATH: /Policy/GetNicePlinks
+METHOD: POST
+TAGS: Policy Management
+DESCRIPTION: RevStamp is required for both requesting and setting policy links. Return is a dictionary(plink name, plink fields as below) with RevStamp as the last entry.
+METADATA:
+  * x-idap-anon: False
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: PolicyGetNicePlinks
+  Response Body Properties:
+    * Result (array): The list of policy links in UI Query Response format.
+      Array items:
+        * Description (string): The policy link description.
+        * I18NDescriptionTag (string): Localized version of the description.
+        * PolicySet (string): The policy link policy set.
+        * LinkType (string): The policy link type.
+        * Params (array): The policy link parameters.
+          Array items:
+        * Filters (array): The policy link filters.
+          Array items:
+        * AllowedPolicies (array): The policy link allowed policies.
+          Array items:
+        * EnableCompliant (boolean): The policy link enable compliant.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": [
+    {
+      "Description": "string_value",
+      "I18NDescriptionTag": "string_value",
+      "PolicySet": "string_value",
+      "LinkType": "string_value",
+      "Params": [
+        "string_value"
+      ],
+      "Filters": [
+        "string_value"
+      ],
+      "AllowedPolicies": [
+        "string_value"
+      ],
+      "EnableCompliant": false
+    }
+  ],
+  "Error": {}
+}
+  ```
 SECURITY: bearerAuth
+```

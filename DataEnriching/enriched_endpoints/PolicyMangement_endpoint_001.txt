@@ -1,61 +1,71 @@
-**Overview**
-------------
+# Overview  
+The **Delete Authentication Profile** endpoint allows users to remove an existing authentication profile from the system. This is done by sending a POST request to the path **/AuthProfile/DeleteProfile**. To access this endpoint, users must provide a valid bearer token for authentication.
 
-Delete authentication profile endpoint allows users to remove their existing authentication profiles. This endpoint is used when a user wants to delete their stored credentials.
+# Key Search Terms  
+- Delete authentication profile  
+- Remove auth profile  
+- Authentication UUID deletion  
+- API endpoint for deleting profiles  
+- POST request to delete profile  
+- Bearer token authentication  
+- AuthProfile API  
+- JSON request for profile deletion  
+- Error handling in profile deletion  
+- Authentication profile management  
 
-To use this endpoint, you need to send a POST request to `/AuthProfile/DeleteProfile` and include the `uuid` of the authentication profile you want to delete in the request body.
+# Example User Questions  
+- How can I delete an authentication profile?  
+- What is the endpoint to remove an auth profile?  
+- What parameters do I need to send to delete a profile?  
+- How do I authenticate when deleting an authentication profile?  
+- What does the response look like when I delete a profile?  
+- Can I delete an authentication profile using a UUID?  
+- What should I do if I receive an error when trying to delete a profile?  
+- Is there a sample request for deleting an authentication profile?  
+- What security measures are in place for this endpoint?  
+- How do I know if the deletion was successful?  
 
-**Security Note:** This endpoint requires bearer authentication.
+# Developer Notes  
+- **Required Parameters:**  
+  - `uuid` (query, Required): The UUID of the authentication profile to be deleted.  
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - Request Body must include the `uuid`.  
+- **Response Structure:**  
+  - Status Code: `200`  
+  - Response Body will contain:  
+    - `Result` (boolean): Indicates success or failure of the delete operation.  
+    - `Error` (object): Contains error message text on failure, may be null.  
+- **Security Considerations:**  
+  - This endpoint requires bearer token authentication.  
 
-**Key Search Terms**
--------------------
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **uuid**  
+  - **Type:** string  
+  - **Description:** The authentication profile UUID that identifies the profile to be deleted.  
+  - **Constraints:** Required field.  
+  - **Example Value:** `"123e4567-e89b-12d3-a456-426614174000"`  
 
-* Delete authentication profile
-* Remove stored credentials
-* Authentication UUID deletion
-* Bearer authentication API call
-
-**Example User Questions**
--------------------------
-
-* How do I delete my existing authentication profile using this API?
-* What is the format of the request body for deleting an authentication profile?
-* Can I use this endpoint to remove multiple authentication profiles at once?
-* How do I know if the deletion was successful or not?
-* What happens if I try to delete a non-existent authentication profile?
-
-**Developer Notes**
-------------------
-
-### Parameters
-
-* `uuid` (query, Required): Authentication UUID.
-
-### Request Body
-
-* `Content Type`: application/json
-* `Schema Properties`:
-	+ `uuid` (string): The authentication profile uuid either passed in by method call or as part of the payload.
-	+ `Required fields`: `uuid`
-
-### Response
-
-* Status Code: 200
-* Description: API-Result
-* Content Type: `*/*`
-* Response Schema: AuthProfileDeleteProfile
-* Response Body Properties:
-	+ `Result` (boolean): Success or failure of the delete
-	+ `Error` (object): Error message text on failure, may be null
-
-### Sample Request JSON
+## Request Body  
 ```json
 {
   "uuid": "string_value"
 }
 ```
 
-### Sample Response JSON
+## Response Parameters  
+- **Result**  
+  - **Type:** boolean  
+  - **Description:** Indicates whether the deletion was successful.  
+  - **Example Value:** `false`  
+
+- **Error**  
+  - **Type:** object  
+  - **Description:** Contains error message text if the deletion fails; may be null.  
+  - **Example Value:** `{}`  
+
+## Sample Response JSON  
 ```json
 {
   "Result": false,
@@ -63,42 +73,40 @@ To use this endpoint, you need to send a POST request to `/AuthProfile/DeletePro
 }
 ```
 
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-ENDPOINT: Delete authentication profile
-PATH: `/AuthProfile/DeleteProfile`
-METHOD: POST
-TAGS: Authentication Profile
-METADATA:
-  * `x-idap-anon`: False
-  * `x-codegen-request-body-name`: payload
-PARAMETERS:
-  * `uuid` (query, Required): Authentication UUID.
-REQUEST BODY: Required
-  Content Type: application/json
-  Schema Properties:
-    * uuid (string): The authentication profile uuid either passed in by method call or as part of the payload.
-    Required fields: uuid
-  Sample Request JSON:
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Delete authentication profile  
+**PATH:** /AuthProfile/DeleteProfile  
+**METHOD:** POST  
+**TAGS:** Authentication Profile  
+**METADATA:**  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**PARAMETERS:**  
+  * uuid (query, Required): Authentication UUID.  
+**REQUEST BODY:** Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * uuid (string): The authentication profile uuid either passed in by method call or as part of the payload.  
+    **Required fields:** uuid  
+  **Sample Request JSON:**  
   ```json
-{
-  "uuid": "string_value"
-}
-```
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: `*/*`
-  Response Schema: AuthProfileDeleteProfile
-  Response Body Properties:
-    * Result (boolean): Success or failure of the delete
-    * Error (object): Error message text on failure, may be null
-  Sample Response JSON:
+  {
+    "uuid": "string_value"
+  }
+  ```  
+**RESPONSES:**  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: AuthProfileDeleteProfile  
+  Response Body Properties:  
+    * Result (boolean): Success or failure of the delete  
+    * Error (object): Error message text on failure, may be null  
+  **Sample Response JSON:**  
   ```json
-{
-  "Result": false,
-  "Error": {}
-}
-```
-SECURITY: bearerAuth
+  {
+    "Result": false,
+    "Error": {}
+  }
+  ```  
+**SECURITY:** bearerAuth  

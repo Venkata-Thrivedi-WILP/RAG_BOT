@@ -1,84 +1,107 @@
-**Overview**
------------
+# Overview  
+The **Delete Policy** endpoint allows users to remove a specific policy block from the system. This is accomplished through a POST request to the path `/Policy/DeletePolicyBlock`. To access this endpoint, users must provide a valid bearer token for authentication.
 
-The Delete policy endpoint allows users to delete a specific policy block from their API. This endpoint is used in conjunction with the Policy Management tags.
+# Key Search Terms  
+- Delete policy block  
+- Policy management API  
+- Remove policy  
+- API delete request  
+- Bearer token authentication  
+- JSON request body  
+- Policy deletion response  
+- Error handling in API  
+- Policy block removal  
 
-To use this endpoint, you will need to send a POST request to `/Policy/DeletePolicyBlock` and provide a JSON payload containing the path of the policy block to be deleted. The `x-idap-anon` tag indicates that authentication is required for this endpoint.
+# Example User Questions  
+- How can I delete a policy block using the API?  
+- What is the endpoint to remove a policy?  
+- What authentication do I need for deleting a policy block?  
+- Can I get a response if the policy deletion fails?  
+- What format should the request body be in for deleting a policy?  
+- What does the response look like after deleting a policy block?  
+- Is the policy deletion action secure?  
+- What parameters do I need to provide to delete a policy?  
+- How do I check if the policy block was successfully deleted?  
+- What should I do if I receive an error when trying to delete a policy?  
 
-**Key Search Terms**
--------------------
+# Developer Notes  
+- **Required Parameters:**  
+  - `path` (string): The policy block to delete. This field is mandatory in the request body.  
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - Example Request JSON:  
+    ```json
+    {
+      "path": "string_value"
+    }
+    ```
+- **Response Structure:**  
+  - Status Code: `200`  
+  - Response Content Type: `*/*`  
+  - Response Body Properties:  
+    - `Result` (boolean): Indicates whether the policy block deletion was successful.  
+    - `Error` (object): Contains error message text on failure, may be null.  
+  - Example Response JSON:  
+    ```json
+    {
+      "Result": false,
+      "Error": {}
+    }
+    ```
+- **Security Considerations:**  
+  - This endpoint requires bearer token authentication.
 
-* Delete policy
-* Policy management
-* API policy block deletion
-* Policy delete endpoint
-* Bearer authentication
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **path**  
+  - **Type:** string  
+  - **Description:** The specific policy block that needs to be deleted.  
+  - **Constraints:** This field is required.  
+  - **Example Value:** `"policy/block/path"`
 
-**Example User Questions**
--------------------------
+## Response Parameters  
+- **Result**  
+  - **Type:** boolean  
+  - **Description:** Indicates if the deletion of the policy block was successful.  
+  - **Example Value:** `true` or `false`  
 
-* What is the syntax for deleting a policy block using the DELETE policy endpoint?
-* How do I authenticate with the DELETE policy endpoint?
-* Can I use the DELETE policy endpoint to modify existing policy blocks?
-* What happens if the policy block deletion fails?
-* How can I retrieve the result of a successful policy block deletion?
+- **Error**  
+  - **Type:** object  
+  - **Description:** Contains error message text if the deletion fails; may be null if there is no error.  
+  - **Example Value:** `{}` or `{"message": "Policy block not found"}`  
 
-**Developer Notes**
------------------
-
-### Required Parameters
-
-* `path`: The policy block to delete (required)
-
-### Request/Response Structure
-
-* Request Body:
-	+ `Content-Type: application/json`
-	+ Schema Properties:
-		- `path` (string): The policy block to delete
-		- `Required fields`: `path`
-* Response Body:
-	+ `Result` (boolean): Did the policy block deletion succeed?
-	+ `Error` (object): Error message text on failure, may be null
-
-### Security Considerations
-
-* Bearer authentication is required for this endpoint.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-ENDPOINT: Delete policy
-PATH: `/Policy/DeletePolicyBlock`
-METHOD: POST
-TAGS: Policy Management
-METADATA:
-  * `x-idap-anon`: False
-  * `x-codegen-request-body-name`: payload
-REQUEST BODY: Required
-  Content Type: application/json
-  Schema Properties:
-    * path (string): The policy block to delete.
-    Required fields: path
-  Sample Request JSON:
-```json
-{
-  "path": "string_value"
-}
-```
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: `*/*`
-  Response Schema: PolicyDeletePolicyBlock
-  Response Body Properties:
-    * Result (boolean): Did the policy block delete succeed.
-    * Error (object): Error message text on failure, may be null
-  Sample Response JSON:
-```json
-{
-  "Result": false,
-  "Error": {}
-}
-```
-SECURITY: bearerAuth
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Delete policy  
+**PATH:** /Policy/DeletePolicyBlock  
+**METHOD:** POST  
+**TAGS:** Policy Management  
+**METADATA:**  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**REQUEST BODY:** Required  
+  **Content Type:** application/json  
+  **Schema Properties:**  
+    * path (string): The policy block to delete.  
+  **Required fields:** path  
+  **Sample Request JSON:**  
+  ```json  
+  {  
+    "path": "string_value"  
+  }  
+  ```  
+**RESPONSES:**  
+  **Status Code:** 200  
+  **Description:** API-Result  
+  **Content Type:** */*  
+  **Response Schema:** PolicyDeletePolicyBlock  
+  **Response Body Properties:**  
+    * Result (boolean): Did the policy block delete succeed.  
+    * Error (object): Error message text on failure, may be null  
+  **Sample Response JSON:**  
+  ```json  
+  {  
+    "Result": false,  
+    "Error": {}  
+  }  
+  ```  
+**SECURITY:** bearerAuth  

@@ -1,76 +1,92 @@
-**Overview**
------------
+# Overview  
+The **Get Password Complexity Requirements** endpoint allows users to retrieve the password complexity requirements associated with a specific user. This is done by sending a POST request to the path **/Policy/GetPasswordComplexityRequirements**. The endpoint requires authentication via a bearer token, ensuring that only authorized users can access the password complexity information.
 
-Get password complexity requirements endpoint allows users to retrieve their password complexity requirements. This endpoint uses a POST request to the `/Policy/GetPasswordComplexityRequirements` path.
+# Key Search Terms  
+- Password complexity requirements  
+- User password policy  
+- Retrieve password rules  
+- Password strength criteria  
+- User identifier for password policy  
+- API password requirements  
+- Security policy management  
+- Bearer authentication for password rules  
+- POST request for password complexity  
 
-To use this endpoint, you will need to provide a `uuidOrName` query parameter with your unique identifier or name. The response will contain a `Result` property with the password complexity requirements for the user and an optional `Error` object if there are any issues.
+# Example User Questions  
+- How can I find out the password complexity requirements for a user?  
+- What are the rules for creating a password for a specific user?  
+- How do I retrieve password strength criteria using the API?  
+- What information do I need to provide to get password policy details?  
+- Can I access password requirements for a user without authentication?  
+- What does the response look like when I query password complexity?  
+- How do I use the Get Password Complexity Requirements endpoint?  
+- What is the required parameter for retrieving password complexity?  
+- How can I check if a user's password meets complexity requirements?  
+- What type of authentication is needed for this API call?  
 
-**Security Requirements**
-------------------------
+# Developer Notes  
+- **Required Parameters:**  
+  - `uuidOrName` (query, Required): User's unique identifier or name to use when retrieving password complexity requirements.  
+- **Request Structure:**  
+  - The request must be a POST method to the specified endpoint.  
+- **Response Structure:**  
+  - Status Code: 200  
+  - Content Type: */*  
+  - Response Schema: `PolicyGetPasswordComplexityRequirements`  
+- **Error Handling:**  
+  - The response may contain an `Error` object if there are issues retrieving the password complexity requirements.  
+- **Security Considerations:**  
+  - This endpoint requires bearer authentication to ensure that only authorized users can access the password complexity requirements.
 
-This endpoint requires bearer authentication.
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- **uuidOrName**  
+  - **Type:** string  
+  - **Description:** User's unique identifier or name. This parameter is required to retrieve the password complexity requirements for the specified user.  
+  - **Example Value:** `user123`  
 
-**Key Search Terms**
--------------------
+### Response Parameters  
+- **Result**  
+  - **Type:** string  
+  - **Description:** The password complexity requirements for the user.  
+  - **Example Value:** `"Password must be at least 8 characters long and include a mix of letters, numbers, and symbols."`  
+- **Error**  
+  - **Type:** object  
+  - **Description:** Contains error details if the request fails.  
+  - **Properties:**  
+    - **description** (string): A description of the error encountered.  
+  - **Example Value:** `{ "description": "User not found." }`  
 
-* Get password complexity requirements
-* Policy Management
-* User password complexity
-* Bearer authentication
-* Password policy
-
-**Example User Questions**
--------------------------
-
-* What is my password complexity requirement?
-* Can I get the password complexity requirements for a specific user?
-* How do I authenticate with this endpoint?
-* What happens if there's an error retrieving my password complexity requirements?
-* Can I use bearer authentication to access this endpoint?
-
-**Developer Notes**
-------------------
-
-### Required Parameters
-
-* `uuidOrName` (query, Required): User's unique identifier or name to use when retrieving password complexity requirements.
-
-### Request/Response Structure
-
-The request body should contain the required `uuidOrName` parameter. The response will be a JSON object with a `Result` property containing the password complexity requirements for the user and an optional `Error` object if there are any issues.
-
-### Error Handling
-
-If there's an error retrieving the password complexity requirements, the response will contain an `Error` object with a description of the issue.
-
-### Security Considerations
-
-This endpoint requires bearer authentication. Make sure to include a valid bearer token in the `Authorization` header of your request.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-ENDPOINT: Get password complexity requirements
-PATH: `/Policy/GetPasswordComplexityRequirements`
-METHOD: POST
-TAGS: Policy Management
-METADATA:
-  * x-idap-anon: False
-PARAMETERS:
-  * `uuidOrName` (query, Required): User's unique identifier or name to use when retrieving password complexity requirements.
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: `*/*`
-  Response Schema: PolicyGetPasswordComplexityRequirements
-  Response Body Properties:
-    * `Result` (string): The password complexity requirements for the user.
-    * `Error` (object): { description: "The password complexity requirements for the user.", type: "string" }
-  Sample Response JSON:
-  ```json
+### Sample Response JSON  
+```json
 {
   "Result": "string_value",
   "Error": {}
 }
 ```
-SECURITY: bearerAuth
+
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Get password complexity requirements  
+**PATH:** /Policy/GetPasswordComplexityRequirements  
+**METHOD:** POST  
+**TAGS:** Policy Management  
+**METADATA:**  
+  * x-idap-anon: False  
+**PARAMETERS:**  
+  * uuidOrName (query, Required): User's unique identifier or name to use when retrieving password complexity requirements.  
+**RESPONSES:**  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: PolicyGetPasswordComplexityRequirements  
+  Response Body Properties:  
+    * Result (string): The password complexity requirements for the user.  
+    * Error (object): { description: "The password complexity requirements for the user.", type: "string" }  
+  Sample Response JSON:  
+  ```json  
+  {  
+    "Result": "string_value",  
+    "Error": {}  
+  }  
+  ```  
+**SECURITY:** bearerAuth  
