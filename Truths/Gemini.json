@@ -1,0 +1,107 @@
+[
+  {
+    "level": "easy",
+    "question": "What is the purpose of the `/AuthProfile/DeleteProfile` endpoint and what information is required to use it?",
+    "answer": "The `/AuthProfile/DeleteProfile` endpoint is used to delete an authentication profile. To use it, you must provide the `uuid` of the authentication profile either as a query parameter or in the request body."
+  },
+  {
+    "level": "easy",
+    "question": "Which endpoint allows you to retrieve an authentication profile and what is the key identifier for this operation?",
+    "answer": "The `/AuthProfile/GetProfile` endpoint allows you to retrieve an authentication profile. The key identifier for this operation is the `uuid` of the profile, which can be passed as a query parameter or within the request body."
+  },
+  {
+    "level": "easy",
+    "question": "How can you set or update an authentication profile, and what is the primary data structure required in the request?",
+    "answer": "You can set or update an authentication profile using the `/AuthProfile/SaveProfile` endpoint. The primary data structure required in the request is the `settings` object, which contains details like challenges, duration, and the profile name."
+  },
+  {
+    "level": "easy",
+    "question": "What is the endpoint for deleting a policy and what information do you need to provide?",
+    "answer": "The endpoint for deleting a policy is `/Policy/DeletePolicyBlock`. You need to provide the `path` of the policy block to be deleted in the request body."
+  },
+  {
+    "level": "easy",
+    "question": "Which endpoint is used to get authentication assurance level, and what parameter is required?",
+    "answer": "The `/AuthProfile/GetProfileMFAScoring` endpoint is used to get authentication assurance level. The `challenges` parameter, representing profile factors, is required."
+  },
+  {
+    "level": "easy",
+    "question": "What is the purpose of the `/Policy/GetPasswordComplexityRequirements` endpoint?",
+    "answer": "The `/Policy/GetPasswordComplexityRequirements` endpoint is used to retrieve the password complexity requirements for a user."
+  },
+  {
+    "level": "easy",
+    "question": "What does the `PolicySavePolicyBlock3` endpoint do?",
+    "answer": "The `PolicySavePolicyBlock3` endpoint is used to set or update a policy. It replaces and deprecates `SavePolicyBlock2` by adding revision stamp functionality."
+  },
+  {
+    "level": "medium",
+    "question": "When saving an authentication profile using `/AuthProfile/SaveProfile`, how does the system differentiate between creating a new profile and updating an existing one?",
+    "answer": "When saving an authentication profile using `/AuthProfile/SaveProfile`, the system differentiates between creating a new profile and updating an existing one based on the presence of a UUID within the profile. If the profile contains a UUID, an update is performed; otherwise, it's considered a new write."
+  },
+  {
+    "level": "medium",
+    "question": "Explain the significance of `RevStamp` in the context of policy management APIs, specifically for the `/Policy/SavePolicyBlock3` and `/Policy/GetNicePlinks` endpoints.",
+    "answer": "`RevStamp` is a revision stamp used to help prevent data loss when multiple users are editing policies. It is required for both requesting and setting policy links via `/Policy/GetNicePlinks`. For `/Policy/SavePolicyBlock3`, `RevStamp` is a required field in the `policy` object if `Newpolicy` is false, meaning it's an update operation."
+  },
+  {
+    "level": "medium",
+    "question": "Describe the information you can retrieve about a policy block using the `/Policy/GetPolicyBlock` endpoint. What are some key properties included in the response?",
+    "answer": "Using the `/Policy/GetPolicyBlock` endpoint, you can retrieve details of a policy block. Key properties included in the response `Result` object are `RiskAnalysisLevels`, `AuthProfiles` (a list of authentication profiles), `PolicyModifiers`, `RevStamp` (the policy revision stamp), and `RadiusClientList`."
+  },
+  {
+    "level": "medium",
+    "question": "If I want to manage different authentication methods for my users, which API endpoints would be most relevant for setting up and retrieving authentication profiles?",
+    "answer": "If you want to manage different authentication methods, the most relevant API endpoints would be `/AuthProfile/SaveProfile` for setting up or updating authentication profiles and `/AuthProfile/GetProfile` for retrieving existing authentication profiles."
+  },
+  {
+    "level": "medium",
+    "question": "What are the common response properties across the authentication profile management APIs, such as delete, get, and save operations?",
+    "answer": "Across authentication profile management APIs (`/AuthProfile/DeleteProfile`, `/AuthProfile/GetProfile`, and `/AuthProfile/SaveProfile`), the common response properties are `Result` (indicating success or providing the profile data) and `Error` (providing an error message on failure)."
+  },
+  {
+    "level": "medium",
+    "question": "Suppose I'm developing a feature that allows administrators to define custom password requirements. Which API endpoint would I use to retrieve the existing complexity rules, and what parameter would I need to specify?",
+    "answer": "You would use the `/Policy/GetPasswordComplexityRequirements` endpoint to retrieve existing password complexity rules. You would need to specify the `uuidOrName` parameter, which is the user's unique identifier or name."
+  },
+  {
+    "level": "medium",
+    "question": "Beyond authentication profiles, what other policy-related information can be retrieved via the API, and which endpoints support this?",
+    "answer": "Beyond authentication profiles, policy-related information that can be retrieved via the API includes policy links using `/Policy/GetNicePlinks` and the details of a specific policy block using `/Policy/GetPolicyBlock`. Additionally, password complexity requirements can be retrieved via `/Policy/GetPasswordComplexityRequirements`."
+  },
+  {
+    "level": "hard",
+    "question": "Imagine a scenario where an administrator is trying to update a policy but encounters an issue with conflicting changes from another user. How do the `/Policy/GetPolicyBlock` and `/Policy/SavePolicyBlock3` endpoints, through the use of `RevStamp`, address this concurrency problem?",
+    "answer": "The `/Policy/GetPolicyBlock` endpoint retrieves the current state of a policy block, including a `RevStamp`. When an administrator wants to update the policy using `/Policy/SavePolicyBlock3`, they must include this `RevStamp` in the request body if `Newpolicy` is false. This `RevStamp` acts as an optimistic locking mechanism. If the `RevStamp` provided in the `SavePolicyBlock3` request does not match the current `RevStamp` on the server (meaning another user has made a change since the policy was retrieved), the operation would likely fail, preventing the loss of changes from either user. The system uses the `RevStamp` to ensure that the policy being updated is the version the user intended to modify, thereby preventing conflicting changes."
+  },
+  {
+    "level": "hard",
+    "question": "A developer needs to implement a feature that displays all available authentication mechanisms for creating a new authentication profile, and then allows the selection of specific mechanisms for a profile. Outline the API calls and relevant data fields they would need to interact with to achieve this, considering both the input for creating/updating and the output for retrieval.",
+    "answer": "To implement this feature, the developer would first need to retrieve existing authentication profiles, potentially to see examples or current configurations, using `/AuthProfile/GetProfile`. The `Result` of this call contains the `Challenges` array, which lists selected authentication mechanisms. While the documentation doesn't explicitly list *all* available mechanisms in a separate endpoint, the `Challenges` field in `AuthProfileSaveProfile` and `AuthProfileGetProfile` indicates that they are strings representing these mechanisms. Therefore, to create or update an authentication profile with selected mechanisms, the developer would use the `/AuthProfile/SaveProfile` endpoint. In the request body, they would populate the `settings.Challenges` array with the desired string values for the authentication mechanisms. The response from `SaveProfile` would then confirm the `Result` including the `Challenges` that were set."
+  },
+  {
+    "level": "hard",
+    "question": "Consider a system that needs to dynamically adjust authentication assurance levels based on various factors. Describe how `/AuthProfile/GetProfileMFAScoring` integrates with authentication profile management, and what information from the authentication profile is crucial for this dynamic adjustment.",
+    "answer": "The `/AuthProfile/GetProfileMFAScoring` endpoint is designed to get authentication assurance levels based on provided 'profile factors'. This endpoint integrates with authentication profile management by allowing a system to query for the assurance level associated with specific `challenges` (authentication mechanisms). The crucial information from the authentication profile for this dynamic adjustment would be the `Challenges` array, which specifies the selected authentication mechanisms within a given profile. By passing these challenges to `/AuthProfile/GetProfileMFAScoring`, the system can dynamically determine the corresponding authentication assurance level, potentially allowing for adaptive authentication policies based on the configured authentication methods in a user's profile."
+  },
+  {
+    "level": "hard",
+    "question": "A security analyst wants to review the entire set of policy links and then delete a specific policy block if it's no longer needed. Detail the sequence of API calls they would make and the necessary parameters or body content for each step.",
+    "answer": "First, the security analyst would use the `/Policy/GetNicePlinks` endpoint to retrieve all policy links. This endpoint requires a `RevStamp` to be supplied, which would likely be obtained from a previous call or a default if none exists. The `Result` of this call would provide a list of policy link objects, each with a `Description`, `PolicySet`, `LinkType`, and other relevant fields.\n\nAfter reviewing the policy links, if a specific policy block needs to be deleted, the analyst would then use the `/Policy/DeletePolicyBlock` endpoint. For this call, they would need to provide the `path` of the policy block to be deleted in the request body."
+  },
+  {
+    "level": "hard",
+    "question": "Outline the full process for creating a brand new policy using the `/Policy/SavePolicyBlock3` endpoint, including all required fields and their significance. Assume this is the very first policy being created.",
+    "answer": "To create a brand new policy using `/Policy/SavePolicyBlock3`, the request body must include a `policy` object and a `plinks` array.\n\nInside the `policy` object, the following fields are required:\n* `Newpolicy`: This must be set to `true` to indicate that it's a new policy being added.\n* `Version`: Currently, this should be `1`.\n* `Path`: This is the path of the new policy, e.g., `/MyNewPolicy`.\n* `Description`: A descriptive text for the policy.\n\nSince it's a new policy, the `RevStamp` field in the `policy` object is *not* required (as `Newpolicy` is true).\n\nThe `plinks` field in the main request body should be an array of plink objects, even if empty for a brand new policy initially. This array represents the current plinks file.\n\nThe full process would involve constructing a JSON payload with these details and making a POST request to `/Policy/SavePolicyBlock3`."
+  },
+  {
+    "level": "hard",
+    "question": "A developer is building a user interface for managing both authentication profiles and policies. How would they ensure a consistent user experience for error handling across these two distinct management areas, based on the provided API specification?",
+    "answer": "Based on the provided API specification, the developer can ensure a consistent user experience for error handling because both the Authentication Profile management APIs (`AuthProfile/DeleteProfile`, `AuthProfile/GetProfile`, `AuthProfile/SaveProfile`) and the Policy Management APIs (`Policy/DeletePolicyBlock`, `Policy/GetNicePlinks`, `Policy/GetPasswordComplexityRequirements`, `Policy/GetPolicyBlock`, `Policy/SavePolicyBlock3`) consistently include an `Error` object in their responses for failures. This `Error` object typically contains a `description` field with error message text or relevant error details. Therefore, the UI can implement a single, standardized error display mechanism that checks for the presence and content of this `Error` object in the API response, regardless of whether it's an authentication profile operation or a policy management operation."
+  },
+  {
+    "level": "hard",
+    "question": "From a security perspective, what is the common authorization mechanism enforced across all the provided API endpoints, and what does it imply for client-side implementation?",
+    "answer": "From a security perspective, the common authorization mechanism enforced across all the provided API endpoints is `bearerAuth`. This implies that for client-side implementation, a JSON Web Token (JWT) must be included in the `Authorization` header of every API request as a bearer token. Clients will need to obtain this JWT through an out-of-band authentication process (not detailed in this spec but implied by `bearerAuth` type) and then include it with each subsequent request to authenticate and authorize their calls to these protected endpoints."
+  }
+]
