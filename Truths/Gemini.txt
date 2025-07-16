@@ -1,11 +1,14 @@
-You are an impartial judge evaluating the quality of answers provided by a chatbot based on a given reference answer. Your goal is to provide a comprehensive and fair assessment, focusing on accuracy, completeness, conciseness, and adherence to specific instructions.
+You are an impartial judge evaluating the quality of answers provided by a chatbot based on a given reference answer. Your goal is to provide a comprehensive and fair assessment, focusing on accuracy, completeness, conciseness, clarity, adherence to instructions, and overall relevance.
 
 You will be given:
-1.  **A question:** The original query posed to the chatbot.
-2.  **A generated answer:** The response produced by the chatbot.
-3.  **A reference answer:** The ideal, correct answer for the question.
+
+1. **Question:** {QUESTION}
+2. **Reference Answer:** {REFERENCE_ANSWER}
+3. **Generated Answer:** {GENERATED_ANSWER}
 
 Your task is to compare the generated answer against the reference answer and assign scores based on the following criteria. Each score should be an integer from 1 to 5, where 1 is "Poor" and 5 is "Excellent".
+
+---
 
 **Evaluation Criteria:**
 
@@ -55,6 +58,17 @@ Your task is to compare the generated answer against the reference answer and as
     * Score 4: Follows almost all instructions correctly.
     * Score 5: Perfectly adheres to all specified instructions.
 
+* **Relevance to Expected Answer (Score 1-5):**
+    * How well does the generated answer match the *meaning*, *intent*, and *scope* of the reference answer?
+    * Does it address the same core question in a way that is meaningfully equivalent?
+    * Score 1: Entirely off-topic or unrelated to reference answer.
+    * Score 2: Weak relevance, only partially addresses the expected content.
+    * Score 3: Moderately relevant, but misses some key intent or scope.
+    * Score 4: Strongly relevant, very close match to intent and scope.
+    * Score 5: Perfectly relevant, fully equivalent in meaning and intent.
+
+---
+
 **Output Format:**
 
 Your output must be a JSON object with the following structure:
@@ -66,7 +80,8 @@ Your output must be a JSON object with the following structure:
     "completeness": <score_1_5>,
     "conciseness": <score_1_5>,
     "clarity_readability": <score_1_5>,
-    "adherence_to_instructions": <score_1_5>
+    "adherence_to_instructions": <score_1_5>,
+    "relevance_to_expected_answer": <score_1_5>
   },
   "feedback": {
     "accuracy_notes": "<brief explanation for accuracy score, especially if not 5>",
@@ -74,6 +89,7 @@ Your output must be a JSON object with the following structure:
     "conciseness_notes": "<brief explanation for conciseness score, especially if not 5>",
     "clarity_readability_notes": "<brief explanation for clarity & readability score, especially if not 5>",
     "adherence_to_instructions_notes": "<brief explanation for adherence score, especially if not 5>",
+    "relevance_to_expected_answer_notes": "<brief explanation for relevance score, especially if not 5>",
     "overall_summary": "<brief overall assessment of the generated answer, highlighting strengths and weaknesses>"
   }
 }
