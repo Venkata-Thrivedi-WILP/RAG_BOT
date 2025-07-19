@@ -36,7 +36,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it does not provide any useful information.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, but it fails to provide the requested information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is not relevant to the question asked, as it does not address the endpoint for creating a new user.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not answer the question posed. While it is concise and clear, it lacks any factual content, making it unhelpful."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not answer the question posed. While it is concise and clear, it lacks any factual content, making it unhelpful.",
+    "avg_score":3.0
   },
   {
     "question_id":0,
@@ -75,7 +76,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, but it is irrelevant to the question asked.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, but it fails to provide the requested information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question about the CyberArk Identity endpoint.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not provide any relevant information regarding the question asked. While it is concise and clear, it completely misses the mark in terms of accuracy and relevance."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not provide any relevant information regarding the question asked. While it is concise and clear, it completely misses the mark in terms of accuracy and relevance.",
+    "avg_score":3.0
   },
   {
     "question_id":0,
@@ -114,7 +116,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured, easy to read, and uses appropriate formatting, making it very clear.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions perfectly, including the JSON structure and formatting.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is strong, with excellent clarity and adherence to instructions. However, it could improve in accuracy and completeness by including details about user management rights and the necessity of certain fields in the request body."
+    "feedback_overall_summary":"Overall, the generated answer is strong, with excellent clarity and adherence to instructions. However, it could improve in accuracy and completeness by including details about user management rights and the necessity of certain fields in the request body.",
+    "avg_score":4.5
   },
   {
     "question_id":1,
@@ -153,7 +156,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and well-organized, making it easy to read and understand.",
     "feedback_adherence_to_instructions_notes":"The answer follows the instructions perfectly, presenting the information in a clear format.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is fully relevant, addressing the core question with equivalent meaning and intent.",
-    "feedback_overall_summary":"Overall, the generated answer is strong, accurately capturing the necessary details for the API calls required for bulk user import in CyberArk Identity. It is clear, well-structured, and adheres to the instructions, with only minor room for improvement in conciseness."
+    "feedback_overall_summary":"Overall, the generated answer is strong, accurately capturing the necessary details for the API calls required for bulk user import in CyberArk Identity. It is clear, well-structured, and adheres to the instructions, with only minor room for improvement in conciseness.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":1,
@@ -192,7 +196,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, making it easy to read and understand.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions perfectly, providing the required information in a structured format.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong in clarity and relevance, but it could improve in accuracy and completeness by including more specific details about the API calls."
+    "feedback_overall_summary":"The generated answer is strong in clarity and relevance, but it could improve in accuracy and completeness by including more specific details about the API calls.",
+    "avg_score":4.3333333333
   },
   {
     "question_id":1,
@@ -231,7 +236,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to understand, with clear formatting that enhances readability.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows all instructions correctly, including the format and content requirements.",
     "feedback_relevance_to_expected_answer_notes":"The answer is perfectly relevant, addressing the core question with equivalent meaning and intent.",
-    "feedback_overall_summary":"Overall, the generated answer is highly accurate, complete, and clear, with only minor room for improvement in conciseness. It effectively meets the requirements of the question."
+    "feedback_overall_summary":"Overall, the generated answer is highly accurate, complete, and clear, with only minor room for improvement in conciseness. It effectively meets the requirements of the question.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":3,
@@ -270,7 +276,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it does not address the question.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, but it fails to provide the requested information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic as it does not address the question about the required query parameter.",
-    "feedback_overall_summary":"The generated answer fails to provide any relevant or accurate information regarding the query parameter needed for the endpoint. While it is concise and clear, it does not fulfill the core requirement of the question."
+    "feedback_overall_summary":"The generated answer fails to provide any relevant or accurate information regarding the query parameter needed for the endpoint. While it is concise and clear, it does not fulfill the core requirement of the question.",
+    "avg_score":3.0
   },
   {
     "question_id":3,
@@ -309,7 +316,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, stating the limitation of the chatbot's knowledge.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, as it does not provide incorrect information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is not relevant as it does not address the question about the required query parameter at all.",
-    "feedback_overall_summary":"The generated answer fails to provide any relevant or accurate information regarding the query parameter required for the endpoint. While it is concise and clear in its limitation, it does not fulfill the user's request, resulting in poor scores for accuracy, completeness, and relevance."
+    "feedback_overall_summary":"The generated answer fails to provide any relevant or accurate information regarding the query parameter required for the endpoint. While it is concise and clear in its limitation, it does not fulfill the user's request, resulting in poor scores for accuracy, completeness, and relevance.",
+    "avg_score":3.0
   },
   {
     "question_id":3,
@@ -348,7 +356,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, but the use of bullet points could be improved for better readability.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions perfectly, including the required formatting.",
     "feedback_relevance_to_expected_answer_notes":"The answer is fully relevant and matches the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong overall, with high accuracy, completeness, and relevance. Minor improvements could be made in conciseness and clarity."
+    "feedback_overall_summary":"The generated answer is strong overall, with high accuracy, completeness, and relevance. Minor improvements could be made in conciseness and clarity.",
+    "avg_score":4.6666666667
   },
   {
     "question_id":2,
@@ -387,7 +396,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and well-organized, making it easy to follow, though some technical terms could be better explained.",
     "feedback_adherence_to_instructions_notes":"The answer follows the specified format and structure well, adhering to the instructions provided.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer provides a solid explanation of the authentication flow, with good structure and relevance. However, it could benefit from additional detail and slight improvements in conciseness."
+    "feedback_overall_summary":"Overall, the generated answer provides a solid explanation of the authentication flow, with good structure and relevance. However, it could benefit from additional detail and slight improvements in conciseness.",
+    "avg_score":4.3333333333
   },
   {
     "question_id":2,
@@ -426,7 +436,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and well-organized, making it easy to follow the authentication flow.",
     "feedback_adherence_to_instructions_notes":"The answer follows the specified format and includes appropriate examples, adhering to the instructions perfectly.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is fully relevant and matches the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is a strong response that effectively explains the authentication flow with clarity and detail. It is accurate, complete, and adheres to the required format, with only minor room for improvement in conciseness."
+    "feedback_overall_summary":"The generated answer is a strong response that effectively explains the authentication flow with clarity and detail. It is accurate, complete, and adheres to the required format, with only minor room for improvement in conciseness.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":2,
@@ -465,7 +476,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured, easy to understand, and uses appropriate formatting, making it highly readable.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows all specified instructions correctly, including the use of JSON structure for the request.",
     "feedback_relevance_to_expected_answer_notes":"The answer is perfectly relevant, addressing the core question and matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is comprehensive, accurate, and well-structured, effectively explaining the authentication flow. Minor improvements in conciseness could enhance the overall quality."
+    "feedback_overall_summary":"The generated answer is comprehensive, accurate, and well-structured, effectively explaining the authentication flow. Minor improvements in conciseness could enhance the overall quality.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":4,
@@ -504,7 +516,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured, using bullet points and code blocks effectively, making it easy to read and understand.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows all formatting and content instructions correctly, including the JSON structure.",
     "feedback_relevance_to_expected_answer_notes":"The answer is fully relevant, addressing the core question and matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is highly effective, providing accurate, complete, and clear information while adhering to the required format. The only minor point is the potential for slight verbosity with the example, but it enhances understanding."
+    "feedback_overall_summary":"Overall, the generated answer is highly effective, providing accurate, complete, and clear information while adhering to the required format. The only minor point is the potential for slight verbosity with the example, but it enhances understanding.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":4,
@@ -543,7 +556,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured, easy to read, and uses formatting effectively to enhance clarity.",
     "feedback_adherence_to_instructions_notes":"The answer follows all specified instructions, including the correct JSON structure and formatting.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is fully relevant and addresses the core question in a manner equivalent to the reference answer.",
-    "feedback_overall_summary":"The generated answer is highly effective, providing accurate, complete, and clear information. It adheres to instructions well, with only minor room for improvement in conciseness."
+    "feedback_overall_summary":"The generated answer is highly effective, providing accurate, complete, and clear information. It adheres to instructions well, with only minor room for improvement in conciseness.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":4,
@@ -582,7 +596,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured, using bullet points and code blocks effectively, making it easy to read and understand.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows all formatting and content instructions correctly, including the JSON structure.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant, addressing the core question with equivalent meaning and intent to the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is highly accurate, complete, and clear, with minor room for improvement in conciseness. It effectively conveys the necessary information regarding the 'uuid' parameter for the deletion of an authentication profile."
+    "feedback_overall_summary":"Overall, the generated answer is highly accurate, complete, and clear, with minor room for improvement in conciseness. It effectively conveys the necessary information regarding the 'uuid' parameter for the deletion of an authentication profile.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":5,
@@ -621,7 +636,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to understand, with clear language and appropriate formatting.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions correctly, providing relevant information without deviations.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong, providing accurate and relevant information with good clarity and adherence to instructions. However, it could improve by including a more detailed explanation of the `period` parameter to achieve full completeness."
+    "feedback_overall_summary":"The generated answer is strong, providing accurate and relevant information with good clarity and adherence to instructions. However, it could improve by including a more detailed explanation of the `period` parameter to achieve full completeness.",
+    "avg_score":4.6666666667
   },
   {
     "question_id":5,
@@ -660,7 +676,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with clear headings and bullet points that enhance understanding.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the specified format and does not deviate from the instructions.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, aligning closely with the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong overall, with perfect accuracy, completeness, and clarity. It is slightly less concise but still effectively communicates the necessary information."
+    "feedback_overall_summary":"The generated answer is strong overall, with perfect accuracy, completeness, and clarity. It is slightly less concise but still effectively communicates the necessary information.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":5,
@@ -699,7 +716,8 @@
     "feedback_clarity_readability_notes":"The structure and language used in the answer are clear and well-organized, making it easy to read.",
     "feedback_adherence_to_instructions_notes":"The answer follows the specified format and does not deviate from the instructions.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is highly relevant and closely matches the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is strong, with high accuracy and clarity. It effectively addresses the question but could enhance completeness by elaborating on the security-usability tradeoff."
+    "feedback_overall_summary":"Overall, the generated answer is strong, with high accuracy and clarity. It effectively addresses the question but could enhance completeness by elaborating on the security-usability tradeoff.",
+    "avg_score":4.6666666667
   },
   {
     "question_id":6,
@@ -738,7 +756,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured, easy to read, and uses appropriate formatting, making it clear and understandable.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions well, including the JSON structure for the request body.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong in clarity, adherence to instructions, and relevance. However, it could improve in accuracy and completeness by including all relevant fields for user creation."
+    "feedback_overall_summary":"The generated answer is strong in clarity, adherence to instructions, and relevance. However, it could improve in accuracy and completeness by including all relevant fields for user creation.",
+    "avg_score":4.5
   },
   {
     "question_id":6,
@@ -777,7 +796,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with appropriate use of bullet points and code formatting.",
     "feedback_adherence_to_instructions_notes":"The answer follows the instructions well, including the JSON structure for the example request body.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong in clarity and relevance, but it could improve in accuracy and completeness by including all required fields as specified in the reference answer."
+    "feedback_overall_summary":"The generated answer is strong in clarity and relevance, but it could improve in accuracy and completeness by including all required fields as specified in the reference answer.",
+    "avg_score":4.5
   },
   {
     "question_id":6,
@@ -816,7 +836,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured, easy to read, and uses appropriate formatting, making it clear and understandable.",
     "feedback_adherence_to_instructions_notes":"The answer follows the instructions well, including the JSON format for the request body.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong in clarity and adherence to instructions, but it lacks some completeness in terms of the required fields for user creation. It is accurate and relevant, making it a good response overall."
+    "feedback_overall_summary":"The generated answer is strong in clarity and adherence to instructions, but it lacks some completeness in terms of the required fields for user creation. It is accurate and relevant, making it a good response overall.",
+    "avg_score":4.5
   },
   {
     "question_id":7,
@@ -855,7 +876,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and well-organized, making it easy to read and understand.",
     "feedback_adherence_to_instructions_notes":"The answer follows the specified format and includes a JSON example as instructed.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is fully relevant and addresses the core question effectively.",
-    "feedback_overall_summary":"The generated answer is strong, accurately addressing the question with comprehensive details and clear structure. Minor improvements in conciseness could enhance it further."
+    "feedback_overall_summary":"The generated answer is strong, accurately addressing the question with comprehensive details and clear structure. Minor improvements in conciseness could enhance it further.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":7,
@@ -894,7 +916,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with appropriate use of bullet points and code formatting.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows all specified instructions correctly, including the JSON structure.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and matches the intent and scope of the reference answer perfectly.",
-    "feedback_overall_summary":"The generated answer is strong overall, with high accuracy, completeness, and clarity. It effectively communicates the necessary information, though slight improvements in conciseness could enhance it further."
+    "feedback_overall_summary":"The generated answer is strong overall, with high accuracy, completeness, and clarity. It effectively communicates the necessary information, though slight improvements in conciseness could enhance it further.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":7,
@@ -933,7 +956,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with appropriate use of bullet points and code blocks.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows all specified instructions correctly, including the JSON structure.",
     "feedback_relevance_to_expected_answer_notes":"The answer is fully relevant, addressing the core question and matching the intent of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is strong, providing accurate and complete information in a clear and well-structured format. Minor improvements in conciseness could enhance it further."
+    "feedback_overall_summary":"Overall, the generated answer is strong, providing accurate and complete information in a clear and well-structured format. Minor improvements in conciseness could enhance it further.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":9,
@@ -972,7 +996,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it could benefit from a more structured explanation.",
     "feedback_adherence_to_instructions_notes":"The generated answer adheres perfectly to the instructions given, providing the requested information without deviation.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and addresses the core question, but it does not fully capture the depth of the reference answer.",
-    "feedback_overall_summary":"The generated answer is accurate and concise but lacks completeness and depth compared to the reference answer. It effectively identifies the 'success' property but misses key contextual information that would enhance understanding."
+    "feedback_overall_summary":"The generated answer is accurate and concise but lacks completeness and depth compared to the reference answer. It effectively identifies the 'success' property but misses key contextual information that would enhance understanding.",
+    "avg_score":4.0
   },
   {
     "question_id":9,
@@ -1011,7 +1036,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to understand, with appropriate structure and language.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions well, providing a relevant response without inventing details.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and addresses the core question, but it does not fully capture the depth of the reference answer.",
-    "feedback_overall_summary":"The generated answer is accurate and concise but lacks completeness in explaining the implications of the 'success' property and the associated Error object. It adheres well to instructions and is clear, making it a solid response, though it could be improved by including more detail."
+    "feedback_overall_summary":"The generated answer is accurate and concise but lacks completeness in explaining the implications of the 'success' property and the associated Error object. It adheres well to instructions and is clear, making it a solid response, though it could be improved by including more detail.",
+    "avg_score":4.0
   },
   {
     "question_id":9,
@@ -1050,7 +1076,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, making it easy to read and understand.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions perfectly, providing the necessary information without deviation.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question, but it lacks some depth compared to the reference.",
-    "feedback_overall_summary":"Overall, the generated answer is accurate and clear, effectively addressing the question. However, it lacks some completeness in explaining the implications of the 'success' property, which could enhance understanding."
+    "feedback_overall_summary":"Overall, the generated answer is accurate and clear, effectively addressing the question. However, it lacks some completeness in explaining the implications of the 'success' property, which could enhance understanding.",
+    "avg_score":4.1666666667
   },
   {
     "question_id":8,
@@ -1089,7 +1116,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with appropriate use of headings and bullet points.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the required format and structure, including the JSON representation of the request body.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong overall, demonstrating high accuracy, completeness, and clarity. It effectively communicates the necessary information while adhering to the specified format, with only minor room for improvement in conciseness."
+    "feedback_overall_summary":"The generated answer is strong overall, demonstrating high accuracy, completeness, and clarity. It effectively communicates the necessary information while adhering to the specified format, with only minor room for improvement in conciseness.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":8,
@@ -1128,7 +1156,8 @@
     "feedback_clarity_readability_notes":"The structure is generally clear and well-organized, though some sections could be streamlined for better readability.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions perfectly, maintaining the required format and content focus.",
     "feedback_relevance_to_expected_answer_notes":"The answer is fully relevant, addressing the same core question and maintaining the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is strong, accurately covering the necessary details with minor room for improvement in conciseness and clarity. It effectively communicates the structure and purpose of the request body schema."
+    "feedback_overall_summary":"Overall, the generated answer is strong, accurately covering the necessary details with minor room for improvement in conciseness and clarity. It effectively communicates the structure and purpose of the request body schema.",
+    "avg_score":4.6666666667
   },
   {
     "question_id":8,
@@ -1167,7 +1196,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with clear explanations and appropriate formatting.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the specified format and structure correctly, adhering to the instructions provided.",
     "feedback_relevance_to_expected_answer_notes":"The answer is fully relevant, addressing the core question with equivalent meaning and intent to the reference answer.",
-    "feedback_overall_summary":"The generated answer is highly accurate, complete, and relevant, with excellent clarity and adherence to instructions. Minor improvements in conciseness could enhance the overall quality."
+    "feedback_overall_summary":"The generated answer is highly accurate, complete, and relevant, with excellent clarity and adherence to instructions. Minor improvements in conciseness could enhance the overall quality.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":11,
@@ -1206,7 +1236,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, making it easy to read and understand.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the formatting instructions perfectly, using bullet points and clear headings.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and addresses the core question, but it lacks some depth in explaining the structure's support for batch processing.",
-    "feedback_overall_summary":"The generated answer provides a good overview of the Result object but lacks some critical details and depth found in the reference answer. It is clear and well-structured, adhering to the required format, but could improve in accuracy and completeness."
+    "feedback_overall_summary":"The generated answer provides a good overview of the Result object but lacks some critical details and depth found in the reference answer. It is clear and well-structured, adhering to the required format, but could improve in accuracy and completeness.",
+    "avg_score":3.8333333333
   },
   {
     "question_id":11,
@@ -1245,7 +1276,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, but some sections could benefit from improved organization for better flow.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the formatting and structure instructions perfectly, including the use of bullet points and a sample JSON response.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong overall, with good accuracy and relevance. However, it could improve in completeness and clarity by providing a more detailed explanation of how the structure supports batch processing."
+    "feedback_overall_summary":"The generated answer is strong overall, with good accuracy and relevance. However, it could improve in completeness and clarity by providing a more detailed explanation of how the structure supports batch processing.",
+    "avg_score":4.3333333333
   },
   {
     "question_id":11,
@@ -1284,7 +1316,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and well-organized, making it easy to read, though some sections could be more succinct.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the formatting and structure instructions perfectly.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and closely matches the intent of the reference answer, but it misses some nuances.",
-    "feedback_overall_summary":"The generated answer provides a solid overview of the Result object and its fields, effectively addressing the question. However, it could be improved by including all relevant fields and a more detailed explanation of batch processing support."
+    "feedback_overall_summary":"The generated answer provides a solid overview of the Result object and its fields, effectively addressing the question. However, it could be improved by including all relevant fields and a more detailed explanation of batch processing support.",
+    "avg_score":4.1666666667
   },
   {
     "question_id":10,
@@ -1323,7 +1356,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with appropriate use of headings and bullet points.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the specified instructions perfectly, including the use of JSON structure for the example response.",
     "feedback_relevance_to_expected_answer_notes":"The answer is fully relevant and matches the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is highly accurate, complete, and clear, with minor room for improvement in conciseness. It effectively addresses the question and adheres to the required format."
+    "feedback_overall_summary":"Overall, the generated answer is highly accurate, complete, and clear, with minor room for improvement in conciseness. It effectively addresses the question and adheres to the required format.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":10,
@@ -1362,7 +1396,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with appropriate use of headings and bullet points.",
     "feedback_adherence_to_instructions_notes":"The answer follows the instruction to describe the response structure but does not fully adhere to the requirement of providing the default number of codes.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and addresses the core question, but it lacks the specific detail about the number of codes provided by default.",
-    "feedback_overall_summary":"The generated answer provides a good overview of the response structure for the API call but lacks critical information regarding the default number of TOTP codes. It is clear and well-organized, but the omission of key details affects its overall completeness and accuracy."
+    "feedback_overall_summary":"The generated answer provides a good overview of the response structure for the API call but lacks critical information regarding the default number of TOTP codes. It is clear and well-organized, but the omission of key details affects its overall completeness and accuracy.",
+    "avg_score":3.6666666667
   },
   {
     "question_id":10,
@@ -1401,7 +1436,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and well-organized, making it easy to read and understand.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the specified formatting and structure correctly.",
     "feedback_relevance_to_expected_answer_notes":"The answer is fully relevant and matches the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is highly accurate, complete, and clear, with only minor room for improvement in conciseness. It effectively addresses the question and adheres to the required format."
+    "feedback_overall_summary":"Overall, the generated answer is highly accurate, complete, and clear, with only minor room for improvement in conciseness. It effectively addresses the question and adheres to the required format.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":12,
@@ -1440,7 +1476,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it does not address the question.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, but it fails to provide the required information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic as it does not address the question about CyberArk Identity API authentication.",
-    "feedback_overall_summary":"The generated answer fails to provide any relevant information regarding the authentication method required for the CyberArk Identity API, resulting in very low scores for accuracy and completeness. While it is concise and clear, it does not fulfill the core intent of the question."
+    "feedback_overall_summary":"The generated answer fails to provide any relevant information regarding the authentication method required for the CyberArk Identity API, resulting in very low scores for accuracy and completeness. While it is concise and clear, it does not fulfill the core intent of the question.",
+    "avg_score":3.0
   },
   {
     "question_id":12,
@@ -1479,7 +1516,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, but it lacks relevant content.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, but it fails to provide the required information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question about CyberArk Identity API authentication.",
-    "feedback_overall_summary":"The generated answer fails to provide any relevant information regarding the authentication required for the CyberArk Identity API. While it is concise and clear, it does not answer the question at all, resulting in very low scores for accuracy, completeness, and relevance."
+    "feedback_overall_summary":"The generated answer fails to provide any relevant information regarding the authentication required for the CyberArk Identity API. While it is concise and clear, it does not answer the question at all, resulting in very low scores for accuracy, completeness, and relevance.",
+    "avg_score":3.0
   },
   {
     "question_id":12,
@@ -1518,7 +1556,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, but it does not provide any relevant content.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, but it fails to provide the requested information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question about authentication in the CyberArk Identity API.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not answer the question posed. While it is concise and clear in its wording, it lacks any relevant content or factual accuracy regarding the required authentication method."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not answer the question posed. While it is concise and clear in its wording, it lacks any relevant content or factual accuracy regarding the required authentication method.",
+    "avg_score":3.0
   },
   {
     "question_id":13,
@@ -1557,7 +1596,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it does not provide any relevant information.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of being concise and clear, but it does not fulfill the requirement of answering the question.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question about API endpoints.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not attempt to answer the question posed. While it is concise and clear, it lacks any relevant content or accuracy, resulting in a poor overall performance."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not attempt to answer the question posed. While it is concise and clear, it lacks any relevant content or accuracy, resulting in a poor overall performance.",
+    "avg_score":3.0
   },
   {
     "question_id":13,
@@ -1596,7 +1636,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it does not provide relevant information.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of being concise and clear, but it fails to answer the question.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not relate to the question about API endpoints.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not attempt to answer the question regarding API endpoints, resulting in very low scores for accuracy and completeness. While it is concise and clear, these qualities do not compensate for the lack of relevant content."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not attempt to answer the question regarding API endpoints, resulting in very low scores for accuracy and completeness. While it is concise and clear, these qualities do not compensate for the lack of relevant content.",
+    "avg_score":3.0
   },
   {
     "question_id":13,
@@ -1635,7 +1676,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, but it lacks relevant content to evaluate its effectiveness.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, but it fails to provide any relevant information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic, as it does not address the question about the API endpoints at all.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not respond to the question about API endpoints and their authentication status. While it is concise and clear in its wording, it lacks any relevant content, making it ineffective."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not respond to the question about API endpoints and their authentication status. While it is concise and clear in its wording, it lacks any relevant content, making it ineffective.",
+    "avg_score":3.0
   },
   {
     "question_id":14,
@@ -1674,7 +1716,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with clear headings and bullet points that enhance understanding.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions perfectly, including the use of appropriate formatting.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong in accuracy, clarity, and adherence to instructions. However, it could improve in completeness by including all security measures mentioned in the reference answer."
+    "feedback_overall_summary":"The generated answer is strong in accuracy, clarity, and adherence to instructions. However, it could improve in completeness by including all security measures mentioned in the reference answer.",
+    "avg_score":4.6666666667
   },
   {
     "question_id":14,
@@ -1713,7 +1756,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with appropriate use of headings and bullet points.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions perfectly, including the use of JSON structure for response examples.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and matches the intent and scope of the reference answer closely.",
-    "feedback_overall_summary":"The generated answer is strong overall, providing accurate, complete, and clear information about the security measures and response structure of the endpoint. Minor improvements in conciseness could enhance the response further."
+    "feedback_overall_summary":"The generated answer is strong overall, providing accurate, complete, and clear information about the security measures and response structure of the endpoint. Minor improvements in conciseness could enhance the response further.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":14,
@@ -1752,7 +1796,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and easy to read, with appropriate use of bullet points to enhance understanding.",
     "feedback_adherence_to_instructions_notes":"The answer follows the formatting instructions perfectly, presenting information in a clear and organized manner.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and addresses the core question, but it could be more comprehensive to match the depth of the reference answer.",
-    "feedback_overall_summary":"The generated answer provides a good overview of the security measures and response variations for the endpoint, but it lacks some critical details that would enhance its accuracy and completeness. It is well-structured and adheres to the instructions effectively."
+    "feedback_overall_summary":"The generated answer provides a good overview of the security measures and response variations for the endpoint, but it lacks some critical details that would enhance its accuracy and completeness. It is well-structured and adheres to the instructions effectively.",
+    "avg_score":4.0
   },
   {
     "question_id":15,
@@ -1791,7 +1836,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, making it easy to read and understand.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions perfectly, including the use of code formatting.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and addresses the core question, but it does not fully capture the intent and detail of the reference answer.",
-    "feedback_overall_summary":"The generated answer provides a good overview of the situation when attempting to delete a portal-type application, but it lacks some critical details and context that would enhance its accuracy and completeness."
+    "feedback_overall_summary":"The generated answer provides a good overview of the situation when attempting to delete a portal-type application, but it lacks some critical details and context that would enhance its accuracy and completeness.",
+    "avg_score":4.0
   },
   {
     "question_id":15,
@@ -1830,7 +1876,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, making it easy to understand.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions correctly, including the use of code formatting for the endpoint.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and addresses the core question, but it does not fully capture the intent and detail of the reference answer.",
-    "feedback_overall_summary":"The generated answer provides a good overview of the situation when attempting to delete a portal-type application, but it lacks critical details and context that would enhance its accuracy and completeness."
+    "feedback_overall_summary":"The generated answer provides a good overview of the situation when attempting to delete a portal-type application, but it lacks critical details and context that would enhance its accuracy and completeness.",
+    "avg_score":4.0
   },
   {
     "question_id":15,
@@ -1869,7 +1916,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, making it easy to read and understand.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions correctly, including the use of code formatting for the endpoint.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and addresses the core question, but it does not fully capture the intent and detail of the reference answer.",
-    "feedback_overall_summary":"The generated answer provides a good overview of the situation when attempting to delete a portal-type application, but it lacks critical details that would enhance its accuracy and completeness. It is clear and concise, adhering well to the instructions."
+    "feedback_overall_summary":"The generated answer provides a good overview of the situation when attempting to delete a portal-type application, but it lacks critical details that would enhance its accuracy and completeness. It is clear and concise, adhering well to the instructions.",
+    "avg_score":4.0
   },
   {
     "question_id":17,
@@ -1908,7 +1956,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and well-organized, but a few sentences could be phrased more effectively for better readability.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the specified format and instructions perfectly.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is strong, with good accuracy and relevance. However, it could benefit from including more specific details and nuances to fully align with the reference answer."
+    "feedback_overall_summary":"Overall, the generated answer is strong, with good accuracy and relevance. However, it could benefit from including more specific details and nuances to fully align with the reference answer.",
+    "avg_score":4.3333333333
   },
   {
     "question_id":17,
@@ -1947,7 +1996,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, stating its limitations straightforwardly.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details and clearly states the chatbot's limitations.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is entirely off-topic and does not address the question at all.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question posed. While it is concise, clear, and adheres to the instruction of not providing incorrect information, it fails to deliver any relevant content or insights related to the functionality and use cases of the specified endpoints."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question posed. While it is concise, clear, and adheres to the instruction of not providing incorrect information, it fails to deliver any relevant content or insights related to the functionality and use cases of the specified endpoints.",
+    "avg_score":3.0
   },
   {
     "question_id":17,
@@ -1986,7 +2036,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but this does not compensate for the lack of content.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, as it states a limitation in knowledge.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question at all, leading to a score of 1.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question posed. While it is concise and clear, it lacks any relevant content or accuracy, making it ineffective in providing the needed information."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question posed. While it is concise and clear, it lacks any relevant content or accuracy, making it ineffective in providing the needed information.",
+    "avg_score":3.0
   },
   {
     "question_id":16,
@@ -2025,7 +2076,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, making it easy to understand the key points.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions well, presenting the information in a clear format without inventing details.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and closely matches the intent of the reference answer, though it could be more comprehensive.",
-    "feedback_overall_summary":"The generated answer provides a good overview of the \/AuthProfile\/SaveProfile endpoint's functionality but lacks some critical details found in the reference answer. It is clear, concise, and adheres to the instructions well, but could improve in completeness and accuracy by including all relevant information."
+    "feedback_overall_summary":"The generated answer provides a good overview of the \/AuthProfile\/SaveProfile endpoint's functionality but lacks some critical details found in the reference answer. It is clear, concise, and adheres to the instructions well, but could improve in completeness and accuracy by including all relevant information.",
+    "avg_score":4.0
   },
   {
     "question_id":16,
@@ -2064,7 +2116,8 @@
     "feedback_clarity_readability_notes":"The structure is clear, with bullet points enhancing readability and understanding.",
     "feedback_adherence_to_instructions_notes":"The answer follows the required format and does not deviate from the instructions.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is highly relevant and closely matches the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is strong, with high accuracy, clarity, and adherence to instructions. However, it could be improved by including the detail about UUID generation for new profiles."
+    "feedback_overall_summary":"Overall, the generated answer is strong, with high accuracy, clarity, and adherence to instructions. However, it could be improved by including the detail about UUID generation for new profiles.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":16,
@@ -2103,7 +2156,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, making it easy to understand the differences in functionality.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions well, presenting the information in a clear format without inventing details.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and closely matches the intent of the reference answer, though it could be more comprehensive.",
-    "feedback_overall_summary":"The generated answer provides a good overview of the \/AuthProfile\/SaveProfile endpoint's functionality, but it lacks some critical details found in the reference answer. It is clear, concise, and adheres to the instructions well, making it a solid response with room for improvement in completeness."
+    "feedback_overall_summary":"The generated answer provides a good overview of the \/AuthProfile\/SaveProfile endpoint's functionality, but it lacks some critical details found in the reference answer. It is clear, concise, and adheres to the instructions well, making it a solid response with room for improvement in completeness.",
+    "avg_score":4.0
   },
   {
     "question_id":19,
@@ -2142,7 +2196,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and easy to follow, but the explanation could be more straightforward in some areas.",
     "feedback_adherence_to_instructions_notes":"The answer follows the formatting and structure instructions perfectly.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively.",
-    "feedback_overall_summary":"The generated answer is strong in relevance and adherence to instructions, but it could improve in accuracy and completeness by including more specific details about the RevStamp requirement and its implications."
+    "feedback_overall_summary":"The generated answer is strong in relevance and adherence to instructions, but it could improve in accuracy and completeness by including more specific details about the RevStamp requirement and its implications.",
+    "avg_score":4.3333333333
   },
   {
     "question_id":19,
@@ -2181,7 +2236,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, making it easy to read and understand, though it could benefit from a bit more detail.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions perfectly, maintaining the required format and structure.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, aligning well with the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong in terms of adherence to instructions and relevance, but it falls short in accuracy and completeness due to missing critical details about the RevStamp validation process. Enhancing these aspects would improve the overall quality."
+    "feedback_overall_summary":"The generated answer is strong in terms of adherence to instructions and relevance, but it falls short in accuracy and completeness due to missing critical details about the RevStamp validation process. Enhancing these aspects would improve the overall quality.",
+    "avg_score":4.3333333333
   },
   {
     "question_id":19,
@@ -2220,7 +2276,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with clear bullet points that enhance understanding.",
     "feedback_adherence_to_instructions_notes":"The answer follows the formatting and structure instructions perfectly.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is highly relevant and addresses the core question effectively.",
-    "feedback_overall_summary":"The generated answer is strong in accuracy, clarity, and adherence to instructions. However, it could improve in completeness by including the detail about matching the RevStamp value and could be slightly more concise."
+    "feedback_overall_summary":"The generated answer is strong in accuracy, clarity, and adherence to instructions. However, it could improve in completeness by including the detail about matching the RevStamp value and could be slightly more concise.",
+    "avg_score":4.6666666667
   },
   {
     "question_id":18,
@@ -2259,7 +2316,8 @@
     "feedback_clarity_readability_notes":"The language used is clear and well-structured, making it easy to understand.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows all instructions correctly, including the use of formatting.",
     "feedback_relevance_to_expected_answer_notes":"The answer is perfectly relevant, addressing the same core question and maintaining the intent of the reference answer.",
-    "feedback_overall_summary":"The generated answer is excellent in all aspects, providing a clear, accurate, and concise response that aligns perfectly with the reference answer."
+    "feedback_overall_summary":"The generated answer is excellent in all aspects, providing a clear, accurate, and concise response that aligns perfectly with the reference answer.",
+    "avg_score":5.0
   },
   {
     "question_id":18,
@@ -2298,7 +2356,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, though it could benefit from slightly more straightforward phrasing in some areas.",
     "feedback_adherence_to_instructions_notes":"The generated answer adheres perfectly to the instructions, providing the required information without deviation.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and directly addresses the question, aligning well with the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is strong, accurately reflecting the reference answer's content and intent. It is complete and relevant, with minor room for improvement in conciseness and clarity."
+    "feedback_overall_summary":"Overall, the generated answer is strong, accurately reflecting the reference answer's content and intent. It is complete and relevant, with minor room for improvement in conciseness and clarity.",
+    "avg_score":4.6666666667
   },
   {
     "question_id":18,
@@ -2337,7 +2396,8 @@
     "feedback_clarity_readability_notes":"The language used is clear and well-structured, making it easy to understand.",
     "feedback_adherence_to_instructions_notes":"The answer adheres perfectly to the instructions, using appropriate formatting and terminology.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is highly relevant and matches the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is excellent in all aspects, providing a clear, accurate, and concise response that aligns perfectly with the reference answer."
+    "feedback_overall_summary":"The generated answer is excellent in all aspects, providing a clear, accurate, and concise response that aligns perfectly with the reference answer.",
+    "avg_score":5.0
   },
   {
     "question_id":20,
@@ -2376,7 +2436,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it does not convey relevant content.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of being concise and clear, but it fails to provide any relevant content.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question about designing a concurrency control system.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question at all, providing no relevant information or insights. While it is concise and clear in its delivery, it ultimately fails to fulfill the requirements of the task."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question at all, providing no relevant information or insights. While it is concise and clear in its delivery, it ultimately fails to fulfill the requirements of the task.",
+    "avg_score":3.0
   },
   {
     "question_id":20,
@@ -2415,7 +2476,8 @@
     "feedback_clarity_readability_notes":"The generated answer is clear and easy to read, stating its limitations effectively.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not providing incorrect information, as it states a lack of knowledge instead.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic, as it does not address the question about designing a concurrency control system.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question at all, providing no relevant information or insights. While it is concise and clear in its limitations, it fails to meet the core requirements of the task."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question at all, providing no relevant information or insights. While it is concise and clear in its limitations, it fails to meet the core requirements of the task.",
+    "avg_score":3.0
   },
   {
     "question_id":20,
@@ -2454,7 +2516,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it does not convey any relevant content.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of being concise and clear, but it fails to provide any relevant content.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question about designing a concurrency control system.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question posed. While it is concise and clear in its delivery, it lacks any relevant content or understanding of the topic, resulting in very low scores across all criteria except for conciseness and clarity."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question posed. While it is concise and clear in its delivery, it lacks any relevant content or understanding of the topic, resulting in very low scores across all criteria except for conciseness and clarity.",
+    "avg_score":3.0
   },
   {
     "question_id":22,
@@ -2493,7 +2556,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to understand, with appropriate use of bullet points and clear descriptions.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions perfectly, maintaining the required format and content.",
     "feedback_relevance_to_expected_answer_notes":"The answer is fully relevant, addressing the core question and matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is highly effective, accurately detailing the process for importing users in bulk to the CyberArk Identity cloud directory. It is clear, well-structured, and adheres to the instructions, with only minor room for improvement in conciseness."
+    "feedback_overall_summary":"Overall, the generated answer is highly effective, accurately detailing the process for importing users in bulk to the CyberArk Identity cloud directory. It is clear, well-structured, and adheres to the instructions, with only minor room for improvement in conciseness.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":22,
@@ -2532,7 +2596,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and easy to follow, with appropriate use of headings and bullet points.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions well, including the required JSON structure for the request body.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is strong, providing a clear and relevant outline of the bulk user import process. However, it could improve by including more specific details about the validation and error-checking steps."
+    "feedback_overall_summary":"Overall, the generated answer is strong, providing a clear and relevant outline of the bulk user import process. However, it could improve by including more specific details about the validation and error-checking steps.",
+    "avg_score":4.3333333333
   },
   {
     "question_id":22,
@@ -2571,7 +2636,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, using bullet points effectively, but could benefit from a more consistent format in the API call descriptions.",
     "feedback_adherence_to_instructions_notes":"The answer follows most instructions well, but the naming inconsistency in the API call affects adherence slightly.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is highly relevant and closely matches the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer provides a solid outline of the process for importing users in bulk to the CyberArk Identity cloud directory. It is mostly accurate and relevant, but minor inaccuracies and omissions in completeness and adherence to instructions prevent it from achieving a perfect score."
+    "feedback_overall_summary":"Overall, the generated answer provides a solid outline of the process for importing users in bulk to the CyberArk Identity cloud directory. It is mostly accurate and relevant, but minor inaccuracies and omissions in completeness and adherence to instructions prevent it from achieving a perfect score.",
+    "avg_score":4.1666666667
   },
   {
     "question_id":21,
@@ -2610,7 +2676,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, but it does not provide any relevant content.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, but it fails to provide any useful information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question about adding a user to CyberArk Identity.",
-    "feedback_overall_summary":"The generated answer is inadequate as it does not provide any relevant information regarding the question asked. While it is concise and clear in its wording, it completely fails to address the user's query about the steps to add a new user to CyberArk Identity."
+    "feedback_overall_summary":"The generated answer is inadequate as it does not provide any relevant information regarding the question asked. While it is concise and clear in its wording, it completely fails to address the user's query about the steps to add a new user to CyberArk Identity.",
+    "avg_score":3.0
   },
   {
     "question_id":21,
@@ -2649,7 +2716,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it does not address the question at all.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, but it fails to provide any relevant information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question about adding a new user to CyberArk Identity.",
-    "feedback_overall_summary":"The generated answer fails to address the question about adding a new user to CyberArk Identity, providing no relevant information or steps. While it is concise and clear, it does not fulfill the requirements of the question."
+    "feedback_overall_summary":"The generated answer fails to address the question about adding a new user to CyberArk Identity, providing no relevant information or steps. While it is concise and clear, it does not fulfill the requirements of the question.",
+    "avg_score":3.0
   },
   {
     "question_id":21,
@@ -2688,7 +2756,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured and easy to read, with clear formatting and logical progression of steps.",
     "feedback_adherence_to_instructions_notes":"The answer follows the instructions well, including the use of JSON formatting for the request body.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant and addresses the core question effectively, matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong in clarity and structure, but it could improve in accuracy and completeness by aligning more closely with the essential fields outlined in the reference answer. Overall, it provides a good guide for adding a user to CyberArk Identity."
+    "feedback_overall_summary":"The generated answer is strong in clarity and structure, but it could improve in accuracy and completeness by aligning more closely with the essential fields outlined in the reference answer. Overall, it provides a good guide for adding a user to CyberArk Identity.",
+    "avg_score":4.5
   },
   {
     "question_id":23,
@@ -2727,7 +2796,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, stating its specialization and limitation effectively.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of stating its limitations clearly and concisely.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question about the workflow for adding a new attribute.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question at all, providing no relevant information about the workflow. While it is concise and clear in its limitation, it fails to fulfill the core requirements of the task."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question at all, providing no relevant information about the workflow. While it is concise and clear in its limitation, it fails to fulfill the core requirements of the task.",
+    "avg_score":3.0
   },
   {
     "question_id":23,
@@ -2766,7 +2836,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it does not provide any useful information.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of being concise and clear, but it fails to provide the required content.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is entirely off-topic and does not address the core question about adding a new extensible attribute to a user schema.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not attempt to answer the question posed. While it is concise and clear, it lacks any relevant content, making it unhelpful and irrelevant."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not attempt to answer the question posed. While it is concise and clear, it lacks any relevant content, making it unhelpful and irrelevant.",
+    "avg_score":3.0
   },
   {
     "question_id":23,
@@ -2805,7 +2876,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, but this is irrelevant since it does not address the question.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of being concise and clear, but it fails to provide any relevant content.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is entirely off-topic and does not address the core question about the workflow for adding an attribute.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question posed. While it is concise and clear in its presentation, it lacks any relevant content, making it ineffective and unhelpful."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question posed. While it is concise and clear in its presentation, it lacks any relevant content, making it ineffective and unhelpful.",
+    "avg_score":3.0
   },
   {
     "question_id":24,
@@ -2844,7 +2916,8 @@
     "feedback_clarity_readability_notes":"The answer is generally clear and well-structured, but the inclusion of multiple fields could detract from the main point.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions well, presenting information in a clear format without inventing details.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and addresses the core question, but it diverges slightly from the reference answer's focus on the 'Error' object.",
-    "feedback_overall_summary":"The generated answer provides a good response to the question, identifying the 'Message' field as the source of error messages. However, it could be improved by aligning more closely with the reference answer's focus on the 'Error' object and reducing verbosity."
+    "feedback_overall_summary":"The generated answer provides a good response to the question, identifying the 'Message' field as the source of error messages. However, it could be improved by aligning more closely with the reference answer's focus on the 'Error' object and reducing verbosity.",
+    "avg_score":4.0
   },
   {
     "question_id":24,
@@ -2883,7 +2956,8 @@
     "feedback_clarity_readability_notes":"The generated answer is clear and well-structured, making it easy to understand.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions well, presenting information in a clear format without inventing details.",
     "feedback_relevance_to_expected_answer_notes":"The answer is highly relevant, addressing the core question effectively and maintaining the intent of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong, with high accuracy and clarity. However, it could improve in completeness by including all relevant details from the reference answer. Overall, it effectively addresses the question."
+    "feedback_overall_summary":"The generated answer is strong, with high accuracy and clarity. However, it could improve in completeness by including all relevant details from the reference answer. Overall, it effectively addresses the question.",
+    "avg_score":4.6666666667
   },
   {
     "question_id":24,
@@ -2922,7 +2996,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, making it easy to read, but the incorrect information detracts from its overall effectiveness.",
     "feedback_adherence_to_instructions_notes":"The answer follows the instructions well, presenting information in a structured manner without inventing details.",
     "feedback_relevance_to_expected_answer_notes":"While the answer addresses the question, it does not align closely with the reference answer's intent and scope due to the incorrect identification of the error message source.",
-    "feedback_overall_summary":"The generated answer has significant factual inaccuracies regarding the source of error messages in API responses, leading to low scores in accuracy and completeness. While it is clear and concise, the core information is incorrect, which undermines its relevance and overall effectiveness."
+    "feedback_overall_summary":"The generated answer has significant factual inaccuracies regarding the source of error messages in API responses, leading to low scores in accuracy and completeness. While it is clear and concise, the core information is incorrect, which undermines its relevance and overall effectiveness.",
+    "avg_score":3.3333333333
   },
   {
     "question_id":25,
@@ -2961,7 +3036,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it lacks substance.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, but it fails to provide the requested information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is not relevant as it does not address the question about the error information at all.",
-    "feedback_overall_summary":"The generated answer is inadequate as it does not provide any relevant information regarding the question asked. While it is concise and clear, it completely misses the core intent and content of the reference answer."
+    "feedback_overall_summary":"The generated answer is inadequate as it does not provide any relevant information regarding the question asked. While it is concise and clear, it completely misses the core intent and content of the reference answer.",
+    "avg_score":3.0
   },
   {
     "question_id":25,
@@ -3000,7 +3076,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and easy to read, with bullet points effectively used to present information.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows the instructions well, presenting the information in a structured format without inventing details.",
     "feedback_relevance_to_expected_answer_notes":"The answer is relevant and addresses the core question, but it does not fully capture the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer provides a solid overview of the error handling for the specified API endpoint, but it lacks some critical details and specific phrasing found in the reference answer. While it is clear and adheres to formatting instructions, it could benefit from a more comprehensive approach to ensure all essential points are covered."
+    "feedback_overall_summary":"The generated answer provides a solid overview of the error handling for the specified API endpoint, but it lacks some critical details and specific phrasing found in the reference answer. While it is clear and adheres to formatting instructions, it could benefit from a more comprehensive approach to ensure all essential points are covered.",
+    "avg_score":4.0
   },
   {
     "question_id":25,
@@ -3039,7 +3116,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it lacks substance.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, as it states the lack of information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic, as it does not address the question about the error information.",
-    "feedback_overall_summary":"The generated answer is fundamentally lacking in substance and fails to provide any relevant information regarding the question asked. While it is concise and clear, it does not fulfill the requirements of accuracy, completeness, or relevance."
+    "feedback_overall_summary":"The generated answer is fundamentally lacking in substance and fails to provide any relevant information regarding the question asked. While it is concise and clear, it does not fulfill the requirements of accuracy, completeness, or relevance.",
+    "avg_score":3.0
   },
   {
     "question_id":26,
@@ -3078,7 +3156,8 @@
     "feedback_clarity_readability_notes":"The generated answer is clear and well-structured, but it is irrelevant to the question posed.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of being concise and clear, but it fails to provide any relevant content.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the core question regarding error handling strategies.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not attempt to answer the question about designing an error handling strategy for the CyberArk Identity API. While it is concise and clear in its presentation, it lacks any relevant content, making it ineffective."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not attempt to answer the question about designing an error handling strategy for the CyberArk Identity API. While it is concise and clear in its presentation, it lacks any relevant content, making it ineffective.",
+    "avg_score":3.0
   },
   {
     "question_id":26,
@@ -3117,7 +3196,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it does not address the question at all.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of being concise and clear, but fails to provide any relevant content.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question regarding error handling strategies.",
-    "feedback_overall_summary":"The generated answer fails to address the question about designing an error handling strategy for the CyberArk Identity API. While it is concise and clear, it lacks any relevant content, making it ineffective for the user's needs."
+    "feedback_overall_summary":"The generated answer fails to address the question about designing an error handling strategy for the CyberArk Identity API. While it is concise and clear, it lacks any relevant content, making it ineffective for the user's needs.",
+    "avg_score":3.0
   },
   {
     "question_id":26,
@@ -3156,7 +3236,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it does not address the question at all.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of being concise and clear, but fails to provide any relevant content.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question about error handling strategies.",
-    "feedback_overall_summary":"The generated answer fails to address the question regarding error handling strategies for the CyberArk Identity API, resulting in very low scores across all criteria except for conciseness and clarity, which are irrelevant in this context."
+    "feedback_overall_summary":"The generated answer fails to address the question regarding error handling strategies for the CyberArk Identity API, resulting in very low scores across all criteria except for conciseness and clarity, which are irrelevant in this context.",
+    "avg_score":3.0
   },
   {
     "question_id":27,
@@ -3195,7 +3276,8 @@
     "feedback_clarity_readability_notes":"The answer is clear, well-structured, and easy to read, with appropriate formatting.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows all specified instructions correctly, including formatting and content.",
     "feedback_relevance_to_expected_answer_notes":"The answer is perfectly relevant, addressing the same core question and maintaining the intent of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong overall, with high scores in accuracy, completeness, clarity, adherence to instructions, and relevance. The only minor point for improvement is conciseness, which could be slightly enhanced."
+    "feedback_overall_summary":"The generated answer is strong overall, with high scores in accuracy, completeness, clarity, adherence to instructions, and relevance. The only minor point for improvement is conciseness, which could be slightly enhanced.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":27,
@@ -3234,7 +3316,8 @@
     "feedback_clarity_readability_notes":"The answer is well-structured, easy to read, and uses appropriate formatting, making it clear and understandable.",
     "feedback_adherence_to_instructions_notes":"The generated answer follows all specified formatting rules and does not deviate from the instructions.",
     "feedback_relevance_to_expected_answer_notes":"The answer is perfectly relevant, addressing the core question and matching the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is highly accurate, complete, and relevant, with excellent clarity and adherence to instructions. It could improve slightly in conciseness, but overall, it effectively communicates the necessary information."
+    "feedback_overall_summary":"The generated answer is highly accurate, complete, and relevant, with excellent clarity and adherence to instructions. It could improve slightly in conciseness, but overall, it effectively communicates the necessary information.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":27,
@@ -3273,7 +3356,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and well-organized, making it easy to read and understand.",
     "feedback_adherence_to_instructions_notes":"The answer follows all specified formatting rules and presents information in a structured manner.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is fully relevant and matches the intent and scope of the reference answer.",
-    "feedback_overall_summary":"Overall, the generated answer is highly accurate, complete, and relevant, with excellent clarity and adherence to instructions. It could be slightly more concise, but it effectively communicates the necessary information."
+    "feedback_overall_summary":"Overall, the generated answer is highly accurate, complete, and relevant, with excellent clarity and adherence to instructions. It could be slightly more concise, but it effectively communicates the necessary information.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":28,
@@ -3312,7 +3396,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it lacks substance.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not inventing details, but it fails to provide the requested information.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic as it does not address the question about the endpoints at all.",
-    "feedback_overall_summary":"The generated answer is inadequate as it fails to address the question about the \/UserMgmt\/IsUserLockedOutByPolicy and \/UserMgmt\/IsUserCloudLocked endpoints. While it is concise and clear, it lacks any relevant content, making it unhelpful."
+    "feedback_overall_summary":"The generated answer is inadequate as it fails to address the question about the \/UserMgmt\/IsUserLockedOutByPolicy and \/UserMgmt\/IsUserCloudLocked endpoints. While it is concise and clear, it lacks any relevant content, making it unhelpful.",
+    "avg_score":3.0
   },
   {
     "question_id":28,
@@ -3351,7 +3436,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, but it lacks substance.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not providing incorrect information, but it does not fulfill the requirement to answer the question.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not relate to the question about the endpoints.",
-    "feedback_overall_summary":"The generated answer is inadequate as it does not address the question posed. While it is concise and clear, it fails in accuracy, completeness, and relevance, making it unhelpful for the user."
+    "feedback_overall_summary":"The generated answer is inadequate as it does not address the question posed. While it is concise and clear, it fails in accuracy, completeness, and relevance, making it unhelpful for the user.",
+    "avg_score":3.0
   },
   {
     "question_id":28,
@@ -3390,7 +3476,8 @@
     "feedback_clarity_readability_notes":"The structure is clear and well-organized, making it easy to follow and understand.",
     "feedback_adherence_to_instructions_notes":"The answer follows the specified format and does not deviate from the instructions.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is fully relevant and matches the intent and scope of the reference answer.",
-    "feedback_overall_summary":"The generated answer is strong overall, providing accurate, complete, and clear information about the endpoints. It could be slightly more concise, but it effectively addresses the question."
+    "feedback_overall_summary":"The generated answer is strong overall, providing accurate, complete, and clear information about the endpoints. It could be slightly more concise, but it effectively addresses the question.",
+    "avg_score":4.8333333333
   },
   {
     "question_id":29,
@@ -3429,7 +3516,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and easy to read, stating its lack of information in a straightforward manner.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not providing incorrect information, as it states a lack of knowledge on the topic.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question regarding the CyberArk Identity API.",
-    "feedback_overall_summary":"The generated answer is concise and clear in its limitation but fails to provide any relevant information or address the question, resulting in low scores for accuracy, completeness, and relevance."
+    "feedback_overall_summary":"The generated answer is concise and clear in its limitation but fails to provide any relevant information or address the question, resulting in low scores for accuracy, completeness, and relevance.",
+    "avg_score":3.0
   },
   {
     "question_id":29,
@@ -3468,7 +3556,8 @@
     "feedback_clarity_readability_notes":"The answer is clear and well-structured, stating its limitations effectively, which justifies a score of 5 for clarity and readability.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not providing incorrect information, thus receiving a score of 5 for adherence to instructions.",
     "feedback_relevance_to_expected_answer_notes":"The generated answer is entirely off-topic and does not address the core question, resulting in a score of 1 for relevance.",
-    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question regarding the CyberArk Identity API. While it is concise and clear in its limitations, it fails to provide any relevant information or insights, leading to very low scores in accuracy and completeness."
+    "feedback_overall_summary":"The generated answer is fundamentally flawed as it does not engage with the question regarding the CyberArk Identity API. While it is concise and clear in its limitations, it fails to provide any relevant information or insights, leading to very low scores in accuracy and completeness.",
+    "avg_score":3.0
   },
   {
     "question_id":29,
@@ -3507,6 +3596,7 @@
     "feedback_clarity_readability_notes":"The answer is clear and straightforward, stating its limitations effectively, which justifies a score of 5.",
     "feedback_adherence_to_instructions_notes":"The answer adheres to the instruction of not providing incorrect information, thus receiving a score of 5.",
     "feedback_relevance_to_expected_answer_notes":"The answer is entirely off-topic and does not address the question, resulting in a score of 1.",
-    "feedback_overall_summary":"The generated answer is highly deficient in terms of content, as it does not engage with the question about the CyberArk Identity API. While it is concise and clear in its limitations, it fails to provide any relevant information, leading to very low scores in accuracy and completeness."
+    "feedback_overall_summary":"The generated answer is highly deficient in terms of content, as it does not engage with the question about the CyberArk Identity API. While it is concise and clear in its limitations, it fails to provide any relevant information, leading to very low scores in accuracy and completeness.",
+    "avg_score":3.0
   }
 ]
