@@ -1,0 +1,187 @@
+# Overview  
+This API endpoint allows you to retrieve the risk level of a specified user from the Cloud Directory. It is accessed via a POST request at the path `/UserMgmt/GetUserRiskLevel`. Only system administrators with user management rights can use this API. To make a request, you need to provide the user's unique ID in the request body.
+
+**Security Requirement:**  
+This endpoint requires bearer token authentication.
+
+# Key Search Terms  
+- Get User Risk Level  
+- User Risk Assessment API  
+- Cloud Directory User Risk  
+- Risk Level Retrieval  
+- User Management API  
+- API for User Risk Level  
+- Fetch User Risk Status  
+- Risk Level Endpoint  
+- User Risk API  
+- Security Risk Level User  
+
+# Example User Questions  
+- How can I get the risk level for a specific user?  
+- What API do I use to check a user's risk status?  
+- How do I retrieve a user's risk level from the Cloud Directory?  
+- What information do I need to provide to fetch a user's risk level?  
+- Can I access the risk level of a user without admin rights?  
+- What does the response look like when I request a user's risk level?  
+- How do I handle errors when fetching a user's risk level?  
+- What is the required format for the user ID in the request?  
+- How can I tell if the API call was successful?  
+- What authentication is needed to access the user risk level API?  
+
+# Developer Notes  
+- **Required Parameters:**  
+  - **ID (string):** This is the unique ID of the user, which is generated upon user creation. It is required to fetch the user's attributes from the Cloud Directory.
+
+- **Request Structure:**  
+  - Content Type: `application/json`
+  - Sample Request JSON:
+    ```json
+    {
+      "ID": "string_value"
+    }
+    ```
+
+- **Response Structure:**  
+  - **Success (boolean):** Indicates if the API call was successful.
+  - **Result (object):** Contains the response data.
+    - **Uuid (string):** Unique ID of the user.
+    - **RiskLevel (string):** Indicates the user's risk level (e.g., high, medium, low).
+  - **Message (string):** Error message if the call fails.
+  - **MessageID (string):** Message ID for the failure response.
+  - **Exception (string):** Exception message received from the API.
+  - **ErrorId (string):** Error ID received from the API.
+  - **ErrorCode (string):** Error code received from the API.
+  - **IsSoftError (boolean):** Indicates if the error is a UI warning.
+  - **InnerExceptions (string):** Any inner exceptions received from the API.
+
+- **Error Handling:**  
+  - **Status Code 401:** Unauthorized access to the API.
+
+# Detailed Explanation of Available Data, Request and Response Parameters  
+
+### Request Parameters
+- **ID (string)**  
+  - **Description:** The unique identifier for the user in the Cloud Directory.  
+  - **Constraints:** Must be a valid string representing the user's unique ID.  
+  - **Example:** `"ID": "cb9b5761-6cfe-45a5-8ecf-ce9fa9e0gf86"`
+
+### Response Parameters
+- **success (boolean)**  
+  - **Description:** Indicates whether the API call was successful.  
+  - **Example:** `true` or `false`
+
+- **Result (object)**  
+  - **Description:** Contains the result of the API call.  
+  - **Nested Properties:**  
+    - **Uuid (string)**  
+      - **Description:** The unique ID of the user.  
+      - **Example:** `"cb9b5761-6cfe-45a5-8ecf-ce9fa9e0gf86"`
+    - **RiskLevel (string)**  
+      - **Description:** The risk level of the user (high, medium, low).  
+      - **Example:** `"high"`
+
+- **Message (string)**  
+  - **Description:** Error message for failure responses.  
+  - **Example:** `"User not found"`
+
+- **MessageID (string)**  
+  - **Description:** Message ID for the failure response.  
+  - **Example:** `"msg-12345"`
+
+- **Exception (string)**  
+  - **Description:** Exception message from the API.  
+  - **Example:** `"Invalid user ID"`
+
+- **ErrorId (string)**  
+  - **Description:** Error ID from the API.  
+  - **Example:** `"error-123"`
+
+- **ErrorCode (string)**  
+  - **Description:** Error code from the API.  
+  - **Example:** `"401"`
+
+- **IsSoftError (boolean)**  
+  - **Description:** Indicates if the error is a UI warning.  
+  - **Example:** `false`
+
+- **InnerExceptions (string)**  
+  - **Description:** Any inner exceptions received from the API.  
+  - **Example:** `"Database connection failed"`
+
+### Sample Response JSON
+```json
+{
+  "success": false,
+  "Result": {
+    "Uuid": "string_value",
+    "RiskLevel": "string_value"
+  },
+  "Message": "string_value",
+  "MessageID": "string_value",
+  "Exception": "string_value",
+  "ErrorId": "string_value",
+  "ErrorCode": "string_value",
+  "IsSoftError": false,
+  "InnerExceptions": "string_value"
+}
+```
+
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Get Risk Level for a specified user  
+**PATH:** /UserMgmt/GetUserRiskLevel  
+**METHOD:** POST  
+**TAGS:** Get User Risk Level  
+**DESCRIPTION:** This API enables you to fetch the details of an existing user in the Cloud Directory. It retrieves the latest risky event of a user and the point-in-time risk generated by the system. Only system administrators with user management rights can invoke this API. To fetch the Cloud Directory, enter the user’s unique ID as an input parameter in the request body.  
+**METADATA:**  
+  * x-idap-anon: False  
+**REQUEST BODY:** Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * ID (string): This is the user unique ID of the user that is generated when the user is created. This ID is used to fetch the user’s attributes from the Cloud Directory.  
+    **Required fields:** ID  
+  **Sample Request JSON:**  
+  ```json
+  {
+    "ID": "string_value"
+  }
+  ```  
+**RESPONSES:**  
+  **Status Code:** 200  
+  **Description:** API-Result  
+  **Content Type:** application/json  
+  **Response Schema:** UserMgmtGetUserRiskLevel  
+  **Description:** Return object for API call.  
+  **Response Body Properties:**  
+    * success (boolean): The success status will be either true or false.  
+    * Result (object): The response object for the API call. The default value is 'null'.  
+      Nested properties:  
+        * Uuid (string): The unique ID of the user. For example, cb9b5761-6cfe-45a5-8ecf-ce9fa9e0gf86.  
+        * RiskLevel (string): This indicates the risk level of the user. For example, high, medium, or low.  
+    * Message (string): The error message for the failure response. By default, the failure response is 'null'.  
+    * MessageID (string): The message ID for the failure response. The default value is 'null'.  
+    * Exception (string): The exception message received from the API. The default value is 'null'.  
+    * ErrorId (string): The error ID received from the API. The default value is 'null'.  
+    * ErrorCode (string): The error code received from the API. The default value is 'null'.  
+    * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup.  
+    * InnerExceptions (string): Inner Exceptions if any received from the API. By default it is 'null'.  
+  **Sample Response JSON:**  
+  ```json
+  {
+    "success": false,
+    "Result": {
+      "Uuid": "string_value",
+      "RiskLevel": "string_value"
+    },
+    "Message": "string_value",
+    "MessageID": "string_value",
+    "Exception": "string_value",
+    "ErrorId": "string_value",
+    "ErrorCode": "string_value",
+    "IsSoftError": false,
+    "InnerExceptions": "string_value"
+  }
+  ```  
+  **Status Code:** 401  
+  **Description:** Unauthorized access to the API.  
+  **Content Type:** text/html  
+**SECURITY:** bearerAuth  

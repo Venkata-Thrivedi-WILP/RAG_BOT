@@ -1,0 +1,195 @@
+# Overview
+The **Add Additional Attributes** API allows system administrators to add new attributes to a tenant schema or modify existing attributes. This endpoint is accessed via a **POST** request at the path **/ExtData/UpdateSchema**. It is important to note that only system administrators have the permission to invoke this API. When adding multiple attributes to an empty schema, they should be included in the request body. For adding a single attribute to an existing schema, users must first retrieve the current attributes using the **GetSchema** endpoint, then include the new attribute in the complete list before making the update call. The request body must contain all current attributes along with the new attributes.
+
+**Security Requirement:** This endpoint requires bearer token authentication.
+
+# Key Search Terms
+- Add attributes to schema
+- Update tenant schema
+- Modify schema attributes
+- System administrator API
+- JSON request body for schema update
+- Manage user data attributes
+- API for schema modification
+- POST /ExtData/UpdateSchema
+- Bearer authentication for API
+- Schema update error handling
+
+# Example User Questions
+- How can I add new attributes to my tenant schema?
+- What is the process to update existing attributes in the schema?
+- Can I delete columns that are not in the updated list?
+- What permissions are required to use the UpdateSchema API?
+- How do I format the JSON request body for adding attributes?
+- What should I do if I receive an error when updating the schema?
+- How can I retrieve the current schema before making updates?
+- What are the required fields for the UpdateSchema API?
+- How do I handle invalid table names in the API response?
+- What does a successful response look like for the schema update?
+
+# Developer Notes
+- **Required Parameters:**
+  - **Columns**: An object containing the extended columns to update.
+  - **Table**: A string representing the name of the table to modify.
+  
+- **Request Structure:**
+  - Content Type: `application/json`
+  - JSON must include all current attributes in the schema plus the new attributes.
+
+- **Response Structure:**
+  - Status Code: 200 for successful requests.
+  - Response includes a `Result` object and an `Error` object in case of failures.
+
+- **Error Handling:**
+  - Errors related to invalid table names or column types will return specific messages.
+  - Ensure to check for `success` boolean in the response to determine if the call was successful.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+
+### Request Parameters
+- **Columns (object)**: A list of extended columns to update.
+  - **StreetAddress (object)**: An extended column.
+    - **Title (string)**: The column title.
+    - **Type (string)**: The column data type.
+    - **Description (string)**: Description of data stored in the column.
+- **AllowDelete (boolean)**: Indicates whether to delete columns that do not exist in the updated columns.
+- **Table (string)**: Name of the table to modify.
+
+**Required Fields:**
+- Columns
+- Table
+
+**Sample Request JSON:**
+```json
+{
+  "Columns": {
+    "StreetAddress": {
+      "Title": "string_value",
+      "Type": "string_value",
+      "Description": "string_value"
+    }
+  },
+  "AllowDelete": false,
+  "Table": "string_value"
+}
+```
+
+### Response Parameters
+- **Result (object)**: Return object for a successful API call.
+  - **ErrorID (string)**: Error ID if any error is received from the API. Default is 'null'.
+  - **ErrorCode (string)**: Error code if any error is received from the API. Default is 'null'.
+  - **Exception (string)**: Exception message if an exception is received from the API. Default is 'null'.
+  - **MessageID (string)**: Message Id for failure response. Default is 'null'.
+  - **Result (string)**: The result for the API call.
+  - **InnerExceptions (string)**: Inner Exceptions if any received from the API. Default is 'null'.
+  - **Message (string)**: Error message for failure response. Default is 'null'.
+  - **success (boolean)**: Indicates success of the API call.
+  - **IsSoftError (boolean)**: Indicates if this is a UI warning popup.
+  
+- **Error (object)**: Error message text on failure.
+  - **InvalidTableName (string)**: Message if an invalid table is provided.
+  - **InvalidColumnType (string)**: Message if invalid or empty column type is provided.
+  - **EmptyTableName (string)**: Message if the provided table is empty or null.
+
+**Sample Response JSON:**
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "InvalidTableName": "string_value",
+    "InvalidColumnType": "string_value",
+    "EmptyTableName": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+**ENDPOINT:** Add additional attributes  
+**PATH:** /ExtData/UpdateSchema  
+**METHOD:** POST  
+**TAGS:** Manage User Data  
+**DESCRIPTION:** This API is used to add new attributes to the tenant schema or edit/update an existing attribute in the schema. Only system administrators can invoke this API. To add multiple attributes to an empty schema, add them to the list and make the update call with this API. To add a single attribute to a schema that already has attributes, use the GetSchema endpoint to get a list of attributes currently in the schema, add the new attribute to the list, and then call this API with the updated complete list. The JSON in the request body must include all current attributes in the schema plus the new attributes. For more details refer to User attributes using API.  
+**METADATA:**  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**REQUEST BODY:** Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * Columns (object): A list of extended columns to update  
+      Nested properties:  
+        * StreetAddress (object): An extended column  
+          Nested properties:  
+            * Title (string): The column title  
+            * Type (string): The column data type  
+            * Description (string): Description of data stored in the column  
+    * AllowDelete (boolean): Delete columns which do not exist in updated columns  
+    * Table (string): Name of the table to modify  
+    **Required fields:** Columns, Table  
+  **Sample Request JSON:**  
+  ```json
+  {
+  "Columns": {
+    "StreetAddress": {
+      "Title": "string_value",
+      "Type": "string_value",
+      "Description": "string_value"
+    }
+  },
+  "AllowDelete": false,
+  "Table": "string_value"
+}
+  ```  
+**RESPONSES:**  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: ExtDataUpdateSchema  
+  Response Body Properties:  
+    * Result (object): Return object for a successful API call  
+      Nested properties:  
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'  
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'  
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'  
+        * MessageID (string): Message Id for failure response. By default it is 'null'  
+        * Result (string): The result for the API call  
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'  
+        * Message (string): Error message for failure response. By default it is 'null'  
+        * success (boolean): It will be true for a successful API call  
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup  
+    * Error (object): Error message text on failure and below message would be returned if provided table is invalid/empty, or column data type is invalid/empty  
+      Nested properties:  
+        * InvalidTableName (string): If Invalid Table is provided, User will see the following message 'The requested data or its dependent data was not found in the service.'  
+        * InvalidColumnType (string): If Invalid or Empty column type is provided, The user will see the following message 'Invalid arguments passed to the server.'  
+        * EmptyTableName (string): When provided Table is empty or null, you would see this message 'Parameter 'Table' must be specified.'  
+  **Sample Response JSON:**  
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "InvalidTableName": "string_value",
+    "InvalidColumnType": "string_value",
+    "EmptyTableName": "string_value"
+  }
+}
+  ```  
+**SECURITY:** bearerAuth

@@ -1,96 +1,106 @@
-**Overview**
-==========
+# Overview
+The **Set User Credentials for an Application** endpoint allows you to securely set user credentials for a specified application. This is done using a POST request to the path `/UPRest/SetUserCredsForApp`. The endpoint requires authentication via a bearer token, ensuring that only authorized users can modify application credentials.
 
-Set user credentials for an application. This endpoint allows you to securely store and manage application passwords, public keys, and usernames.
+# Key Search Terms
+- Set user credentials
+- Application management API
+- User authentication
+- POST /UPRest/SetUserCredsForApp
+- Bearer token authentication
+- Application password
+- Public key encryption
+- API user credentials
+- Application key management
+- Secure user login
 
-* HTTP Method: POST
-* Path: `/UPRest/SetUserCredsForApp`
-* Security Requirement: Bearer Authentication
+# Example User Questions
+- How do I set user credentials for my application?
+- What parameters do I need to provide to set user credentials?
+- Can I use a public key to encrypt my application password?
+- What is the expected response when I set user credentials?
+- How do I authenticate when using the SetUserCredsForApp endpoint?
+- What happens if I provide incorrect credentials?
+- Is the application key required to set user credentials?
+- What content type should I use for the request body?
+- How do I handle errors when setting user credentials?
+- What does the response look like when the operation is successful?
 
-**Key Search Terms**
-==================
+# Developer Notes
+- **Required Parameters**:
+  - Password (string): Application password
+  - appkey (string): Application key
+  - Username (string): Application user name
+- **Request Structure**:
+  - Content Type: `application/json`
+  - Required fields: Password, appkey, Username
+- **Response Structure**:
+  - Status Code: 200
+  - Response Body includes:
+    - Result (object): Indicates success or failure of the operation.
+    - Error (object): Contains error message text on failure, may be null.
+- **Security Considerations**: This endpoint requires bearer token authentication.
 
-* Set user credentials
-* Application management
-* Password storage
-* Public key encryption
-* Username authentication
+# Detailed Explanation of Available Data, Request and Response Parameters
+## Request Parameters
+- **Password** (string): The password for the application user.
+  - Example: `"Password": "mySecurePassword123"`
+- **PublicKeyHash** (string): SHA256 Hex of the public key used to encrypt the password.
+  - Example: `"PublicKeyHash": "a1b2c3d4e5f6g7h8i9j0"`
+- **appkey** (string): The key associated with the application.
+  - Example: `"appkey": "myAppKey"`
+- **Username** (string): The username for the application.
+  - Example: `"Username": "user@example.com"`
+- **ConnectorId** (string): ID of the connector where a public key used to encrypt exists.
+  - Example: `"ConnectorId": "connector123"`
 
-**Example User Questions**
-=========================
+## Response Parameters
+- **Result** (object): Indicates whether the operation was successful.
+  - Example: `"Result": { "success": true }`
+- **Error** (object): Contains an error message if the operation failed, may be null.
+  - Example: `"Error": { "message": "Invalid credentials" }`
 
-* What is the format of the request body for setting user credentials?
-* How do I use bearer authentication with this endpoint?
-* Can I set multiple user credentials at once?
-* What happens if the password or public key hash is invalid?
-* How can I retrieve a list of all stored user credentials?
-
-**Developer Notes**
-==================
-
-### Required Fields
-
-* `Password` (string): Application password
-* `appkey` (string): Application key
-* `Username` (string): Application user name
-* `ConnectorId` (string): ID of the connector where a public key used to encrypt exists
-
-### Request Response Structure
-
-* Status Code: 200 (API-Result)
-* Content Type: `*/*`
-* Response Schema: `UPRestCreateTagWithNoApp`
-* Response Body Properties:
-	+ `Result` (object): Whether the operation is successful or not.
-	+ `Error` (object): Error message text on failure, may be null.
-
-### Security Considerations
-
-* Bearer Authentication required
-* Public key encryption used for password storage
-* SHA256 Hex of public key hash stored in `PublicKeyHash`
-
-**Raw Endpoint Documentation (Formatted)**
-==========================================
-
+# Raw Endpoint Documentation (Formatted)
+```
 ENDPOINT: Set user credentials for an application.
-PATH: `/UPRest/SetUserCredsForApp`
+PATH: /UPRest/SetUserCredsForApp
 METHOD: POST
 TAGS: Application Management
 METADATA:
   * x-idap-anon: False
   * x-codegen-request-body-name: payload
 REQUEST BODY: Required
-  Content Type: `application/json`
+  Content Type: application/json
   Schema Properties:
     * Password (string): Application password
     * PublicKeyHash (string): SHA256 Hex of the public key used to encrypt the password
     * appkey (string): Application key
     * Username (string): Application user name
     * ConnectorId (string): ID of the connector were a public key used to encrypt exists
+    Required fields: Password, appkey, Username
   Sample Request JSON:
-```json
-{
+  ```json
+  {
   "Password": "string_value",
   "PublicKeyHash": "string_value",
   "appkey": "string_value",
   "Username": "string_value",
   "ConnectorId": "string_value"
 }
-```
+  ```
 RESPONSES:
   Status Code: 200
   Description: API-Result
-  Content Type: `*/*`
+  Content Type: */*
   Response Schema: UPRestCreateTagWithNoApp
   Response Body Properties:
     * Result (object): Whether the operation is successful or not.
     * Error (object): Error message text on failure, may be null
   Sample Response JSON:
-```json
-{
+  ```json
+  {
   "Result": {},
   "Error": {}
 }
-```
+  ```
 SECURITY: bearerAuth
+```

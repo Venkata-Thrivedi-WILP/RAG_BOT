@@ -1,90 +1,105 @@
-**Overview**
------------
+# Overview  
+The **Upload Secured Item Icon** endpoint allows users to upload an icon for a secured item within the application management system. This endpoint utilizes the **POST** HTTP method and is accessed via the path **/UPRest/UploadSecuredItemIcon**. To use this endpoint, authentication is required through a bearer token.
 
-The Upload secured item icon endpoint allows users to upload a secured item icon. This endpoint is used in Application Management and requires authentication using the bearer token.
+# Key Search Terms  
+- Upload secured item icon  
+- Application management API  
+- POST upload icon  
+- Secured item management  
+- Bearer authentication  
+- JSON request body  
+- API response structure  
+- Error handling in API  
+- Upload icon endpoint  
 
-To use this endpoint, you need to send a POST request to `/UPRest/UploadSecuredItemIcon` with a JSON payload containing the `sItemkey` field. The request body must be in the format specified by the schema properties.
+# Example User Questions  
+- How do I upload an icon for a secured item?  
+- What is the endpoint for uploading secured item icons?  
+- What authentication do I need to use the Upload Secured Item Icon API?  
+- Can I see an example of the request JSON for uploading an icon?  
+- What response should I expect after uploading an icon?  
+- How do I handle errors when uploading an icon?  
+- What fields are required in the request body for the Upload Secured Item Icon endpoint?  
+- What does the response look like when the upload is successful?  
+- Is there a specific content type required for the upload request?  
+- How can I check if the icon upload was successful?  
 
-**Key Search Terms**
------------------
+# Developer Notes  
+- **Required Parameters:**  
+  - `sItemkey`: The name of the secured item (string).  
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - Request Body Example:  
+    ```json
+    {
+      "sItemkey": "string_value"
+    }
+    ```
+- **Response Structure:**  
+  - Status Code: `200`  
+  - Response Body Example:  
+    ```json
+    {
+      "Result": {},
+      "Error": {}
+    }
+    ```
+- **Error Handling:**  
+  - The `Error` object in the response may contain error message text if the operation fails, or it may be null.  
+- **Security Considerations:**  
+  - Authentication is required using bearer tokens.
 
-* Upload secured item icon
-* Application Management API
-* Bearer authentication
-* Secure item icon upload
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **sItemkey**  
+  - **Type:** string  
+  - **Description:** The name of the secured item for which the icon is being uploaded.  
+  - **Constraints:** Required field.  
+  - **Example Value:** `"example_item"`  
 
-**Example User Questions**
-------------------------
+## Response Parameters  
+- **Result**  
+  - **Type:** object  
+  - **Description:** Indicates whether the operation was successful.  
+  - **Example Value:** `{}` (an empty object indicating success)  
 
-* What is the correct format for uploading a secured item icon?
-* How do I authenticate using bearer token for this endpoint?
-* Can I use this endpoint to create multiple secure items at once?
-* What happens if the upload fails?
-* How can I check the status of my uploaded secure item?
+- **Error**  
+  - **Type:** object  
+  - **Description:** Contains error message text if the operation fails; may be null.  
+  - **Example Value:** `{"message": "Error uploading icon"}` or `null`  
 
-**Developer Notes**
------------------
-
-### Required Fields
-
-* `sItemkey` (string): Name of secured item
-
-### Request Structure
-
-* HTTP Method: POST
-* Path: `/UPRest/UploadSecuredItemIcon`
-* Content Type: application/json
-* Schema Properties:
-	+ `sItemkey` (string): Name of secured item (required)
-
-### Response Structure
-
-* Status Code: 200
-* Description: API-Result
-* Content Type: `*/*`
-* Response Schema: UPRestCreateTagWithNoApp
-* Response Body Properties:
-	+ `Result` (object): Whether the operation is successful or not.
-	+ `Error` (object): Error message text on failure, may be null
-
-### Security Considerations
-
-* Bearer authentication required for this endpoint.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-ENDPOINT: Upload secured item icon.
-PATH: `/UPRest/UploadSecuredItemIcon`
-METHOD: POST
-TAGS: Application Management
-METADATA:
-  * `x-idap-anon`: False
-  * `x-codegen-request-body-name`: payload
-REQUEST BODY: Required
-  Content Type: application/json
-  Schema Properties:
-    * `sItemkey` (string): Name of secured item
-    Required fields: `sItemkey`
-  Sample Request JSON:
-```json
-{
-  "sItemkey": "string_value"
-}
-```
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: `*/*`
-  Response Schema: UPRestCreateTagWithNoApp
-  Response Body Properties:
-    * `Result` (object): Whether the operation is successful or not.
-    * `Error` (object): Error message text on failure, may be null
-  Sample Response JSON:
-```json
-{
-  "Result": {},
-  "Error": {}
-}
-```
-SECURITY: bearerAuth
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Upload secured item icon.  
+**PATH:** /UPRest/UploadSecuredItemIcon  
+**METHOD:** POST  
+**TAGS:** Application Management  
+**METADATA:**  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**REQUEST BODY:** Required  
+  **Content Type:** application/json  
+  **Schema Properties:**  
+    * sItemkey (string): Name of secured item  
+  **Required fields:** sItemkey  
+  **Sample Request JSON:**  
+  ```json  
+  {  
+    "sItemkey": "string_value"  
+  }  
+  ```  
+**RESPONSES:**  
+  **Status Code:** 200  
+  **Description:** API-Result  
+  **Content Type:** */*  
+  **Response Schema:** UPRestCreateTagWithNoApp  
+  **Response Body Properties:**  
+    * Result (object): Whether the operation is successful or not.  
+    * Error (object): Error message text on failure, may be null  
+  **Sample Response JSON:**  
+  ```json  
+  {  
+    "Result": {},  
+    "Error": {}  
+  }  
+  ```  
+**SECURITY:** bearerAuth  

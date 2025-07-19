@@ -1,96 +1,132 @@
-**Overview**
------------
+# Overview
+The **Get TOTP Codes for a Secured Password** endpoint allows users to retrieve Time-based One-Time Password (TOTP) codes associated with a secured password. This endpoint uses the HTTP POST method and is located at the path `/UPRest/GetTotpCodesForSecuredPassword`. It is primarily used in application management scenarios where secure access is required. 
 
-Get TOTP codes for a Secured Password
-=====================================
+To access this endpoint, a valid bearer token is required for authentication, ensuring that only authorized users can request TOTP codes.
 
-This endpoint allows users to retrieve TOTP (Time-Based One-Time Password) codes for a secured password. The default value for the number of TOTP codes (`n`) is 3, but it can be configured.
+# Key Search Terms
+- TOTP codes
+- Secured password
+- Get TOTP codes API
+- Application management API
+- Bearer authentication
+- Time-based one-time password
+- API for TOTP retrieval
+- POST request for TOTP codes
+- Secured item unique ID
+- Error handling in TOTP API
 
-To use this endpoint, you must provide the `sItemkey` of the secured item and optionally specify an `actionType`. The request body should contain the required fields in JSON format.
+# Example User Questions
+- How can I get TOTP codes for a secured password?
+- What is the endpoint to retrieve TOTP codes?
+- How do I authenticate to access TOTP codes?
+- What parameters do I need to provide to get TOTP codes?
+- What does the response look like when I request TOTP codes?
+- How many TOTP codes can I retrieve at once?
+- What is the default number of TOTP codes returned?
+- How do I handle errors when requesting TOTP codes?
+- What is the meaning of the "IsSoftError" field in the response?
+- How can I check if my request for TOTP codes was successful?
 
-**Key Search Terms**
--------------------
+# Developer Notes
+- **Required Parameters**:
+  - `sItemkey` (string): The unique ID of the secured item.
+  
+- **Optional Parameters**:
+  - `actionType` (string): The type of action for audit events, defaults to 'null'.
 
-* Get TOTP codes
-* Secured password
-* Time-Based One-Time Password
-* UPRestGetTotpCodesForSecuredPassword
+- **Request Structure**:
+  - Content Type: `application/json`
+  - Sample Request JSON:
+    ```json
+    {
+      "sItemkey": "string_value",
+      "actionType": "string_value"
+    }
+    ```
 
-**Example User Questions**
--------------------------
+- **Response Structure**:
+  - Status Code: `200`
+  - Content Type: `*/*`
+  - Response includes success status, TOTP codes, and error messages if applicable.
 
-* What is the default value for the number of TOTP codes?
-* How do I specify an action type in the request body?
-* Can I retrieve more than 3 TOTP codes?
-* What happens if I don't provide the sItemkey?
+- **Error Handling**:
+  - If unauthorized, the response will include an error message stating: "You are not authorized to perform this operation. Please contact your IT helpdesk."
 
-**Developer Notes**
-------------------
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **sItemkey** (string): 
+  - Description: Unique ID of the secured item.
+  - Example: `"sItemkey": "12345"`
+  
+- **actionType** (string, optional): 
+  - Description: Type of action for audit events (e.g., AutoFill, IBECopy, ContextMenuCopy). Defaults to 'null'.
+  - Example: `"actionType": "AutoFill"`
 
-### Required Fields
+### Response Parameters
+- **Result** (object): 
+  - Description: Contains the result of the API call.
+  - **success** (boolean): Indicates if the API call was successful.
+  - **Result** (object): 
+    - **Period** (integer): Validity period for the TOTP codes.
+    - **TOTPCodes** (object): Contains the TOTP codes.
+      - **1** (string): First TOTP Code.
+      - **2** (string): Second TOTP Code.
+      - **3** (string): Third TOTP Code.
+    - **EpochTimeInSec** (integer): Epoch time for TOTP codes.
+  
+- **Message** (string): Error message for failure response, defaults to 'null'.
+- **MessageID** (string): Message ID for failure response, defaults to 'null'.
+- **IsSoftError** (boolean): Indicates if this is a soft error (UI warning).
+- **Exception** (string): Exception message if any error occurs, defaults to 'null'.
+- **ErrorID** (string): Error ID if any error occurs, defaults to 'null'.
+- **ErrorCode** (string): Error code if any error occurs, defaults to 'null'.
+- **InnerExceptions** (string): Additional exception details.
 
-* `sItemkey` (string): Secured item's unique ID
-* `actionType` (string): Optional. The action item for audit events includes the type of action (AutoFill, IBECopy, ContextMenuCopy). By default, it is set to 'null'.
-
-### Request Body
-
-The request body should contain the required fields in JSON format:
-```json
-{
-  "sItemkey": "string_value",
-  "actionType": "string_value"
-}
-```
-
-### Response Structure
-
-The response will be in the following format:
+### Sample Response JSON
 ```json
 {
   "Result": {
-    "success": boolean,
+    "success": false,
     "Result": {
-      "Period": integer,
+      "Period": 0,
       "TOTPCodes": {
-        "1": string,
-        "2": string,
-        "3": string
+        "1": "string_value",
+        "2": "string_value",
+        "3": "string_value"
       },
-      "EpochTimeInSec": integer
+      "EpochTimeInSec": 0
     },
-    "Message": string,
-    "MessageID": string,
-    "IsSoftError": boolean,
-    "Exception": string,
-    "ErrorID": string,
-    "ErrorCode": string,
-    "InnerExceptions": string
+    "Message": "string_value",
+    "MessageID": "string_value",
+    "IsSoftError": false,
+    "Exception": "string_value",
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "InnerExceptions": "string_value"
   },
   "Error": {
-    "UnAuthorized": string
+    "UnAuthorized": "string_value"
   }
 }
 ```
 
-### Security
-
-This endpoint uses bearer authentication.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-ENDPOINT: Get TOTP codes for a Secured Password.
-PATH: /UPRest/GetTotpCodesForSecuredPassword
-METHOD: POST
-TAGS: Application Management
-DESCRIPTION: - Get n TOTP codes for a Secured Password. - The default value for n is 3, but it can be configured. - The response includes the period for TOTP calculation and a list of TOTP tokens in Base64 format.
-METADATA:
-  * x-idap-anon: False
-REQUEST BODY: Required
-  Content Type: application/json
+# Raw Endpoint Documentation (Formatted)
+**ENDPOINT**: Get TOTP codes for a Secured Password.  
+**PATH**: /UPRest/GetTotpCodesForSecuredPassword  
+**METHOD**: POST  
+**TAGS**: Application Management  
+**DESCRIPTION**: 
+- Get n TOTP codes for a Secured Password. 
+- The default value for n is 3, but it can be configured. 
+- The response includes the period for TOTP calculation and a list of TOTP tokens in Base64 format.  
+**METADATA**:
+  * x-idap-anon: False  
+**REQUEST BODY**: Required  
+  Content Type: application/json  
   Schema Properties:
     * sItemkey (string): Secured Item's Unique ID.
     * actionType (string): Optional. The action item for audit events includes the type of action (AutoFill, IBECopy, ContextMenuCopy). By default, it is set to 'null'.
+  
   Sample Request JSON:
   ```json
   {
@@ -98,11 +134,12 @@ REQUEST BODY: Required
   "actionType": "string_value"
 }
   ```
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: */*
-  Response Schema: UPRestGetTotpCodesForSecuredPassword
+
+**RESPONSES**:
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: UPRestGetTotpCodesForSecuredPassword  
   Response Body Properties:
     * Result (object): Return object for a successful API call.
       Nested properties:
@@ -110,7 +147,7 @@ RESPONSES:
         * Result (object): Result includes TOTP Codes.
           Nested properties:
             * Period (integer): Verification code validity period.
-            * TOTPCodes (object): Results the n TOTP codes.Here the n value is 3.
+            * TOTPCodes (object): Results the n TOTP codes. Here the n value is 3.
               Nested properties:
                 * 1 (string): First TOTP Code.
                 * 2 (string): Second TOTP Code.
@@ -126,6 +163,7 @@ RESPONSES:
     * Error (object): Error message text on failure.
       Nested properties:
         * UnAuthorized (string): This error message is displayed when user does not have rights. Error message: 'You are not authorized to perform this operation. Please contact your IT helpdesk.'
+  
   Sample Response JSON:
   ```json
   {
@@ -152,5 +190,5 @@ RESPONSES:
     "UnAuthorized": "string_value"
   }
 }
-```
-SECURITY: bearerAuth
+  ```  
+**SECURITY**: bearerAuth

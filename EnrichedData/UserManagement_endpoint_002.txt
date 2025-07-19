@@ -1,118 +1,124 @@
-**Overview**
-===============
+# Overview
+The **Start Bulk User Import** endpoint allows system administrators and users with user management rights to initiate a bulk user import into the CyberArk Identity cloud directory. This is done by sending a CSV file containing user information to the endpoint. The endpoint is accessed via a **POST** request at the path **/CDirectoryService/GetUsersFromCsvFile**. Upon successful invocation, the API validates the CSV file and stores it in cloud storage, returning a unique **ReturnID** for the file. Security is enforced through bearer token authentication.
 
-Use this API to initiate the bulk user import in the CyberArk Identity cloud directory. Only system administrators and users with user management rights can invoke this API. This API is the first part of the two API calls to upload a bulk of users in the cloud directory.
+# Key Search Terms
+- Bulk User Import API
+- CyberArk Identity user import
+- CSV file user upload
+- User management API
+- Cloud directory user import
+- Start Bulk User Import endpoint
+- API for uploading users
+- Bearer authentication API
+- CSV validation API
 
-To use this endpoint, you need to send a POST request to `/CDirectoryService/GetUsersFromCsvFile` with a CSV file containing the users' information for bulk import and the file name as form-data in the request body. The Identity cloud will store the file in the cloud storage and returns a ReturnID that contains the formatted name of the CSV.
+# Example User Questions
+- How do I initiate a bulk user import in CyberArk Identity?
+- What is the endpoint for uploading a CSV file for user import?
+- What authentication is required for the bulk user import API?
+- How can I check if my CSV file is valid for user import?
+- What parameters do I need to include in the bulk user import request?
+- How do I handle errors when importing users via CSV?
+- What roles can I assign to users during the bulk import?
+- Can I send email invites during the bulk user import?
+- What is the structure of the request body for the bulk user import?
 
-Security: bearerAuth is required to use this endpoint.
+# Developer Notes
+- **Required Parameters**:
+  - `importType` (query, Required): Must be set to "ImportBulkUser" for bulk user import.
+  
+- **Request Body**:
+  - Must be in JSON format with the following required fields:
+    - `File_Name`
+    - `FileName`
 
-**Key Search Terms**
-==================
+- **Response Structure**:
+  - The API returns a response with a status code of 200 for successful calls, containing a `Result` object with user import details.
 
-* Bulk Import
-* CyberArk Identity cloud directory
-* User management rights
-* System administrators
-* CSV file import
-* Cloud storage
-* ReturnID
+- **Error Handling**:
+  - The API will return specific error messages if the CSV file is invalid or if there are issues with the data format.
 
-**Example User Questions**
-=========================
+- **Security Considerations**:
+  - The endpoint requires bearer token authentication.
 
-* What is the purpose of the `GetUsersFromCsvFile` API in the CyberArk Identity cloud directory?
-* How do I initiate bulk user import using this API?
-* What security measures are required to use this endpoint?
-* How does the CSV file need to be formatted for successful import?
-* What happens if the data in the CSV file is invalid?
+# Detailed Explanation of Available Data, Request and Response Parameters
 
-**Developer Notes**
-==================
+## Request Parameters
+- **importType** (query, Required)
+  - Type: String
+  - Description: Specifies the type of bulk import. Default is "ImportBulkUser".
 
-### Required Parameters:
+### Request Body
+- **File_Name** (object, Required)
+  - Contains user information with the following nested properties:
+    - `InEverybodyRole` (boolean): Default is true.
+    - `SendSmsInvite` (boolean): Default is false; required `MobileNumber` if true.
+    - `InSysAdminRole` (boolean): Default is false.
+    - `Description` (string): Default is null.
+    - `Name` (string): Required.
+    - `MobileNumber` (string): Required if `SendSmsInvite` is true.
+    - `Password` (string): Default is a randomly generated strong password.
+    - `CmaRedirectedUserUuid` (string): Optional.
+    - `ServiceUser` (boolean): Default is false.
+    - `OfficeNumber` (string): Default is null.
+    - `ReportsTo` (string): Default is null.
+    - `SendEmailInvite` (boolean): Default is true; required `Mail` if true.
+    - `HomeNumber` (string): Default is null.
+    - `DisplayName` (string): Default is null.
+    - `ForcePasswordChangeNext` (boolean): Default is true.
+    - `PasswordNeverExpire` (boolean): Default is false.
+    - `Mail` (string): Required if `SendEmailInvite` is true.
+  
+- **FileName** (string, Required)
+  - Description: The name of the CSV file containing user data. Example: `bulkImportUserTemplate.csv`.
 
-* `importType` (query, Required): Bulk import type to process. Default type is Bulk User Import i.e. "ImportBulkUser"
-* `File_Name`: The csv file containing user information
-	+ Nested properties:
-		- `InEverybodyRole` (boolean): Place user in Everybody role (default=true)
-		- `SendSmsInvite` (boolean): Send user an SMS invite to enroll their mobile device in the portal (default=false)
-		- `InSysAdminRole` (boolean): Place user in System Adminstrator role (default=false)
-		- `Description` (string): Description of user (default=null)
-		- `Name` (string): Name of user
-		- `MobileNumber` (string): User's mobile number (default=null); note this field is required if SendSmsInvite is true
-		- `Password` (string): URL encoded password of the user (default=randomly generated strong password)
-		- `CmaRedirectedUserUuid` (string): Idaptive mobile authenticator redirected user uuid
-		- `ServiceUser` (boolean): User is a service user (default=false)
-		- `OfficeNumber` (string): User's office number (default=null).
-		- `ReportsTo` (string): Uuid of user this user reports to (default=null)
-		- `SendEmailInvite` (boolean): Send user an email invite to the portal (default=true)
-		- `HomeNumber` (string): User's home number (default=null)
-		- `DisplayName` (string): Display name of user (default=null)
-		- `ForcePasswordChangeNext` (boolean): Force password change at first login (default=true)
-		- `PasswordNeverExpire` (boolean): User's password never expires (default=false)
-		- `Mail` (string): Email of user (default=null); note this field is required if 'SendEmailInvite' is true
-* `FileName`: The CSV file name that contains a list of users and related data to be read to import. Ex: bulkImportUserTemplate.csv
+## Sample Request JSON
+```json
+{
+  "File_Name": {
+    "InEverybodyRole": false,
+    "SendSmsInvite": false,
+    "InSysAdminRole": false,
+    "Description": "string_value",
+    "Name": "string_value",
+    "MobileNumber": "string_value",
+    "Password": "string_value",
+    "CmaRedirectedUserUuid": "string_value",
+    "ServiceUser": false,
+    "OfficeNumber": "string_value",
+    "ReportsTo": "string_value",
+    "SendEmailInvite": false,
+    "HomeNumber": "string_value",
+    "DisplayName": "string_value",
+    "ForcePasswordChangeNext": false,
+    "PasswordNeverExpire": false,
+    "Mail": "string_value"
+  },
+  "FileName": "string_value"
+}
+```
 
-### Request Body:
+## Response Parameters
+- **Status Code**: 200
+- **Response Body Properties**:
+  - **Result** (object): Contains details of the API call.
+    - **ErrorID** (string): Default is null.
+    - **ErrorCode** (string): Default is null.
+    - **Exception** (string): Default is null.
+    - **MessageID** (string): Default is null.
+    - **Result** (object): Includes:
+      - **ReturnID** (string): Unique identifier for the successful call.
+      - **Count** (integer): Number of records returned.
+      - **Columns** (array): Definitions of all columns.
+      - **Results** (array): User details from the CSV file.
+      - **FullCount** (integer): Maximum users that can be imported.
+      - **IsAggregate** (boolean): Attribute indicating aggregation.
+    - **InnerExceptions** (string): Default is null.
+    - **Message** (string): Error message for failure response.
+    - **success** (boolean): Indicates success of the operation.
+    - **IsSoftError** (boolean): Indicates if the error is a UI warning.
 
-* Required:
-	+ `File_Name`
-	+ `FileName`
-
-### Response Schema:
-
-* `Result` (object): Return object for a successful API call
-	+ Nested properties:
-		- `ErrorID` (string): Error ID if any error is received from the API. By default, it is 'null'
-		- `ErrorCode` (string): Error code if any error is received from the API. By default, it is 'null'
-		- `Exception` (string): Exception message if an exception is received from the API. By default, it is 'null'
-		- `MessageID` (string): Message Id for failure response. By default it is 'null'
-		- `ReturnID` (string): ReturnID for the successful api call. By default it is null
-		- `Count` (integer): It is the number of records that the call returns
-		- `Columns` (array): Array list of definition of all Columns
-			+ Array items:
-				- `TableKey` (string): Specifies whether the column is a key and if so what kind of key it is. It can be a primary key or a foreign key. Ex: 'Primary'
-				- `Description` (string): It is the brief description of the column. Ex: 'Row Identifier (primary key)'
-				- `Name` (string): It is the name of the column
-				- `Format` (string): Currently It is not applicable. By default it is null
-				- `TableName` (string): It is the name of the table. By default it is null
-				- `DDName` (string): It is the Data dictionary name of the column. Ex: 'ID'
-				- `DDTitle` (string): It is the Data dictionary title of the column. Ex: 'ID'
-				- `Type` (string): It is the numeric indicator of the type of data in the column. Ex: '12'
-				- `IsHidden` (boolean): Specifies whether column is hidden or not. default: false
-				- `Width` (integer): Currently It is not applicable. By default it is 0
-				- `Title` (string): Title of the column. Ex: 'ID'
-				- `ForeignKey` (string): Specifies whether column holds a foreign key or not. By default, it is null
-			+ Results the rows/users details from the csv file
-			+ Array items:
-				- `Entities` (array): Array list of definition of all Columns
-					+ Array items:
-						- `IsForeignKey` (string): Specifies whether the entity has a foreign key or not. By default, it is false
-						- `Type` (string): It is type of the entity. Ex: Application
-						- `Key` (string): Unique Id of the Entity. Ex:'cb9b5761-6cfe-45a5-8ecf-ce9fa9e0ff82'
-				- `Row` (object): Details of the user that is to be imported
-					+ Nested properties:
-						- `Password` (string): This is the password for the user and must meet the CyberArk Cloud Directory password requirements. Default: null
-						- `HomeNumber` (string): User's home number
-						- `Mobile Number` (integer): User's mobile number
-						- `OfficeNumber` (string): User's office number
-						- `Roles` (string): User's roles
-						- `Expiration Date` (string): User's expiration date
-						- `Require Password Change` (string): Whether password change is required or not
-						- `Email Address` (string): User's email address
-						- `Login Name` (integer): User's login name
-						- `Description` (string): User's description
-						- `Display Name` (string): User's display name
-
-### Error Response:
-
-* `Error` (object): Error message text on failure, below message, will be returned if data present in the file is invalid
-	+ Nested properties:
-		- `InvalidSuffix` (string): When provided Table is empty or null, you would see this message 'User name 'temp@abc' has an invalid suffix - suffix must be one of the defined suffixes.'
-		- `InvalidFileFormat` (string): When provided Table is empty or null, you would see this message 'Imported file temp is not a valid Excel or CSV file - The file extension is not currently supported.'
-
-**Sample Response JSON:**
+### Sample Response JSON
 ```json
 {
   "Result": {
@@ -120,54 +126,184 @@ Security: bearerAuth is required to use this endpoint.
     "ErrorCode": "string_value",
     "Exception": "string_value",
     "MessageID": "string_value",
-    "ReturnID": "string_value",
-    "Count": 0,
-    "Columns": [
-      {
-        "TableKey": "string_value",
-        "Description": "string_value",
-        "Name": "string_value",
-        "Format": "string_value",
-        "TableName": "string_value",
-        "DDName": "string_value",
-        "DDTitle": "string_value",
-        "Type": "string_value",
-        "IsHidden": false,
-        "Width": 0,
-        "Title": "string_value",
-        "ForeignKey": "string_value"
-      }
-    ],
-    "Results": [
-      {
-        "Entities": [
-          {
-            "IsForeignKey": "string_value",
-            "Type": "string_value",
-            "Key": "string_value"
-          }
-        ],
-        "Row": {
-          "Password": "string_value",
-          "HomeNumber": "string_value",
-          "Mobile Number": 0,
-          "OfficeNumber": "string_value",
-          "Roles": "string_value",
-          "Expiration Date": "string_value",
-          "Require Password Change": "string_value",
-          "Email Address": "string_value",
-          "Login Name": 0,
+    "Result": {
+      "ReturnID": "string_value",
+      "Count": 0,
+      "Columns": [
+        {
+          "TableKey": "string_value",
           "Description": "string_value",
-          "Display Name": "string_value"
+          "Name": "string_value",
+          "Format": "string_value",
+          "TableName": "string_value",
+          "DDName": "string_value",
+          "DDTitle": "string_value",
+          "Type": "string_value",
+          "IsHidden": false,
+          "Width": 0,
+          "Title": "string_value",
+          "ForeignKey": "string_value"
         }
-      }
-    ],
-    "FullCount": 0,
-    "IsAggregate": false
+      ],
+      "Results": [
+        {
+          "Entities": [
+            {
+              "IsForeignKey": "string_value",
+              "Type": "string_value",
+              "Key": "string_value"
+            }
+          ],
+          "Row": {
+            "Password": "string_value",
+            "HomeNumber": "string_value",
+            "Mobile Number": 0,
+            "OfficeNumber": "string_value",
+            "Roles": "string_value",
+            "Expiration Date": "string_value",
+            "Require Password Change": "string_value",
+            "Email Address": "string_value",
+            "Login Name": 0,
+            "Description": "string_value",
+            "Display Name": "string_value"
+          }
+        }
+      ],
+      "FullCount": 0,
+      "IsAggregate": false
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
   },
   "Error": {
     "InvalidSuffix": "string_value",
     "InvalidFileFormat": "string_value"
   }
 }
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Start Bulk User Import
+PATH: /CDirectoryService/GetUsersFromCsvFile
+METHOD: POST
+TAGS: Bulk Import
+DESCRIPTION: Use this API to initiate the bulk user import in the CyberArk Identity cloud directory. Only system administrators and users with user management rights can invoke this API. This API is the first part of the two API calls to upload a bulk of users in the cloud directory. Refer to SubmitUploadedFile for the second part, which performs the actual upload. This API takes a CSV file containing the users' information for bulk import and the file name as form-data in request. When this API is invoked, the list of users and their information will be read from the CSV file sent as a request to this API, and the Identity cloud will store the file in the cloud storage and returns a ReturnID that contains the formatted name of the CSV. The CSV file will be validated to ensure the data is correct in the CSV file, and validation errors are thrown if the information is not correctly formatted.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+PARAMETERS:
+  * importType (query, Required): Bulk import type to process. Default type is Bulk User Import i.e. "ImportBulkUser"
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * File_Name (object): The csv file containing user information
+      Nested properties:
+        * InEverybodyRole (boolean): Place user in Everybody role (default=true)
+        * SendSmsInvite (boolean): Send user an SMS invite to enroll their mobile device in the portal (default=false)
+        * InSysAdminRole (boolean): Place user in System Adminstrator role (default=false)
+        * Description (string): Description of user (default=null)
+        * Name (string): Name of user
+        * MobileNumber (string): User's mobile number (default=null); note this field is required if SendSmsInvite is true
+        * Password (string): URL encoded password of the user (default=randomly generated strong password)
+        * CmaRedirectedUserUuid (string): Idaptive mobile authenticator redirected user uuid
+        * ServiceUser (boolean): User is a service user (default=false)
+        * OfficeNumber (string): User's office number (default=null).
+        * ReportsTo (string): Uuid of user this user reports to (default=null)
+        * SendEmailInvite (boolean): Send user an email invite to the portal (default=true)
+        * HomeNumber (string): User's home number (default=null)
+        * DisplayName (string): Display name of user (default=null)
+        * ForcePasswordChangeNext (boolean): Force password change at first login (default=true)
+        * PasswordNeverExpire (boolean): User's password never expires (default=false)
+        * Mail (string): Email of user (default=null); note this field is required if 'SendEmailInvite' is true
+    * FileName (string): The CSV file name that contains a list of users and related data to be read to import. Ex: bulkImportUserTemplate.csv
+    Required fields: File_Name, FileName
+  Sample Request JSON:
+  ```json
+  {
+  "File_Name": {
+    "InEverybodyRole": false,
+    "SendSmsInvite": false,
+    "InSysAdminRole": false,
+    "Description": "string_value",
+    "Name": "string_value",
+    "MobileNumber": "string_value",
+    "Password": "string_value",
+    "CmaRedirectedUserUuid": "string_value",
+    "ServiceUser": false,
+    "OfficeNumber": "string_value",
+    "ReportsTo": "string_value",
+    "SendEmailInvite": false,
+    "HomeNumber": "string_value",
+    "DisplayName": "string_value",
+    "ForcePasswordChangeNext": false,
+    "PasswordNeverExpire": false,
+    "Mail": "string_value"
+  },
+  "FileName": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: CDirectoryServiceGetUsersFromCsvFile
+  Response Body Properties:
+    * Result (object): Return object for a successful API call
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (object): Result includes Count and Columns definition
+          Nested properties:
+            * ReturnID (string): ReturnID for the successful api call. By default it is null
+            * Count (integer): It is the number of records that the call returns
+            * Columns (array): Array list of definition of all Columns
+              Array items:
+                * TableKey (string): Specifies whether the column is a key and if so what kind of key it is. It can be a primary key or a foreign key. Ex: 'Primary'
+                * Description (string): It is the brief description of the column. Ex: 'Row Identifier (primary key)'
+                * Name (string): It is the name of the column
+                * Format (string): Currently It is not applicable. By default it is null
+                * TableName (string): It is the name of the table. By default it is null
+                * DDName (string): It is the Data dictionary name of the column. Ex: 'ID'
+                * DDTitle (string): It is the Data dictionary title of the column. Ex: 'ID'
+                * Type (string): It is the numeric indicator of the type of data in the column. Ex: '12'
+                * IsHidden (boolean): Specifies whether column is hidden or not. default: false
+                * Width (integer): Currently It is not applicable. By default it is 0
+                * Title (string): Title of the column. Ex: 'ID'
+                * ForeignKey (string): Specifies whether column holds a foreign key or not. By default, it is null
+            * Results (array): Results the rows/users details from the csv file
+              Array items:
+                * Entities (array): Array list of definition of all Columns
+                  Array items:
+                    * IsForeignKey (string): Specifies whether the entity has a foreign key or not. By default, it is false
+                    * Type (string): It is type of the entity. Ex: Application
+                    * Key (string): Unique Id of the Entity. Ex:'cb9b5761-6cfe-45a5-8ecf-ce9fa9e0ff82'
+                * Row (object): Details of the user that is to be imported
+                  Nested properties:
+                    * Password (string): This is the password for the user and must meet the CyberArk Cloud Directory password requirements. Default: null
+                    * HomeNumber (string): User's home number. Default: null
+                    * Mobile Number (integer): User's mobile number. Default: null
+                    * OfficeNumber (string): User's office number. Default: null
+                    * Roles (string): Role to be assigned for the user
+                    * Expiration Date (string): Expiration date for the user. Default: null
+                    * Require Password Change (string): Does the user require changing the password after the first login? Default: false
+                    * Email Address (string): Email address of the user. Ex: 'mark@email.com'
+                    * Login Name (integer): User's login name. Default: null
+                    * Description (string): Some information describing the user. Default: null
+                    * Display Name (string): Display name of user. Default: null
+            * FullCount (integer): It specifies number of maximum users that can be imported
+            * IsAggregate (boolean): It is an attribute
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): The success will be true or false
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup
+    * Error (object): Error message text on failure, below message, will be returned if data present in the file is invalid
+      Nested properties:
+        * InvalidSuffix (string): When provided Table is empty or null, you would see this message 'User name 'temp@abc' has an invalid suffix - suffix must be one of the defined suffixes.'
+        * InvalidFileFormat (string): When provided Table is empty or null, you would see this message 'Imported file temp is not a valid Excel or CSV file - The file extension is not currently supported.'
+SECURITY: bearerAuth
 ```

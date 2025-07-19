@@ -1,107 +1,128 @@
-**Overview**
------------
+# Overview  
+This endpoint allows users to add and update application tags for the current user. It utilizes the HTTP POST method and is accessed via the path `/UPRest/UpsertTagsForApp`. To use this endpoint, authentication is required through a bearer token.
 
-The `/UPRest/UpsertTagsForApp` endpoint allows users to add and update application tags for the current user. This endpoint is accessible via a POST request.
+# Key Search Terms  
+- Add application tags  
+- Update application tags  
+- Application management API  
+- User tags endpoint  
+- Bearer authentication  
+- JSON request body  
+- API response structure  
+- Tag names array  
+- Application key  
 
-To use this endpoint, you will need to provide an authentication token in the `Authorization` header using bearerAuth. The request body should be in JSON format with the required fields: `appkey` and `tagnames`.
+# Example User Questions  
+- How can I add tags to my application?  
+- What is the endpoint to update application tags?  
+- How do I authenticate when using the application management API?  
+- What parameters do I need to send in the request body?  
+- What does the response look like when I update tags?  
+- Can I remove tags from my application using this endpoint?  
+- What should I do if I receive an error when adding tags?  
+- How do I format the JSON request for adding tags?  
+- What is the required content type for the request?  
+- How do I check if my operation was successful after calling the API?  
 
-**Key Search Terms**
--------------------
+# Developer Notes  
+- **Required Parameters:**  
+  - `appkey` (string): The application key.  
+  - `tagnames` (array): A list of tag names.  
 
-* Add application tags
-* Update application tags
-* Current user API access
-* Bearer authentication
-* UpsertTagsForApp endpoint
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - Example Request JSON:  
+    ```json
+    {
+      "appkey": "string_value",
+      "tagnames": [
+        "string_value"
+      ]
+    }
+    ```
 
-**Example User Questions**
--------------------------
+- **Response Structure:**  
+  - Status Code: `200`  
+  - Response Content Type: `*/*`  
+  - Example Response JSON:  
+    ```json
+    {
+      "Result": {},
+      "Error": {}
+    }
+    ```
 
-* What is the syntax for adding a new tag to an existing application?
-* How do I update multiple tags at once using this endpoint?
-* Can I use this endpoint to create a new application if none exists?
-* What happens when I try to add a duplicate tag name?
-* How can I retrieve the list of all tags associated with my current user?
+- **Error Handling:**  
+  - The response may contain an error message if the operation fails. The `Error` field may be null if no error occurred.  
 
-**Developer Notes**
--------------------
+- **Security Considerations:**  
+  - This endpoint requires bearer authentication.  
 
-### Request Structure
+# Detailed Explanation of Available Data, Request and Response Parameters  
 
-* HTTP Method: POST
-* Path: `/UPRest/UpsertTagsForApp`
-* Content Type: `application/json`
-* Required Fields:
-	+ `appkey` (string): Application key
-	+ `tagnames` (array): list of tag names
-* Sample Request JSON:
-```json
-{
-  "appkey": "string_value",
-  "tagnames": [
-    "string_value"
-  ]
-}
+## Request Parameters  
+- **appkey**  
+  - **Type:** string  
+  - **Description:** Unique identifier for the application.  
+  - **Constraints:** Required field.  
+  - **Example Value:** `"myApp123"`  
+
+- **tagnames**  
+  - **Type:** array  
+  - **Description:** A list of tag names to associate with the application.  
+  - **Constraints:** Required field.  
+  - **Example Value:** `["tag1", "tag2", "tag3"]`  
+
+## Response Parameters  
+- **Result**  
+  - **Type:** object  
+  - **Description:** Indicates whether the operation was successful.  
+  - **Example Value:** `{}`  
+
+- **Error**  
+  - **Type:** object  
+  - **Description:** Contains error message text if the operation fails; may be null if there is no error.  
+  - **Example Value:** `{"message": "Invalid application key"}`  
+
+# Raw Endpoint Documentation (Formatted)  
 ```
-
-### Response Structure
-
-* Status Code: 200
-* Content Type: `*/*`
-* Response Schema: `UPRestCreateTagWithNoApp`
-* Sample Response JSON:
-```json
-{
-  "Result": {},
-  "Error": {}
-}
-```
-
-### Security Considerations
-
-* Bearer authentication required in the `Authorization` header.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
 ENDPOINT: Add and update application tags for the current user.
-PATH: `/UPRest/UpsertTagsForApp`
+PATH: /UPRest/UpsertTagsForApp
 METHOD: POST
 TAGS: Application Management
 METADATA:
   * x-idap-anon: False
   * x-codegen-request-body-name: payload
 REQUEST BODY: Required
-  Content Type: `application/json`
+  Content Type: application/json
   Schema Properties:
     * appkey (string): Application key
     * tagnames (array): list of tag names
       Array items:
-  Required fields: `appkey`, `tagnames`
+    Required fields: appkey, tagnames
   Sample Request JSON:
-```json
-{
+  ```json
+  {
   "appkey": "string_value",
   "tagnames": [
     "string_value"
   ]
 }
-```
-
+  ```
 RESPONSES:
   Status Code: 200
   Description: API-Result
-  Content Type: `*/*`
+  Content Type: */*
   Response Schema: UPRestCreateTagWithNoApp
   Response Body Properties:
     * Result (object): Whether the operation is successful or not.
     * Error (object): Error message text on failure, may be null
   Sample Response JSON:
-```json
-{
+  ```json
+  {
   "Result": {},
   "Error": {}
 }
-```
-
+  ```
 SECURITY: bearerAuth
+```

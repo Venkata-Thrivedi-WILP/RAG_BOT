@@ -1,77 +1,62 @@
-**Overview**
------------
+# Overview  
+The **Send Invitation SMS** endpoint allows system administrators or users with user management permissions to send SMS invitations to users. This is accomplished through a POST request to the path `/UserMgmt/SendSmsInvite`. Access to this endpoint requires bearer token authentication.
 
-Send Invitation SMS endpoint allows system administrators to send SMS invitations to users. This endpoint requires authentication via bearer token and is accessible only to users with user management permissions.
+# Key Search Terms  
+- Send SMS invitation  
+- User management API  
+- Invite users via SMS  
+- System administrator permissions  
+- Bearer token authentication  
+- User UUID  
+- API response structure  
+- Error handling in API  
+- SMS invite endpoint  
 
-To use this endpoint, you can send a POST request to `/UserMgmt/SendSmsInvite` with the `ID` query parameter containing the user UUID to which the invitation should be sent.
+# Example User Questions  
+- How can I send an SMS invitation to a user?  
+- What permissions do I need to use the Send Invitation SMS endpoint?  
+- What is the required parameter for sending an SMS invite?  
+- How do I handle errors when sending an SMS invitation?  
+- What is the response format for the SendSmsInvite API?  
+- Can I send an invitation to multiple users at once?  
+- What authentication method is required for this endpoint?  
+- What does the response look like if the SMS invitation fails?  
+- How do I know if the SMS invitation was sent successfully?  
 
-**Key Search Terms**
--------------------
+# Developer Notes  
+- **Required Parameters:**  
+  - `ID` (query, Required): User UUID to send the invitation to.  
+- **Request Structure:**  
+  - The request must be a POST to `/UserMgmt/SendSmsInvite` with the required query parameter.  
+- **Response Structure:**  
+  - Status Code: 200  
+  - Content Type: `*/*`  
+  - Response Schema: `UserMgmtInviteUsers`  
+  - Response Body Properties:  
+    - `Result` (object): Contains standard result information.  
+    - `Error` (object): Contains error message text on failure, may be null.  
+- **Error Handling:**  
+  - Check the `Error` object in the response for details if the request fails.  
+- **Security Considerations:**  
+  - This endpoint requires bearer token authentication.
 
-* Send SMS invitations
-* User management API
-* System administrator permissions
-* Bearer token authentication
-* User UUID
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- **ID**  
+  - **Type:** Query  
+  - **Description:** The UUID of the user to whom the invitation will be sent.  
+  - **Constraints:** Required field.  
+  - **Example Value:** `123e4567-e89b-12d3-a456-426614174000`  
 
-**Example User Questions**
--------------------------
+### Response Parameters  
+- **Result**  
+  - **Type:** Object  
+  - **Description:** Standard result information returned upon successful processing of the request.  
+- **Error**  
+  - **Type:** Object  
+  - **Description:** Contains error message text if the request fails; may be null.  
 
-* How do I send an SMS invitation to a specific user?
-* What is the required parameter for sending SMS invitations?
-* Can I use this endpoint without being a system administrator?
-* How do I authenticate with bearer token for this API?
-* What happens if the user does not exist in the database?
-
-**Developer Notes**
------------------
-
-### Required Parameters
-
-* `ID` (query): User UUID to send invitation to
-
-### Request/Response Structure
-
-* The request body should be empty.
-* The response will contain a JSON object with `Result` and `Error` properties.
-
-### Error Handling
-
-* If the user does not exist in the database, an error message will be returned in the `Error` property.
-* If any other error occurs, an error message will be returned in the `Error` property.
-
-### Security Considerations
-
-* This endpoint requires authentication via bearer token. Ensure that only authorized users can access this endpoint.
-* The `x-idap-anon: False` metadata indicates that anonymous requests are not allowed for this endpoint.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-ENDPOINT: Send Invitation SMS
-PATH: `/UserMgmt/SendSmsInvite`
-METHOD: POST
-TAGS: Send User Invites
-
-DESCRIPTION:
-You must be a system administrator or have user management permissions.
-
-METADATA:
-  * `x-idap-anon`: False
-
-PARAMETERS:
-  * `ID` (query, Required): User UUID to send invitation to
-
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: `*/*`
-  Response Schema: UserMgmtInviteUsers
-  Response Body Properties:
-    * `Result` (object): Standard result
-    * `Error` (object): Error message text on failure, may be null
-
-SAMPLE RESPONSE JSON:
+### Sample Response JSON  
 ```json
 {
   "Result": {},
@@ -79,4 +64,29 @@ SAMPLE RESPONSE JSON:
 }
 ```
 
-SECURITY: bearerAuth
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Send Invitation SMS  
+**PATH:** /UserMgmt/SendSmsInvite  
+**METHOD:** POST  
+**TAGS:** Send User Invites  
+**DESCRIPTION:** You must be a system administrator or have user management permissions.  
+**METADATA:**  
+  * x-idap-anon: False  
+**PARAMETERS:**  
+  * ID (query, Required): User UUID to send invitation to  
+**RESPONSES:**  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: UserMgmtInviteUsers  
+  Response Body Properties:  
+    * Result (object): Standard result  
+    * Error (object): Error message text on failure, may be null  
+  Sample Response JSON:  
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```  
+**SECURITY:** bearerAuth  

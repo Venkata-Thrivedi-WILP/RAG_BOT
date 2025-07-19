@@ -1,74 +1,123 @@
-**Overview**
-================
+# Overview
+The **Update Base Profile** endpoint allows you to update the information for a specified user within the system. This endpoint is accessed via a **POST** request at the path **/CDirectoryService/ChangeUser**. It is intended for cloud users and can only be invoked by system administrators, users with user management rights, or the user themselves. Additionally, if both 'ServiceUser' and 'InEverybodyRole' properties are provided, specifying 'ServiceUser' will take precedence. This endpoint requires bearer token authentication for security.
 
-Update Base Profile API
-------------------------
+# Key Search Terms
+- Update user profile API
+- Change user information endpoint
+- User management API
+- Cloud user update
+- User data modification
+- Bearer authentication for user updates
+- User profile change request
+- API for updating user details
+- CDirectoryService ChangeUser
 
-This API is used to update the information for a specified user. The user must be a cloud user. Only system administrators, users with user management rights, or the user itself can invoke this API.
+# Example User Questions
+- How can I update a user's profile information?
+- What API do I use to change user data in the cloud?
+- Can I modify a user's email address using the API?
+- What permissions are required to update a user profile?
+- How do I ensure a user must change their password on first login?
+- What is the structure of the request body for updating a user?
+- How do I handle errors when updating a user profile?
+- What fields are required for the Update Base Profile API?
+- How do I verify a user's email address through the API?
+- What does the response look like when I update a user successfully?
 
-The API accepts a JSON payload containing various fields that need to be updated. The required field is 'ID'. The HTTP method used for this API is POST and the path is /CDirectoryService/ChangeUser.
+# Developer Notes
+- **Required Parameters**: 
+  - `ID` (string): Unique Id of the cloud user to change.
+- **Request Structure**: The request body must be in JSON format and include the required fields.
+- **Response Structure**: The response will contain a success status and may include error details if applicable.
+- **Error Handling**: The API returns specific error messages for invalid IDs and other issues.
+- **Security Considerations**: This endpoint requires bearer token authentication.
 
-**Key Search Terms**
-==================
+# Detailed Explanation of Available Data, Request and Response Parameters
+## Request Parameters
+- **CmaRedirectedUserUuid** (string): Idaptive mobile authenticator redirected user unique id.
+- **HomeNumber** (string): User's home number.
+- **useAlternateMfaAccount** (boolean): Indicates if the user has an alternate MFA account.
+- **OrgPath** (string): The organization name to which the user is added.
+- **AccountExp** (string): Account expiry date/time.
+- **ReportsTo** (string): Unique Id of the user to whom the user reports.
+- **DisplayName** (string): User's display name.
+- **PasswordNeverExpire** (boolean): Indicates if the user's password expires.
+- **ID** (string, Required): Unique Id of the cloud user to change. Example: `a3e5bab3-9104-49cb-9d3a-e5da7gcef3a3`
+- **OfficeNumber** (string): User's office number.
+- **ForcePasswordChangeNext** (boolean): Indicates if the user should change password on first login.
+- **MobileNumber** (string): User's mobile number.
+- **InEverybodyRole** (boolean): Indicates if the user is in the Everybody role.
+- **ServiceUser** (boolean): Indicates if the user is a service user.
+- **VerifyEmail** (boolean): Enforces user to verify the registered email address.
+- **PreferredCulture** (string): User's preferred culture.
+- **Mail** (string): User's email address.
+- **Description** (string): User's description.
+- **Name** (string): Username of the user. Format can be 'username@suffix' if suffix is required, else 'username'.
 
-* Update user profile
-* Change user information
-* Cloud user management
-* User authentication
-* API update
-* Directory service
+### Sample Request JSON
+```json
+{
+  "CmaRedirectedUserUuid": "string_value",
+  "HomeNumber": "string_value",
+  "useAlternateMfaAccount": false,
+  "OrgPath": "string_value",
+  "AccountExp": "string_value",
+  "ReportsTo": "string_value",
+  "DisplayName": "string_value",
+  "PasswordNeverExpire": false,
+  "ID": "string_value",
+  "OfficeNumber": "string_value",
+  "ForcePasswordChangeNext": false,
+  "MobileNumber": "string_value",
+  "InEverybodyRole": false,
+  "ServiceUser": false,
+  "VerifyEmail": false,
+  "PreferredCulture": "string_value",
+  "Mail": "string_value",
+  "Description": "string_value",
+  "Name": "string_value"
+}
+```
 
-**Example User Questions**
-=========================
+## Response Parameters
+- **Status Code**: 200
+- **Response Schema**: CDirectoryServiceChangeUser
+- **Response Body Properties**:
+  - **Result** (object): Return object for a successful API call.
+    - **ErrorID** (string): Error ID if any error is received from the API. Default is 'null'.
+    - **ErrorCode** (string): Error code if any error is received from the API. Default is 'null'.
+    - **Exception** (string): Exception message if any exception is received from the API. Default is 'null'.
+    - **MessageID** (string): Message Id for failure response. Default is 'null'.
+    - **Result** (object): The result for the API call.
+    - **InnerExceptions** (string): Inner Exceptions if any received from the API. Default is 'null'.
+    - **Message** (string): Error message for failure response. Default is 'null'.
+    - **success** (boolean): True for a successful API call.
+    - **IsSoftError** (boolean): Indicates if this is not an actual exception but a UI warning popup.
+  - **Error** (object): Error message text on failure.
+    - **InvalidId** (string): Error message when the unique user Id is incorrect. Default message: "You are not authorized to perform this operation. Please contact your IT helpdesk."
 
-* What fields can be updated in a user's profile?
-* How do I invoke the Update Base Profile API?
-* Can anyone update another user's profile?
-* What is the required field for this API?
-* How do I handle errors when updating a user's profile?
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {},
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "InvalidId": "string_value"
+  }
+}
+```
 
-**Developer Notes**
-==================
-
-### Required Fields
-
-* `ID`: Unique Id of the cloud user to change.
-
-### Request/Response Structure
-
-The request body should be in JSON format with the following properties:
-
-| Property | Type | Description |
-| --- | --- | --- |
-| CmaRedirectedUserUuid | string | Idaptive mobile authenticator redirected user unique id. |
-| HomeNumber | string | User home number. |
-| useAlternateMfaAccount | boolean | Does the user have an alternate MFA Account? |
-| OrgPath | string | The organisation name to which the user is added |
-| AccountExp | string | Account expiry date/time. |
-| ReportsTo | string | Unique Id of the user to whom the user reports. |
-| DisplayName | string | User display name. |
-| PasswordNeverExpire | boolean | Does user's password expire? |
-| ID | string | Unique Id of the cloud user to change. Ex: a3e5bab3-9104-49cb-9d3a-e5da7gcef3a3 |
-| OfficeNumber | string | User office number. |
-| ForcePasswordChangeNext | boolean | Should the user change password on first login? |
-| MobileNumber | string | User mobile number. |
-| InEverybodyRole | boolean | Is user in the Everybody role? |
-| ServiceUser | boolean | Is User a service user? |
-| VerifyEmail | boolean | Enforce user to verify the registered email address |
-| PreferredCulture | string | User preferred culture. |
-| Mail | string | User email address. |
-| Description | string | User description. |
-| Name | string | Username of the user. The username can be 'username@suffix' if suffix is required, else 'username'. |
-
-The response body will contain a `Result` object with various properties that indicate the success or failure of the API call.
-
-### Security
-
-This API uses bearer authentication for security purposes.
-
-**Raw Endpoint Documentation (Formatted)**
-=============================================
-
+# Raw Endpoint Documentation (Formatted)
+```
 ENDPOINT: Update Base Profile
 PATH: /CDirectoryService/ChangeUser
 METHOD: POST
@@ -99,6 +148,7 @@ REQUEST BODY: Required
     * Mail (string): User email address.
     * Description (string): User description.
     * Name (string): Username of the user. The username can be 'username@suffix' if suffix is required, else 'username'.
+    Required fields: ID
   Sample Request JSON:
   ```json
   {
@@ -163,3 +213,4 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
+```

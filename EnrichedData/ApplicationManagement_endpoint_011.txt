@@ -1,96 +1,107 @@
-**Overview**
------------
+# Overview  
+The Create Tag with No App endpoint allows users to create a new tag without associating it with any applications. This endpoint uses the POST HTTP method and is accessed via the path `/UPRest/CreateTagWithNoApp`. To use this endpoint, users must authenticate with a bearer token.
 
-Create a tag with no apps for the current user. This endpoint allows users to create a new tag without assigning it to any app.
+# Key Search Terms  
+- Create tag  
+- Tag management  
+- Application management API  
+- POST /UPRest/CreateTagWithNoApp  
+- Bearer authentication  
+- JSON request body  
+- API response structure  
+- Error handling in API  
+- Tag creation endpoint  
+- UPRest API  
 
-* HTTP Method: POST
-* Path: `/UPRest/CreateTagWithNoApp`
-* Security Requirement: Bearer Authentication
+# Example User Questions  
+- How can I create a new tag without linking it to an app?  
+- What is the endpoint to create a tag in the application management system?  
+- What authentication is required for the Create Tag with No App endpoint?  
+- Can I create a tag using a JSON request?  
+- What are the required fields for creating a tag?  
+- How do I handle errors when creating a tag?  
+- What does the response look like when I create a tag?  
+- Is there a sample request for creating a tag?  
+- What is the purpose of the CreateTagWithNoApp endpoint?  
+- How do I authenticate when using the Create Tag with No App API?  
 
-**Key Search Terms**
--------------------
+# Developer Notes  
+- **Required Parameters**:  
+  - `tagname` (string): The name of the tag to be created.  
+- **Request Structure**:  
+  - Content Type: `application/json`  
+  - Example Request JSON:  
+    ```json
+    {
+      "tagname": "string_value"
+    }
+    ```
+- **Response Structure**:  
+  - Status Code: `200`  
+  - Response Body Properties:  
+    - `Result` (object): Indicates whether the operation was successful.  
+    - `Error` (object): Contains the error message text if the operation fails, may be null.  
+  - Example Response JSON:  
+    ```json
+    {
+      "Result": {},
+      "Error": {}
+    }
+    ```
+- **Security Considerations**:  
+  - This endpoint requires bearer authentication.
 
-* Create tag with no apps
-* UPRest_CreateTagWithNoApp
-* Tag creation API
-* App management without assignment
-* User-created tags
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **tagname**  
+  - **Type**: string  
+  - **Description**: The name of the tag to be created.  
+  - **Constraints**: Must be provided in the request body.  
+  - **Example Value**: `"exampleTag"`
 
-**Example User Questions**
--------------------------
+## Response Parameters  
+- **Result**  
+  - **Type**: object  
+  - **Description**: Indicates whether the tag creation operation was successful.  
+  - **Example Value**: `{}` (an empty object indicating success)  
 
-* What is the format for creating a new tag with no app assignment?
-* Can I create multiple tags at once using this endpoint?
-* How do I know if my tag was created successfully?
-* What happens if I try to assign an app to a tag that doesn't exist?
-* Can I retrieve all tags created by the current user?
+- **Error**  
+  - **Type**: object  
+  - **Description**: Contains an error message if the operation fails. This may be null if there is no error.  
+  - **Example Value**: `{"message": "Error creating tag"}`  
 
-**Developer Notes**
-------------------
-
-### Required Parameters
-
-* `tagname`: string (required)
-
-### Request/Response Structure
-
-* Request Body: application/json
-	+ `tagname` (string): tag name
-* Response:
-	+ Status Code: 200
-	+ Content Type: */*
-	+ Response Schema: UPRestCreateTagWithNoApp
-	+ Response Body Properties:
-		- `Result`: object (success or failure)
-		- `Error`: object (error message text on failure, may be null)
-
-### Error Handling
-
-* Bearer authentication error handling not specified in raw documentation. Consider adding a note about implementing custom error handling.
-
-### Security Considerations
-
-* Bearer Authentication required for this endpoint.
-* Implement proper security measures to prevent unauthorized access and ensure secure data transmission.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-ENDPOINT: Create a tag with no apps for the current user.
-PATH: `/UPRest/CreateTagWithNoApp`
-METHOD: POST
-TAGS: Application Management
-
-METADATA:
-  * `x-idap-anon`: False
-  * `x-codegen-request-body-name`: payload
-
-REQUEST BODY:
-  Required
-  Content Type: application/json
-  Schema Properties:
-    * `tagname` (string): tag name
-  Sample Request JSON:
-  ```json
-{
-  "tagname": "string_value"
-}
-```
-
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: */*
-  Response Schema: UPRestCreateTagWithNoApp
-  Response Body Properties:
-    * `Result` (object): Whether the operation is successful or not.
-    * `Error` (object): Error message text on failure, may be null
-  Sample Response JSON:
-  ```json
-{
-  "Result": {},
-  "Error": {}
-}
-```
-
-SECURITY: bearerAuth
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT**: Create a tag with no apps for the current user.  
+**PATH**: /UPRest/CreateTagWithNoApp  
+**METHOD**: POST  
+**TAGS**: Application Management  
+**METADATA**:  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**REQUEST BODY**: Required  
+  **Content Type**: application/json  
+  **Schema Properties**:  
+    * tagname (string): tag name  
+  **Required fields**: tagname  
+  **Sample Request JSON**:  
+  ```json  
+  {  
+    "tagname": "string_value"  
+  }  
+  ```  
+**RESPONSES**:  
+  **Status Code**: 200  
+  **Description**: API-Result  
+  **Content Type**: */*  
+  **Response Schema**: UPRestCreateTagWithNoApp  
+  **Response Body Properties**:  
+    * Result (object): Whether the operation is successful or not.  
+    * Error (object): Error message text on failure, may be null  
+  **Sample Response JSON**:  
+  ```json  
+  {  
+    "Result": {},  
+    "Error": {}  
+  }  
+  ```  
+**SECURITY**: bearerAuth  

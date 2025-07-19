@@ -1,0 +1,83 @@
+# Overview  
+The **Fetch Technical Support User** endpoint allows authorized users to retrieve information about a technical support user. This endpoint is accessed via a **POST** request at the path **/CDirectoryService/GetTechSupportUser**. To use this endpoint, you must be a system administrator or possess user management permissions. The endpoint requires bearer token authentication for security.
+
+# Key Search Terms  
+- Fetch technical support user  
+- Technical support user information  
+- User management API  
+- System administrator endpoint  
+- Bearer token authentication  
+- CDirectoryService API  
+- Support user UUID  
+- User permissions API  
+- POST request for support user  
+
+# Example User Questions  
+- How can I retrieve information about a technical support user?  
+- What permissions do I need to access the Fetch Technical Support User endpoint?  
+- What is the structure of the response from the GetTechSupportUser API?  
+- How do I authenticate when calling the CDirectoryService API?  
+- What details are included in the support user information?  
+- How can I check if a support user's password is expired?  
+- What should I do if I receive an error when fetching a support user?  
+- Can I access the technical support user information without admin rights?  
+- What is the expected response format for the GetTechSupportUser endpoint?  
+
+# Developer Notes  
+- **Required Parameters:** None specified in the raw documentation.  
+- **Request Structure:** A POST request to the endpoint.  
+- **Response Structure:** The response will include a `Result` object containing support user information and an `Error` object that may be null.  
+- **Error Handling:** If the request fails, the `Error` object will contain the error message text.  
+- **Security Considerations:** This endpoint requires bearer token authentication.
+
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- No specific request parameters are mentioned in the raw documentation.
+
+### Response Parameters  
+- **Response Schema:** `CDirectoryServiceGetTechSupportUser`  
+- **Response Body Properties:**
+  - **Result (object):** Contains support user information.
+    - **Uuid (string):** Support user UUID.  
+      - *Example:* `"123e4567-e89b-12d3-a456-426614174000"`
+    - **PasswordExp (string):** Support user password expiration date.  
+      - *Example:* `"2023-12-31T23:59:59Z"`
+    - **Name (string):** Support user name.  
+      - *Example:* `"John Doe"`
+  - **Error (object):** Contains error message text on failure, may be null.  
+    - *Example:* `{"message": "User not found"}` or `{}` if no error.
+
+# Raw Endpoint Documentation (Formatted)  
+```
+ENDPOINT: Fetch technical support user.
+PATH: /CDirectoryService/GetTechSupportUser
+METHOD: POST
+TAGS: Additional User Management APIs
+DESCRIPTION: You must be a system administrator or have user management permissions.
+METADATA:
+  * x-idap-anon: False
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: CDirectoryServiceGetTechSupportUser
+  Response Body Properties:
+    * Result (object): Support user information
+      Nested properties:
+        * Uuid (string): Support user UUID
+        * PasswordExp (string): Support user expire date
+        * Name (string): Support user name
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "Uuid": "string_value",
+    "PasswordExp": "string_value",
+    "Name": "string_value"
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+```

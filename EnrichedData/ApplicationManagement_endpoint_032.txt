@@ -1,67 +1,186 @@
-**Overview**
-================
+# Overview
+This API endpoint allows you to set the TOTP (Time-based One-Time Password) seed for a secured password. It is accessible via a POST request to the path `/UPRest/SaveTotpSeedForSecuredPassword`. If the `totpSecret` value is not provided, the system will clear the existing secret for the secured password. This endpoint requires bearer token authentication for security.
 
-This endpoint allows you to set the TOTP seed for a secured password. The HTTP POST request is used, and the path is `/UPRest/SaveTotpSeedForSecuredPassword`. This API is part of the Application Management tags.
+# Key Search Terms
+- TOTP seed
+- Secured password
+- Save TOTP seed API
+- Two-factor authentication
+- OTP generation
+- Bearer authentication
+- Application management API
+- TOTP algorithm
+- Verification code digits
+- TOTP issuer
 
-To use this endpoint, you need to provide a JSON body with the required parameters: `sItemkey`, `algorithm`, `digits`, `issuer`, `label`, `totpSecret`, and optionally `type` and `period`.
+# Example User Questions
+- How can I set the TOTP seed for my secured password?
+- What is the required format for the TOTP seed API request?
+- How do I clear the TOTP secret for a secured password?
+- What authentication is needed to use the Save TOTP Seed API?
+- Can I specify the algorithm used for TOTP verification?
+- What happens if I don't provide a `totpSecret`?
+- How do I handle errors when calling the TOTP seed API?
+- What are the default values for TOTP parameters?
+- How can I check if my API call was successful?
+- What does the response look like for the Save TOTP Seed API?
 
-**Key Search Terms**
-================
+# Developer Notes
+- **Required Parameters**: 
+  - `sItemkey` (string): The Secured Item's Unique ID.
+  - `totpSecret` (string): The TOTP authentication key secret for an application.
+  
+- **Request Structure**:
+  - Content Type: `application/json`
+  - Example Request JSON:
+    ```json
+    {
+      "sItemkey": "string_value",
+      "algorithm": "string_value",
+      "digits": 0,
+      "issuer": "string_value",
+      "label": "string_value",
+      "totpSecret": "string_value",
+      "type": "string_value",
+      "period": 0
+    }
+    ```
 
-* Set TOTP seed for secured password
-* UPRest/SaveTotpSeedForSecuredPassword endpoint
-* Application Management API
-* Secured password management
-* TOTP authentication key secret
-* JSON request body
+- **Response Structure**:
+  - Status Code: `200`
+  - Response Content Type: `*/*`
+  - Example Response JSON:
+    ```json
+    {
+      "Result": {
+        "success": false,
+        "Result": {},
+        "Message": "string_value",
+        "MessageID": "string_value",
+        "IsSoftError": false,
+        "Exception": "string_value",
+        "ErrorID": "string_value",
+        "ErrorCode": "string_value",
+        "InnerExceptions": "string_value"
+      },
+      "Error": {
+        "UnAuthorized": "string_value"
+      }
+    }
+    ```
 
-**Example User Questions**
-=========================
+- **Error Handling**: 
+  - If unauthorized, the response will contain an error message: "You are not authorized to perform this operation. Please contact your IT helpdesk."
 
-* What is the purpose of the `/UPRest/SaveTotpSeedForSecuredPassword` endpoint?
-* How do I set the TOTP seed for a secured password using this API?
-* What parameters are required in the JSON request body?
-* Can I use this endpoint to clear the TOTP secret for a secured password if no value is provided?
+- **Security Considerations**: 
+  - This endpoint requires bearer authentication.
 
-**Developer Notes**
-================
+# Detailed Explanation of Available Data, Request and Response Parameters
 
-### Required Fields
+## Request Parameters
+- **sItemkey** (string): 
+  - Description: The Secured Item's Unique ID.
+  - Example: `"item123"`
+  
+- **algorithm** (string): 
+  - Description: The algorithm used for TOTP verification code generation. Default is `SHA1`.
+  - Example: `"SHA256"`
+  
+- **digits** (number): 
+  - Description: Number of verification code digits.
+  - Example: `6`
+  
+- **issuer** (string): 
+  - Description: Issuer of the TOTP authentication key.
+  - Example: `"MyApp"`
+  
+- **label** (string): 
+  - Description: Label for the TOTP authentication key.
+  - Example: `"User's TOTP"`
+  
+- **totpSecret** (string): 
+  - Description: The TOTP authentication key secret for an application.
+  - Example: `"JBSWY3DPEHPK3PXP"`
+  
+- **type** (string, optional): 
+  - Description: Specifies the type of OTP being used.
+  - Example: `"TOTP"`
+  
+- **period** (number): 
+  - Description: Verification code validity period. Default is `30` seconds.
+  - Example: `30`
 
-* `sItemkey`: The Secured Item's Unique ID
-* `algorithm`: The algorithm used for TOTP verification code generation (default: SHA1)
-* `digits`: This defines the number of verification code digits
-* `issuer`: Issuer of the TOTP authentication key
-* `label`: Label for the TOTP authentication key
-* `totpSecret`: This is the TOTP authentication key secret for an application
-* `type` (optional): Specifies the type of OTP being used
-* `period` (optional): Verification code validity period (default: 30 seconds)
+## Response Parameters
+- **Result** (object): 
+  - Description: Return object for a successful API call.
+  - Nested properties:
+    - **success** (boolean): Indicates if the operation was successful.
+    - **Result** (object): Result for a response. By default, it is `null`.
+    - **Message** (string): Error message for failure response. By default, it is `null`.
+    - **MessageID** (string): Message Id for failure response. By default, it is `null`.
+    - **IsSoftError** (boolean): Indicates if this is a soft error (UI warning).
+    - **Exception** (string): Exception message if any exception is received from the API. By default, it is `null`.
+    - **ErrorID** (string): Error ID if any error is received from the API. By default, it is `null`.
+    - **ErrorCode** (string): Error code if any error is received from the API. By default, it is `null`.
+    - **InnerExceptions** (string): Inner exceptions.
 
-### Request/Response Structure
+- **Error** (object): 
+  - Description: Error message text on failure.
+  - Nested properties:
+    - **UnAuthorized** (string): Error message when user does not have rights.
 
-* Request Body: JSON object with required parameters
-	+ Content Type: application/json
-* Response:
-	+ Status Code: 200
-	+ Description: API-Result
-	+ Content Type: */*
-	+ Response Schema: UPRestSaveTotpSeedForSecuredPassword
-	+ Response Body Properties:
-		- `Result`: Return object for a successful API call
-			- Nested properties:
-				- `success` (boolean): The success status is either true or false.
-				- `Result` (object): Result for a response. Default: null.
-				- `Message` (string): Error message for failure response. Default: null.
-				- `MessageID` (string): Message Id for failure response. Default: null.
-				- `IsSoftError` (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
-				- `Exception` (string): Exception message if any exception is received from the API. Default: null.
-				- `ErrorID` (string): Error ID if any error is received from the API. Default: null.
-				- `ErrorCode` (string): Error code if any error is received from the API. Default: null.
-				- `InnerExceptions` (string): InnerExceptions
-		- `Error`: Error message text on failure
-			- Nested properties:
-				- `UnAuthorized` (string): This error message is displayed when user does not have rights. Error message: 'You are not authorized to perform this operation. Please contact your IT helpdesk.'
-
-### Security
-
-* bearerAuth
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Set TOTP seed for a secured password.
+PATH: /UPRest/SaveTotpSeedForSecuredPassword
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: - This API sets the TOTP seed for a secured password. - If you do not provide a value for totpSecret , then the system clears the secret for the secured password.
+METADATA:
+  * x-idap-anon: False
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * sItemkey (string): The Secured Item's Unique ID.
+    * algorithm (string): The algorithm used for TOTP verification code generation. The default algorithm is SHA1.
+    * digits (number): This defines the number of verification code digits.
+    * issuer (string): Issuer of the TOTP authentication key.
+    * label (string): Label for the TOTP authentication key.
+    * totpSecret (string): This is the TOTP authentication key secret for an application.
+    * type (string): Optional. This specifies the type of OTP being used.
+    * period (number): Verification code validity period. The default validity period is 30 seconds.
+  Sample Request JSON:
+  ```json
+  {
+  "sItemkey": "string_value",
+  "algorithm": "string_value",
+  "digits": 0,
+  "issuer": "string_value",
+  "label": "string_value",
+  "totpSecret": "string_value",
+  "type": "string_value",
+  "period": 0
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestSaveTotpSeedForSecuredPassword
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * success (boolean): The success status is either true or false.
+        * Result (object): Result for a response.By default it is 'null'.
+        * Message (string): Error message for failure response. By default it is 'null'.
+        * MessageID (string): Message Id for failure response. By default it is 'null'.
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'.
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'.
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'.
+        * InnerExceptions (string): InnerExceptions
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * UnAuthorized (string): This error message is displayed when user does not have rights. Error message: 'You are not authorized to perform this operation. Please contact your IT helpdesk.'
+SECURITY: bearerAuth
+```

@@ -1,47 +1,81 @@
-**Overview**
------------
+# Overview
+The **Update User Application** endpoint allows users to update their application details in the system. It is accessed via a POST request at the path `/UPRest/UpdateUserApplication`. This endpoint requires authentication through a bearer token, ensuring that only authorized users can update their application information.
 
-The `/UPRest/UpdateUserApplication` endpoint allows users to update their current application settings. This endpoint requires authentication via bearer token and accepts JSON payload with `appkey` and `notes` fields.
+# Key Search Terms
+- Update user application
+- Application management API
+- POST /UPRest/UpdateUserApplication
+- Bearer authentication
+- JSON request body
+- Application key update
+- API response structure
+- Error handling in API
+- User application notes
 
-**Key Search Terms**
--------------------
+# Example User Questions
+- How can I update my application details using the API?
+- What is the endpoint to modify my user application?
+- What fields are required to update my application?
+- How do I handle errors when updating my application?
+- What type of authentication is needed for the Update User Application endpoint?
+- Can I add notes to my application through the API?
+- What does the response look like when I update my application?
+- Is there a sample request for updating my user application?
+- How do I know if my application update was successful?
+- What should I include in the request body for updating my application?
 
-* Update user application
-* Application management API
-* Bearer authentication
-* User profile updates
+# Developer Notes
+- **HTTP Method**: POST
+- **Path**: `/UPRest/UpdateUserApplication`
+- **Security**: Requires bearer authentication.
+- **Required Fields**:
+  - `appkey` (string): The key associated with the application.
+  - `notes` (string): Notes related to the application.
+- **Request Structure**:
+  - Content Type: `application/json`
+  - Example Request JSON:
+    ```json
+    {
+      "appkey": "string_value",
+      "notes": "string_value"
+    }
+    ```
+- **Response Structure**:
+  - Status Code: 200
+  - Response Body Properties:
+    - `Result` (object): Indicates whether the operation was successful.
+    - `Error` (object): Contains error message text on failure, may be null.
+  - Example Response JSON:
+    ```json
+    {
+      "Result": {},
+      "Error": {}
+    }
+    ```
 
-**Example User Questions**
--------------------------
+# Detailed Explanation of Available Data, Request and Response Parameters
+## Request Parameters
+- **appkey** (string)
+  - **Description**: The unique key for the application being updated.
+  - **Constraints**: Required field.
+  - **Example**: `"appkey": "my_application_key"`
 
-* How do I update my current application settings?
-* Can I use bearer token to authenticate for this endpoint?
-* What fields are required in the JSON payload?
-* How do I handle errors if the update fails?
+- **notes** (string)
+  - **Description**: Additional notes or comments regarding the application.
+  - **Constraints**: Required field.
+  - **Example**: `"notes": "Updated application notes"`
 
-**Developer Notes**
-------------------
+## Response Parameters
+- **Result** (object)
+  - **Description**: Indicates whether the update operation was successful.
+  - **Example**: `{}` (an empty object signifies success)
 
-### Required Parameters
+- **Error** (object)
+  - **Description**: Contains an error message if the update fails; otherwise, it may be null.
+  - **Example**: `{"Error": "Invalid application key"}`
 
-* `appkey`: Application key (string)
-* `notes`: Application notes (string)
-
-### Request/Response Structure
-
-* Request Body: JSON payload with `appkey` and `notes` fields
-* Response Body:
-	+ `Result`: Object indicating operation success or failure
-	+ `Error`: Error message text on failure, may be null
-
-### Security Considerations
-
-* Bearer authentication required for this endpoint
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-```markdown
+# Raw Endpoint Documentation (Formatted)
+```
 ENDPOINT: update user application for the current user.
 PATH: /UPRest/UpdateUserApplication
 METHOD: POST
@@ -54,6 +88,7 @@ REQUEST BODY: Required
   Schema Properties:
     * appkey (string): Application key
     * notes (string): Application Notes
+    Required fields: appkey, notes
   Sample Request JSON:
   ```json
   {

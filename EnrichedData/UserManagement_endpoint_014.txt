@@ -1,0 +1,179 @@
+# Overview  
+The **Update AD User Attributes** API endpoint allows system administrators and users with user management rights to update various attributes of CyberArk Identity Active Directory users. This endpoint is accessed via a **POST** request at the path **/UserMgmt/ChangeUserAttributes**. To use this API, users must be authenticated with a bearer token, ensuring secure access to user management functionalities. Users can update multiple attributes by including them in the request body, and it is necessary to provide the unique ID of the target Active Directory user.
+
+# Key Search Terms  
+- Update Active Directory user attributes  
+- CyberArk Identity user management API  
+- Change user attributes API  
+- POST /UserMgmt/ChangeUserAttributes  
+- Bearer token authentication  
+- User attribute update request  
+- Active Directory user management  
+- API to update user details  
+- JSON request for user attributes  
+- System administrator user management API  
+
+# Example User Questions  
+- How can I update attributes for an Active Directory user?  
+- What is the endpoint to change user attributes in CyberArk Identity?  
+- How do I use the Update AD User Attributes API?  
+- What parameters do I need to send to update a user?  
+- Can I update multiple user attributes at once?  
+- What authentication is required for the user management API?  
+- What does the response look like for a successful API call?  
+- How do I handle errors when updating user attributes?  
+- What is the required field for the user update request?  
+- How can I remove a multi-factor authentication redirect for a user?  
+
+# Developer Notes  
+- **Required Parameters:**  
+  - **ID**: Unique ID of the target user (mandatory).  
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - JSON must include the unique ID of the target Active Directory user.  
+- **Response Structure:**  
+  - Status Code: `200` for successful calls.  
+  - Response includes a `Result` object and an `Error` object for error handling.  
+- **Error Handling:**  
+  - Check for `ErrorID`, `ErrorCode`, and `Message` in the response for any issues.  
+- **Security Considerations:**  
+  - Use bearer token authentication for secure access.  
+
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- **CmaRedirectedUserUuid** (string):  
+  - Unique ID of the user account for multi-factor authentication redirection.  
+  - Send `null` to remove the existing value.  
+- **ID** (string):  
+  - Unique ID of the target user (required).  
+- **MobileNumber** (string):  
+  - User's mobile number (default is `null`).  
+  - This field is required if `SendSmsInvite` is true.  
+- **OrgPath** (string):  
+  - The organization name (default is `null`) to which you want to add the user.  
+
+**Sample Request JSON:**  
+```json
+{
+  "CmaRedirectedUserUuid": "string_value",
+  "ID": "string_value",
+  "MobileNumber": "string_value",
+  "OrgPath": "string_value"
+}
+```
+
+### Response Parameters  
+- **Result** (object):  
+  - Contains the result of the API call.  
+  - **ErrorID** (string): Error ID if any error occurs (default is `null`).  
+  - **ErrorCode** (string): Error code if any error occurs (default is `null`).  
+  - **Exception** (string): Exception message if received (default is `null`).  
+  - **MessageID** (string): Message ID for failure response (default is `null`).  
+  - **Result** (string): The result of the API call.  
+  - **InnerExceptions** (string): Any inner exceptions received (default is `null`).  
+  - **Message** (string): Error message for failure response (default is `null`).  
+  - **success** (boolean): `true` for a successful API call.  
+  - **IsSoftError** (boolean): Indicates if this is a UI warning (true) or an exception (false).  
+
+- **Error** (object):  
+  - Contains error message text on failure.  
+  - **EmptyID** (string): Message when provided user ID is empty or null: 'User with Id not found.'  
+  - **InvalidID** (string): Message when an invalid user ID is provided: 'User with given Id not found.'  
+
+**Sample Response JSON:**  
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "EmptyID": "string_value",
+    "InvalidID": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Update AD user attributes  
+**PATH:** /UserMgmt/ChangeUserAttributes  
+**METHOD:** POST  
+**TAGS:** Manage User Data  
+**DESCRIPTION:** This API is used to update the value of different attributes for an CyberArk Identity active directory users.  
+- System administrators and users with user management rights, or the user itself can invoke this API.  
+- To update multiple attributes add them in the request body and make the update call with this API.  
+- Use this endpoint to set the active directory user attributes from cloud.  
+- The JSON in the request body must include the unique id of the target active directory user.  
+
+**METADATA:**  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+
+**REQUEST BODY:** Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * CmaRedirectedUserUuid (string): Unique id of the user account that you want to redirect multi-factor authentication to. Send null to remove existing the value.  
+    * ID (string): Unique id of the target user.  
+    * MobileNumber (string): User's mobile number (default=null). This field is required if SendSmsInvite is true.  
+    * OrgPath (string): The organization name (default=null) that you want to add the user to.  
+    **Required fields:** ID  
+  **Sample Request JSON:**  
+  ```json
+  {
+  "CmaRedirectedUserUuid": "string_value",
+  "ID": "string_value",
+  "MobileNumber": "string_value",
+  "OrgPath": "string_value"
+}
+  ```  
+
+**RESPONSES:**  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: UserMgmtChangeUserAttributes  
+  Response Body Properties:  
+    * Result (object): Return object for a successful API call  
+      Nested properties:  
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'  
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'  
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'  
+        * MessageID (string): Message Id for failure response. By default it is 'null'  
+        * Result (string): The result for the API call  
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'  
+        * Message (string): Error message for failure response. By default it is 'null'  
+        * success (boolean): It will be true for a successful API call  
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup  
+    * Error (object): Error message text on failure and below message would be returned if provided user id is invalid/empty  
+      Nested properties:  
+        * EmptyID (string): When provided user ID is empty or null, you would see this message 'User with Id not found.'  
+        * InvalidID (string): When Invalid user ID is provided, you would see this message 'User with given Id not found.'  
+  **Sample Response JSON:**  
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "EmptyID": "string_value",
+    "InvalidID": "string_value"
+  }
+}
+  ```  
+
+**SECURITY:** bearerAuth  

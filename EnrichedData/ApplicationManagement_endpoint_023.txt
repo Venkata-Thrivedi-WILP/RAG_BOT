@@ -1,69 +1,58 @@
-**Overview**
-===============
+# Overview
+The **Update Personal User Application** endpoint allows users to update the details of their personal application within the system. This endpoint uses the **POST** method and can be accessed at the path **/UPRest/UpdatePersonalApplication**. To use this endpoint, users must authenticate with a bearer token, ensuring that only authorized users can make updates to their applications.
 
-Update personal user application endpoint allows users to update their application details. This endpoint is used for managing applications and requires authentication via bearer token.
+# Key Search Terms
+- Update personal application
+- Application management API
+- POST /UPRest/UpdatePersonalApplication
+- Bearer authentication
+- JSON request body
+- Application details update
+- API response structure
+- Application key requirement
+- Error handling in API
 
-* HTTP Method: POST
-* Path: `/UPRest/UpdatePersonalApplication`
-* Security Requirement: Bearer Authentication
+# Example User Questions
+- How can I update my personal application details?
+- What is the endpoint for updating an application?
+- What fields are required to update my application?
+- How do I authenticate to use the update application API?
+- What should I include in the request body for updating an application?
+- What does the response look like when I update my application?
+- How can I check if my application update was successful?
+- What happens if I don't provide the application key?
+- Can I add notes when updating my application?
 
-**Key Search Terms**
-==================
+# Developer Notes
+- **Required Parameters**: 
+  - `appkey` (string): This is the only required field to successfully update the application.
+- **Request Structure**: The request must be sent in JSON format with the following properties:
+  - `appName` (string): Name of the application.
+  - `appkey` (string): Key of the application (required).
+  - `appDescription` (string): Description of the application.
+  - `notes` (string): Additional notes about the application.
+  - `appUrl` (string): URL of the application.
+  
+- **Response Structure**: 
+  - Status code **200** indicates a successful operation.
+  - The response will include:
+    - `Result`: An object indicating whether the operation was successful.
+    - `Error`: An object containing error message text on failure, which may be null.
+  
+- **Security Considerations**: This endpoint requires bearer authentication.
 
-* Update personal user application
-* Application management
-* Bearer authentication
-* User profile update
-* API request body JSON
-* Response schema UPRestCreateTagWithNoApp
+# Detailed Explanation of Available Data, Request and Response Parameters
 
-**Example User Questions**
-=========================
+## Request Parameters
+- **Content Type**: `application/json`
+- **Schema Properties**:
+  - `appName` (string): Name of the application. Example: `"My Application"`
+  - `appkey` (string): Application key (required). Example: `"12345-abcde"`
+  - `appDescription` (string): Description of the application. Example: `"This is a sample application."`
+  - `notes` (string): Additional notes about the application. Example: `"This application is in beta."`
+  - `appUrl` (string): URL of the application. Example: `"https://myapplication.com"`
 
-* What is the format of the request body for updating my application?
-* How do I authenticate for this endpoint?
-* Can I update multiple fields at once in the request body?
-* What happens if the update operation fails?
-* Is there any specific security consideration for this endpoint?
-
-**Developer Notes**
-==================
-
-### Required Fields
-
-* `appkey`
-
-### Request/Response Structure
-
-* Request Body: JSON object with required fields (`appname`, `appkey`, `appDescription`, `notes`, and `appUrl`)
-* Response Body:
-	+ `Result` (object): Whether the operation is successful or not
-	+ `Error` (object): Error message text on failure, may be null
-
-### Security Considerations
-
-* Bearer Authentication required for all requests
-
-**Raw Endpoint Documentation (Formatted)**
-=====================================
-
-ENDPOINT: Update personal user application.
-PATH: `/UPRest/UpdatePersonalApplication`
-METHOD: POST
-TAGS: Application Management
-METADATA:
-  * `x-idap-anon`: False
-  * `x-codegen-request-body-name`: payload
-REQUEST BODY: Required
-  Content Type: `application/json`
-  Schema Properties:
-    * `appName` (string): Application Name
-    * `appkey` (string): Application key
-    * `appDescription` (string): Application Description
-    * `notes` (string): Application notes
-    * `appUrl` (string): Application Url
-  Required fields: `appkey`
-  Sample Request JSON:
+### Sample Request JSON
 ```json
 {
   "appName": "string_value",
@@ -73,19 +62,64 @@ REQUEST BODY: Required
   "appUrl": "string_value"
 }
 ```
-RESPONSES:
-  Status Code: `200`
-  Description: API-Result
-  Content Type: `*/*`
-  Response Schema: UPRestCreateTagWithNoApp
-  Response Body Properties:
-    * `Result` (object): Whether the operation is successful or not.
-    * `Error` (object): Error message text on failure, may be null
-  Sample Response JSON:
+
+## Response Parameters
+- **Status Code**: `200`
+- **Response Schema**: `UPRestCreateTagWithNoApp`
+- **Response Body Properties**:
+  - `Result` (object): Indicates whether the operation was successful or not.
+  - `Error` (object): Contains error message text on failure, may be null.
+
+### Sample Response JSON
 ```json
 {
   "Result": {},
   "Error": {}
 }
 ```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Update personal user application.
+PATH: /UPRest/UpdatePersonalApplication
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * appName (string): Application Name
+    * appkey (string): Application key
+    * appDescription (string): Application Description
+    * notes (string): Application notes
+    * appUrl (string): Application Url
+    Required fields: appkey
+  Sample Request JSON:
+  ```json
+  {
+  "appName": "string_value",
+  "appkey": "string_value",
+  "appDescription": "string_value",
+  "notes": "string_value",
+  "appUrl": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
 SECURITY: bearerAuth
+```

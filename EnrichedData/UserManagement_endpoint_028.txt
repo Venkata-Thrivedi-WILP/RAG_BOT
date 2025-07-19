@@ -1,0 +1,151 @@
+# Overview
+The **Disable/enable a user** endpoint allows you to lock or unlock a user account within the system. This functionality is primarily intended for system administrators, users with user management rights, or the user themselves. The endpoint uses the HTTP POST method and is accessed via the path `/UserMgmt/SetCloudLock`. To use this endpoint, a bearer token for authentication is required.
+
+# Key Search Terms
+- Disable user account
+- Enable user account
+- Lock user account API
+- User management endpoint
+- User state management
+- User account security
+- API for locking users
+- User account control
+- System administrator API
+- Bearer authentication for user management
+
+# Example User Questions
+- How can I lock a user account using the API?
+- What is the endpoint to enable a user account?
+- Can I unlock a user account programmatically?
+- What parameters do I need to disable a user account?
+- How do I check if a user account is locked?
+- What is the response format for locking a user?
+- How do I handle errors when locking a user account?
+- Is there a way to unlock a user account via API?
+- What permissions are needed to use the user management API?
+- What does the success response look like for locking a user?
+
+# Developer Notes
+- **Required Parameters:**
+  - `user` (query): The unique ID of the user. This ID is generated when the user is created.
+  - `lockUser` (query): A boolean parameter that specifies whether the user account should be locked (`true`) or not (`false`). The default value is `false`.
+
+- **Request Structure:**
+  - The request must include the required parameters in the query string.
+
+- **Response Structure:**
+  - The response will include a status code of `200` for a successful API call.
+  - The response body will contain a `Result` object and an `Error` object in case of failure.
+
+- **Error Handling:**
+  - The API may return an error message if the user ID is invalid or if there are other issues.
+  - The `Error` object will provide details about the error encountered.
+
+- **Security Considerations:**
+  - This endpoint requires bearer authentication.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+
+## Request Parameters
+- **user** (query, Required)
+  - **Type:** String
+  - **Description:** The unique ID of the user.
+  - **Example:** `"12345"`
+
+- **lockUser** (query, Required)
+  - **Type:** Boolean
+  - **Description:** Indicates whether to lock the user account. Default is `false`.
+  - **Example:** `true`
+
+## Response Parameters
+- **Result** (object)
+  - **Description:** Return object for a successful API call.
+  - **Properties:**
+    - **ErrorID** (string): Error ID if any error is received from the API. Default is `null`.
+    - **ErrorCode** (string): Error code if any error is received from the API. Default is `null`.
+    - **Exception** (string): Exception message if any exception is received from the API. Default is `null`.
+    - **MessageID** (string): Message ID for failure response. Default is `null`.
+    - **Result** (string): The result will be null.
+    - **InnerExceptions** (string): Inner exceptions.
+    - **Message** (string): Error message for failure response. Default is `null`.
+    - **success** (boolean): Indicates if the operation was successful (`true` or `false`).
+    - **IsSoftError** (boolean): Indicates if this is a soft error (UI warning) if true.
+
+- **Error** (object)
+  - **Description:** Error message text on failure.
+  - **Properties:**
+    - **InvalidUserId** (string): Message indicating that the user with the given ID was not found.
+
+## Sample Response JSON
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "InvalidUserId": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Disable/enable a user
+PATH: /UserMgmt/SetCloudLock
+METHOD: POST
+TAGS: Manage User State
+DESCRIPTION: Invoke this API if you want to lock the user account of a given user Only system administrator, users with user management rights, or the user itself can invoke this API.
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * user (query, Required): The unique ID of the user. The unique ID is generated when the user is created.
+  * lockUser (query, Required): This parameter specifies if the user account should be locked or not.The default value is 'false'.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UserMgmtSetCloudLock
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (string): The result will be null.
+        * InnerExceptions (string): InnerExceptions
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): The success will be true or false.
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * InvalidUserId (string): User with given Id not found.
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "InvalidUserId": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+```

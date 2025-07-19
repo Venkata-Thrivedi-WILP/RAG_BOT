@@ -1,83 +1,105 @@
-**Overview**
------------
+# Overview  
+The **Delete a tag** endpoint allows users to remove a specified tag from the application. This operation is performed using the **POST** method at the path **/UPRest/DeleteTag**. To access this endpoint, users must authenticate using bearer token security.
 
-The Delete a tag endpoint allows you to remove a specific tag from your application. To use this endpoint, send a POST request to `/UPRest/DeleteTag` and include the `tagname` in the request body.
+# Key Search Terms  
+- Delete tag API  
+- Remove tag endpoint  
+- Application management tags  
+- POST /UPRest/DeleteTag  
+- API bearer authentication  
+- JSON request body  
+- Tag management API  
+- UPRestDeleteTag response  
+- Error handling in API  
 
-You will need to authenticate using bearerAuth before making the request.
+# Example User Questions  
+- How can I delete a tag using the API?  
+- What is the endpoint to remove a tag from my application?  
+- What authentication do I need to use to delete a tag?  
+- What should I include in the request body to delete a tag?  
+- How do I handle errors when deleting a tag?  
+- What response can I expect after deleting a tag?  
+- Can I delete multiple tags at once?  
+- What does the success response look like for the delete tag operation?  
+- What happens if I try to delete a tag that doesn't exist?  
 
-**Key Search Terms**
--------------------
+# Developer Notes  
+- **Required Parameters:**  
+  - `tagname` (string): The name of the tag to be deleted.  
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - Example Request JSON:  
+    ```json
+    {
+      "tagname": "string_value"
+    }
+    ```  
+- **Response Structure:**  
+  - Status Code: `200`  
+  - Response Body Properties:  
+    - `Result` (object): Indicates whether the operation was successful.  
+    - `Error` (object): Contains error message text on failure; may be null.  
+  - Example Response JSON:  
+    ```json
+    {
+      "Result": {},
+      "Error": {}
+    }
+    ```  
+- **Error Handling:** Ensure to check the `Error` object in the response for any issues that may arise during the deletion process.  
+- **Security Considerations:** This endpoint requires bearer token authentication.
 
-* delete tag
-* remove tag
-* update tags
-* API deletion
-* UPRestDeleteTag endpoint
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- **tagname**  
+  - **Type:** string  
+  - **Description:** The name of the tag that you want to delete.  
+  - **Constraints:** This field is required.  
+  - **Example Value:** `"exampleTag"`  
 
-**Example User Questions**
--------------------------
+### Response Parameters  
+- **Result**  
+  - **Type:** object  
+  - **Description:** Indicates whether the delete operation was successful.  
+  - **Example Value:** `{}` (empty object for success)  
 
-* What is the syntax for deleting a tag in the UPRest API?
-* How do I authenticate to use the Delete a tag endpoint?
-* Can I specify multiple tags to delete at once?
-* What happens if the requested tag does not exist?
-* How can I check if the deletion was successful?
+- **Error**  
+  - **Type:** object  
+  - **Description:** Contains the error message text if the operation fails; may be null.  
+  - **Example Value:** `{"message": "Tag not found"}`  
 
-**Developer Notes**
--------------------
-
-### Required Parameters
-
-* `tagname`: The name of the tag to be deleted.
-
-### Request Response Structure
-
-The response will contain a JSON object with two properties:
-- `Result`: An object indicating whether the operation is successful or not.
-- `Error`: An object containing an error message text on failure, which may be null.
-
-### Security Considerations
-
-* The endpoint requires bearerAuth for authentication.
-
-### Error Handling
-
-* If the requested tag does not exist, a 404 response will be returned with an appropriate error message.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-ENDPOINT: Delete a tag
-PATH: `/UPRest/DeleteTag`
-METHOD: `POST`
-TAGS: Application Management
-METADATA:
-  * `x-idap-anon`: `False`
-  * `x-codegen-request-body-name`: `payload`
-REQUEST BODY: Required
-  Content Type: `application/json`
-  Schema Properties:
-    * `tagname` (string): tag name
-    Required fields: `tagname`
-  Sample Request JSON:
-```json
-{
- "tagname": "string_value"
-}
-```
-RESPONSES:
-  Status Code: `200`
-  Description: API-Result
-  Content Type: `*/*`
-  Response Schema: UPRestDeleteTag
-  Response Body Properties:
-    * `Result` (object): Whether the operation is successful or not.
-    * `Error` (object): Error message text on failure, may be null
-  Sample Response JSON:
-```json
-{
- "Result": {},
- "Error": {}
-}
-```
-SECURITY: bearerAuth
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Delete a tag  
+**PATH:** /UPRest/DeleteTag  
+**METHOD:** POST  
+**TAGS:** Application Management  
+**METADATA:**  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**REQUEST BODY:** Required  
+  **Content Type:** application/json  
+  **Schema Properties:**  
+    * tagname (string): tag name  
+  **Required fields:** tagname  
+  **Sample Request JSON:**  
+  ```json  
+  {  
+    "tagname": "string_value"  
+  }  
+  ```  
+**RESPONSES:**  
+  **Status Code:** 200  
+  **Description:** API-Result  
+  **Content Type:** */*  
+  **Response Schema:** UPRestDeleteTag  
+  **Response Body Properties:**  
+    * Result (object): Whether the operation is successful or not.  
+    * Error (object): Error message text on failure, may be null  
+  **Sample Response JSON:**  
+  ```json  
+  {  
+    "Result": {},  
+    "Error": {}  
+  }  
+  ```  
+**SECURITY:** bearerAuth  

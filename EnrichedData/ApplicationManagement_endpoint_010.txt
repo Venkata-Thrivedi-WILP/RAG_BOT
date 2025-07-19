@@ -1,67 +1,133 @@
-**Overview**
------------
+# Overview
+The **Update Application** API allows users to update various fields related to an application and assign roles for accessing the applications. This endpoint is accessible via a **POST** request at the path **/SaasManage/UpdateApplicationDE**. Only system administrators or users with application management rights can invoke this API. For further guidance, refer to the [documentation](https://identity-developer.cyberark.com/docs/manage-access-to-applications-1#update-an-application). The API requires bearer token authentication for security.
 
-This API endpoint is used to update various fields related to an application. It also allows assigning roles for accessing the applications. Only system administrators and users with application management rights can invoke this API.
+# Key Search Terms
+- Update Application API
+- Application Management
+- Assign Roles API
+- Bearer Authentication
+- SAML Attributes
+- Application Icon URI
+- JSON Request Body
+- API Response Structure
+- Error Handling in API
+- Role Assignment in Applications
 
-* HTTP Method: POST
-* Path: `/SaasManage/UpdateApplicationDE`
+# Example User Questions
+- How can I update the details of an application using the API?
+- What roles can I assign to an application through the Update Application endpoint?
+- Is there a way to show the registration link for an application?
+- What parameters are required for the Update Application API?
+- How do I handle errors when updating an application?
+- Can I use this API to remove roles from an application?
+- What is the structure of the request body for the Update Application API?
+- How do I authenticate when calling the Update Application endpoint?
+- What does the response look like when the application update is successful?
+- What should I do if I receive an "Invalid_RowKey" error?
 
-Security requirements: bearerAuth
+# Developer Notes
+- **Required Parameters**: 
+  - `_RowKey` (string): The unique identifier for the application.
+- **Request Structure**: The request body must be in JSON format and include the required fields along with any optional fields as needed.
+- **Response Structure**: The response will contain a success indicator and may include error messages if applicable.
+- **Error Handling**: The API provides specific error messages for common issues, such as invalid `_RowKey`.
+- **Security Considerations**: The API requires bearer token authentication.
 
-**Key Search Terms**
--------------------
+# Detailed Explanation of Available Data, Request and Response Parameters
+## Request Parameters
+- **ShowRegistration** (boolean): Indicates whether to show the registration link on the UI. Default is `false`.
+- **_RowKey** (string): Unique ID of the application (App key). Example: `"52d1cec-63b7-4415-b4e0-facacb555d4e"`.
+- **Handler** (string): Responsible for processing requests and generating responses. Example: `"cloudlib Centrify.Saas.apphandlers.UserPass"`.
+- **IconUri** (string): Absolute path of the application icon.
+- **Script** (string): Script for complex logic in SAML response attribute mappings (only for SAML applications).
+- **AppRoles** (object): Used to assign or un-assign roles for accessing the application.
+  - **Publish** (array): Roles to be assigned.
+    - **RoleType** (string): Type of role. Example: `"PrincipalList"`.
+    - **Role** (string): Unique ID of the role. Example: `"447acf32_5bb8_45d5_8649_4f31dd5d888e"`.
+    - **ID** (string): Unique ID of the role.
+    - **Application** (string): Name or Unique ID of the application.
+    - **Automatic** (boolean): Indicates if the application is set for automatic installation. Default is `true`.
+    - **Name** (string): Name of the role to be assigned.
+  - **UnPublish** (array): Roles to be un-assigned (same structure as Publish).
+- **SamlAttributes** (string): Attributes applicable only to SAML applications. Default is `null`.
+- **Description** (string): Description of the application.
+- **Name** (string): Name of the application.
 
-* Update application
-* Assign roles to application
-* Application management
-* SaasManage/UpdateApplicationDE
-* Bearer authentication
+## Response Parameters
+- **Result** (object): Contains the result of the API call.
+  - **ErrorID** (string): Error ID if any error occurs. Default is `'null'`.
+  - **ErrorCode** (string): Error code if any error occurs. Default is `'null'`.
+  - **Exception** (string): Exception message if any exception occurs. Default is `'null'`.
+  - **MessageID** (string): Message ID for failure response. Default is `'null'`.
+  - **Result** (object): Result for the update application request.
+    - **State** (integer): Indicates if the application fields are updated as expected (0 for success).
+  - **InnerExceptions** (string): Additional exception details.
+  - **Message** (string): Error message for failure response. Default is `'null'`.
+  - **success** (boolean): Indicates if the operation was successful.
+  - **IsSoftError** (boolean): Indicates if the error is a UI warning.
+- **Error** (object): Contains error messages on failure.
+  - **Invalid_RowKey** (string): Error message when an invalid row key is provided.
 
-**Example User Questions**
--------------------------
+## Sample Request JSON
+```json
+{
+  "ShowRegistration": false,
+  "_RowKey": "string_value",
+  "Handler": "string_value",
+  "IconUri": "string_value",
+  "Script": "string_value",
+  "AppRoles": {
+    "Publish": [
+      {
+        "RoleType": "string_value",
+        "Role": "string_value",
+        "ID": "string_value",
+        "Application": "string_value",
+        "Automatic": false,
+        "Name": "string_value"
+      }
+    ],
+    "UnPublish": [
+      {
+        "RoleType": "string_value",
+        "Role": "string_value",
+        "ID": "string_value",
+        "Application": "string_value",
+        "Automatic": false,
+        "Name": "string_value"
+      }
+    ]
+  },
+  "SamlAttributes": "string_value",
+  "Description": "string_value",
+  "Name": "string_value"
+}
+```
 
-* What is the format of the request body for updating an application?
-* How do I assign a role to an application using this API?
-* What happens if I provide an invalid row key in the update application request?
-* Can I use this API to update multiple fields related to an application at once?
-* How do I handle errors and exceptions when calling this API?
+## Sample Response JSON
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "State": 0
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "Invalid_RowKey": "string_value"
+  }
+}
+```
 
-**Developer Notes**
--------------------
-
-### Required Fields
-
-* `_RowKey`
-
-### Request/Response Structure
-
-* Request Body:
-	+ `Content Type`: `application/json`
-	+ `Schema Properties`:
-		- `ShowRegistration` (boolean): Specifies whether to show registration link or not on the UI. By default it is false.
-		- `_RowKey` (string): The name or Unique ID of the application created. Can fetch the AppKey from the CyberArk Admin Portal once we add an application. Can also fetch the RowKey using RedRock query.
-		- `Handler` (string): The application handler is responsible for processing the request and generating a response. Ex: cloudlib Centrify.Saas.apphandlers.UserPass
-		- `IconUri` (string): It is the absolute path of the Application icon.
-		- `Script` (string): It is the script used to add complex logic for attribute mappings of SAML response. Applicable only for SAML web based application
-		- `AppRoles` (object):
-			- `Publish` (array): Array of Roles to be assigned for accessing the application.
-			- `UnPublish` (array): Array of Roles to be un-assigned for accessing the application.
-		- `SamlAttributes` (string): This attributes are applicable only to SAML web based application. By default it is null
-		- `Description` (string): It is the description about the application added.
-		- `Name` (string): It is the name of the Application.
-* Response Body:
-	+ `Result` (object):
-		- `State` (integer): If State is '0' then application fields are updated as expected.
-	+ `Error` (object):
-		- `Invalid_RowKey`: This error message is displayed when the invalid rowkey is provided. Error message: 'The application does not exist or has been deleted.'
-
-### Security Considerations
-
-* bearerAuth
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
+# Raw Endpoint Documentation (Formatted)
+```
 ENDPOINT: Update application.
 PATH: /SaasManage/UpdateApplicationDE
 METHOD: POST
@@ -83,22 +149,23 @@ REQUEST BODY: Required
         * Publish (array): Array of Roles to be assigned for accessing the application.
           Array items:
             * RoleType (string): It is the type of role. Ex: PrincipalList
-            * Role (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the RedRock query. Ex: 447acf32_5bb8_45d5_8649_4f31dd5d888e
-            * ID (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the RedRock query. Ex: 447acf32_5bb8_45d5_8649_4f31dd5d888e
+            * Role (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query. Ex: 447acf32_5bb8_45d5_8649_4f31dd5d888e
+            * ID (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query. Ex: 447acf32_5bb8_45d5_8649_4f31dd5d888e
             * Application (string): It is the name or Unique ID of the application created. It is also known as App key.
             * Automatic (boolean): Specifies whether the application has been set for automatic installation or not. By default it is true.
             * Name (string): It is the name of the Role which needs to be assigned to application.
         * UnPublish (array): Array of Roles to be un-assigned for accessing the application.
           Array items:
             * RoleType (string): It is the type of role.
-            * Role (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the RedRock query.
-            * ID (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the RedRock query.
+            * Role (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query.
+            * ID (string): It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query.
             * Application (string): It is the name or Unique ID of the application created. It is also known as App key.
             * Automatic (boolean): Automatic
             * Name (string): It is the name of the Role which needs to be un-assigned to application.
     * SamlAttributes (string): This attributes are applicable only to SAML web based application. By default it is null
     * Description (string): It is the description about the application added.
     * Name (string): It is the name of the Application.
+    Required fields: _RowKey
   Sample Request JSON:
   ```json
   {
@@ -156,5 +223,26 @@ RESPONSES:
     * Error (object): Error message text on failure.
       Nested properties:
         * Invalid_RowKey (string): This error message is displayed when the invalid rowkey is provided. Error message: 'The application does not exist or has been deleted.'
-
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "State": 0
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "Invalid_RowKey": "string_value"
+  }
+}
+  ```
 SECURITY: bearerAuth
+```

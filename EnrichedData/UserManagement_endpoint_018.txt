@@ -1,0 +1,118 @@
+# Overview
+The **Fetch User Attributes** endpoint allows you to retrieve attributes for a specified user. It is accessed via a **POST** request at the path **/UserMgmt/GetUserAttributes**. This endpoint is particularly useful for applications that need to manage user attributes based on the directory service the user belongs to. To access this endpoint, you must provide a valid bearer token for authentication.
+
+# Key Search Terms
+- Fetch user attributes
+- User management API
+- Get user attributes
+- Directory service UUID
+- User UUID
+- API for user attributes
+- User attribute retrieval
+- Bearer authentication
+- User attributes response
+- Manage user attributes
+
+# Example User Questions
+- How can I fetch attributes for a specific user?
+- What is the endpoint to retrieve user attributes?
+- How do I get user attributes based on directory service?
+- What authentication is required for fetching user attributes?
+- Can I retrieve attributes for the current user?
+- What parameters do I need to provide to get user attributes?
+- How do I handle errors when fetching user attributes?
+- What does the response look like when I fetch user attributes?
+- Is it possible to get attributes for a user without specifying their UUID?
+- What properties are included in the user attributes response?
+
+# Developer Notes
+- **Required Parameters**: None are strictly required; however, you can specify:
+  - `ID` (query, Optional): User UUID to fetch attributes for (default is the current user).
+  - `directoryServiceUuid` (query, Optional): Directory service UUID of the user (default is null).
+- **Request Structure**: The request is a POST with optional query parameters.
+- **Response Structure**: 
+  - On success (HTTP Status Code 200), the response will contain:
+    - `Result`: An object with user attributes.
+    - `Error`: An object with error message text on failure (may be null).
+- **Security Considerations**: This endpoint requires bearer authentication.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **ID** (query, Optional)
+  - **Type**: UUID
+  - **Description**: The UUID of the user for whom to fetch attributes. If not provided, the attributes for the current user will be fetched.
+  - **Example**: `123e4567-e89b-12d3-a456-426614174000`
+
+- **directoryServiceUuid** (query, Optional)
+  - **Type**: UUID
+  - **Description**: The UUID of the directory service the user belongs to. If not provided, it defaults to null.
+  - **Example**: `abc12345-def6-7890-ghij-klmnopqrstuv`
+
+### Response Parameters
+- **Result** (object)
+  - **Description**: Contains the user attributes results.
+  - **Properties**:
+    - **propertyn** (object): nth property of the user (name varies).
+    - **property2** (object): Second property of the user (name varies).
+    - **directoryServiceUuid** (string): UUID of the directory service the user is from.
+    - **...** (object): Additional properties (name varies).
+    - **property1** (object): First property of the user (name varies).
+
+- **Error** (object)
+  - **Description**: Contains the error message text on failure; may be null.
+
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "propertyn": {},
+    "property2": {},
+    "directoryServiceUuid": "string_value",
+    "...": {},
+    "property1": {}
+  },
+  "Error": {}
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Fetch attributes for a specified user.
+PATH: /UserMgmt/GetUserAttributes
+METHOD: POST
+TAGS: Manage User Attributes
+DESCRIPTION: Attributes will vary depending on the type of the directory service the user belongs to.
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * ID (query, Optional): User UUID to fetch attributes for (default=current user)
+  * directoryServiceUuid (query, Optional): Directory service UUID of the user (default=null)
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UserMgmtGetUserAttributes
+  Response Body Properties:
+    * Result (object): User Attributes results
+      Nested properties:
+        * propertyn (object): nth property of the user (name varies)
+        * property2 (object): Second property of the user (name varies)
+        * directoryServiceUuid (string): UUID of the directory service the user is from
+        * ... (object): More properties (name varies)
+        * property1 (object): First property of the user (name varies)
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "propertyn": {},
+    "property2": {},
+    "directoryServiceUuid": "string_value",
+    "...": {},
+    "property1": {}
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+```

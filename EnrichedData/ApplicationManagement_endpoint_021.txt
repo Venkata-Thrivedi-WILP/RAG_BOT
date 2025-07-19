@@ -1,68 +1,127 @@
-**Overview**
-================
+# Overview  
+The **Update Captured User Application** endpoint allows users to update the details of a captured application within the system. This is done through a POST request to the path `/UPRest/UpdateCapturedUserApplication`. The endpoint requires authentication via a bearer token, ensuring that only authorized users can make updates to application data.
 
-Update captured user application. This endpoint allows you to update an existing application in the system.
+# Key Search Terms  
+- Update captured user application  
+- Application management API  
+- POST /UPRest/UpdateCapturedUserApplication  
+- Bearer authentication  
+- JSON request body  
+- Application details update  
+- API response structure  
+- Error handling in API  
+- Required fields for application update  
+- Application URL update  
 
-* HTTP Method: POST
-* Path: `/UPRest/UpdateCapturedUserApplication`
-* Security Requirement: Bearer Authentication
+# Example User Questions  
+- How can I update an application using the API?  
+- What fields do I need to provide to update a captured user application?  
+- What is the request format for updating an application?  
+- How do I authenticate when updating an application?  
+- What does the response look like after updating an application?  
+- What should I do if I receive an error when updating an application?  
+- Can I update the application description through the API?  
+- What is the required field for updating a captured user application?  
+- How do I specify the application URL in the update request?  
+- What type of authentication is needed for this endpoint?  
 
-**Key Search Terms**
--------------------
+# Developer Notes  
+- **HTTP Method**: POST  
+- **Path**: `/UPRest/UpdateCapturedUserApplication`  
+- **Security**: Requires bearer authentication.  
+- **Required Parameters**:  
+  - `appkey` (string): This is the only required field for the request.  
+- **Request Structure**: The request body must be in JSON format and include the following fields:  
+  - `appName` (string): Application Name  
+  - `appkey` (string): Application key (required)  
+  - `appDescription` (string): Application Description  
+  - `notes` (string): Application notes  
+  - `appUrl` (string): Application URL  
+- **Response Structure**: The response will return a status code of 200 with a JSON body containing:  
+  - `Result` (object): Indicates whether the operation was successful.  
+  - `Error` (object): Contains error message text on failure, may be null.  
+- **Error Handling**: Ensure to check the `Error` field in the response for any issues.
 
-* Update captured user application
-* Application management API
-* Update application details
-* Bearer authentication required
-* UPRest/UpdateCapturedUserApplication endpoint
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **appName**  
+  - **Type**: string  
+  - **Description**: The name of the application.  
+  - **Example**: `"My Application"`  
 
-**Example User Questions**
--------------------------
+- **appkey**  
+  - **Type**: string  
+  - **Description**: The unique key for the application (required).  
+  - **Example**: `"app_key_123"`  
 
-* What is the format of the request body for updating an application?
-* How do I authenticate with bearer token to use this endpoint?
-* Can I update multiple applications at once using this API?
-* What happens if the application key is missing from the request body?
-* How can I check the status of my application updates?
+- **appDescription**  
+  - **Type**: string  
+  - **Description**: A brief description of the application.  
+  - **Example**: `"This application does XYZ."`  
 
-**Developer Notes**
--------------------
+- **notes**  
+  - **Type**: string  
+  - **Description**: Additional notes regarding the application.  
+  - **Example**: `"This is a note about the application."`  
 
-### Required Fields
+- **appUrl**  
+  - **Type**: string  
+  - **Description**: The URL where the application can be accessed.  
+  - **Example**: `"https://www.example.com"`  
 
-* `appkey` (string): Application key
-* `appName` (string): Application Name
-* `appDescription` (string): Application Description
-* `notes` (string): Application notes
-* `appUrl` (string): Application Url
+## Response Parameters  
+- **Result**  
+  - **Type**: object  
+  - **Description**: Indicates whether the operation was successful.  
+  - **Example**: `{}`  
 
-### Request/Response Structure
+- **Error**  
+  - **Type**: object  
+  - **Description**: Contains error message text on failure, may be null.  
+  - **Example**: `{"message": "An error occurred."}`  
 
-* Request Body: JSON object with required fields
-	+ Sample Request JSON:
-```json
-{
+# Raw Endpoint Documentation (Formatted)  
+```
+ENDPOINT: update captured user application .
+PATH: /UPRest/UpdateCapturedUserApplication
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * appName (string): Application Name
+    * appkey (string): Application key
+    * appDescription (string): Application Description
+    * notes (string): Application notes
+    * appUrl (string): Application Url
+    Required fields: appkey
+  Sample Request JSON:
+  ```json
+  {
   "appName": "string_value",
   "appkey": "string_value",
   "appDescription": "string_value",
   "notes": "string_value",
   "appUrl": "string_value"
 }
-```
-* Response Body: JSON object with `Result` and optional `Error` properties
-	+ Sample Response JSON:
-```json
-{
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestDeleteTag
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
   "Result": {},
   "Error": {}
 }
+  ```
+SECURITY: bearerAuth
 ```
-
-### Error Handling
-
-* If the request body is missing required fields, a 400 Bad Request error will be returned.
-* If the application key is invalid or missing, a 401 Unauthorized error will be returned.
-
-### Security Considerations
-
-* Bearer authentication is required for this endpoint.

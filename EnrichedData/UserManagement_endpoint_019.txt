@@ -1,0 +1,205 @@
+# Overview
+The **Get Schema** endpoint allows users to obtain a list of current attributes (columns) for a specified table within the Tenant's extended schema. This API is particularly useful for system administrators, users with user management rights, or the user themselves, as it returns all extensible attributes present in the table along with their details. This information is essential when adding or updating the Tenant schema. The endpoint uses the **POST** method and can be accessed at the path **/ExtData/GetSchema**. Security is enforced through bearer token authentication.
+
+# Key Search Terms
+- Get Schema API
+- Extended schema attributes
+- Tenant schema management
+- User attributes API
+- API for table columns
+- System administrator API
+- User management rights API
+- Retrieve table schema
+- API request for attributes
+- JSON response for schema
+
+# Example User Questions
+- How can I retrieve the schema for a specific table?
+- What attributes are available for the extended schema?
+- Can I get the details of columns in my Tenant's schema?
+- What permissions are needed to access the Get Schema API?
+- How do I format the request to get the schema of a table?
+- What does the response look like when I call the Get Schema API?
+- How do I handle errors when retrieving table attributes?
+- What information is included in the schema response?
+- What should I do if I receive an invalid table name error?
+- How can I check if a column is editable in the schema?
+
+# Developer Notes
+- **Required Parameters**: 
+  - `Table` (string): The name of the table to examine.
+  
+- **Request Structure**: 
+  - Content Type: `application/json`
+  - Sample Request JSON:
+    ```json
+    {
+      "Table": "string_value"
+    }
+    ```
+
+- **Response Structure**:
+  - Status Code: `200`
+  - Content Type: `*/*`
+  - Response Schema: `ExtDataGetSchema`
+  
+- **Error Handling**: 
+  - The API returns various error messages based on the input, including:
+    - If the table name is invalid: "The requested data or its dependent data was not found in the service."
+    - If the table name is empty or null: "Parameter 'Table' must be specified."
+
+- **Security Considerations**: 
+  - The endpoint requires bearer token authentication.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+## Request Parameters
+- **Table** (string): 
+  - Description: Name of the table to examine.
+  - Required: Yes
+  - Example: `"Table": "Users"`
+
+## Response Parameters
+- **Result** (object): 
+  - Description: Return object for a successful API call.
+  - Nested properties:
+    - **ErrorID** (string): Error ID if any error is received from the API. Default is `'null'`.
+    - **ErrorCode** (string): Error code if any error is received from the API. Default is `'null'`.
+    - **Exception** (string): Exception message if an exception is received from the API. Default is `'null'`.
+    - **MessageID** (string): Message Id for failure response. Default is `'null'`.
+    - **Result** (object): The result for the API call.
+      - Nested properties:
+        - **ColumnLimit** (string): Maximum number of rows present in the column.
+        - **Columns** (array): An array list of columns as DataEntity objects.
+          - Array items:
+            - **Title** (string): The column title.
+            - **UserEditable** (boolean): If the column properties can be edited or not.
+            - **Type** (string): The column data type.
+            - **Description** (string): The description of data stored in the column.
+            - **Name** (string): The column name.
+    - **InnerExceptions** (string): Inner Exceptions if any received from the API. Default is `'null'`.
+    - **Message** (string): Error message for failure response. Default is `'null'`.
+    - **success** (boolean): True for a successful API call.
+    - **IsSoftError** (boolean): SoftError if true indicates this is not an exception but a UI warning popup.
+
+- **Error** (object): 
+  - Description: Error message text on failure.
+  - Nested properties:
+    - **InvalidTableName** (string): Message if an invalid table is provided.
+    - **EmptyTableName** (string): Message when the provided table is empty or null.
+
+## Sample Response JSON
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "ColumnLimit": "string_value",
+      "Columns": [
+        {
+          "Title": "string_value",
+          "UserEditable": false,
+          "Type": "string_value",
+          "Description": "string_value",
+          "Name": "string_value"
+        }
+      ]
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "InvalidTableName": "string_value",
+    "EmptyTableName": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Get Schema
+PATH: /ExtData/GetSchema
+METHOD: POST
+TAGS: Manage User Attributes
+DESCRIPTION: Use this API to obtain a list of the current attributes(columns) for a table in the Tenant's extended schema. Only system administrators, users with user management rights, or the user itself can invoke this API. When a user invokes this API for a given table, the list of all extensible attributes present in the table, along with their details, is returned. This API is necessary because all existing attributes must be included when adding/updating the Tenant schema. For more details, please refer to Use extensible attributes.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * Table (string): Name of the table to examine
+    Required fields: Table
+  Sample Request JSON:
+  ```json
+  {
+  "Table": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: ExtDataGetSchema
+  Response Body Properties:
+    * Result (object): Return object for a successful API call
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (object): The result for the API call
+          Nested properties:
+            * ColumnLimit (string): Maximum number of rows present in the column
+            * Columns (array): An array list of columns as DataEntity objects
+              Array items:
+                * Title (string): The column title
+                * UserEditable (boolean): If the column properties can be edited or not
+                * Type (string): The column data type
+                * Description (string): The description of data stored in the column
+                * Name (string): The column name
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): It will be true for a successful API call
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup
+    * Error (object): Error message text on failure and below message would be returned if provided table is invalid/empty
+      Nested properties:
+        * InvalidTableName (string): If Invalid Table is provided, User will see the following message 'The requested data or its dependent data was not found in the service.'
+        * EmptyTableName (string): When provided Table is empty or null, you would see this message 'Parameter 'Table' must be specified.'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "ColumnLimit": "string_value",
+      "Columns": [
+        {
+          "Title": "string_value",
+          "UserEditable": false,
+          "Type": "string_value",
+          "Description": "string_value",
+          "Name": "string_value"
+        }
+      ]
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "InvalidTableName": "string_value",
+    "EmptyTableName": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+```

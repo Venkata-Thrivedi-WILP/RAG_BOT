@@ -1,39 +1,76 @@
-**Overview**
------------
+# Overview  
+The **Get Authentication Profile** endpoint allows users to retrieve an authentication profile using a unique identifier (UUID). This is accomplished through a POST request to the path `/AuthProfile/GetProfile`. To access this endpoint, users must provide a valid bearer token for authentication.
 
-The `Get Authentication Profile` endpoint allows users to retrieve their authentication profile. This endpoint is accessed via a POST request to the `/AuthProfile/GetProfile` path.
+# Key Search Terms  
+- Get Authentication Profile  
+- Authentication Profile UUID  
+- Retrieve Auth Profile  
+- POST /AuthProfile/GetProfile  
+- Bearer token authentication  
+- API Result for Auth Profile  
+- Authentication mechanisms  
+- Profile name retrieval  
+- Duration of authentication profile  
 
-To use this endpoint, you will need to provide a valid `uuid` query parameter or include it in the request body. The response will be in JSON format and will contain an `Error` object if there was an issue with the request.
+# Example User Questions  
+- How can I retrieve an authentication profile using its UUID?  
+- What information is returned when I get an authentication profile?  
+- What is the required format for the request body when accessing the authentication profile?  
+- How do I authenticate when calling the Get Authentication Profile endpoint?  
+- What does the response look like when I successfully get an authentication profile?  
+- What are the possible challenges in the authentication profile?  
+- How long is the authentication profile valid for?  
+- What should I include in the request to get an authentication profile?  
+- How do I handle errors when retrieving an authentication profile?  
 
-**Key Search Terms**
--------------------
+# Developer Notes  
+- **Required Parameters:**  
+  - `uuid` (query): The UUID of the authentication profile to be retrieved.  
 
-* Get authentication profile
-* Retrieve authentication profile
-* Authentication profile endpoint
-* UUID-based authentication
-* Bearer authentication
+- **Request Structure:**  
+  - **Content Type:** application/json  
+  - **Request Body:** Must include the `uuid`.  
+  - **Sample Request JSON:**  
+    ```json
+    {
+      "uuid": "string_value"
+    }
+    ```
 
-**Example User Questions**
--------------------------
+- **Response Structure:**  
+  - **Status Code:** 200  
+  - **Response Body Properties:**  
+    - `Result` (object): Contains the authentication profile details.  
+    - `Error` (object): Contains error message text on failure, may be null.  
 
-* What is my current authentication profile?
-* How do I retrieve my authentication profile using a UUID?
-* Can I use bearer authentication to access the authentication profile endpoint?
-* What if there's an error with the request - what will be returned in the response?
-* How can I get a new authentication profile?
+- **Security Considerations:**  
+  - This endpoint requires bearer token authentication.
 
-**Developer Notes**
-------------------
+# Detailed Explanation of Available Data, Request and Response Parameters  
 
-### Required Parameters
+## Request Parameters  
+- **uuid**  
+  - **Type:** string  
+  - **Description:** The authentication profile UUID, either passed in by method call or as part of the payload.  
+  - **Constraints:** Required field.  
+  - **Example:** `"uuid": "123e4567-e89b-12d3-a456-426614174000"`  
 
-* `uuid`: The authentication profile uuid either passed in by method call or as part of the payload.
+## Response Parameters  
+- **Result** (object)  
+  - **Description:** Contains the details of the authentication profile.  
+  - **Properties:**  
+    - **Challenges** (array): Selected authentication mechanisms.  
+      - **Array items:** Strings representing different challenges.  
+    - **AdditionalData** (object): DataEntity with additional data (default=null).  
+    - **Uuid** (string): Profile UUID.  
+    - **SingleChallengeMechanisms** (string): Selected single authentication mechanisms.  
+    - **DurationInMinutes** (integer): How many minutes the profile is valid.  
+    - **Name** (string): Profile name.  
 
-### Request Response Structure
+- **Error** (object)  
+  - **Description:** Contains error message text on failure, may be null.  
 
-The response will be in JSON format and will contain an `Error` object if there was an issue with the request. The structure is as follows:
-
+## Sample Response JSON  
 ```json
 {
   "Result": {
@@ -50,66 +87,58 @@ The response will be in JSON format and will contain an `Error` object if there 
 }
 ```
 
-### Security Considerations
-
-This endpoint uses bearer authentication. Please ensure that you are passing a valid token in the `Authorization` header.
-
-**Raw Endpoint Documentation (Formatted)**
-------------------------------------------
-
-```markdown
-ENDPOINT: Get authentication profile
-PATH: /AuthProfile/GetProfile
-METHOD: POST
-TAGS: Authentication Profile
-DESCRIPTION: The profile get uses the uuid passed in by method call or as part of the payload.
-METADATA:
-  * x-idap-anon: False
-  * x-codegen-request-body-name: payload
-PARAMETERS:
-  * uuid (query, Required): Profile UUID
-REQUEST BODY: Required
-  Content Type: application/json
-  Schema Properties:
-    * uuid (string): The authentication profile uuid either passed in by method call or as part of the payload.
-    Required fields: uuid
-  Sample Request JSON:
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Get authentication profile  
+**PATH:** /AuthProfile/GetProfile  
+**METHOD:** POST  
+**TAGS:** Authentication Profile  
+**DESCRIPTION:** The profile get uses the uuid passed in by method call or as part of the payload.  
+**METADATA:**  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**PARAMETERS:**  
+  * uuid (query, Required): Profile UUID  
+**REQUEST BODY:** Required  
+  **Content Type:** application/json  
+  **Schema Properties:**  
+    * uuid (string): The authentication profile uuid either passed in by method call or as part of the payload.  
+    **Required fields:** uuid  
+  **Sample Request JSON:**  
   ```json
   {
-  "uuid": "string_value"
-}
-  ```
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: */*
-  Response Schema: AuthProfileGetProfile
-  Response Body Properties:
-    * Result (object): Authentication profile.
-      Nested properties:
-        * Challenges (array): Selected authentication mechanisms.
-          Array items:
-        * AdditionalData (object): DataEntity with additional data (default=null).
-        * Uuid (string): Profile UUID.
-        * SingleChallengeMechanisms (string): Selected single authentication mechanisms.
-        * DurationInMinutes (integer): How many minutes the profile is valid.
-        * Name (string): Profile name.
-    * Error (object): Error message text on failure, may be null
-  Sample Response JSON:
+    "uuid": "string_value"
+  }
+  ```  
+**RESPONSES:**  
+  **Status Code:** 200  
+  **Description:** API-Result  
+  **Content Type:** */*  
+  **Response Schema:** AuthProfileGetProfile  
+  **Response Body Properties:**  
+    * Result (object): Authentication profile.  
+      **Nested properties:**  
+        * Challenges (array): Selected authentication mechanisms.  
+          **Array items:**  
+        * AdditionalData (object): DataEntity with additional data (default=null).  
+        * Uuid (string): Profile UUID.  
+        * SingleChallengeMechanisms (string): Selected single authentication mechanisms.  
+        * DurationInMinutes (integer): How many minutes the profile is valid.  
+        * Name (string): Profile name.  
+    * Error (object): Error message text on failure, may be null  
+  **Sample Response JSON:**  
   ```json
   {
-  "Result": {
-    "Challenges": [
-      "string_value"
-    ],
-    "AdditionalData": {},
-    "Uuid": "string_value",
-    "SingleChallengeMechanisms": "string_value",
-    "DurationInMinutes": 0,
-    "Name": "string_value"
-  },
-  "Error": {}
-}
-```
-SECURITY: bearerAuth
-```
+    "Result": {
+      "Challenges": [
+        "string_value"
+      ],
+      "AdditionalData": {},
+      "Uuid": "string_value",
+      "SingleChallengeMechanisms": "string_value",
+      "DurationInMinutes": 0,
+      "Name": "string_value"
+    },
+    "Error": {}
+  }
+  ```  
+**SECURITY:** bearerAuth  

@@ -1,47 +1,62 @@
-**Overview**
-===============
+# Overview  
+This endpoint retrieves the ID of an application based on its service name. It uses the HTTP POST method and is accessed at the path `/SaasManage/GetAppIDByServiceName`. To use this endpoint, a bearer authentication token is required for security.
 
-Get the ID of an app from its service name. This endpoint allows you to retrieve the ID of an application based on its service name.
+# Key Search Terms  
+- Get App ID by Service Name  
+- Application Management API  
+- Retrieve Application ID  
+- Service Name to App ID  
+- POST endpoint for app ID  
+- Bearer authentication API  
+- SaasManage API  
+- API Result for App ID  
+- Error handling in API calls  
 
-*   HTTP Method: POST
-*   Path: `/SaasManage/GetAppIDByServiceName`
-*   Security Requirement: Bearer Authentication
+# Example User Questions  
+- How can I get the application ID from a service name?  
+- What is the endpoint to retrieve an app ID using its service name?  
+- What parameters do I need to call the GetAppIDByServiceName endpoint?  
+- How do I handle errors when fetching an app ID?  
+- What authentication is required for the SaasManage API?  
+- Can I get the app ID without a service name?  
+- What does the response look like for the GetAppIDByServiceName endpoint?  
+- How do I format my request to get the app ID?  
+- Is the service name parameter mandatory for this API?  
+- What type of response can I expect from this endpoint?  
 
-**Key Search Terms**
-==================
+# Developer Notes  
+- **Required Parameters:**  
+  - `name` (query, Required): The service name for which the app ID is being requested.  
+- **Request Structure:**  
+  - The request must be a POST request to the specified path with the required parameter included in the query.  
+- **Response Structure:**  
+  - On success, the response will return a status code of 200 with a JSON object containing either the `Result` or an `Error`.  
+- **Error Handling:**  
+  - If the request fails, the `Error` object will provide the error message; it may be null if no error occurred.  
+- **Security Considerations:**  
+  - Bearer authentication is required to access this endpoint.
 
-*   `app id by service name`
-*   `get app id from service name`
-*   `saas manage get app id`
-*   `application management api`
-*   `service name to app id`
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **name**  
+  - **Type:** String  
+  - **Description:** The service name used to identify the application.  
+  - **Constraints:** Required field.  
+  - **Example Value:** `"exampleServiceName"`  
 
-**Example User Questions**
-=========================
+## Response Parameters  
+- **Status Code:**  
+  - **200**  
+    - **Description:** Indicates a successful API call.  
+- **Response Body Properties:**  
+  - **Result**  
+    - **Type:** Object  
+    - **Description:** The resulting object from the API call, if any.  
+  - **Error**  
+    - **Type:** Object  
+    - **Description:** Contains the error message text on failure; may be null.  
 
-*   "What is the ID of an app based on its service name?"
-*   "How do I retrieve the ID of an application using its service name?"
-*   "Can I use bearer authentication for this endpoint?"
-*   "What happens if the service name is not found?"
-*   "How can I handle errors when calling this API?"
-
-**Developer Notes**
-==================
-
-### Required Parameters
-
-*   `name` (query, Required): Service name
-
-### Request/Response Structure
-
-*   Request Body:
-    *   `name`: Service name
-*   Response Body:
-    *   `Result`: Object containing the result of the call (may be null)
-    *   `Error`: Error message text on failure (may be null)
-
-### Sample Response JSON:
-
+### Sample Response JSON  
 ```json
 {
   "Result": {},
@@ -49,34 +64,28 @@ Get the ID of an app from its service name. This endpoint allows you to retrieve
 }
 ```
 
-### Security Considerations
-
-*   Bearer Authentication is required for this endpoint.
-
-**Raw Endpoint Documentation (Formatted)**
-==========================================
-
-ENDPOINT: Gets the ID of an app from its service name
-PATH: `/SaasManage/GetAppIDByServiceName`
-METHOD: POST
-TAGS: Application Management
-METADATA:
-  * `x-idap-anon`: False
-PARAMETERS:
-  * `name` (query, Required): Service name
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: `*/*`
-  Response Schema: SaasManageGetAppIDByServiceName
-  Response Body Properties:
-    * Result (object): Resulting object, if any, of the call
-    * Error (object): Error message text on failure, may be null
-  Sample Response JSON:
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Gets the ID of an app from its service name  
+**PATH:** /SaasManage/GetAppIDByServiceName  
+**METHOD:** POST  
+**TAGS:** Application Management  
+**METADATA:**  
+  * x-idap-anon: False  
+**PARAMETERS:**  
+  * name (query, Required): service name  
+**RESPONSES:**  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: SaasManageGetAppIDByServiceName  
+  Response Body Properties:  
+    * Result (object): Resulting object, if any, of the call  
+    * Error (object): Error message text on failure, may be null  
+  Sample Response JSON:  
   ```json
   {
   "Result": {},
   "Error": {}
 }
-  ```
-SECURITY: bearerAuth
+  ```  
+**SECURITY:** bearerAuth  

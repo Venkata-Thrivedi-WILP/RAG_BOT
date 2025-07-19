@@ -1,89 +1,125 @@
-**Overview**
------------
+# Overview
+The **Rename a Tag** endpoint allows users to change the name of an existing tag within the application management system. This endpoint utilizes the **POST** method and is accessed via the path **/UPRest/RenameTag**. To use this endpoint, users must authenticate using bearer token authorization.
 
-The Rename a tag endpoint allows users to update the name of an existing tag. This endpoint is part of the Application Management tags and requires authentication using the Bearer token.
+# Key Search Terms
+- Rename tag API
+- Application management endpoint
+- POST /UPRest/RenameTag
+- Tag management
+- Bearer token authentication
+- JSON request body
+- API response structure
+- Error handling in API
+- Rename tag request parameters
+- Successful tag rename response
 
-To use this endpoint, send a POST request to `/UPRest/RenameTag` with a JSON payload containing the new tag name and the current tag name. The `x-idap-anon` header should be set to `False`, indicating that an anonymous user is not requesting access.
+# Example User Questions
+- How can I rename a tag using the API?
+- What is the endpoint to change a tag name?
+- What authentication is required to rename a tag?
+- What parameters do I need to provide to rename a tag?
+- How do I handle errors when renaming a tag?
+- What does a successful response look like for renaming a tag?
+- Can I rename multiple tags at once?
+- What content type should I use for the request body?
+- What should I do if I receive an error when renaming a tag?
+- How do I format the JSON request for renaming a tag?
 
-**Key Search Terms**
---------------------
+# Developer Notes
+- **Required Parameters**:
+  - `newTagname`: The new name for the tag (string).
+  - `tagname`: The current name of the tag to be renamed (string).
+  
+- **Request Structure**:
+  - Content Type: `application/json`
+  - Example Request JSON:
+    ```json
+    {
+      "newTagname": "string_value",
+      "tagname": "string_value"
+    }
+    ```
 
-* Rename a tag
-* Update tag name
-* Application Management tags
-* Bearer authentication
-* JSON payload
+- **Response Structure**:
+  - Status Code: `200`
+  - Response Content Type: `*/*`
+  - Response Schema: `UPRestCreateTagWithNoApp`
+  - Example Response JSON:
+    ```json
+    {
+      "Result": {},
+      "Error": {}
+    }
+    ```
 
-**Example User Questions**
--------------------------
+- **Error Handling**: The response will include an error message if the operation fails, which may be null.
 
-* What is the format of the request body for renaming a tag?
-* How do I authenticate using the Bearer token?
-* Can I rename a tag without logging in?
-* What happens if the new tag name already exists?
-* How can I get an error message if the operation fails?
+- **Security Considerations**: This endpoint requires bearer token authentication.
 
-**Developer Notes**
--------------------
+# Detailed Explanation of Available Data, Request and Response Parameters
 
-### Required Fields
+## Request Parameters
+- **newTagname** (string): 
+  - Description: The new name that you want to assign to the tag.
+  - Constraints: Must be a valid string.
+  - Example: `"newTagName123"`
 
-* `newTagname`: The new name of the tag (string)
-* `tagname`: The current name of the tag (string)
+- **tagname** (string): 
+  - Description: The current name of the tag that you want to rename.
+  - Constraints: Must be a valid string.
+  - Example: `"oldTagName123"`
 
-### Request/Response Structure
-
-* Request Body: JSON payload with `newTagname` and `tagname`
-	+ Content Type: application/json
-	+ Schema Properties:
-		- `newTagname` (string): new tag name
-		- `tagname` (string): tag name
-* Response Body: UPRestCreateTagWithNoApp schema with `Result` and `Error` properties
-
-### Error Handling
-
-* If the operation fails, an error message will be returned in the `Error` property of the response body.
-
-### Security Considerations
-
-* Bearer authentication is required for this endpoint.
-* The `x-idap-anon` header should be set to `False` to indicate that an anonymous user is not requesting access.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-ENDPOINT: Rename a tag
-PATH: `/UPRest/RenameTag`
-METHOD: POST
-TAGS: Application Management
-METADATA:
-  * `x-idap-anon`: False
-  * `x-codegen-request-body-name`: payload
-REQUEST BODY: Required
-  Content Type: application/json
-  Schema Properties:
-    * `newTagname` (string): new tag name
-    * `tagname` (string): tag name
-  Sample Request JSON:
-```json
-{
-  "newTagname": "string_value",
-  "tagname": "string_value"
-}
-```
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: */*
-  Response Schema: UPRestCreateTagWithNoApp
-  Response Body Properties:
-    * `Result` (object): Whether the operation is successful or not.
-    * `Error` (object): Error message text on failure, may be null
-  Sample Response JSON:
+## Response Parameters
+- **Result** (object): 
+  - Description: Indicates whether the operation was successful.
+  
+- **Error** (object): 
+  - Description: Contains the error message text if the operation fails; may be null.
+  
+## Example Response
 ```json
 {
   "Result": {},
   "Error": {}
 }
 ```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Rename a tag
+PATH: /UPRest/RenameTag
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * newTagname (string): new tag name
+    * tagname (string): tag name
+    Required fields: newTagname, tagname
+  Sample Request JSON:
+  ```json
+  {
+  "newTagname": "string_value",
+  "tagname": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestCreateTagWithNoApp
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
 SECURITY: bearerAuth
+```

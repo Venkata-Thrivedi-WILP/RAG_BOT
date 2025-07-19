@@ -1,80 +1,56 @@
-**Overview**
-===============
+# Overview
+The **Set Policy** endpoint is designed for managing policy updates within the system. It allows users to replace and deprecate the previous policy-saving method (SavePolicyBlock2) by introducing a "revision stamp" feature. This functionality helps prevent loss of changes when multiple users are editing policies simultaneously. The endpoint uses the **POST** method and is accessed via the path **/Policy/SavePolicyBlock3**. Security is enforced through bearer token authentication.
 
-The Set policy endpoint allows users to replace and deprecate existing policies by adding a revision stamp functionality. This endpoint is used for policy management and requires authentication using bearer tokens.
+# Key Search Terms
+- Set Policy Endpoint
+- Policy Management API
+- SavePolicyBlock3
+- Revision Stamp Functionality
+- Bearer Authentication
+- JSON Policy Update
+- Multi-user Policy Editing
+- API Policy Update Request
+- Policy Save Request Body
+- Policy Response Structure
 
-To use this endpoint, send a POST request to `/Policy/SavePolicyBlock3` with a JSON payload containing the policy details. The required fields are `policy` and `plinks`.
+# Example User Questions
+- How can I update a policy using the API?
+- What is the purpose of the revision stamp in the Set Policy endpoint?
+- What authentication is required for the SavePolicyBlock3 endpoint?
+- Can I add a new policy with the Set Policy endpoint?
+- What does the request body look like for saving a policy?
+- How do I handle errors when calling the Set Policy API?
+- What are the required fields for the policy update request?
+- How do I specify if a policy is new or existing?
+- What response can I expect from the Set Policy endpoint?
+- How do I format the JSON for the policy update request?
 
-**Key Search Terms**
-==================
+# Developer Notes
+- **Required Parameters**: 
+  - `policy` (object)
+  - `plinks` (array)
+- **Request Structure**: 
+  - Content Type: `application/json`
+  - Must include both `policy` and `plinks` fields in the request body.
+- **Response Structure**: 
+  - Status Code: `200`
+  - Response includes a `Result` object and an `Error` object (may be null).
+- **Error Handling**: Check the `Error` field in the response for error messages.
+- **Security Considerations**: Use bearer token authentication for access.
 
-* Set policy
-* Policy management
-* Save policy block
-* Revision stamp
-* Bearer authentication
-* API endpoint documentation
+# Detailed Explanation of Available Data, Request and Response Parameters
+## Request Parameters
+- **policy** (object): Contains the details of the policy being added or updated.
+  - **Newpolicy** (boolean): Set to `true` if this is a new policy (add).
+  - **Version** (integer): Policy structure version number (currently `1`).
+  - **Path** (string): Path of the policy.
+  - **RevStamp** (string): Revision stamp returned from the latest call to `getPolicyBlock`. This is required if `Newpolicy` is `false`.
+  - **Description** (string): Description of the policy.
+  
+- **plinks** (array): Array of plink objects representing the current plinks file. Each item in the array is an object.
 
-**Example User Questions**
-=========================
-
-* What is the purpose of the Set policy endpoint?
-* How do I replace an existing policy with a new one using this endpoint?
-* Can I use bearer authentication to secure my requests to this endpoint?
-* What is the format of the JSON payload required for this endpoint?
-* How can I handle errors and responses from this endpoint?
-
-**Developer Notes**
-==================
-
-### Required Parameters
-
-* `policy`: JSON object containing policy details
-* `plinks`: Array of plink objects representing the current plinks file
-
-### Request/Response Structure
-
-* Request body: JSON payload with `policy` and `plinks` fields
-* Response body: JSON object with `Result` and optional `Error` fields
-
-### Error Handling
-
-* Status code 200 indicates success
-* Status code 4xx or 5xx indicates error, with corresponding error message in response body
-
-### Security Considerations
-
-* Bearer authentication required for all requests to this endpoint
-
-**Raw Endpoint Documentation (Formatted)**
-=====================================
-
-ENDPOINT: Set policy
-PATH: /Policy/SavePolicyBlock3
-METHOD: POST
-TAGS: Policy Management
-DESCRIPTION: Replaces and deprecates SavePolicyBlock2, by adding the "rev stamp" functionality that helps prevent change loss when policies are being edited by multiple users.
-
-METADATA:
-  * x-idap-anon: False
-  * x-codegen-request-body-name: payload
-
-REQUEST BODY:
-  Content Type: application/json
-  Schema Properties:
-    * policy (object): JSON object containing the details of the policy being added or updated.
-      Nested properties:
-        * Newpolicy (boolean): boolean set to true if this is a new policy (add)
-        * Version (integer): Policy structure version number. 1, at this time.
-        * Path (string): path of the policy
-        * RevStamp (string): Revision stamp returned from latest call to getPolicyBlock. This is required if Newpolicy is false.
-        * Description (string): policy description
-    * plinks (array): Array of plink objects representing the current plinks file.
-      Array items:
-  Required fields: policy, plinks
-
-  Sample Request JSON:
-  ```json
+### Sample Request JSON
+```json
 {
   "policy": {
     "Newpolicy": false,
@@ -89,6 +65,56 @@ REQUEST BODY:
 }
 ```
 
+## Response Parameters
+- **Result** (object): Standard JSON response containing result information.
+- **Error** (object): Error message text on failure; may be null.
+
+### Sample Response JSON
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Set policy
+PATH: /Policy/SavePolicyBlock3
+METHOD: POST
+TAGS: Policy Management
+DESCRIPTION: Replaces and deprecates SavePolicyBlock2, by adding the "rev stamp" functionality that helps prevent change loss when policies are being edited by multiple users.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * policy (object): JSON object containing the details of the policy being added or updated.
+      Nested properties:
+        * Newpolicy (boolean): boolean set to true if this is a new policy (add)
+        * Version (integer): Policy structure version number. 1, at this time.
+        * Path (string): path of the policy
+        * RevStamp (string): Revision stamp returned from latest call to getPolicyBlock. This is required if Newpolicy is false.
+        * Description (string): policy description
+    * plinks (array): Array of plink objects representing the current plinks file.
+      Array items:
+    Required fields: policy, plinks
+  Sample Request JSON:
+  ```json
+  {
+  "policy": {
+    "Newpolicy": false,
+    "Version": 0,
+    "Path": "string_value",
+    "RevStamp": "string_value",
+    "Description": "string_value"
+  },
+  "plinks": [
+    {}
+  ]
+}
+  ```
 RESPONSES:
   Status Code: 200
   Description: API-Result
@@ -97,13 +123,12 @@ RESPONSES:
   Response Body Properties:
     * Result (object): Standard JSON response, with error information on failure.
     * Error (object): Error message text on failure, may be null
-
   Sample Response JSON:
   ```json
-{
+  {
   "Result": {},
   "Error": {}
 }
-```
-
+  ```
 SECURITY: bearerAuth
+```

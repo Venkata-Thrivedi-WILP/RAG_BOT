@@ -1,0 +1,197 @@
+# Overview  
+This API endpoint allows system administrators, users with user management rights, or the user themselves to update extended attribute values for a CyberArk Identity user. The HTTP method used is POST, and the endpoint path is `/ExtData/SetColumns`. To use this API, authentication is required via bearer token.
+
+# Key Search Terms  
+- CyberArk Identity API  
+- Set additional attributes  
+- Update user attributes  
+- Manage user attributes  
+- API for user management  
+- Extended attribute values  
+- Bearer token authentication  
+- JSON request body  
+- User ID attributes  
+- Error handling in API  
+
+# Example User Questions  
+- How can I update user attributes in CyberArk Identity?  
+- What is the endpoint for setting additional user attributes?  
+- How do I clear an attribute's value using the API?  
+- What parameters are required to update user attributes?  
+- How do I handle errors when updating user attributes?  
+- What types of values can I set for user attributes?  
+- How can I authenticate to use the SetColumns API?  
+- What is the structure of the request body for setting user attributes?  
+- How do I know if my API call was successful?  
+- What error messages might I receive when using this API?  
+
+# Developer Notes  
+- **Required Parameters:**  
+  - `Columns` (object): A list of extended columns to update.  
+  - `ID` (string): User ID of the user to set the attributes for.  
+  - `Table` (string): Name of the table to modify attributes.  
+
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - Example Request JSON:  
+    ```json
+    {
+      "Columns": {
+        "PhoneNumber": "string_value"
+      },
+      "ID": "string_value",
+      "Table": "string_value"
+    }
+    ```
+
+- **Response Structure:**  
+  - Status Code: `200`  
+  - Content Type: `*/*`  
+  - Example Response JSON:  
+    ```json
+    {
+      "Result": {
+        "ErrorID": "string_value",
+        "ErrorCode": "string_value",
+        "Exception": "string_value",
+        "MessageID": "string_value",
+        "Result": "string_value",
+        "InnerExceptions": "string_value",
+        "Message": "string_value",
+        "success": false,
+        "IsSoftError": false
+      },
+      "Error": {
+        "InvalidTableName": "string_value",
+        "EmptyID": "string_value",
+        "InvalidID": "string_value",
+        "EmptyTableName": "string_value"
+      }
+    }
+    ```
+
+- **Error Handling:**  
+  - The API returns specific error messages for invalid or empty parameters.  
+  - Common error messages include:  
+    - 'The requested data or its dependent data was not found in the service.' (Invalid Table)  
+    - 'Parameter 'ID' must be specified.' (Empty ID)  
+    - 'Parameter 'Table' must be specified.' (Empty Table)  
+
+# Detailed Explanation of Available Data, Request and Response Parameters  
+
+## Request Parameters  
+- **Columns** (object):  
+  - **PhoneNumber** (string): A column's new value which needs to be set.  
+  - Example:  
+    ```json
+    "PhoneNumber": "123-456-7890"
+    ```
+
+- **ID** (string):  
+  - User ID of the user to set the attributes for.  
+  - Example:  
+    ```json
+    "ID": "user123"
+    ```
+
+- **Table** (string):  
+  - Name of the table to modify attributes.  
+  - Example:  
+    ```json
+    "Table": "UserAttributes"
+    ```
+
+## Response Parameters  
+- **Result** (object):  
+  - **ErrorID** (string): Error ID if any error is received from the API. Default is 'null'.  
+  - **ErrorCode** (string): Error code if any error is received from the API. Default is 'null'.  
+  - **Exception** (string): Exception message if an exception is received from the API. Default is 'null'.  
+  - **MessageID** (string): Message Id for failure response. Default is 'null'.  
+  - **Result** (string): The result for the API call.  
+  - **InnerExceptions** (string): Inner Exceptions if any received from the API. Default is 'null'.  
+  - **Message** (string): Error message for failure response. Default is 'null'.  
+  - **success** (boolean): Indicates if the API call was successful.  
+  - **IsSoftError** (boolean): SoftError if true indicates this is not an exception but a UI warning popup.  
+
+- **Error** (object):  
+  - **InvalidTableName** (string): Message for invalid table.  
+  - **EmptyID** (string): Message when ID is empty.  
+  - **InvalidID** (string): Message for invalid ID.  
+  - **EmptyTableName** (string): Message when table is empty or null.  
+
+# Raw Endpoint Documentation (Formatted)  
+```
+ENDPOINT: Set additional attributes  
+PATH: /ExtData/SetColumns  
+METHOD: POST  
+TAGS: Manage User Attributes  
+DESCRIPTION: This API is used to update the extended attribute values for a CyberArk Identity user. Only system administrators, users with user management rights, or the user itself can invoke this API. When this API is invoked for the user along with the attribute name and new value, this value replaces the old one in the tenant. The attribute value can be a string, date, boolean, double, or integer and must match the column definition. To clear an attribute's value, we can set it to null. For more details, please refer to Use extensible attributes.  
+METADATA:  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+REQUEST BODY: Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * Columns (object): A list of extended columns to update  
+      Nested properties:  
+        * PhoneNumber (string): A column's new value which needs to be set  
+    * ID (string): User ID of the user to set the attributes for  
+    * Table (string): Name of the table to modify attributes  
+    Required fields: Columns, ID, Table  
+  Sample Request JSON:  
+  ```json  
+  {  
+    "Columns": {  
+      "PhoneNumber": "string_value"  
+    },  
+    "ID": "string_value",  
+    "Table": "string_value"  
+  }  
+  ```  
+RESPONSES:  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: ExtDataSetColumns  
+  Response Body Properties:  
+    * Result (object): Return object for a successful API call  
+      Nested properties:  
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'  
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'  
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'  
+        * MessageID (string): Message Id for failure response. By default it is 'null'  
+        * Result (string): The result for the API call  
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'  
+        * Message (string): Error message for failure response. By default it is 'null'  
+        * success (boolean): It will be true for a successful API call  
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup  
+    * Error (object): Error message text on failure and below message would be returned if provided table is invalid/empty, or column data type is invalid/empty  
+      Nested properties:  
+        * InvalidTableName (string): If Invalid Table is provided, User will see the following message 'The requested data or its dependent data was not found in the service.'  
+        * EmptyID (string): When Empty ID is provided, you would see this message 'Parameter 'ID' must be specified.'  
+        * InvalidID (string): When Invalid ID is provided, you would see this message 'The requested data or its dependent data was not found in the service.'  
+        * EmptyTableName (string): When provided Table is empty or null, you would see this message 'Parameter 'Table' must be specified.'  
+  Sample Response JSON:  
+  ```json  
+  {  
+    "Result": {  
+      "ErrorID": "string_value",  
+      "ErrorCode": "string_value",  
+      "Exception": "string_value",  
+      "MessageID": "string_value",  
+      "Result": "string_value",  
+      "InnerExceptions": "string_value",  
+      "Message": "string_value",  
+      "success": false,  
+      "IsSoftError": false  
+    },  
+    "Error": {  
+      "InvalidTableName": "string_value",  
+      "EmptyID": "string_value",  
+      "InvalidID": "string_value",  
+      "EmptyTableName": "string_value"  
+    }  
+  }  
+  ```  
+SECURITY: bearerAuth  
+```  

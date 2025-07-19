@@ -1,89 +1,95 @@
-**Overview**
------------
+# Overview  
+This endpoint allows system administrators or users with the 'Grant' permission to set application permissions for a specific app. It is accessed via a POST request to the path `/SaasManage/SetApplicationPermissions`. To use this API, the user must have the appropriate permissions, either as a system administrator or by having 'Grant' permission on the resource or global 'Grant' permission on resources. The request requires a JSON body containing the application key, resource ID, and an array of permissions to be set.
 
-Set application permissions endpoint allows system administrators or users with 'Grant' permission to set permissions for specific applications. This endpoint is used to grant or revoke access to resources, and it requires a valid bearer token for authentication.
+# Key Search Terms  
+- Set application permissions  
+- Application management API  
+- Grant permissions API  
+- System administrator permissions  
+- JSON request body for permissions  
+- Bearer authentication  
+- API error handling  
+- User role permissions  
+- Application key permissions  
+- Resource ID permissions  
 
-* HTTP Method: POST
-* Path: /SaasManage/SetApplicationPermissions
-* Security Requirement: bearerAuth
+# Example User Questions  
+- How can I set permissions for an application using the API?  
+- What permissions do I need to use the SetApplicationPermissions endpoint?  
+- Can I set global permissions for an application?  
+- What is the required format for the request body when setting application permissions?  
+- How do I handle errors when calling the SetApplicationPermissions API?  
+- What are the nested properties in the Grants object?  
+- How do I know if my permission request was successful?  
+- What should I include in the Grants array for permissions?  
+- What does the response look like for a successful API call?  
+- How can I check if I have the necessary permissions to use this API?  
 
-**Key Search Terms**
--------------------
+# Developer Notes  
+- **Required Parameters:**  
+  - `RowKey`: Application key (string)  
+  - `ID`: ID of the resource (string, set to null for global permissions)  
+  - `Grants`: Array of permissions to be set (object)  
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - Must include the `Grants` object with the following nested properties:
+    - `Rights`: Permissions (string)
+    - `Principal`: User name or role name (string)
+    - `Type`: User role when a new user is added (string)
+    - `PrincipalId`: UUID of the principal (string)
+    - `PType`: Principal type (User, Role, etc.) (string)  
+- **Response Structure:**  
+  - Status Code: 200 for success  
+  - Response includes `Result` and `Error` objects.  
+- **Error Handling:**  
+  - If the user lacks grant access or admin rights, an error message will be returned.  
+- **Security Considerations:**  
+  - Requires bearer authentication.  
 
-* Set application permissions
-* Grant access to resources
-* SaasManage endpoint
-* Bearer token authentication
-* Application management API
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- **RowKey** (string):  
+  - Description: Application key.  
+  - Example: `"app123"`  
 
-**Example User Questions**
--------------------------
+- **ID** (string):  
+  - Description: ID of the resource. Set to null for global permissions.  
+  - Example: `"resource456"` or `null`  
 
-* What are the steps to grant access to a specific resource using this endpoint?
-* How do I revoke permission for an application using this endpoint?
-* Can I use this endpoint to set permissions for multiple applications at once?
-* What is the format of the request body for this endpoint?
-* How do I handle errors when calling this endpoint?
+- **Grants** (object):  
+  - Description: Array of permissions to be set. Each item must include:
+    - **Rights** (string): Permissions such as Grant, View, Admin, LimitedAdmin.  
+      - Example: `"Edit"`  
+    - **Principal** (string): User name or role name.  
+      - Example: `"john.doe"`  
+    - **Type** (string): It is the user role when a new user is added.  
+      - Example: `"User"`  
+    - **PrincipalId** (string): UUID of the principal.  
+      - Example: `"123e4567-e89b-12d3-a456-426614174000"`  
+    - **PType** (string): Principal type (User, Role, etc.).  
+      - Example: `"User"`  
 
-**Developer Notes**
-------------------
+### Response Parameters  
+- **Result** (object):  
+  - Description: Returns an object for a successful API call.  
+  - Nested properties:
+    - **ErrorID** (string): Error ID of any error during API execution.  
+    - **ErrorCode** (string): Error message of the occurred error.  
+    - **Exception** (string): If any exception has occurred.  
+    - **MessageID** (string): Message ID of the message.  
+    - **Result** (object): Application-related information returned.  
+    - **InnerExceptions** (string): Inner Exception, if any.  
+    - **Message** (string): Message if any exception occurs.  
+    - **success** (boolean): Indicates if the operation was successful (true or false).  
+    - **IsSoftError** (string): Indicates if the error is soft or not.  
 
-### Required Parameters
+- **Error** (object):  
+  - Description: This error message is displayed when you don't have grant access or writable policy or admin rights.  
+  - Nested properties:
+    - **ErrorMessage** (string): Message indicating lack of authorization.  
+      - Example: `"You are not authorized to perform this operation. Please contact your IT helpdesk."`  
 
-* `RowKey`: Application key
-* `ID`: ID of the resource (set to null for global permissions)
-* `Grants`: Array of permissions to be set
-
-### Request Response Structure
-
-* `Result` object:
-	+ `ErrorID`
-	+ `ErrorCode`
-	+ `Exception`
-	+ `MessageID`
-	+ `Result` (application-related information)
-	+ `InnerExceptions`
-	+ `Message`
-	+ `success` (boolean)
-	+ `IsSoftError` (string)
-* `Error` object:
-	+ `ErrorMessage`
-
-### Error Handling
-
-* If the user does not have 'Grant' permission or writable policy, an error message is displayed with a 401 status code.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-```markdown
-ENDPOINT: Set application permissions
-PATH: /SaasManage/SetApplicationPermissions
-METHOD: POST
-TAGS: Application Management
-
-DESCRIPTION:
-You must be a system administrator or have 'Grant' permission on the resource or have global 'Grant' permission on resources. Invoke this API to set permissions for perticular app.
-
-METADATA:
-  * x-idap-anon: False
-  * x-codegen-request-body-name: payload
-
-REQUEST BODY:
-Required
-  Content Type: application/json
-  Schema Properties:
-    * RowKey (string): Application key.
-    * ID (string): ID of the resource, Set to null for global permissions.
-    * Grants (object): Array of permissions to be set. Each item must include Principal: User name or role name, PType: User, Role.., Rights: ManageSession, Edit, Delete, Grant, AgentAuth.
-      Nested properties:
-        * Rights (string): Permissions: Grant, View, Admin, LimitedAdmin.
-        * Principal (string): User name or role name.
-        * Type (string): It is user role when new user is added.
-        * PrincipalId (string): Uuid of the principal.
-        * PType (string): Principal type: User, Role etc..
-
-SAMPLE REQUEST JSON:
+### Sample Request JSON  
 ```json
 {
   "RowKey": "string_value",
@@ -98,26 +104,79 @@ SAMPLE REQUEST JSON:
 }
 ```
 
-RESPONSES:
-Status Code: 200
-Description: API-Result
-Content Type: */*
-Response Schema: SaasManageSetApplicationPermissions
-Response Body Properties:
-  * Result (object): Returns an object for a successful API call.
-    Nested properties:
-      * ErrorID (string): Error Id of occured error during api execution.
-      * ErrorCode (string): Error message of Error occured.
-      * Exception (string): If any exception has occured.
-      * MessageID (string): Message id of message.
-      * Result (object): This API returns Application-related information as the response. Note that the response of the API varies w.r.t type and Category of the Application.
-      * InnerExceptions (string): Inner Exception, if any, within exception.
-      * Message (string): Message if any exception.
-      * success (boolean): The success will be true or false.
-      * IsSoftError (string): Error is soft or not.
-  * Error (object): This error message is displayed when you dont have grant access or writable policy or admin rights.
-    Nested properties:
-      * ErrorMessage (string): You are not authorized to perform this operation.Please contact your IT helpdesk.
-
-SECURITY: bearerAuth
+### Sample Response JSON  
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {},
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": "string_value"
+  },
+  "Error": {
+    "ErrorMessage": "string_value"
+  }
+}
 ```
+
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Set application permissions  
+**PATH:** /SaasManage/SetApplicationPermissions  
+**METHOD:** POST  
+**TAGS:** Application Management  
+**DESCRIPTION:** You must be a system administrator or have 'Grant' permission on the resource or have global 'Grant' permission on resources. Invoke this API to set permissions for particular app.  
+**METADATA:**  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**REQUEST BODY:** Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * RowKey (string): Application key.  
+    * ID (string): ID of the resource, Set to null for global permissions.  
+    * Grants (object): Array of permissions to be set. Each item must include Principal: User name or role name, PType: User, Role.., Rights: ManageSession, Edit, Delete, Grant, AgentAuth.  
+      Nested properties:  
+        * Rights (string): Permissions: Grant, View, Admin, LimitedAdmin.  
+        * Principal (string): User name or role name.  
+        * Type (string): It is user role when new user is added.  
+        * PrincipalId (string): Uuid of the principal.  
+        * PType (string): Principal type: User, Role etc..  
+  **Sample Request JSON:**  
+  ```json
+  {
+  "RowKey": "string_value",
+  "ID": "string_value",
+  "Grants": {
+    "Rights": "string_value",
+    "Principal": "string_value",
+    "Type": "string_value",
+    "PrincipalId": "string_value",
+    "PType": "string_value"
+  }
+}
+  ```  
+**RESPONSES:**  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: SaasManageSetApplicationPermissions  
+  Response Body Properties:  
+    * Result (object): Returns an object for a successful API call.  
+      Nested properties:  
+        * ErrorID (string): Error Id of occurred error during API execution.  
+        * ErrorCode (string): Error message of Error occurred.  
+        * Exception (string): If any exception has occurred.  
+        * MessageID (string): Message id of message.  
+        * Result (object): This API returns Application-related information as the response. Note that the response of the API varies w.r.t type and Category of the Application.  
+        * InnerExceptions (string): Inner Exception, if any, within exception.  
+        * Message (string): Message if any exception.  
+        * success (boolean): The success will be true or false.  
+        * IsSoftError (string): Error is soft or not.  
+    * Error (object): This error message is displayed when you don't have grant access or writable policy or admin rights.  
+      Nested properties:  
+        * ErrorMessage (string): You are not authorized to perform this operation. Please contact your IT helpdesk.  
+**SECURITY:** bearerAuth  

@@ -1,86 +1,107 @@
-**Overview**
-===============
+# Overview  
+The **Upload Personal App Icon** endpoint allows users to upload a personal app icon for their application. This operation is performed using the HTTP POST method at the path `/UPRest/UploadPersonalAppIcon`. To access this endpoint, users must provide a valid bearer authentication token.
 
-Upload personal app icon endpoint allows users to upload their personal app icon. This endpoint is used for application management and requires authentication using bearer token.
+# Key Search Terms  
+- Upload personal app icon  
+- Application management API  
+- POST /UPRest/UploadPersonalAppIcon  
+- Bearer authentication  
+- JSON request body  
+- App key upload  
+- API response structure  
+- Error handling in API  
+- Successful operation response  
+- Application icon upload
 
-To use this endpoint, send a POST request to `/UPRest/UploadPersonalAppIcon` with the required `appkey` in the request body. The content type of the request body should be `application/json`.
+# Example User Questions  
+- How do I upload my personal app icon?  
+- What is the endpoint for uploading an app icon?  
+- What authentication do I need to use to upload an app icon?  
+- Can I upload an app icon using a POST request?  
+- What parameters are required for the UploadPersonalAppIcon endpoint?  
+- How do I check if my app icon upload was successful?  
+- What does the response look like when I upload an app icon?  
+- What should I do if I receive an error when uploading my app icon?  
+- Is there a specific content type required for the request?  
+- How can I format my request to upload an app icon?
 
-**Key Search Terms**
-==================
+# Developer Notes  
+- **Required Parameters**:  
+  - `appkey` (string): Personal app key.  
+- **Request Structure**:  
+  - Content Type: `application/json`  
+  - Example Request JSON:
+    ```json
+    {
+      "appkey": "string_value"
+    }
+    ```
+- **Response Structure**:  
+  - Status Code: `200`  
+  - Content Type: `*/*`  
+  - Response Body Properties:
+    - `Result` (object): Indicates whether the operation was successful.
+    - `Error` (object): Contains error message text on failure, may be null.
+  - Example Response JSON:
+    ```json
+    {
+      "Result": {},
+      "Error": {}
+    }
+    ```
+- **Security Considerations**:  
+  - This endpoint requires bearer authentication.
 
-* Upload personal app icon
-* Application management API
-* Bearer authentication
-* Personal app key upload
-* UPRest/UploadPersonalAppIcon endpoint
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **appkey**  
+  - **Type**: string  
+  - **Description**: The personal app key associated with the user's application.  
+  - **Constraints**: This field is required.  
+  - **Example Value**: `"my_personal_app_key"`
 
-**Example User Questions**
-=========================
+## Response Parameters  
+- **Result**  
+  - **Type**: object  
+  - **Description**: Indicates whether the operation was successful.  
+  - **Example Value**: `{}` (an empty object indicating success)  
+- **Error**  
+  - **Type**: object  
+  - **Description**: Contains the error message text if the operation fails; may be null if there is no error.  
+  - **Example Value**: `{"message": "Invalid app key"}` or `null`
 
-* What is the format for uploading my personal app icon?
-* Can I use this endpoint without authentication?
-* How do I handle errors if the upload fails?
-* Is there a limit on the size of the uploaded image?
-* Can I update my personal app icon later?
-
-**Developer Notes**
-==================
-
-### Required Parameters
-
-* `appkey`: Personal app key (string)
-
-### Request/Response Structure
-
-* Request Body:
-	+ Content Type: `application/json`
-	+ Schema Properties:
-		- `appkey` (string): Personal app key
-		- `Required fields`: `appkey`
-* Response Body:
-	+ `Result` (object): Whether the operation is successful or not.
-	+ `Error` (object): Error message text on failure, may be null.
-
-### Security Considerations
-
-* Bearer authentication required for this endpoint.
-
-**Raw Endpoint Documentation (Formatted)**
-=============================================
-
-```markdown
-ENDPOINT: Upload personal app icon.
-PATH: /UPRest/UploadPersonalAppIcon
-METHOD: POST
-TAGS: Application Management
-METADATA:
-  * x-idap-anon: False
-  * x-codegen-request-body-name: payload
-REQUEST BODY: Required
-  Content Type: application/json
-  Schema Properties:
-    * appkey (string): Personal app key
-    Required fields: appkey
-  Sample Request JSON:
-  ```json
-{
-  "appkey": "string_value"
-}
-```
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: */*
-  Response Schema: UPRestCreateTagWithNoApp
-  Response Body Properties:
-    * Result (object): Whether the operation is successful or not.
-    * Error (object): Error message text on failure, may be null
-  Sample Response JSON:
-  ```json
-{
-  "Result": {},
-  "Error": {}
-}
-```
-SECURITY: bearerAuth
-```
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT**: Upload personal app icon.  
+**PATH**: /UPRest/UploadPersonalAppIcon  
+**METHOD**: POST  
+**TAGS**: Application Management  
+**METADATA**:  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**REQUEST BODY**: Required  
+  **Content Type**: application/json  
+  **Schema Properties**:  
+    * appkey (string): Personal app key  
+  **Required fields**: appkey  
+  **Sample Request JSON**:  
+  ```json  
+  {  
+    "appkey": "string_value"  
+  }  
+  ```  
+**RESPONSES**:  
+  **Status Code**: 200  
+  **Description**: API-Result  
+  **Content Type**: */*  
+  **Response Schema**: UPRestCreateTagWithNoApp  
+  **Response Body Properties**:  
+    * Result (object): Whether the operation is successful or not.  
+    * Error (object): Error message text on failure, may be null  
+  **Sample Response JSON**:  
+  ```json  
+  {  
+    "Result": {},  
+    "Error": {}  
+  }  
+  ```  
+**SECURITY**: bearerAuth  

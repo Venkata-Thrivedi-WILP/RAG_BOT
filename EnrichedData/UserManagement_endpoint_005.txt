@@ -1,61 +1,79 @@
-**Overview**
------------
+# Overview
+The **Send Invitation Email** endpoint allows system administrators to send login invitations to users by providing their UUIDs. This endpoint uses the HTTP POST method and is accessed at the path `/UserMgmt/SendLoginEmails`. To use this endpoint, the requester must have appropriate security credentials, specifically a bearer token for authentication.
 
-Send Invitation Email Endpoint
-================================
+# Key Search Terms
+- Send invitation email
+- User management API
+- Send user invites
+- System administrator endpoint
+- UUID user invitations
+- POST /UserMgmt/SendLoginEmails
+- Bearer authentication
+- API result response
+- JSON request body
+- User invite errors
 
-This endpoint allows system administrators to send login invitations to users. You must be a system administrator to use this endpoint.
+# Example User Questions
+- How can I send invitation emails to multiple users?
+- What is the endpoint for sending user invites?
+- What authentication is required to use the Send Invitation Email endpoint?
+- Can I send invitations to users using their UUIDs?
+- What does the response look like when I send an invitation email?
+- What error messages might I receive when sending user invites?
+- Is there a specific content type required for the request body?
+- How do I format the JSON request for sending invitations?
+- What is the required field for the Send Invitation Email API?
+- How do I authenticate when using the user management API?
 
-* HTTP Method: POST
-* Path: `/UserMgmt/SendLoginEmails`
-* Security Requirement: Bearer Authentication
+# Developer Notes
+- **Required Parameters:**
+  - Request Body: Must include the `ID` field.
+- **Request Structure:**
+  - Content Type: `application/json`
+  - Required Fields: 
+    - `ID` (array): List of user UUIDs to send invitations to.
+- **Response Structure:**
+  - Status Code: 200
+  - Response Content Type: `*/*`
+  - Response Schema: `UserMgmtInviteUsers`
+  - Response Body Properties:
+    - `Result` (object): Standard result.
+    - `Error` (object): Error message text on failure, may be null.
+- **Error Handling:** Ensure to handle potential error messages in the response.
+- **Security Considerations:** Requires bearer authentication.
 
-**Key Search Terms**
--------------------
+# Detailed Explanation of Available Data, Request and Response Parameters
+## Request Parameters
+- **ID (array)**: 
+  - **Type:** Array of strings
+  - **Description:** List of user UUIDs to whom invitations will be sent.
+  - **Constraints:** Must contain at least one UUID.
+  - **Example:**
+    ```json
+    {
+      "ID": [
+        "123e4567-e89b-12d3-a456-426614174000"
+      ]
+    }
+    ```
 
-* Send user invites
-* User management API
-* Login email invitations
-* System admin API
-* Invitation sending
-* User UUIDs
+## Response Parameters
+- **Result (object)**: 
+  - **Description:** Standard result object returned on successful request.
+- **Error (object)**: 
+  - **Description:** Contains error message text if the request fails; may be null.
+  - **Example:**
+    ```json
+    {
+      "Result": {},
+      "Error": {}
+    }
+    ```
 
-**Example User Questions**
--------------------------
-
-* What is the format of the request body for sending login invitations?
-* How do I specify multiple user UUIDs in the ID array field?
-* What happens if the system administrator does not have bearer authentication credentials?
-* Can I use this endpoint to send invitations to users who are already logged in?
-
-**Developer Notes**
-------------------
-
-### Required Parameters
-
-* `ID`: List of user UUIDs to send invitations to (Array items: string)
-
-### Request/Response Structure
-
-* Request Body:
-	+ Content Type: application/json
-	+ Schema Properties:
-		- `ID` (array): List of user UUIDs to send invitations to
-			- Array items: string
-			- Required fields: ID
-* Response Body:
-	+ `Result`: Standard result object
-	+ `Error`: Error message text on failure, may be null
-
-### Security Considerations
-
-* Bearer Authentication required for system administrators only
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
+# Raw Endpoint Documentation (Formatted)
+```
 ENDPOINT: Send Invitation Email
-PATH: `/UserMgmt/SendLoginEmails`
+PATH: /UserMgmt/SendLoginEmails
 METHOD: POST
 TAGS: Send User Invites
 DESCRIPTION: You must be a system administrator.
@@ -92,3 +110,4 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
+```

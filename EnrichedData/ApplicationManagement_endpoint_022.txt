@@ -1,71 +1,80 @@
-**Overview**
------------
+# Overview
+The **Update Secured Item Credentials** endpoint allows users to update the credentials associated with a secured item. This is achieved through a POST request to the path `/UPRest/UpdateCredsForSecuredItem`. The endpoint requires authentication via a bearer token, ensuring that only authorized users can modify secured item credentials.
 
-Update secured item credentials endpoint allows users to update the password, custom fields, notes, and username for a secured item. This endpoint is used in application management and requires authentication using the Bearer token.
+# Key Search Terms
+- Update secured item credentials
+- Secured item credentials API
+- POST /UPRest/UpdateCredsForSecuredItem
+- Application Management API
+- Bearer authentication
+- Update user password
+- Custom fields for secured items
+- API request body schema
+- Error handling in API responses
 
-* HTTP Method: POST
-* Path: `/UPRest/UpdateCredsForSecuredItem`
-* Security Requirements: bearerAuth
+# Example User Questions
+- How can I update my secured item credentials using the API?
+- What is the endpoint for changing my username and password?
+- How do I include custom fields when updating secured item credentials?
+- What should I expect in the response after updating secured item credentials?
+- Is bearer authentication required for updating secured item credentials?
+- What happens if I provide an incorrect username or password?
+- Can I add notes when updating secured item credentials?
+- What is the structure of the request body for updating secured item credentials?
+- How do I handle errors when using the Update Secured Item Credentials endpoint?
 
-**Key Search Terms**
--------------------
+# Developer Notes
+- **HTTP Method**: POST
+- **Path**: `/UPRest/UpdateCredsForSecuredItem`
+- **Security**: Requires bearer authentication.
+- **Required Parameters**: The request body must be in JSON format and include the following fields:
+  - `Password` (string): User password
+  - `CustomFields` (string): Custom user fields
+  - `Notes` (string): Notes for secured item
+  - `Username` (string): Username
+- **Response Structure**: 
+  - Status Code: 200
+  - Response includes:
+    - `Result` (object): Indicates whether the operation was successful.
+    - `Error` (object): Contains error message text on failure, may be null.
 
-* Update secured item credentials
-* Application management API
-* Update user credentials
-* Secured item updates
-* Bearer authentication
-* UP Rest API
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **Password** (string): 
+  - Description: The password for the user.
+  - Example: `"Password": "mySecurePassword123"`
+  
+- **CustomFields** (string): 
+  - Description: Any custom fields associated with the user.
+  - Example: `"CustomFields": "customValue"`
+  
+- **Notes** (string): 
+  - Description: Additional notes related to the secured item.
+  - Example: `"Notes": "This is a note for the secured item."`
+  
+- **Username** (string): 
+  - Description: The username for the account.
+  - Example: `"Username": "user@example.com"`
 
-**Example User Questions**
--------------------------
+### Response Parameters
+- **Result** (object): 
+  - Description: Indicates whether the operation was successful.
+  - Example: `"Result": {}`
 
-* What is the format of the request body for updating secured item credentials?
-* How do I authenticate using bearer token in the request header?
-* Can I update multiple fields at once in the request body?
-* What happens if the update operation fails?
-* Is there a sample response JSON available?
+- **Error** (object): 
+  - Description: Contains error message text if the operation fails, may be null.
+  - Example: `"Error": {"message": "Invalid username or password."}`
 
-**Developer Notes**
-------------------
-
-### Required Fields
-
-* `Password` (string): User password
-* `CustomFields` (string): Custom user fields
-* `Notes` (string): Notes for secured item
-* `Username` (string): Username
-
-### Request/Response Structure
-
-* Request Body: application/json, schema properties as described above
-* Response Body:
-	+ `Result` (object): Whether the operation is successful or not.
-	+ `Error` (object): Error message text on failure, may be null.
-
-### Security Considerations
-
-* bearerAuth required for authentication
-* Sample request body JSON provided in metadata section
-
-**Raw Endpoint Documentation (Formatted)**
-------------------------------------------
-
-```markdown
-# Update secured item credentials endpoint
-
-## ENDPOINT: /UPRest/UpdateCredsForSecuredItem
-
-### METHOD: POST
-
-### TAGS: Application Management
-
-### METADATA:
-  * `x-idap-anon`: False
-  * `x-codegen-request-body-name`: payload
-
-### REQUEST BODY:
-  Required
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Update secured item credentials.
+PATH: /UPRest/UpdateCredsForSecuredItem
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
   Content Type: application/json
   Schema Properties:
     * Password (string): User password
@@ -74,15 +83,14 @@ Update secured item credentials endpoint allows users to update the password, cu
     * Username (string): Username
   Sample Request JSON:
   ```json
-{
+  {
   "Password": "string_value",
   "CustomFields": "string_value",
   "Notes": "string_value",
   "Username": "string_value"
 }
-```
-
-### RESPONSES:
+  ```
+RESPONSES:
   Status Code: 200
   Description: API-Result
   Content Type: */*
@@ -92,11 +100,10 @@ Update secured item credentials endpoint allows users to update the password, cu
     * Error (object): Error message text on failure, may be null
   Sample Response JSON:
   ```json
-{
+  {
   "Result": {},
   "Error": {}
 }
-```
-
-### SECURITY: bearerAuth
+  ```
+SECURITY: bearerAuth
 ```

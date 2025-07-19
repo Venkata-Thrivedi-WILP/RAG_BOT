@@ -1,80 +1,85 @@
-**Overview**
-================
+# Overview  
+The **Download Import Accounts Log File** endpoint allows users to retrieve logs associated with an imported accounts file. This endpoint utilizes the **POST** method and is accessed via the path **/UPRest/DownloadImportAccountsLogFile**. To use this endpoint, authentication is required through a bearer token.
 
-This endpoint allows users to download logs for the imported accounts file. To use this endpoint, you will need to send a POST request to `/UPRest/DownloadImportAccountsLogFile` and include the `fileKey` query parameter.
+# Key Search Terms  
+- Download import accounts log  
+- Import accounts log file  
+- Retrieve logs for imported accounts  
+- API for account import logs  
+- POST endpoint for logs  
+- Bearer authentication for logs  
+- Logs download API  
+- Account import file logs  
+- UPRest download logs  
 
-The `fileKey` is required and must be provided in order to authenticate the request. The endpoint uses bearer authentication with the `x-idap-anon` header set to `False`.
+# Example User Questions  
+- How can I download the log file for my imported accounts?  
+- What is the endpoint to retrieve logs for imported account files?  
+- Can I get the logs associated with my account import?  
+- What parameters do I need to provide to download the import log file?  
+- How do I authenticate when downloading the import accounts log?  
+- What is the response format for the log download API?  
+- Are there any error messages I should expect when using the log download endpoint?  
+- What type of authentication is required for downloading logs?  
+- How do I access the logs for my imported accounts file?  
 
-**Key Search Terms**
-================
+# Developer Notes  
+- **Required Parameters:**  
+  - `fileKey` (query, Required): The unique identifier for the imported file.  
+- **Request Structure:**  
+  - The request must be made using the POST method to the specified path.  
+- **Response Structure:**  
+  - **Status Code:** 200  
+  - **Content Type:** */*  
+  - **Response Schema:** UPRestDownloadImportAccountsLogFile  
+  - **Response Body Properties:**
+    - `Result` (object): Contains the file with logs for imported accounts.
+    - `Error` (object): Contains error message text on failure, may be null.  
+- **Security Considerations:**  
+  - Bearer authentication is required to access this endpoint.  
 
-* Download logs for imported accounts file
-* UPRest/DownloadImportAccountsLogFile endpoint
-* Bearer authentication
-* x-idap-anon header
-* File key query parameter
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- **fileKey**  
+  - **Type:** String  
+  - **Description:** The unique identifier for the imported file.  
+  - **Constraints:** Required for the request.  
+  - **Example Value:** `abc12345`
 
-**Example User Questions**
-=========================
+### Response Parameters  
+- **Result**  
+  - **Type:** Object  
+  - **Description:** The file containing logs for imported accounts.  
+  - **Example Value:** `{}` (empty object if no logs are available)  
+- **Error**  
+  - **Type:** Object  
+  - **Description:** Error message text on failure; may be null.  
+  - **Example Value:** `{ "message": "File not found" }`  
 
-* Can I download the logs for my imported accounts file?
-* How do I authenticate with the UPRest/DownloadImportAccountsLogFile endpoint?
-* What is the format of the `fileKey` query parameter?
-* How do I handle errors when downloading the logs?
-* Can I use bearer authentication with this endpoint?
-
-**Developer Notes**
-==================
-
-### Required Parameters
-
-* `fileKey`: The unique identifier for imported file (query, Required)
-
-### Request/Response Structure
-
-* Request:
-	+ Method: POST
-	+ Path: `/UPRest/DownloadImportAccountsLogFile`
-	+ Query parameters:
-		- `fileKey` (string): Unique identifier for imported file
-* Response:
-	+ Status Code: 200
-	+ Content Type: `*/*`
-	+ Response Schema: UPRestDownloadImportAccountsLogFile
-
-### Error Handling
-
-* The response will contain an error object with a null value if the request is successful.
-* If an error occurs, the response will contain an error message text.
-
-### Security Considerations
-
-* Bearer authentication required; set `x-idap-anon` header to `False`.
-
-**Raw Endpoint Documentation (Formatted)**
-==========================================
-
+# Raw Endpoint Documentation (Formatted)  
+```
 ENDPOINT: Downloads logs for the imported accounts file.
-PATH: `/UPRest/DownloadImportAccountsLogFile`
+PATH: /UPRest/DownloadImportAccountsLogFile
 METHOD: POST
 TAGS: Application Management
 METADATA:
-  * `x-idap-anon`: False
+  * x-idap-anon: False
 PARAMETERS:
-  * `fileKey` (query, Required): The unique identifier for imported file.
+  * fileKey (query, Required): The unique identifier for imported file.
 RESPONSES:
   Status Code: 200
   Description: API-Result
-  Content Type: `*/*`
+  Content Type: */*
   Response Schema: UPRestDownloadImportAccountsLogFile
   Response Body Properties:
     * Result (object): File containing logs for imported accounts.
     * Error (object): Error message text on failure, may be null
   Sample Response JSON:
   ```json
-{
+  {
   "Result": {},
   "Error": {}
 }
-```
+  ```
 SECURITY: bearerAuth
+```

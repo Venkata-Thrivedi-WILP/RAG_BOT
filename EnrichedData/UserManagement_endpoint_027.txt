@@ -1,0 +1,119 @@
+# Overview  
+This API endpoint allows you to check if a user is locked out due to policy restrictions, specifically regarding their ability to answer Multi-Factor Authentication (MFA) challenges. It is accessed via a POST request at the path `/UserMgmt/IsUserLockedOutByPolicy`. Only system administrators, users with user management rights, or the user themselves can invoke this API. To test the currently logged-in user, pass an empty string as the user ID. The server will return `True` if the user is locked out and `False` otherwise. Security for this endpoint is managed via bearer token authentication.
+
+# Key Search Terms  
+- User locked out policy  
+- MFA challenges  
+- CyberArk Identity  
+- Check user lockout status  
+- User management API  
+- Authentication status  
+- API user lockout check  
+- Bearer token authentication  
+- System administrator API access  
+- Query user ID  
+
+# Example User Questions  
+- How can I check if a user is locked out by policy?  
+- What API do I use to verify a user's MFA status?  
+- Can I test my own lockout status using the API?  
+- What permissions are needed to access the user lockout API?  
+- How do I pass a user ID to check their lockout status?  
+- What does the API return if a user is locked out?  
+- How can I check if another user is locked out?  
+- What is the response format for the user lockout API?  
+- How do I handle errors when checking user lockout status?  
+- What authentication method is required for this API?  
+
+# Developer Notes  
+- **Required Parameters:**  
+  - `user` (query, Required): The name or unique ID of the user to test. Pass an empty string to test the currently logged-in user. Only administrative users can test other users.
+  
+- **Request Structure:**  
+  - Method: POST  
+  - Path: `/UserMgmt/IsUserLockedOutByPolicy`  
+  - Security: bearerAuth  
+
+- **Response Structure:**  
+  - Status Code: 200  
+  - Content Type: `*/*`  
+  - Response Schema: `UserMgmtIsUserLockedOutByPolicy`  
+
+- **Error Handling:**  
+  - The API will return an error message if the provided user ID is invalid or empty.  
+  - The response includes fields for error details such as `ErrorID`, `ErrorCode`, and `Message`.
+
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- **user**  
+  - **Type:** string  
+  - **Description:** The name or unique ID of the user to test.  
+  - **Constraints:** Required. Pass an empty string to test the currently logged-in user. Only administrative users can test other users.  
+  - **Example:** `"john.doe"` or `""` (for the currently logged-in user)  
+
+### Response Parameters  
+- **Result** (object): Return object for a successful API call  
+  - **ErrorID** (string): Error ID if any error is received from the API. Default is 'null'.  
+  - **ErrorCode** (string): Error code if any error is received from the API. Default is 'null'.  
+  - **Exception** (string): Exception message if an exception is received from the API. Default is 'null'.  
+  - **MessageID** (string): Message ID for failure response. Default is 'null'.  
+  - **Result** (string): The result for the API call.  
+  - **InnerExceptions** (string): Inner Exceptions if any received from the API. Default is 'null'.  
+  - **Message** (string): Error message for failure response. Default is 'null'.  
+  - **success** (boolean): True for a successful API call.  
+  - **IsSoftError** (boolean): Indicates if this is a UI warning instead of an exception.  
+
+- **Error** (object): Error message text on failure  
+  - **InvalidUserId** (string): Message indicating an unknown user.  
+
+### Sample Response JSON  
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "InvalidUserId": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Check if user is locked out by policy  
+**PATH:** /UserMgmt/IsUserLockedOutByPolicy  
+**METHOD:** POST  
+**TAGS:** Manage User State  
+**DESCRIPTION:** Use this API to check if a user can answer the MFA challenges and authenticates itself against CyberArk Identity. Only system administrators, users with user management rights, or the user itself can invoke this API. The user id of the user is passed as query parameter to the API request. Pass an empty string to test the currently logged-in user. Note that only administrative users can test other users. The server returns True if the user is locked out (i.e. cannot answer MFA challenges) and false otherwise.  
+**METADATA:**  
+  * x-idap-anon: False  
+**PARAMETERS:**  
+  * user (query, Required): The name or unique id of the user to test. Pass an empty string to test the currently logged-in user. Note that users with administrative rights can test other users  
+**RESPONSES:**  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: UserMgmtIsUserLockedOutByPolicy  
+  Response Body Properties:  
+    * Result (object): Return object for a successful API call  
+      Nested properties:  
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'  
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'  
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'  
+        * MessageID (string): Message Id for failure response. By default it is 'null'  
+        * Result (string): The result for the API call  
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'  
+        * Message (string): Error message for failure response. By default it is 'null'  
+        * success (boolean): It will be true for a successful API call  
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup  
+    * Error (object): Error message text on failure, below message, would be returned if provided user id is invalid/empty  
+      Nested properties:  
+        * InvalidUserId (string): Unknown user.  
+**SECURITY:** bearerAuth  

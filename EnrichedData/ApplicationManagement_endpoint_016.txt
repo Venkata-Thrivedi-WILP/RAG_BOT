@@ -1,78 +1,103 @@
-**Overview**
------------
+# Overview
+This endpoint retrieves a list of details for recently uploaded files. It uses the HTTP POST method and is accessed at the path `/UPRest/GetRecentImportedAccountsFile`. To use this endpoint, you must provide a valid bearer authentication token, as it requires security credentials.
 
-The `/UPRest/GetRecentImportedAccountsFile` endpoint allows users to retrieve a list of details for recently uploaded files. This endpoint is part of the Application Management tags and requires authentication using bearer tokens.
+# Key Search Terms
+- Recent uploaded files
+- File details retrieval
+- Get recent imported accounts file
+- Application management API
+- POST request for file details
+- Bearer authentication endpoint
+- File count parameter
+- API response structure
+- Error handling in API
 
-To use this endpoint, you will need to send a POST request to `https://api.example.com/UPRest/GetRecentImportedAccountsFile`. You can specify the number of recent files you want to retrieve by including the `fileCount` query parameter in your request.
+# Example User Questions
+- How can I get a list of recently uploaded files?
+- What parameters do I need to provide to retrieve recent accounts files?
+- What does the response look like for the GetRecentImportedAccountsFile endpoint?
+- How do I authenticate when using the recent files API?
+- What is the maximum number of files I can request?
+- Can I get error messages from the recent files API?
+- What type of data does the API return for uploaded files?
+- How do I handle errors when calling the GetRecentImportedAccountsFile endpoint?
+- What is the purpose of the fileCount parameter?
+- How can I ensure I have the correct permissions to access this endpoint?
 
-**Security Note:** This endpoint requires bearer authentication. Please ensure that your API token is properly formatted and included in the `Authorization` header of your request.
+# Developer Notes
+- **Required Parameters:**
+  - `fileCount` (query, Required): Specifies the number of recent files to retrieve.
+  
+- **Request Structure:**
+  - The request must be made via POST to the specified endpoint with the required query parameter.
 
-**Key Search Terms**
--------------------
+- **Response Structure:**
+  - **Status Code:** 200
+  - **Content Type:** `*/*`
+  - **Response Schema:** `UPRestGetRecentImportedAccountsFile`
+  - **Response Body Properties:**
+    - `Result` (object): Contains a list of details for recently uploaded files.
+    - `Error` (object): Contains an error message text on failure; may be null.
 
-* Recent uploaded files
-* Get recent imported accounts file
-* UPRest endpoint
-* Application Management API
-* Bearer authentication
+- **Error Handling:**
+  - The API will return an error object if the request fails, providing insight into the issue.
 
-**Example User Questions**
--------------------------
+- **Security Considerations:**
+  - This endpoint requires bearer authentication.
 
-* What are the details for recently uploaded files?
-* How do I get a list of recent imported accounts file data?
-* Can I retrieve a specific number of recent files using this endpoint?
-* What is the format of the response from this UPRest endpoint?
-* How do I authenticate with this Application Management API?
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **fileCount**
+  - **Type:** Integer
+  - **Description:** The number of recent files to retrieve.
+  - **Constraints:** Required parameter; must be a positive integer.
+  - **Example Value:** `5`
 
-**Developer Notes**
-------------------
+### Response Parameters
+- **Result**
+  - **Type:** Object
+  - **Description:** A list of details for recently uploaded files.
+  - **Example Value:** 
+    ```json
+    {
+      "FileName": "example_file.txt",
+      "UploadDate": "2023-10-01T12:00:00Z",
+      "FileSize": 2048
+    }
+    ```
 
-### Required Fields
+- **Error**
+  - **Type:** Object
+  - **Description:** Contains error message text on failure; may be null.
+  - **Example Value:** 
+    ```json
+    {
+      "Message": "File not found"
+    }
+    ```
 
-* `fileCount` (query, Required): The number of recent files.
-
-### Request/Response Structure
-
-* Request:
-	+ Method: POST
-	+ Path: `/UPRest/GetRecentImportedAccountsFile`
-	+ Query Parameters:
-		- `fileCount`: The number of recent files.
-* Response:
-	+ Status Code: 200
-	+ Content Type: `*/*`
-	+ Response Schema: UPRestGetRecentImportedAccountsFile
-
-### Error Handling
-
-* If an error occurs, the response will contain an `Error` object with a message.
-
-### Security Considerations
-
-* This endpoint requires bearer authentication. Please ensure that your API token is properly formatted and included in the `Authorization` header of your request.
-
+### Sample Response JSON
 ```json
 {
   "Result": {},
   "Error": {}
 }
 ```
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
 
+# Raw Endpoint Documentation (Formatted)
+```
 ENDPOINT: Returns list of details for recently uploaded files.
-PATH: `/UPRest/GetRecentImportedAccountsFile`
+PATH: /UPRest/GetRecentImportedAccountsFile
 METHOD: POST
 TAGS: Application Management
 METADATA:
-  * `x-idap-anon`: False
+  * x-idap-anon: False
 PARAMETERS:
-  * `fileCount` (query, Required): The number of recent files.
+  * fileCount (query, Required): The number of recent files.
 RESPONSES:
   Status Code: 200
   Description: API-Result
-  Content Type: `*/*`
+  Content Type: */*
   Response Schema: UPRestGetRecentImportedAccountsFile
   Response Body Properties:
     * Result (object): List of details for recently uploaded files.
@@ -85,3 +110,4 @@ RESPONSES:
 }
   ```
 SECURITY: bearerAuth
+```

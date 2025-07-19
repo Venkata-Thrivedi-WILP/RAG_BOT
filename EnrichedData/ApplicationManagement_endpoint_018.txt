@@ -1,79 +1,98 @@
-**Overview**
-------------
+# Overview  
+This API endpoint allows users to retrieve tags associated with a specific application. Tags help in organizing applications by type. The endpoint uses the POST HTTP method and is accessed at the path `/UPRest/GetTagsForApp`. Only system administrators and users with application management rights are authorized to invoke this API. For further details, refer to the guides section [here](https://identity-developer.cyberark.com/docs/manage-applications-for-usersnew#create-user-tags-for-an-application). The endpoint requires bearer token authentication for security.
 
-Get tags for an application
-==========================
+# Key Search Terms  
+- Get application tags  
+- Retrieve application tags API  
+- Application management API  
+- Tags for applications  
+- API for application organization  
+- Bearer authentication API  
+- Application tags retrieval  
+- System administrator API access  
+- Application management rights  
+- UPRest API documentation  
 
-This API retrieves the tags applied for an application. Use this endpoint to organize applications by type.
+# Example User Questions  
+- How can I retrieve tags for my application?  
+- What is the endpoint to get application tags?  
+- Who can access the GetTagsForApp API?  
+- What parameters do I need to call the GetTagsForApp endpoint?  
+- How do I authenticate to use the application tags API?  
+- What should I do if I receive an error when fetching application tags?  
+- Can I get tags for OAuth applications using this API?  
+- What is the response format for the GetTagsForApp API?  
+- How do I find the appkey for my application?  
+- What error messages can I expect from the GetTagsForApp API?  
 
-* HTTP Method: POST
-* Path: `/UPRest/GetTagsForApp`
-* Security Requirement: Bearer authentication
+# Developer Notes  
+- **Required Parameters:**  
+  - `appkey` (query, Required): The name or Unique ID of the application.  
+- **Request Structure:**  
+  - The request must include the `appkey` parameter in the query.  
+- **Response Structure:**  
+  - On success, the response will contain a `Result` object.  
+  - On failure, the response will include an `Error` object with error messages.  
+- **Error Handling:**  
+  - If the `appkey` is not provided or invalid, the error message will be: `'Parameter 'appkey' must be specified.'`  
+- **Security Considerations:**  
+  - The endpoint requires bearer token authentication.
 
-**Key Search Terms**
-------------------
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **appkey**  
+  - **Type:** string  
+  - **Description:** The name or Unique ID of the application. This can be fetched from the Admin Portal after adding an application. The RowKey can also be obtained using a RedRock query. Note: The RowKey can be either the name or App key of the application but cannot be the Application Id for OAuth or OIDC applications.  
+  - **Example Value:** `myAppKey123`  
 
-* Get tags for application
-* Application management API
-* Retrieve application metadata
-* Organize applications by type
-* Bearer authentication required
+## Response Parameters  
+- **Response Status Code:** 200  
+  - **Description:** Indicates a successful API call.  
+- **Response Schema:** UPRestGetTagsForApp  
+- **Response Body Properties:**  
+  - **Result (object):** The return object for a successful API call.  
+  - **Error (object):** Contains error message text on failure.  
+    - **Nested Properties:**  
+      - **AppKey_NotProvided (string):** This error message is displayed when an invalid rowkey is provided.  
+        - **Example Value:** `'Parameter 'appkey' must be specified.'`  
 
-**Example User Questions**
--------------------------
+### Sample Response JSON  
+```json
+{
+  "Result": {},
+  "Error": {
+    "AppKey_NotProvided": "string_value"
+  }
+}
+```
 
-* What are the tags applied to my application?
-* How do I organize my applications by type using this API?
-* Can I use bearer authentication to access this endpoint?
-* What happens if I provide an invalid app key?
-* How can I retrieve the AppKey for an application?
-
-**Developer Notes**
-------------------
-
-### Required Parameters
-
-* `appkey` (query, Required): The name or Unique ID of the application. Can fetch the AppKey from the Admin Portal once we add an application.
-
-### Request/Response Structure
-
-* Response Status Code: 200
-* Response Content Type: `*/*`
-* Response Schema: UPRestGetTagsForApp
-* Response Body Properties:
-	+ `Result` (object): Return object for a successful API call.
-	+ `Error` (object): Error message text on failure.
-		- Nested properties:
-			- `AppKey_NotProvided` (string): This error message is displayed when the invalid rowkey is provided.
-
-### Security Considerations
-
-* Bearer authentication required.
-
-**Raw Endpoint Documentation (Formatted)**
------------------------------------------
-
-ENDPOINT: Get tags for application
-PATH: `/UPRest/GetTagsForApp`
-METHOD: POST
-TAGS: Application Management
-DESCRIPTION: This API retrieves the tags applied for an application. Tags allow users to organize applications by type. Only system administrators and users with application management rights can invoke this API. Refer guides section <https://identity-developer.cyberark.com/docs/manage-applications-for-usersnew#create-user-tags-for-an-application>
-
-METADATA:
-  * `x-idap-anon`: False
-
-PARAMETERS:
-  * `appkey` (query, Required): It is the name or Unique ID of the application. Can fetch the AppKey from the Admin Portal once we add an application. Can also fetch the RowKey using RedRock query. Note: RowKey can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC.
-
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: `*/*`
-  Response Schema: UPRestGetTagsForApp
-  Response Body Properties:
-    * Result (object): Return object for a successful API call.
-    * Error (object): Error message text on failure.
-      Nested properties:
-        * AppKey_NotProvided (string): This error message is displayed when the invalid rowkey is provided. Error message: 'Parameter ''appkey'' must be specified.'
-
-SECURITY: bearerAuth
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Get tags for application  
+**PATH:** /UPRest/GetTagsForApp  
+**METHOD:** POST  
+**TAGS:** Application Management  
+**DESCRIPTION:** This API retrieves the tags applied for an application. Tags allow users to organize applications by type. Only system administrators and users with application management rights can invoke this API. Refer guides section https://identity-developer.cyberark.com/docs/manage-applications-for-usersnew#create-user-tags-for-an-application  
+**METADATA:**  
+  * x-idap-anon: False  
+**PARAMETERS:**  
+  * appkey (query, Required): It is the name or Unique ID of the application. Can fetch the AppKey from the Admin Portal once we add an application. Can also fetch the RowKey using RedRock query. Note: RowKey can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC.  
+**RESPONSES:**  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: UPRestGetTagsForApp  
+  Response Body Properties:  
+    * Result (object): Return object for a successful API call.  
+    * Error (object): Error message text on failure.  
+      Nested properties:  
+        * AppKey_NotProvided (string): This error message is displayed when the invalid rowkey is provided. Error message: 'Parameter 'appkey' must be specified.'  
+  Sample Response JSON:  
+  ```json
+  {
+  "Result": {},
+  "Error": {
+    "AppKey_NotProvided": "string_value"
+  }
+}
+  ```  
+**SECURITY:** bearerAuth  

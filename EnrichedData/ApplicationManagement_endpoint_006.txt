@@ -1,90 +1,130 @@
-**Overview**
-===============
+# Overview  
+The **Clone an existing application** endpoint allows administrators to duplicate an application that has been added to the system. This API is particularly useful when an admin wants to create a new instance of an existing application through the admin portal. The endpoint uses the **POST** method and is accessed at the path **/SaasManage/CloneAnApplication**. Security for this endpoint is managed through bearer token authentication, ensuring that only authorized users can perform the cloning operation.
 
-Clone an existing application using this API. The endpoint is accessible via a POST request to `/SaasManage/CloneAnApplication`. This endpoint requires authentication using the `bearerAuth` method.
+# Key Search Terms  
+- Clone application API  
+- Application management endpoint  
+- Duplicate app API  
+- Admin portal application cloning  
+- Bearer authentication for API  
+- POST /SaasManage/CloneAnApplication  
+- Application key cloning  
+- API response for application clone  
+- Error handling in application cloning  
+- Admin added app duplication  
 
-**Key Search Terms**
-==================
+# Example User Questions  
+- How can I clone an existing application using the API?  
+- What is the endpoint for duplicating an application?  
+- What parameters do I need to provide to clone an app?  
+- How do I handle errors when cloning an application?  
+- Can I use the application ID to clone an app?  
+- What does the response look like when I clone an application?  
+- Is there a way to check if the cloning was successful?  
+- What authentication is required for the application cloning API?  
+- How do I retrieve the application key for cloning?  
+- What should I do if I encounter an error while cloning an app?  
 
-* Clone application
-* SaasManage/CloneAnApplication
-* Application Management
-* Bearer authentication
-* API cloning
+# Developer Notes  
+- **Required Parameters**:  
+  - **Key** (query, Required): This is the name or Unique ID of the application, also known as App key. It can be fetched using a RedRock query. Note that the Key can be either the name or App key of the application but cannot be the Application ID for applications like OAuth or OIDC.
+  
+- **Request Structure**:  
+  - The request must include the Key parameter in the query string.
 
-**Example User Questions**
-=========================
+- **Response Structure**:  
+  - The API returns a JSON object containing either the result of the cloning operation or an error message.
 
-* What is the purpose of the `/SaasManage/CloneAnApplication` endpoint?
-* How do I clone an existing application using this API?
-* What authentication method is required for this endpoint?
-* What happens if the application does not support cloning?
+- **Error Handling**:  
+  - If the application is either a portal or global app or if the template for cloning is not found, an error message will be returned.
 
-**Developer Notes**
-==================
+- **Security Considerations**:  
+  - The endpoint requires bearer token authentication.
 
-### Required Parameters
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **Key** (string, Required):  
+  - Description: The name or Unique ID of the application to be cloned.  
+  - Constraints: Cannot be the Application ID for OAuth or OIDC applications.  
+  - Example: `"myAppKey"`  
 
-* `Key`: The name or unique ID of the application (query parameter, required)
+## Response Parameters  
+- **Status Code**: 200  
+  - Description: Indicates a successful API call.  
 
-### Request/Response Structure
+- **Response Schema**: SaasManageCloneAnApplicaton  
+  - **Result** (object): Contains the results of the cloning operation.  
+    - **ErrorID** (string): Error ID of any error that occurred during API execution.  
+    - **ErrorCode** (string): Error message of the occurred error.  
+    - **Exception** (string): If any exception has occurred.  
+    - **MessageID** (string): Message ID.  
+    - **Result** (object): Contains details about the new application key and the old application ID.  
+      - **_RowKey** (string): The new app key for the cloned app.  
+      - **ID** (string): The key of the existing application.  
+      - **success** (boolean): Indicates whether the application was cloned successfully.  
+    - **InnerExceptions** (string): Inner exception details, if any.  
+    - **Message** (string): Any message if an exception occurred.  
+    - **success** (boolean): Indicates whether the application was cloned successfully.  
+    - **IsSoftError** (string): Indicates if the error is soft or not.  
+  - **Error** (object): Displays an error message when the app cannot be cloned.  
+    - **ErrorMessage** (string): Message indicating that the application does not support cloning.  
 
-* Request:
-	+ Method: POST
-	+ Path: `/SaasManage/CloneAnApplication`
-	+ Query parameters: `Key` (required)
-* Response:
-	+ Status Code: 200
-	+ Content Type: `*/*`
-	+ Response Schema: `SaasManageCloneAnApplicaton`
-	+ Response Body Properties:
-		- `Result`: Object containing new application key and old application ID with success flag
-		- `Error`: Error message if any exception occurs
-
-### Security Considerations
-
-* Authentication method: `bearerAuth`
-
-**Raw Endpoint Documentation (Formatted)**
-==========================================
-
-```markdown
-ENDPOINT: Clone an existing application.
-PATH: /SaasManage/CloneAnApplication
-METHOD: POST
-TAGS: Application Management
-DESCRIPTION: Use this API to clone admin added app. The API gets invoked when the admin user wants to clone app from admin portal.
-
-METADATA:
-  * x-idap-anon: False
-
-PARAMETERS:
-  * Key (query, Required): It is the name or Unique ID of the application, also known as App key. Can also fetch the Key using RedRock query. Note: Key can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC.
-
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: */*
-  Response Schema: SaasManageCloneAnApplicaton
-  Response Body Properties:
-    * Result (object): Returns an object for a successful API call. Below mentioned properties are response fields of one such type.
-      Nested properties:
-        * ErrorID (string): Error Id of occured error during api execution.
-        * ErrorCode (string): Error message of Error occured.
-        * Exception (string): If any exception has occured.
-        * MessageID (string): Message id.
-        * Result (object): This gives new application key and old application ID with success flag.
-          Nested properties:
-            * _RowKey (string): The new app key for cloned app.
-            * ID (string): This is key of existing application.
-            * success (boolean): whether the apllication is cloned or not.
-        * InnerExceptions (string): Inner Exception, if any, within exception.
-        * Message (string): Message if any exception.
-        * success (boolean): whether the apllication is cloned or not.
-        * IsSoftError (string): Error type is soft or not.
-    * Error (object): This error message is displayed when app is either portal or global app or template is not found for clonning.
-      Nested properties:
-        * ErrorMessage (string): The application does not support for cloning.
-
-SECURITY: bearerAuth
+### Sample Response JSON  
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "_RowKey": "string_value",
+      "ID": "string_value",
+      "success": false
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": "string_value"
+  },
+  "Error": {
+    "ErrorMessage": "string_value"
+  }
+}
 ```
+
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT**: Clone an existing application.  
+**PATH**: /SaasManage/CloneAnApplication  
+**METHOD**: POST  
+**TAGS**: Application Management  
+**DESCRIPTION**: Use this API to clone admin added app. The API gets invoked when the admin user wants to clone app from admin portal.  
+**METADATA**:  
+  * x-idap-anon: False  
+**PARAMETERS**:  
+  * Key (query, Required): It is the name or Unique ID of the application, also known as App key. Can also fetch the Key using RedRock query. Note: Key can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC.  
+**RESPONSES**:  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: SaasManageCloneAnApplicaton  
+  Response Body Properties:  
+    * Result (object): Returns an object for a successful API call. Below mentioned properties are response fields of one such type.  
+      Nested properties:  
+        * ErrorID (string): Error Id of occured error during api execution.  
+        * ErrorCode (string): Error message of Error occured.  
+        * Exception (string): If any exception has occured.  
+        * MessageID (string): Message id.  
+        * Result (object): This gives new application key and old application ID with success flag.  
+          Nested properties:  
+            * _RowKey (string): The new app key for cloned app.  
+            * ID (string): This is key of existing application.  
+            * success (boolean): whether the apllication is cloned or not.  
+        * InnerExceptions (string): Inner Exception, if any, within exception.  
+        * Message (string): Message if any exception.  
+        * success (boolean): whether the apllication is cloned or not.  
+        * IsSoftError (string): Error type is soft or not.  
+    * Error (object): This error message is displayed when app is either portal or global app or template is not found for clonning.  
+      Nested properties:  
+        * ErrorMessage (string): The application does not support for cloning.  
+**SECURITY**: bearerAuth  

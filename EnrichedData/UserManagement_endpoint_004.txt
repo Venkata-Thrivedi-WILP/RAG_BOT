@@ -1,98 +1,142 @@
-**Overview**
-==========
+# Overview
+The **Invite Cloud Users** endpoint allows system administrators or users with user management permissions to invite new users or groups to the cloud system. This is accomplished through a POST request to the path `/UserMgmt/InviteUsers`. The endpoint requires bearer token authentication for security. 
 
-Invite Cloud Users endpoint allows system administrators or users with user management permissions to invite new users or groups to their organization. This endpoint uses a POST request to /UserMgmt/InviteUsers.
+# Key Search Terms
+- Invite users API
+- User management endpoint
+- Cloud user invitation
+- Send user invites
+- User invite permissions
+- SMS invitation API
+- Email invitation API
+- Group user invitation
+- Role assignment in invites
+- Bearer token authentication
 
-To use this endpoint, you must authenticate with the API using bearer authentication. You can find more information on authentication in the Security section below.
+# Example User Questions
+- How can I invite new users to the cloud?
+- What permissions do I need to send user invites?
+- Can I send SMS invitations to users?
+- How do I invite a group of users?
+- What is the required format for the user invite request?
+- How do I specify roles when inviting users?
+- What happens if I set GroupInvite to false?
+- Can I invite users without sending an email?
+- What does the response look like when I invite users?
+- How do I handle errors when inviting users?
 
-**Key Search Terms**
-==================
+# Developer Notes
+- **Required Parameters**: 
+  - `Entities`: Must include user or group details.
+  - `EmailInvite`: Must be set to true or false.
+- **Request Structure**: The request body must be in JSON format and include the required fields.
+- **Response Structure**: The response will contain a result object and may include an error message.
+- **Error Handling**: Check the `Error` field in the response for any issues.
+- **Security Considerations**: Ensure that the request includes a valid bearer token for authentication.
 
-* Invite cloud users
-* User management permissions
-* Bearer authentication
-* Send user invites
-* Cloud user invitations
-* System administrator endpoints
+# Detailed Explanation of Available Data, Request and Response Parameters
+## Request Parameters
+- **SmsInvite** (boolean): 
+  - Description: Indicates whether to send SMS invitations to invited entities.
+  - Default: `false`
+  
+- **Entities** (array): 
+  - Description: List of users or groups to invite. Each entry must include:
+    - **Type** (string): Type of entity (User, Group, Role).
+    - **Guid** (string): UUID of the entity.
+    - **Name** (string): Name of the entity (only applicable to User entities).
+  
+- **Role** (string): 
+  - Description: Role name to which each invited user will be added (default is `null`).
+  
+- **GroupInvite** (boolean): 
+  - Description: If true, sends a single email invitation to the group rather than individual emails (default: `true`).
+  
+- **EmailInvite** (boolean): 
+  - Description: Indicates whether to send email invitations to invited entities.
+  - Required: Yes
 
-**Example User Questions**
-==========================
-
-* What is the purpose of the Invite Cloud Users endpoint?
-* How do I invite a new user to my organization using this endpoint?
-* Can I use bearer authentication with this endpoint?
-* What are the required fields for sending an invitation?
-* How do I handle errors when sending an invitation?
-
-**Developer Notes**
-==================
-
-### Required Parameters
-
-* `Entities`: An array of dictionaries containing information about the users or groups to invite. Each dictionary must include:
-	+ `Type` (string): The type of entity being invited (User, Group, Role)
-	+ `Guid` (string): The UUID of the entity being invited
-	+ `Name` (string): The name of the entity being invited (only applicable to User entities)
-* `EmailInvite`: A boolean indicating whether to send email invitations to invited entities (default=true)
-
-### Request/Response Structure
-
-The request body is expected in JSON format and must contain the required fields. The response will be a JSON object with a `Result` property containing the API result and an optional `Error` property containing error messages.
-
-### Error Handling
-
-* If the request fails, the response will contain an error message in the `Error` property.
-* If the request is successful, the response will contain an empty `Error` property.
-
-### Security Considerations
-
-* Bearer authentication is required for this endpoint. See the Security section above for more information on authentication.
-
-**Raw Endpoint Documentation (Formatted)**
-==========================================
-
-ENDPOINT: Invite Cloud Users
-PATH: /UserMgmt/InviteUsers
-METHOD: POST
-TAGS: Send User Invites
-DESCRIPTION: You must be a system administrator or have user management permissions.
-METADATA:
-  * x-idap-anon: False
-  * x-codegen-request-body-name: payload
-REQUEST BODY: Required
-  Content Type: application/json
-  Schema Properties:
-    * SmsInvite (boolean): Send SMS invitations to invited entities if possible (default=false)
-    * Entities (array): Users or groups to invite; each entry is a dictionary including 'Type' (User, Group, Role), 'Guid' (entity UUID), and 'Name' (entity name, only applicable to User entities)
-      Array items:
-    * Role (string): Add each invited user to this role name if specified (default=null)
-    * GroupInvite (boolean): For invited groups, send a single email invitation to the group rather than to each user within the group (default=true)
-    * EmailInvite (boolean): Send email invitations to invited entities if possible (default=true)
-  Sample Request JSON:
-  ```json
+### Sample Request JSON
+```json
 {
   "SmsInvite": false,
   "Entities": [
-    {}
+    {
+      "Type": "User",
+      "Guid": "123e4567-e89b-12d3-a456-426614174000",
+      "Name": "John Doe"
+    }
   ],
-  "Role": "string_value",
+  "Role": "Admin",
   "GroupInvite": false,
-  "EmailInvite": false
+  "EmailInvite": true
 }
 ```
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: */*
-  Response Schema: UserMgmtInviteUsers
-  Response Body Properties:
-    * Result (object): Standard result
-    * Error (object): Error message text on failure, may be null
-  Sample Response JSON:
-  ```json
+
+## Response Parameters
+- **Status Code**: `200`
+- **Description**: API-Result
+- **Content Type**: `*/*`
+  
+### Response Body Properties
+- **Result** (object): 
+  - Description: Standard result object.
+  
+- **Error** (object): 
+  - Description: Contains error message text on failure; may be `null`.
+
+### Sample Response JSON
+```json
 {
   "Result": {},
-  "Error": {}
+  "Error": null
 }
 ```
-SECURITY: bearerAuth
+
+# Raw Endpoint Documentation (Formatted)
+**ENDPOINT**: Invite Cloud Users  
+**PATH**: /UserMgmt/InviteUsers  
+**METHOD**: POST  
+**TAGS**: Send User Invites  
+**DESCRIPTION**: You must be a system administrator or have user management permissions.  
+**METADATA**:  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**REQUEST BODY**: Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * SmsInvite (boolean): Send SMS invitations to invited entities if possible (default=false)  
+    * Entities (array): Users or groups to invite; each entry is a dictionary including 'Type' (User, Group, Role), 'Guid' (entity UUID), and 'Name' (entity name, only applicable to User entities)  
+      Array items:  
+    * Role (string): Add each invited user to this role name if specified (default=null)  
+    * GroupInvite (boolean): For invited groups, send a single email invitation to the group rather than to each user within the group (default=true)  
+    * EmailInvite (boolean): Send email invitations to invited entities if possible (default=true)  
+    **Required fields**: Entities, EmailInvite  
+  **Sample Request JSON**:  
+  ```json
+  {
+    "SmsInvite": false,
+    "Entities": [
+      {}
+    ],
+    "Role": "string_value",
+    "GroupInvite": false,
+    "EmailInvite": false
+  }
+  ```  
+**RESPONSES**:  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: UserMgmtInviteUsers  
+  Response Body Properties:  
+    * Result (object): Standard result  
+    * Error (object): Error message text on failure, may be null  
+  **Sample Response JSON**:  
+  ```json
+  {
+    "Result": {},
+    "Error": {}
+  }
+  ```  
+**SECURITY**: bearerAuth

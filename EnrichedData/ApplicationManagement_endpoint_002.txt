@@ -1,70 +1,99 @@
-**Overview**
-================
+# Overview
+The `/SaasManage/IsApplicationAvailableInCatalog` endpoint is designed to check if a specific application is still available in the catalog. This is useful for application management tasks where you need to verify the availability of an application based on its unique key. The endpoint uses the HTTP POST method and requires bearer token authentication for security.
 
-This endpoint checks if an application is still available in the catalog. It uses a POST request to the `/SaasManage/IsApplicationAvailableInCatalog` path.
+# Key Search Terms
+- Application availability check
+- Catalog application status
+- SaaS application management
+- API for checking application status
+- POST request to verify application
+- Application key validation
+- Bearer authentication API
+- SaaS catalog endpoint
+- Application management API
 
-To use this endpoint, you will need to authenticate with bearer authentication. The `appKey` query parameter is required and should be provided as part of your request.
+# Example User Questions
+- How can I check if my application is still available in the catalog?
+- What endpoint do I use to verify application availability?
+- Is there a way to confirm if an application key is valid?
+- How do I use the API to check application status?
+- What security is required to access the application availability endpoint?
+- Can I get an error message if the application is not found?
+- What parameters do I need to provide for the application availability check?
+- How do I interpret the response from the application availability API?
+- What does a successful response look like for this endpoint?
+- How can I troubleshoot issues with the application availability check?
 
-**Key Search Terms**
-==================
+# Developer Notes
+- **Required Parameters:**
+  - `appKey` (query, Required): This parameter is necessary to identify the application you want to check.
+  
+- **Request Structure:**
+  - The request must be made using the POST method with the `appKey` included in the query parameters.
 
-* Application Management
-* Is Application Available in Catalog
-* SaasManage API
-* Bearer Authentication
-* Application Key
+- **Response Structure:**
+  - The response will return a JSON object containing:
+    - `Result`: An object indicating whether the application is found (True) or not (False).
+    - `Error`: An object containing error message text if applicable, which may be null.
 
-**Example User Questions**
-=========================
+- **Error Handling:**
+  - If the application is not found in the tenant's application table or if the `appKey`'s template is not found in the global catalog, the `Result` will be False.
 
-* What is the status of my application in the catalog?
-* Can I still access my application if it's not in the tenants' application table?
-* How do I authenticate with this endpoint?
-* What happens if the appKey is invalid or missing?
+- **Security Considerations:**
+  - The endpoint requires bearer token authentication.
 
-**Developer Notes**
-==================
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **appKey** (query)
+  - **Type:** String
+  - **Description:** The unique key of the application to check for availability.
+  - **Constraints:** Required parameter.
+  - **Example Value:** `12345-abcde`
 
-### Required Parameters
+### Response Parameters
+- **Response Schema:** `SaasManageIsApplicationAvailableInCatalog`
+- **Response Body Properties:**
+  - **Result** (object)
+    - **Type:** Boolean
+    - **Description:** Indicates if the application is found in the catalog. Returns `True` if available, `False` if not.
+    - **Example Value:** `True`
+  - **Error** (object)
+    - **Type:** String or null
+    - **Description:** Contains error message text if the request fails; otherwise, it is null.
+    - **Example Value:** `"Application not found"`
 
-* `appKey` (query, Required): Application key for authentication.
-
-### Request/Response Structure
-
-* The request body should not be sent.
-* The response will contain a JSON object with two properties: `Result` and `Error`.
-* `Result` will be an object indicating whether the application is available in the catalog. If true, it will contain no value; if false, it will indicate why the application was not found.
-* `Error` will be an object containing an error message text on failure.
-
-### Security Considerations
-
-* Bearer authentication is required for this endpoint.
-* The `appKey` query parameter should be validated and sanitized before use.
-
-**Raw Endpoint Documentation (Formatted)**
-=============================================
-
-ENDPOINT: Checks if Application is still available in the catalog.
-PATH: `/SaasManage/IsApplicationAvailableInCatalog`
-METHOD: POST
-TAGS: Application Management
-METADATA:
-  * `x-idap-anon`: False
-PARAMETERS:
-  * `appKey` (query, Required): No description provided
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: `*/*`
-  Response Schema: SaasManageIsApplicationAvailableInCatalog
-  Response Body Properties:
-    * `Result` (object): False if app is not found in tenants application table OR appKey's template is not found in the global catalog. True otherwise
-    * `Error` (object): Error message text on failure, may be null
-  Sample Response JSON:
+### Sample Response JSON
 ```json
 {
   "Result": {},
   "Error": {}
 }
 ```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Checks if Application is still available in the catalog.
+PATH: /SaasManage/IsApplicationAvailableInCatalog
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * appKey (query, Required): No description provided
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: SaasManageIsApplicationAvailableInCatalog
+  Response Body Properties:
+    * Result (object): False if app is not found in tenants application table OR appKey's template is not found in the global catalog. True otherwise
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
 SECURITY: bearerAuth
+```

@@ -1,98 +1,106 @@
-**Overview**
-==========
+# Overview  
+This endpoint allows you to verify if a provided username is allowed for use in a personal application or secured item. It utilizes the HTTP POST method and is accessed at the path `/UPRest/ValidateUsernameIsAllowed`. To use this endpoint, you must authenticate with a bearer token.
 
-Verify if a username provided for a personal app or secured item is allowed. This endpoint accepts a POST request to `/UPRest/ValidateUsernameIsAllowed`. The request body must contain a JSON payload with a single field `userName` of type string.
+# Key Search Terms  
+- Validate Username  
+- Username Verification  
+- Personal App Username Check  
+- Secured Item Username Validation  
+- Application Management API  
+- Bearer Authentication  
+- API Username Endpoint  
+- JSON Request Validation  
+- Error Handling Username API  
+- User Name Availability Check  
 
-Security: Bearer authentication is required for this endpoint.
+# Example User Questions  
+- How can I check if a username is allowed for my application?  
+- What is the endpoint to validate a username?  
+- Can I verify if a username is available for a secured item?  
+- What authentication do I need to use the username validation API?  
+- What does the response look like for username validation?  
+- How do I format the request body for the username verification?  
+- What should I do if I receive an error when validating a username?  
+- Is there a sample request for checking username availability?  
+- What fields are required in the username validation request?  
+- How can I tell if my username validation request was successful?  
 
-**Key Search Terms**
-==================
+# Developer Notes  
+- **Required Parameters:**  
+  - `userName` (string): The WPM username to be validated.  
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - Example Request JSON:  
+    ```json
+    {
+      "userName": "string_value"
+    }
+    ```
+- **Response Structure:**  
+  - Status Code: `200`  
+  - Response Content Type: `*/*`  
+  - Response Schema: `UPRestCreateTagWithNoApp`  
+  - Example Response JSON:  
+    ```json
+    {
+      "Result": {},
+      "Error": {}
+    }
+    ```
+- **Error Handling:**  
+  - The `Error` field in the response may contain an error message text if the operation fails, or it may be null.  
+- **Security Considerations:**  
+  - This endpoint requires bearer token authentication.
 
-* Validate username
-* Allow or deny access
-* Personal app security
-* Secured item validation
-* Bearer authentication
-* UPRest/ValidateUsernameIsAllowed
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **userName**  
+  - **Type:** string  
+  - **Description:** The WPM username that needs to be validated.  
+  - **Constraints:** This field is required.  
+  - **Example Value:** `"john_doe"`  
 
-**Example User Questions**
-=========================
+## Response Parameters  
+- **Result**  
+  - **Type:** object  
+  - **Description:** Indicates whether the operation was successful or not.  
+- **Error**  
+  - **Type:** object  
+  - **Description:** Contains the error message text on failure; may be null.  
+  - **Example Value:** `{"message": "Username is already taken."}`  
 
-* What is the status of my username verification?
-* Is my username allowed for this app?
-* Can I use this endpoint to validate a username without authentication?
-* How do I format the request body for this endpoint?
-* What happens if my username is not found or invalid?
-
-**Developer Notes**
-==================
-
-### Request Parameters
-
-* `userName` (string): WPM user name
-	+ Required: Yes
-	+ Example: "string_value"
-
-### Response Structure
-
-* `Result` (object): Whether the operation is successful or not.
-	+ Example: `{}` (empty object)
-* `Error` (object): Error message text on failure, may be null.
-	+ Example: `{}` (empty object)
-
-### Request/Response Body
-
-* Request body:
-	+ Content type: application/json
-	+ Schema properties: `userName` (string) is required
-	+ Sample request JSON:
-```json
-{
-  "userName": "string_value"
-}
-```
-* Response body:
-	+ Content type: */*
-	+ Response schema: UPRestCreateTagWithNoApp
-
-### Security Considerations
-
-* Bearer authentication is required for this endpoint.
-
-**Raw Endpoint Documentation (Formatted)**
-==========================================
-
-ENDPOINT: Verify if username provided for personal app or secured item is allowed.
-PATH: `/UPRest/ValidateUsernameIsAllowed`
-METHOD: POST
-TAGS: Application Management
-METADATA:
-  * `x-idap-anon`: False
-  * `x-codegen-request-body-name`: payload
-REQUEST BODY: Required
-  Content Type: application/json
-  Schema Properties:
-    * `userName` (string): WPM user name
-    Required fields: `userName`
-  Sample Request JSON:
-```json
-{
-  "userName": "string_value"
-}
-```
-RESPONSES:
-  Status Code: 200
-  Description: API-Result
-  Content Type: */*
-  Response Schema: UPRestCreateTagWithNoApp
-  Response Body Properties:
-    * `Result` (object): Whether the operation is successful or not.
-    * `Error` (object): Error message text on failure, may be null
-  Sample Response JSON:
-```json
-{
-  "Result": {},
-  "Error": {}
-}
-```
-SECURITY: bearerAuth
+# Raw Endpoint Documentation (Formatted)  
+ENDPOINT: Verify if username provided for personal app or secured item is allowed.  
+PATH: /UPRest/ValidateUsernameIsAllowed  
+METHOD: POST  
+TAGS: Application Management  
+METADATA:  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+REQUEST BODY: Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * userName (string): WPM user name  
+    Required fields: userName  
+  Sample Request JSON:  
+  ```json  
+  {  
+    "userName": "string_value"  
+  }  
+  ```  
+RESPONSES:  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: UPRestCreateTagWithNoApp  
+  Response Body Properties:  
+    * Result (object): Whether the operation is successful or not.  
+    * Error (object): Error message text on failure, may be null  
+  Sample Response JSON:  
+  ```json  
+  {  
+    "Result": {},  
+    "Error": {}  
+  }  
+  ```  
+SECURITY: bearerAuth  

@@ -1,122 +1,136 @@
-**Overview**
-===============
+# Overview  
+This API endpoint allows you to securely retrieve the client secret for an OpenID Connect (OIDC) web application. It utilizes the POST HTTP method and is accessed via the path `/SaasManage/GetOpenIdClientSecret`. The client secret is returned in an encrypted format if encryption is successful; otherwise, it is provided in plain text. To use this endpoint, a bearer authentication token is required for security.
 
-This API securely retrieves the client secret for an OIDC web app. You can use this endpoint by sending a POST request to `/SaasManage/GetOpenIdClientSecret` with the required parameters.
+# Key Search Terms  
+- OIDC client secret retrieval  
+- Get OpenID client secret  
+- Securely retrieve client secret  
+- API for OIDC web app  
+- Bearer authentication for API  
+- Encrypted client secret  
+- Application management API  
+- POST request for client secret  
+- RSA-OAEP public key encryption  
+- API response structure  
 
-The response includes the client secret in encrypted form as 'e' if encryption is successful, or in plain text as 'p' if encryption fails. The API requires bearer authentication for security.
+# Example User Questions  
+- How can I retrieve the client secret for my OIDC web application?  
+- What is the endpoint to get the OpenID client secret?  
+- How do I securely obtain a client secret using an API?  
+- What parameters do I need to send to get the client secret?  
+- What does the response look like when I request the client secret?  
+- How can I handle errors when retrieving the client secret?  
+- What authentication is required for this API endpoint?  
+- Can I get the client secret in plain text if encryption fails?  
+- What is the purpose of the PublicKey parameter in the request?  
+- How do I interpret the success status in the API response?  
 
-**Key Search Terms**
-==================
+# Developer Notes  
+- **Required Parameters:**  
+  - `OIDCAppKey` (string): RowKey of the application.  
+  - `PublicKey` (string): An RSA-OAEP public key to encrypt the secret.  
 
-* OIDC web app
-* Client secret retrieval
-* SaasManage/GetOpenIdClientSecret API
-* Bearer authentication
-* Encryption and decryption
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - Example Request JSON:  
+    ```json
+    {
+      "OIDCAppKey": "string_value",
+      "PublicKey": "string_value"
+    }
+    ```
 
-**Example User Questions**
-=========================
+- **Response Structure:**  
+  - Status Code: `200`  
+  - Content Type: `*/*`  
+  - Response Body includes:  
+    - `Result` (object): Contains success status and client secret details.  
+    - `Error` (object): Contains error messages on failure.  
 
-* What is the client secret for my OIDC web app?
-* How do I retrieve my client secret using the SaasManage API?
-* Can I use this endpoint to encrypt my client secret?
-* Why am I getting an error message when trying to authenticate with the API?
-* How do I know if encryption was successful or not?
+- **Error Handling:**  
+  - The response includes fields for error messages, such as `Message`, `ErrorID`, and `ErrorCode`.  
+  - If unauthorized, the error message will indicate that permission is required.  
 
-**Developer Notes**
-==================
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **OIDCAppKey** (string):  
+  - Description: RowKey of the application.  
+  - Example: `"my_oidc_app_key"`  
 
-### Required Parameters
+- **PublicKey** (string):  
+  - Description: An RSA-OAEP public key used for encrypting the client secret.  
+  - Example: `"-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A...-----END PUBLIC KEY-----"`  
 
-* `OIDCAppKey` (string): RowKey of the application.
-* `PublicKey` (string): An RSA-OAEP public key to encrypt the secret.
+## Response Parameters  
+### On Success (HTTP Status 200)  
+- **Result** (object):  
+  - **success** (boolean): Indicates if the operation was successful.  
+  - **Result** (object):  
+    - **e** (string): The client secret in encrypted format if encryption is successful.  
+    - **p** (string): The client secret in plain text format if encryption fails.  
+  - **Message** (string): Error message for failure response, default is `null`.  
+  - **MessageID** (string): Message ID for failure response, default is `null`.  
+  - **IsSoftError** (boolean): Indicates if the error is a soft error (UI warning) rather than an exception.  
+  - **Exception** (string): Exception message if an error occurs, default is `null`.  
+  - **ErrorID** (string): Error ID if an error occurs, default is `null`.  
+  - **ErrorCode** (string): Error code if an error occurs, default is `null`.  
+  - **InnerExceptions** (string): Additional exception details.  
 
-### Request Body
+### On Failure  
+- **Error** (object):  
+  - **UnAuthorized** (string): Message indicating lack of permissions.  
+    - Example: `"You are not authorized to perform this operation. Please contact your IT helpdesk."`  
 
-The request body should be in JSON format with the following properties:
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Get Client Secret for an OIDC Web App  
+**PATH:** /SaasManage/GetOpenIdClientSecret  
+**METHOD:** POST  
+**TAGS:** Application Management, Client Secret  
+**DESCRIPTION:**  
+- This API securely retrieves the client secret for an OIDC web app.  
+- The response includes the client secret in encrypted form as 'e' if encryption is successful, or in plain text as 'p' if encryption fails.  
 
-```json
-{
-  "OIDCAppKey": "string_value",
-  "PublicKey": "string_value"
-}
-```
+**METADATA:**  
+  * x-idap-anon: False  
 
-### Response Structure
+**REQUEST BODY:** Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * OIDCAppKey (string): RowKey of the application.  
+    * PublicKey (string): An RSA-OAEP public key to encrypt the secret.  
+  **Sample Request JSON:**  
+  ```json
+  {
+    "OIDCAppKey": "string_value",
+    "PublicKey": "string_value"
+  }
+  ```  
 
-The response will contain a `Result` object with the following properties:
+**RESPONSES:**  
+  **Status Code:** 200  
+  **Description:** API-Result  
+  **Content Type:** */*  
+  **Response Schema:** SaasManageGetOpenIdClientSecret  
+  **Response Body Properties:**  
+    * Result (object): Return object for a successful API call.  
+      Nested properties:  
+        * success (boolean): The success status is either true or false.  
+        * Result (object): The result includes the client secret for the application.  
+          Nested properties:  
+            * e (string): The client secret in encrypted format if the encryption is successful.  
+            * p (string): The client secret in plain text format if the encryption is unsuccessful.  
+        * Message (string): Error message for failure response. By default it is 'null'.  
+        * MessageID (string): The message ID for a failure response. By default, it is null.  
+        * IsSoftError (boolean): If true, SoftError indicates a UI warning popup rather than an exception.  
+        * Exception (string): The exception message if an exception is received from the API. By default, it is null.  
+        * ErrorID (string): The error ID if an error occurs. By default, it is null.  
+        * ErrorCode (string): The error code if an error occurs. By default, it is null.  
+        * InnerExceptions (string): InnerExceptions  
+    * Error (object): Error message text on failure.  
+      Nested properties:  
+        * UnAuthorized (string): When the user does not have the required permissions, you will see the error message - You are not authorized to perform this operation. Please contact your IT helpdesk.  
 
-* `success` (boolean): The success status is either true or false.
-* `Result` (object): The result includes the client secret for the application.
-	+ `e` (string): The client secret in encrypted format if the encryption is successful.
-	+ `p` (string): The client secret in plain text format if the encryption is unsuccessful.
-* `Message` (string): Error message for failure response. By default it is 'null'.
-* `MessageID` (string): The message ID for a failure response. By default, it is null.
-* `IsSoftError` (boolean): If true, SoftError indicates a UI warning popup rather than an exception.
-
-### Error Handling
-
-If an error occurs, the API will return an `Error` object with the following properties:
-
-* `UnAuthorized` (string): When the user does not have the required permissions, you will see the error message - You are not authorized to perform this operation. Please contact your IT helpdesk.
-
-**Raw Endpoint Documentation**
-=============================
-
-### ENDPOINT: Get Client Secret for an OIDC Web App
-#### PATH: `/SaasManage/GetOpenIdClientSecret`
-#### METHOD: `POST`
-
-### TAGS
-* Application Management
-* Client Secret
-
-### DESCRIPTION
-This API securely retrieves the client secret for an OIDC web app. The response includes the client secret in encrypted form as 'e' if encryption is successful, or in plain text as 'p' if encryption fails.
-
-### METADATA
-* `x-idap-anon`: False
-
-### REQUEST BODY
-#### Required
-* Content Type: `application/json`
-* Schema Properties:
-	+ `OIDCAppKey` (string): RowKey of the application.
-	+ `PublicKey` (string): An RSA-OAEP public key to encrypt the secret.
-
-### SAMPLE REQUEST JSON
-```json
-{
-  "OIDCAppKey": "string_value",
-  "PublicKey": "string_value"
-}
-```
-
-### RESPONSES
-#### Status Code: `200`
-#### Description: API-Result
-#### Content Type: `*/*`
-#### Response Schema: SaasManageGetOpenIdClientSecret
-#### Response Body Properties:
-	+ `Result` (object): Return object for a successful API call.
-		- Nested properties:
-			- `success` (boolean): The success status is either true or false.
-			- `Result` (object): The result includes the client secret for the application.
-				- Nested properties:
-					+ `e` (string): The client secret in encrypted format if the encryption is successful.
-					+ `p` (string): The client secret in plain text format if the encryption is unsuccessful.
-			- `Message` (string): Error message for failure response. By default it is 'null'.
-			- `MessageID` (string): The message ID for a failure response. By default, it is null.
-			- `IsSoftError` (boolean): If true, SoftError indicates a UI warning popup rather than an exception.
-			- `Exception` (string): The exception message if an exception is received from the API. By default, it is null.
-			- `ErrorID` (string): The error ID if an error occurs. By default, it is null.
-			- `ErrorCode` (string): The error code if an error occurs. By default, it is null.
-			- `InnerExceptions` (string): InnerExceptions
-	+ `Error` (object): Error message text on failure.
-		- Nested properties:
-			- `UnAuthorized` (string): When the user does not have the required permissions, you will see the error message - You are not authorized to perform this operation. Please contact your IT helpdesk.
-
-### SAMPLE RESPONSE JSON
+**Sample Response JSON:**  
 ```json
 {
   "Result": {
@@ -137,7 +151,6 @@ This API securely retrieves the client secret for an OIDC web app. The response 
     "UnAuthorized": "string_value"
   }
 }
-```
+```  
 
-### SECURITY
-* `bearerAuth`
+**SECURITY:** bearerAuth

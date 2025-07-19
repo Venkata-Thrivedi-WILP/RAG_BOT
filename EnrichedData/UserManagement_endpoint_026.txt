@@ -1,0 +1,132 @@
+# Overview
+The **Check if user is locked** endpoint allows you to determine if a specific user account is locked in the cloud system. This is useful for system administrators or users with management permissions to verify account status. The endpoint uses the **POST** method and is accessed at the path **/UserMgmt/IsUserCloudLocked**. Security requirements include bearer authentication, meaning that you must provide a valid bearer token to access this endpoint.
+
+# Key Search Terms
+- Check user lock status
+- User management API
+- IsUserCloudLocked
+- User account status
+- Cloud user lock check
+- API user permissions
+- Bearer authentication
+- User state management
+- System administrator API
+
+# Example User Questions
+- How can I check if a user account is locked?
+- What API do I use to verify user lock status?
+- Is there a way to see if a user is locked in the cloud?
+- What permissions do I need to check a user's lock status?
+- How do I use the IsUserCloudLocked endpoint?
+- Can I check my own account lock status using the API?
+- What response should I expect when checking user lock status?
+- What does a successful response look like for the user lock check?
+- How do I handle errors when checking if a user is locked?
+- What parameters are required to check if a user is locked?
+
+# Developer Notes
+- **Required Parameters:**
+  - `user` (query, Required): The name or UUID of the user to check.
+  
+- **Request Structure:**
+  - The request should be a POST request to the endpoint `/UserMgmt/IsUserCloudLocked` with the required user parameter.
+
+- **Response Structure:**
+  - On success, the response will return a status code of 200 with a JSON body containing the result of the check.
+  
+- **Error Handling:**
+  - The response may include error details in the `Result` object if the request fails.
+  
+- **Security Considerations:**
+  - Bearer authentication is required to access this endpoint.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **user** (query, Required)
+  - **Type:** string
+  - **Description:** The name or UUID of the user to check.
+  - **Example:** `user=12345-abcde`
+
+### Response Parameters
+- **Status Code:** 200
+- **Content Type:** */*
+- **Response Schema:** UserMgmtIsUserCloudLocked
+- **Response Body Properties:**
+  - **Result** (object): Contains the result of the request.
+    - **ErrorID** (string): Error ID if any error is received from the API. Default is 'null'.
+    - **ErrorCode** (string): Error code if any error is received from the API. Default is 'null'.
+    - **Exception** (string): Exception message if any exception is received from the API. Default is 'null'.
+    - **MessageID** (string): Message ID for failure response. Default is 'null'.
+    - **Result** (string): Boolean (True/False) result for the request.
+    - **InnerExceptions** (string): Inner Exceptions if any received from the API. Default is 'null'.
+    - **Message** (string): Error message for failure response. Default is 'null'.
+    - **success** (boolean): Indicates if the API call was successful (true/false).
+    - **IsSoftError** (boolean): Indicates if this is a soft error (UI warning) if true.
+  - **Error** (object): Error message text on failure, may be null.
+
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {}
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Check if user is locked
+PATH: /UserMgmt/IsUserCloudLocked
+METHOD: POST
+TAGS: Manage User State
+DESCRIPTION: You must be a system administrator or have user management permissions or user may be checking for him/herself.
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * user (query, Required): The name or uuid of the user to check.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UserMgmtIsUserCloudLocked
+  Response Body Properties:
+    * Result (object): Below is the response structure.
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (string): Boolean (True/False) result for the request.
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default it is 'null'
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): It will be true for a successful API call.
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+```

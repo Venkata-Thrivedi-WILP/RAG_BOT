@@ -1,71 +1,89 @@
-**Overview**
-================
+# Overview  
+This endpoint allows users to retrieve a list of credential providers for import purposes. It uses the HTTP POST method and is accessed via the path `/UPRest/GetCredentialsProviderListForImport`. To use this endpoint, a bearer authentication token is required to ensure secure access.
 
-Returns a list of credential providers for import. This endpoint is used to retrieve a list of available credential providers that can be imported into the system.
+# Key Search Terms  
+- Credential providers  
+- Get credentials provider list  
+- Import credential providers  
+- Application management API  
+- POST request for credential providers  
+- Bearer authentication  
+- API response structure  
+- Error handling in API  
+- UPRest API  
 
-* HTTP Method: POST
-* Path: `/UPRest/GetCredentialsProviderListForImport`
-* Security Requirement: Bearer Authentication
+# Example User Questions  
+- How can I get a list of credential providers for import?  
+- What is the endpoint to retrieve credential providers?  
+- What authentication is required for accessing the credential providers list?  
+- Can I see an example of the response from the credential providers endpoint?  
+- What does the response look like when there is an error?  
+- How do I use the POST method to get credential providers?  
+- What are the required parameters for retrieving credential providers?  
+- Is there a way to handle errors when calling the credential providers API?  
+- What type of data is returned by the credential providers endpoint?  
+- How do I authenticate when accessing the credential providers list?  
 
-**Key Search Terms**
-==================
+# Developer Notes  
+- **Required Parameters:** None specified in the raw documentation.  
+- **Request Structure:** The request is a POST method with no specific body parameters mentioned.  
+- **Response Structure:**  
+  - **Status Code:** 200  
+  - **Response Body Properties:**  
+    - `Result` (object): Contains the list of credential providers.  
+    - `Error` (object): Contains error message text on failure, may be null.  
+- **Error Handling:** The `Error` object will provide information if the request fails.  
+- **Security Considerations:** Bearer authentication is required for this endpoint.
 
-* Credential provider list
-* Import credentials
-* UPRest GetCredentialsProviderListForImport
-* Application Management API
-* Bearer authentication endpoint
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- No specific request parameters are defined in the documentation.
 
-**Example User Questions**
-=========================
+### Response Parameters  
+- **Response Body:**  
+  - `Result` (object):  
+    - Description: List of credential providers.  
+    - Example:  
+      ```json
+      {
+        "Result": {
+          // List of credential providers will be populated here
+        }
+      }
+      ```
+  - `Error` (object):  
+    - Description: Error message text on failure, may be null.  
+    - Example:  
+      ```json
+      {
+        "Error": {
+          "message": "Error description here"
+        }
+      }
+      ```
 
-* What is the list of available credential providers for import?
-* How do I retrieve a list of credential providers using the UPRest API?
-* Can I use bearer authentication to access this endpoint?
-* What happens if there is an error with the request?
-
-**Developer Notes**
-==================
-
-### Required Parameters
-
-* None
-
-### Request/Response Structure
-
-* Request Body:
-	+ `Result` (object): List of credential providers.
-	+ `Error` (object): Error message text on failure, may be null
-* Response Body:
-	+ `Result` (object): List of credential providers.
-	+ `Error` (object): Error message text on failure, may be null
-
-### Security Considerations
-
-* Bearer Authentication required for this endpoint.
-
-**Raw Endpoint Documentation (Formatted)**
-==========================================
-
+# Raw Endpoint Documentation (Formatted)  
+```
 ENDPOINT: Returns list of credential providers.
-PATH: `/UPRest/GetCredentialsProviderListForImport`
+PATH: /UPRest/GetCredentialsProviderListForImport
 METHOD: POST
 TAGS: Application Management
 METADATA:
-  * `x-idap-anon`: False
+  * x-idap-anon: False
 RESPONSES:
   Status Code: 200
   Description: API-Result
-  Content Type: `*/*`
+  Content Type: */*
   Response Schema: UPRestGetCredentialsProviderListForImport
   Response Body Properties:
-    * `Result` (object): List of credential providers.
-    * `Error` (object): Error message text on failure, may be null
+    * Result (object): List of credential providers.
+    * Error (object): Error message text on failure, may be null
   Sample Response JSON:
   ```json
-{
+  {
   "Result": {},
   "Error": {}
 }
-```
+  ```
 SECURITY: bearerAuth
+```

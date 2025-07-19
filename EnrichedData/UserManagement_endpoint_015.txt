@@ -1,0 +1,110 @@
+# Overview  
+The **Get User Settings** endpoint allows users to retrieve their specific settings based on their username and the type of setting requested. This is done through a POST request to the path `/Core/GetUserSettings`. To access this endpoint, users must provide a valid bearer token for authentication.
+
+# Key Search Terms  
+- Get User Settings API  
+- Retrieve user settings  
+- User settings management  
+- POST /Core/GetUserSettings  
+- User settings endpoint  
+- Bearer authentication for user settings  
+- API to fetch user settings  
+- CoreGetUserSettings response  
+- User settings query parameters  
+- Manage user data API  
+
+# Example User Questions  
+- How can I get my user settings?  
+- What is the endpoint to retrieve user settings?  
+- How do I use the Get User Settings API?  
+- What parameters do I need to provide to fetch user settings?  
+- Can I retrieve specific types of user settings?  
+- What does the response look like for the Get User Settings endpoint?  
+- How do I authenticate when calling the Get User Settings API?  
+- What happens if there is an error when fetching user settings?  
+- Is bearer authentication required for accessing user settings?  
+- What are the possible values for SettingType in the user settings API?  
+
+# Developer Notes  
+- **Required Parameters:**  
+  - `ID` (query): The username of the user whose settings are to be retrieved.  
+  - `SettingType` (query): The type of setting to retrieve.  
+
+- **Request Structure:**  
+  - Method: POST  
+  - Path: `/Core/GetUserSettings`  
+  - Authentication: Bearer token required.  
+
+- **Response Structure:**  
+  - Status Code: 200  
+  - Content Type: `*/*`  
+  - Response Schema: `CoreGetUserSettings`  
+  - Response Body Properties:  
+    - `Result` (array): Contains the user settings in UI Query Response format.  
+    - `Error` (object): Contains error message text on failure, may be null.  
+
+- **Error Handling:**  
+  - If an error occurs, the `Error` object will provide details about the failure.  
+
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- **ID**  
+  - **Type:** String  
+  - **Description:** The username of the user whose settings are being requested.  
+  - **Constraints:** Required.  
+
+- **SettingType**  
+  - **Type:** String  
+  - **Description:** Specifies the type of setting to retrieve (e.g., preferences, notifications).  
+  - **Constraints:** Required.  
+
+### Response Parameters  
+- **Result**  
+  - **Type:** Array  
+  - **Description:** Contains the user settings in UI Query Response format.  
+  - **Example:**  
+    ```json
+    [
+      {}
+    ]
+    ```
+
+- **Error**  
+  - **Type:** Object  
+  - **Description:** Contains error message text on failure, may be null.  
+  - **Example:**  
+    ```json
+    {}
+    ```
+
+# Raw Endpoint Documentation (Formatted)  
+```
+ENDPOINT: Get user settings  
+PATH: /Core/GetUserSettings  
+METHOD: POST  
+TAGS: Manage User Data  
+METADATA:  
+  * x-idap-anon: False  
+PARAMETERS:  
+  * ID (query, Required): The user name.  
+  * SettingType (query, Required): The setting type to get.  
+RESPONSES:  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: CoreGetUserSettings  
+  Response Body Properties:  
+    * Result (array): The user settings in UI Query Response format.  
+      Array items:  
+    * Error (object): Error message text on failure, may be null  
+  Sample Response JSON:  
+  ```json  
+  {  
+    "Result": [  
+      {}  
+    ],  
+    "Error": {}  
+  }  
+  ```  
+SECURITY: bearerAuth  
+```  

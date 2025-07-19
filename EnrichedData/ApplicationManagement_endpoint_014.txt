@@ -1,48 +1,89 @@
-**Overview**
------------
+# Overview
+The **Get an application's data** endpoint allows users to retrieve detailed information about a specific application using its unique application key. This endpoint utilizes the **POST** HTTP method and is accessed via the path **/UPRest/GetAppByKey**. To use this endpoint, authentication is required through a bearer token.
 
-Get an application's data.
+# Key Search Terms
+- Get application data
+- Application management API
+- Retrieve app by key
+- Application details endpoint
+- POST /UPRest/GetAppByKey
+- Bearer authentication
+- Application information retrieval
+- API response structure
+- Mark app visited
+- Application metadata
 
-This endpoint allows you to retrieve detailed information about a specific application. You can use this endpoint by sending a POST request to `/UPRest/GetAppByKey` and providing the application key in the query parameters or request body.
+# Example User Questions
+- How can I get the details of an application using its key?
+- What information can I retrieve about a specific application?
+- How do I mark an application as visited when fetching its data?
+- What is the response structure for the GetAppByKey endpoint?
+- What authentication do I need to access application data?
+- Can I retrieve application metadata using this API?
+- What parameters are required for the GetAppByKey request?
+- How do I handle errors when calling the application data endpoint?
+- What does the response look like when I successfully fetch application data?
+- Is the application URL included in the response?
 
-To authenticate, you must include a valid bearer token in the `Authorization` header.
+# Developer Notes
+- **Required Parameters:**
+  - `appkey` (query, Required): The application key used to identify the specific application.
+  
+- **Request Structure:**
+  - Content Type: `application/json`
+  - Request Body: Must include the `markAppVisited` property.
+  
+- **Response Structure:**
+  - Status Code: `200` for successful requests.
+  - Response Body includes:
+    - `Result`: Contains application data.
+    - `Error`: Contains error message text on failure (may be null).
+  
+- **Security Considerations:**
+  - Requires bearer authentication for access.
 
-**Key Search Terms**
---------------------
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **appkey** (query, Required)
+  - Type: string
+  - Description: Unique key for the application.
+  - Example: `appkey=12345`
 
-* Get application data
-* Application management API
-* UPRest GetAppByKey endpoint
-* Retrieve application information
-* Bearer authentication
+### Request Body
+- **markAppVisited** (string)
+  - Description: Indicates whether the application should be marked as visited.
+  - Example: 
+  ```json
+  {
+    "markAppVisited": "true"
+  }
+  ```
 
-**Example User Questions**
--------------------------
-
-* What is the URL of my application?
-* How do I get the details of a specific application?
-* Can I retrieve the application's admin tag?
-* What is the display name of the web-app-type for my application?
-* How can I check if the password has been set for my application?
-
-**Developer Notes**
--------------------
-
-### Required Parameters
-
-* `appkey` (query, Required): Application key
-* `markAppVisited` (request body, Optional): Whether the application should be marked as visited
-
-### Request Response Structure
-
-The response will contain a `Result` object with various properties, such as `Shortcut`, `Url`, and `DisplayName`. The response may also include an `Error` object if the request fails.
-
-### Sample Request JSON
-```json
-{
-  "markAppVisited": "string_value"
-}
-```
+### Response Parameters
+- **Result** (object)
+  - Contains detailed information about the application:
+    - **Shortcut** (boolean): Indicates if the application is set for optional installation.
+    - **Url** (string): URL of the application.
+    - **AdminTag** (string): Admin tag for the application.
+    - **Description** (string): Description of the application.
+    - **Category** (string): Category of the application.
+    - **Name** (string): Name of the application.
+    - **TemplateName** (string): Template name of the application.
+    - **PasswordIsSet** (boolean): Indicates if a password is set for the application.
+    - **WebAppType** (string): Type of the web application.
+    - **DisplayName** (string): Display name of the application.
+    - **UsernameRO** (boolean): Indicates if the username is read-only.
+    - **WebAppTypeDisplayName** (string): Display name of the web app type.
+    - **AppTypeDisplayName** (string): Display name of the application type.
+    - **Intranet** (boolean): Indicates if the application is an intranet app.
+    - **AppType** (string): Type of the application.
+    - **AppKey** (string): Application key.
+    - **Rank** (integer): Rank of the application.
+    - **Icon** (string): Path to the application icon image.
+    - **Username** (string): Username for the application.
+  
+- **Error** (object)
+  - Contains error message text on failure, may be null.
 
 ### Sample Response JSON
 ```json
@@ -51,56 +92,102 @@ The response will contain a `Result` object with various properties, such as `Sh
     "Shortcut": false,
     "Url": "string_value",
     "AdminTag": "string_value",
-    ...
+    "Description": "string_value",
+    "Category": "string_value",
+    "Name": "string_value",
+    "TemplateName": "string_value",
+    "PasswordIsSet": false,
+    "WebAppType": "string_value",
+    "DisplayName": "string_value",
+    "UsernameRO": false,
+    "WebAppTypeDisplayName": "string_value",
+    "AppTypeDisplayName": "string_value",
+    "Intranet": false,
+    "AppType": "string_value",
+    "AppKey": "string_value",
+    "Rank": 0,
+    "Icon": "string_value",
+    "Username": "string_value"
   },
   "Error": {}
 }
 ```
 
-### Security Considerations
-
-* Bearer authentication is required for this endpoint.
-* Ensure that the bearer token is valid and not expired.
-
-**Raw Endpoint Documentation (Formatted)**
-------------------------------------------
-
-### ENDPOINT: Get an application's data.
-
-#### PATH
-`/UPRest/GetAppByKey`
-
-#### METHOD
-`POST`
-
-#### TAGS
-`Application Management`
-
-#### METADATA
-| Field | Value |
-| --- | --- |
-| `x-idap-anon` | False |
-| `x-codegen-request-body-name` | payload |
-
-#### PARAMETERS
-| Name | Type | Required | Description |
-| --- | --- | --- | --- |
-| `appkey` | query | Yes | Application key |
-
-#### REQUEST BODY
-| Field | Type | Description |
-| --- | --- | --- |
-| `markAppVisited` | string | Whether the application should be marked as visited |
-
-#### RESPONSES
-| Status Code | Description |
-| --- | --- |
-| 200 | API-Result |
-
-| Response Body Properties | Description |
-| --- | --- |
-| `Result` | Application data |
-| `Error` | Error message text on failure (may be null) |
-
-#### SECURITY
-Bearer authentication is required.
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Get an application's data.
+PATH: /UPRest/GetAppByKey
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+PARAMETERS:
+  * appkey (query, Required): Application key
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * markAppVisited (string): Should the application be mark as visited.
+  Sample Request JSON:
+  ```json
+  {
+  "markAppVisited": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestGetAppByKey
+  Response Body Properties:
+    * Result (object): Application data
+      Nested properties:
+        * Shortcut (boolean): Whether the application has been set for optional installation
+        * Url (string): Application Url
+        * AdminTag (string): Application admin tag
+        * Description (string): Application description
+        * Category (string): Application category
+        * Name (string): Application name
+        * TemplateName (string): Application template name
+        * PasswordIsSet (boolean): Whether the password has been set
+        * WebAppType (string): Application web-app-type
+        * DisplayName (string): Application display name
+        * UsernameRO (boolean): Whether user name is read-only
+        * WebAppTypeDisplayName (string): Display name of web-app-type
+        * AppTypeDisplayName (string): Display name of application type
+        * Intranet (boolean): Whether the application is an intranet app
+        * AppType (string): Application type
+        * AppKey (string): Application key
+        * Rank (integer): Application rank
+        * Icon (string): Path of application icon image
+        * Username (string): Application username
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "Shortcut": false,
+    "Url": "string_value",
+    "AdminTag": "string_value",
+    "Description": "string_value",
+    "Category": "string_value",
+    "Name": "string_value",
+    "TemplateName": "string_value",
+    "PasswordIsSet": false,
+    "WebAppType": "string_value",
+    "DisplayName": "string_value",
+    "UsernameRO": false,
+    "WebAppTypeDisplayName": "string_value",
+    "AppTypeDisplayName": "string_value",
+    "Intranet": false,
+    "AppType": "string_value",
+    "AppKey": "string_value",
+    "Rank": 0,
+    "Icon": "string_value",
+    "Username": "string_value"
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+```
