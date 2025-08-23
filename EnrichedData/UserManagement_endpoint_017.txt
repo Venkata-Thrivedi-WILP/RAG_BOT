@@ -1,0 +1,155 @@
+# Overview
+The **Set User Picture** endpoint allows system administrators, users with user management rights, or the user themselves to upload a picture or photo for a specific user. This is done via a POST request to the path `/CDirectoryService/SetUserPicture`. The endpoint requires bearer token authentication for security.
+
+# Key Search Terms
+- Set user picture API
+- Upload user photo
+- User management API
+- User attributes management
+- Bearer authentication
+- User UUID
+- API for setting user image
+- User profile picture update
+- CDirectoryService API
+
+# Example User Questions
+- How can I upload a picture for a user?
+- What is the endpoint to set a user's profile photo?
+- What permissions are needed to change a user's picture?
+- How do I authenticate when using the Set User Picture API?
+- What is the required format for the user picture upload?
+- What response can I expect after setting a user picture?
+- How do I handle errors when uploading a user photo?
+- Can I update my own profile picture using the API?
+- What happens if I provide an invalid user UUID?
+- What information is returned in the response after a successful upload?
+
+# Developer Notes
+- **Required Parameters:**
+  - **ID (query)**: The User UUID (required).
+  
+- **Request Body:**
+  - Must be in `application/json` format.
+  - Required field: `File` (the file containing the user's picture).
+  
+- **Response Structure:**
+  - On success, returns a status code of 200 with a response schema of `CDirectoryServiceSetUserPicture`.
+  - Error handling includes specific messages for unauthorized access or other issues.
+
+- **Security Considerations:**
+  - This endpoint requires bearer token authentication.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+## Request Parameters
+- **ID (query)**: 
+  - **Type**: String (UUID)
+  - **Description**: The unique identifier for the user whose picture is being set.
+  - **Constraints**: Required.
+
+## Request Body
+- **File (object)**: 
+  - **Type**: File
+  - **Description**: The file containing the user's picture, uploaded in form-data.
+  - **Constraints**: Required.
+  
+### Sample Request JSON
+```json
+{
+  "File": {}
+}
+```
+
+## Response Parameters
+### Success Response
+- **Result (object)**: 
+  - **Description**: Return object for a successful API call.
+  - **Properties**:
+    - **success**: 
+      - **Type**: Boolean
+      - **Description**: True if the API call was successful.
+    - **Result**: 
+      - **Type**: String
+      - **Description**: URI path to the user's picture.
+    - **Message**: 
+      - **Type**: String
+      - **Description**: Error message for failure response; defaults to 'null'.
+    - **MessageID**: 
+      - **Type**: String
+      - **Description**: Message ID for failure response; defaults to 'null'.
+    - **Exception**: 
+      - **Type**: String
+      - **Description**: Exception message if any exception is received; defaults to 'null'.
+    - **ErrorID**: 
+      - **Type**: String
+      - **Description**: Error ID if any error is received; defaults to 'null'.
+    - **ErrorCode**: 
+      - **Type**: String
+      - **Description**: Error code if any error is received; defaults to 'null'.
+    - **IsSoftError**: 
+      - **Type**: Boolean
+      - **Description**: Indicates if this is a UI warning rather than an actual exception.
+    - **InnerExceptions**: 
+      - **Type**: String
+      - **Description**: Inner exceptions if any received; defaults to 'null'.
+
+### Error Response
+- **Error (object)**: 
+  - **Description**: Error message text on failure.
+  - **Nested Properties**:
+    - **UnauthorizedUser (string)**: 
+      - **Description**: Error message when the 'UUID' parameter is incorrect; defaults to "You are not authorized to perform this operation. Please contact your IT helpdesk."
+
+### Sample Response JSON
+```json
+{
+  "Result": {},
+  "Error": {
+    "UnauthorizedUser": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Set users picture
+PATH: /CDirectoryService/SetUserPicture
+METHOD: POST
+TAGS: Manage User Attributes
+DESCRIPTION: Use this API to set a user picture/photo for a particular user. Only system administrators, users with user management rights, or the user itself can invoke this API. In Response, the attached picture/photo will be set for a particular user
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+PARAMETERS:
+  * ID (query, Required): The User UUID.
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * File (object): File containing the users picture, in the form-data. (Not as a parameter.)
+    Required fields: File
+  Sample Request JSON:
+  ```json
+  {
+  "File": {}
+  }
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: CDirectoryServiceSetUserPicture
+  Response Body Properties:
+    * Result (object): "\n \t {\n \t\t\"description\":\"Return\ \ object for a successful API call.\",\n \t\t\"type\":\"object\"\ ,\n \t\t\"properties\":{\n \t\t \"success\":{\n\ \ \t\t\t \"description\":\"It will be true for a successful\ \ API call.\",\n \t\t\t \"type\":\"boolean\"\n \ \ \t\t\t },\n \t\t \"Result\":{\n \t\t\t \"description\"\ :\"URI path to the user's picture.\",\n \t\t\t \"type\":\"\ string\"\n \t\t },\n \t\t \"Message\":{\n \ \ \t\t\t \"description\":\"Error message for failure response.\ \ By default it is 'null'\",\n \t\t\t \"type\":\"string\"\n\ \ \t\t },\n \t\t \"MessageID\":{\n \ \ \t\t\t \"description\":\"Message Id for failure response. By default\ \ it is 'null'\",\n \t\t\t \"type\":\"string\"\n \ \ \t\t },\n \t\t \"Exception\":{\n \t\t\t\ \ \"description\":\"Exception message if any exception is received from\ \ the API. By default it is 'null'\",\n \t\t\t \"type\":\"\ string\"\n \t\t },\n \t\t \"ErrorID\":{\n \ \ \t\t\t \"description\":\"Error ID if any error is received\ \ from the API. By default it is 'null'\",\n \t\t\t \"type\"\ :\"string\"\n \t\t },\n \t\t \"ErrorCode\":{\n\ \ \t\t\t \"description\":\"Error code if any error is received\ \ from the API. By default it is 'null'\",\n \t\t\t \"type\"\ :\"string\"\n \t\t },\n \t\t \"IsSoftError\"\ :{\n \t\t\t \"description\":\"SoftError if true indicates\ \ this is not actually an exception but an UI warning popup.\",\n \ \ \t\t\t \"type\":\"boolean\"\n \t\t },\n \ \ \t\t \"InnerExceptions\":{\n \t\t\t \"description\"\ :\"Inner Exceptions if any received from the API. By default it is 'null'\"\ ,\n \t\t\t \"type\":\"string\"\n \t\t }\n \ \ \t\t}\n \t }\n "
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * UnauthorizedUser (string): This error occurs when the 'UUID' parameter is wrong. By default, the below error message will be displayed: You are not authorized to perform this operation. Please contact your IT helpdesk.
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {
+    "UnauthorizedUser": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+```

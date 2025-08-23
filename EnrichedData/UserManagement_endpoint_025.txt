@@ -1,0 +1,180 @@
+# Overview
+The **Set User State** endpoint allows authorized users to manage the state of Cloud Directory accounts in CyberArk Identity. This API can be used to lock, disable, or set an account to expired. It is accessible via a **POST** request at the path **/CDirectoryService/SetUserState**. Only system administrators and users with user management permissions are authorized to invoke this API. The new state can be set to 'None' or one or more of the following values: Locked, Disabled, or Expired. For example, to lock an account after too many failed logins, the state should be set to "Expired". To reenable a locked account, set the state to "None". 
+
+Security for this endpoint is managed through **bearer authentication**.
+
+# Key Search Terms
+- Set User State API
+- CyberArk Identity user management
+- Lock Cloud Directory account
+- Disable user account API
+- Expire user account CyberArk
+- Manage user state API
+- User state change CyberArk
+- Cloud Directory account status
+- User management permissions CyberArk
+- API for locking user accounts
+
+# Example User Questions
+- How can I lock a Cloud Directory account using the API?
+- What API do I use to disable a user account in CyberArk Identity?
+- How do I set a user's state to expired?
+- Can I reenable a locked account through the API?
+- What permissions do I need to manage user states in CyberArk?
+- What are the valid states I can set for a user account?
+- How do I handle errors when changing a user state?
+- What is the request format for the Set User State API?
+- How do I authenticate to use the Set User State endpoint?
+- What response can I expect from the Set User State API?
+
+# Developer Notes
+- **Required Parameters**: 
+  - `ID` (string): Unique ID of the cloud user to change the state for.
+  - `state` (string): New state of the user to set. Valid values are None, Locked, Disabled, or Expired.
+  
+- **Request Structure**:
+  - Content Type: `application/json`
+  - Sample Request JSON:
+    ```json
+    {
+      "ID": "string_value",
+      "state": "string_value"
+    }
+    ```
+
+- **Response Structure**:
+  - Status Code: 200
+  - Content Type: `*/*`
+  - Sample Response JSON:
+    ```json
+    {
+      "Result": {
+        "ErrorID": "string_value",
+        "ErrorCode": "string_value",
+        "Exception": "string_value",
+        "MessageID": "string_value",
+        "Result": "string_value",
+        "InnerExceptions": "string_value",
+        "Message": "string_value",
+        "success": false,
+        "IsSoftError": false
+      },
+      "Error": {
+        "EmptyID": "string_value",
+        "InvalidState": "string_value",
+        "InvalidID": "string_value",
+        "EmptyState": "string_value"
+      }
+    }
+    ```
+
+- **Error Handling**: 
+  - Various error messages are returned based on the validation of the provided user ID and state.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+
+## Request Parameters
+- **ID** (string): 
+  - Description: Unique identifier for the cloud user whose state is being changed.
+  - Example: `"ID": "user123"`
+  
+- **state** (string): 
+  - Description: The new state to set for the user. Acceptable values are:
+    - `None`: Reenable the account.
+    - `Locked`: Lock the account.
+    - `Disabled`: Disable the account.
+    - `Expired`: Mark the account as expired.
+  - Example: `"state": "Locked"`
+
+## Response Parameters
+- **Result** (object): 
+  - Description: Contains the outcome of the API call.
+  - Properties:
+    - **ErrorID** (string): Error ID if any error occurs. Default is 'null'.
+    - **ErrorCode** (string): Error code if any error occurs. Default is 'null'.
+    - **Exception** (string): Exception message if any exception occurs. Default is 'null'.
+    - **MessageID** (string): Message ID for failure response. Default is 'null'.
+    - **Result** (string): The result of the API call.
+    - **InnerExceptions** (string): Inner exceptions if any. Default is 'null'.
+    - **Message** (string): Error message for failure response. Default is 'null'.
+    - **success** (boolean): Indicates if the API call was successful.
+    - **IsSoftError** (boolean): Indicates if this is a UI warning rather than an exception.
+
+- **Error** (object): 
+  - Description: Contains error messages for invalid requests.
+  - Properties:
+    - **EmptyID** (string): Message when the provided user ID is empty or null.
+    - **InvalidState** (string): Message when an invalid user state is provided.
+    - **InvalidID** (string): Message when an invalid user ID is provided.
+    - **EmptyState** (string): Message when the user state is empty.
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Set user state
+PATH: /CDirectoryService/SetUserState
+METHOD: POST
+TAGS: Manage User State
+DESCRIPTION: CyberArk Identity provides this API to lock, disable, or set a Cloud Directory account to expired. Only system administrator and users with user management permissions, can invoke this API. Specified new state may either be 'None' or include one or more of the following values (comma separated): Locked, Disabled, or Expired. For example to lock an account, after too many failed logins, make a call with state as "Expired". You can reenable a locked account by setting the state to "None".
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * ID (string): Unique id of the cloud user to change the state for
+    * state (string): New state of the user to set. The states available are None, Locked, Disabled or Expired
+    Required fields: ID, state
+  Sample Request JSON:
+  ```json
+  {
+  "ID": "string_value",
+  "state": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: CDirectoryServiceSetUserState
+  Response Body Properties:
+    * Result (object): Return object for a successful API call
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (string): The result for the API call
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): It will be true for a successful API call
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup
+    * Error (object): Error message text on failure and below message would be returned if provided user id or user's new state is invalid/empty
+      Nested properties:
+        * EmptyID (string): When provided user id is empty or null, you would see this message 'Object reference not set to an instance of an object.'
+        * InvalidState (string): When invalid user state is provided, you would see this message 'Invalid arguments passed to the server.'
+        * InvalidID (string): When invalid user id is provided, you would see this message 'Object reference not set to an instance of an object.'
+        * EmptyState (string): When empty user state is provided, you would see this message 'Invalid arguments passed to the server.'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "EmptyID": "string_value",
+    "InvalidState": "string_value",
+    "InvalidID": "string_value",
+    "EmptyState": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+```

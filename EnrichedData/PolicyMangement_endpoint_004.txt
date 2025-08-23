@@ -1,0 +1,107 @@
+# Overview  
+The **Delete Policy** endpoint allows users to remove a specific policy block from the system. It is accessed via a POST request to the path **/Policy/DeletePolicyBlock**. To use this endpoint, users must authenticate using bearer token security.
+
+# Key Search Terms  
+- Delete policy block  
+- Policy management API  
+- Remove policy  
+- API delete policy  
+- Policy deletion endpoint  
+- Bearer token authentication  
+- JSON request body  
+- PolicyDeletePolicyBlock response  
+- API response structure  
+- Error handling in API  
+
+# Example User Questions  
+- How can I delete a policy block using the API?  
+- What is the endpoint to remove a policy?  
+- What authentication do I need to use for deleting a policy block?  
+- Can I get a sample request for deleting a policy?  
+- What does the response look like when I delete a policy block?  
+- What happens if the deletion of a policy block fails?  
+- Is there a specific format for the request body when deleting a policy?  
+- How do I know if my policy deletion was successful?  
+- What error messages can I expect when deleting a policy block?  
+- Are there any required fields for the delete policy request?  
+
+# Developer Notes  
+- **Required Parameters:**  
+  - `path` (string): The policy block to delete.  
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - Example Request JSON:  
+    ```json
+    {
+      "path": "string_value"
+    }
+    ```
+- **Response Structure:**  
+  - Status Code: `200`  
+  - Response Body Properties:  
+    - `Result` (boolean): Indicates if the policy block deletion succeeded.  
+    - `Error` (object): Contains error message text on failure, may be null.  
+  - Example Response JSON:  
+    ```json
+    {
+      "Result": false,
+      "Error": {}
+    }
+    ```
+- **Security Considerations:**  
+  - This endpoint requires bearer token authentication.
+
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- **path**  
+  - **Type:** string  
+  - **Description:** The specific policy block that needs to be deleted.  
+  - **Constraints:** This field is required.  
+  - **Example Value:** `"policy/block/123"`  
+
+### Response Parameters  
+- **Result**  
+  - **Type:** boolean  
+  - **Description:** Indicates whether the deletion of the policy block was successful.  
+  - **Example Value:** `true` or `false`  
+
+- **Error**  
+  - **Type:** object  
+  - **Description:** Contains error message text if the deletion fails; otherwise, it may be null.  
+  - **Example Value:** `{ "message": "Policy block not found." }` or `{}`  
+
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Delete policy  
+**PATH:** /Policy/DeletePolicyBlock  
+**METHOD:** POST  
+**TAGS:** Policy Management  
+**METADATA:**  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**REQUEST BODY:** Required  
+  **Content Type:** application/json  
+  **Schema Properties:**  
+    * path (string): The policy block to delete.  
+  **Required fields:** path  
+  **Sample Request JSON:**  
+  ```json  
+  {  
+    "path": "string_value"  
+  }  
+  ```  
+**RESPONSES:**  
+  **Status Code:** 200  
+  **Description:** API-Result  
+  **Content Type:** */*  
+  **Response Schema:** PolicyDeletePolicyBlock  
+  **Response Body Properties:**  
+    * Result (boolean): Did the policy block delete succeed.  
+    * Error (object): Error message text on failure, may be null  
+  **Sample Response JSON:**  
+  ```json  
+  {  
+    "Result": false,  
+    "Error": {}  
+  }  
+  ```  
+**SECURITY:** bearerAuth  

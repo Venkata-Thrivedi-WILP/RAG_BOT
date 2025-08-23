@@ -1,0 +1,89 @@
+# Overview
+The **Start Authentication** endpoint is used to initiate the user's authentication process within the CyberArk Identity system. This endpoint is accessed via a **POST** request to the path **/CDirectoryService/StartAuthentication**. It requires the UUID of the user whose identity is being verified. If the user exists, the response will contain authentication challenges. If the user does not have the necessary attributes to log in, a specific message will be returned. Security and authentication are managed through the CyberArk Identity platform.
+
+# Key Search Terms
+- Start Authentication API
+- CyberArk Identity authentication
+- User authentication process
+- UUID authentication
+- CyberArk API challenges
+- Authentication request body
+- CyberArk Identity login
+- API response for authentication
+- CyberArk support contact
+- Authentication methods CyberArk
+
+# Example User Questions
+- How do I start the authentication process for a user in CyberArk?
+- What is the required request body for the Start Authentication API?
+- What happens if a user does not have the required attributes to log in?
+- How can I verify a user's identity using CyberArk Identity?
+- What authentication methods are supported by CyberArk?
+- What should I do if I receive an error when starting authentication?
+- Can I use SMS for user authentication in CyberArk?
+- What does the response look like when authentication is successful?
+- How do I contact CyberArk Support for authentication issues?
+- What is the UUID attribute in the authentication request?
+
+# Developer Notes
+- **Required Parameters**: 
+  - UUID (string): This is the UUID of the user whose identity the admin is trying to verify.
+- **Request Structure**: 
+  - Content Type: `application/json`
+  - Required fields: UUID
+  - Sample Request JSON:
+    ```json
+    {
+      "UUID": "string_value"
+    }
+    ```
+- **Response Structure**: 
+  - Status Code: 200
+  - Content Type: `*/*`
+  - Response Schema: CDirectoryServiceStartAuthentication
+- **Error Handling**: If the user does not have the attributes required to log in, the response will indicate this with a specific message.
+- **Security Considerations**: Ensure that the UUID provided is valid and corresponds to an existing user in the CyberArk Identity system.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **UUID** (string)
+  - **Description**: This is the unique identifier for the user whose identity is being verified.
+  - **Constraints**: Must be a valid UUID string.
+  - **Example**: `"UUID": "123e4567-e89b-12d3-a456-426614174000"`
+
+### Response Parameters
+- **Status Code**: 200
+  - **Description**: Indicates that the API call was successful.
+- **Response Body**: 
+  - **Content Type**: `*/*`
+  - **Schema**: CDirectoryServiceStartAuthentication
+  - **Description**: Contains the result of the authentication process, which may include challenges if the user exists.
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Start Authentication
+PATH: /CDirectoryService/StartAuthentication
+METHOD: POST
+TAGS: Start authentication
+DESCRIPTION: CyberArk Identity uses the API to initiate the user's authentication process. If the user exists then the response contains challenges. - If the user does not have any challenges then the following message is returned: User does not have the attributes required to login. - Contact CyberArk Support for more information. - The request body must include the UUID attribute. CyberArk supports SMS, Email, OATH, Phone call, and Mobile Authenticator.
+METADATA:
+  * x-idap-anon: True
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * UUID (string): This is the UUID of the user whose identity the admin is trying to verify.
+    Required fields: UUID
+  Sample Request JSON:
+  ```json
+  {
+  "UUID": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API result
+  Content Type: */*
+  Response Schema: CDirectoryServiceStartAuthentication
+  Response Body Properties:
+```

@@ -1,0 +1,556 @@
+openapi: 3.0.1
+info:
+  version: 22.7.201-a104ccbac3
+  title: Policy Management
+  termsOfService: 'https://www.idaptive.com/eula/'
+servers:
+  - url: 'https://{tenant_url}/'
+    variables:
+      tenant_url:
+        default: example.id.cyberark.cloud
+paths:
+  /AuthProfile/DeleteProfile:
+    post:
+      tags:
+        - Authentication Profile
+      summary: Delete authentication profile
+      parameters:
+        - name: uuid
+          in: query
+          description: Authentication UUID.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                  description: The authentication profile uuid either passed in by method call or as part of the payload.
+              required:
+                - uuid
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthProfileDeleteProfile'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /AuthProfile/GetProfile:
+    post:
+      tags:
+        - Authentication Profile
+      summary: Get authentication profile
+      description: The profile get uses the uuid passed in by method call or as part of the payload.
+      parameters:
+        - name: uuid
+          in: query
+          description: Profile UUID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                  description: The authentication profile uuid either passed in by method call or as part of the payload.
+              required:
+                - uuid
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthProfileGetProfile'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /AuthProfile/SaveProfile:
+    post:
+      tags:
+        - Authentication Profile
+      summary: Set authentication profile
+      description: 'If the profile contains a UUID an update is performed, otherwise it''s a write.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                settings:
+                  type: object
+                  description: The authentication profile.
+                  properties:
+                    Challenges:
+                      type: array
+                      description: Selected authentication mechanisms.
+                      items:
+                        type: string
+                    AdditionalData:
+                      type: object
+                      description: DataEntity with additional data (default=null).
+                    Uuid:
+                      type: string
+                      description: Profile UUID.
+                    SingleChallengeMechanisms:
+                      type: string
+                      description: Selected single authentication mechanisms.
+                    DurationInMinutes:
+                      type: integer
+                      description: How many minutes the profile is valid.
+                    Name:
+                      type: string
+                      description: Profile name.
+              required:
+                - settings
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthProfileSaveProfile'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /Policy/DeletePolicyBlock:
+    post:
+      tags:
+        - Policy Management
+      summary: Delete policy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                path:
+                  type: string
+                  description: The policy block to delete.
+              required:
+                - path
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PolicyDeletePolicyBlock'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /Policy/GetNicePlinks:
+    post:
+      tags:
+        - Policy Management
+      summary: Gets policy links.
+      description: |-
+        RevStamp is required for both requesting and setting policy links.
+                    Return is a dictionary(plink name, plink fields as below) with RevStamp as the last entry.
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PolicyGetNicePlinks'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /Policy/GetPasswordComplexityRequirements:
+    post:
+      tags:
+        - Policy Management
+      summary: Get password complexity requirements
+      parameters:
+        - name: uuidOrName
+          in: query
+          description: User's unique identifier or name to use when retrieving password complexity requirements.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PolicyGetPasswordComplexityRequirements'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /AuthProfile/GetProfileMFAScoring:
+    post:
+      tags:
+        - Authentication Profile
+      summary: Gets authentication assurance level
+      parameters:
+        - name: challenges
+          in: query
+          description: Profile factors
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/AuthProfileGetProfileMFAScoring'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /Policy/GetPolicyBlock:
+    post:
+      tags:
+        - Policy Management
+      summary: Get policy block
+      parameters:
+        - name: name
+          in: query
+          description: The policy block to get.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PolicyGetPolicyBlock'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /Policy/SavePolicyBlock3:
+    post:
+      tags:
+        - Policy Management
+      summary: Set policy
+      description: |-
+        Replaces and deprecates SavePolicyBlock2, by adding the "rev stamp" functionality that helps 
+                    prevent change loss when policies are being edited by multiple users.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                policy:
+                  type: object
+                  description: JSON object containing the details of the policy being added or updated.
+                  properties:
+                    Newpolicy:
+                      type: boolean
+                      description: boolean set to true if this is a new policy (add)
+                    Version:
+                      type: integer
+                      description: 'Policy structure version number.  1, at this time.'
+                    Path:
+                      type: string
+                      description: path of the policy
+                    RevStamp:
+                      type: string
+                      description: Revision stamp returned from latest call to getPolicyBlock.  This is required if Newpolicy is false.
+                    Description:
+                      type: string
+                      description: policy description
+                plinks:
+                  type: array
+                  description: Array of plink objects representing the current plinks file.
+                  items:
+                    type: object
+              required:
+                - policy
+                - plinks
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PolicySavePolicyBlock3'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+tags:
+  - name: Policy Management
+    description: APIs related to managing policies
+  - name: Authentication Profile
+    description: APIs related to managing authentication profiles
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    AuthProfileDeleteProfile:
+      type: object
+      properties:
+        Result:
+          type: boolean
+          description: Success or failure of the delete
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    AuthProfileGetProfile:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Authentication profile.
+          properties:
+            Challenges:
+              type: array
+              description: Selected authentication mechanisms.
+              items:
+                type: string
+            AdditionalData:
+              type: object
+              description: DataEntity with additional data (default=null).
+            Uuid:
+              type: string
+              description: Profile UUID.
+            SingleChallengeMechanisms:
+              type: string
+              description: Selected single authentication mechanisms.
+            DurationInMinutes:
+              type: integer
+              description: How many minutes the profile is valid.
+            Name:
+              type: string
+              description: Profile name.
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    AuthProfileSaveProfile:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: An authentication profile.
+          properties:
+            Challenges:
+              type: array
+              description: Selected authentication mechanisms.
+              items:
+                type: string
+            AdditionalData:
+              type: object
+              description: DataEntity with additional data (default=null).
+            Uuid:
+              type: string
+              description: Profile UUID.
+            SingleChallengeMechanisms:
+              type: string
+              description: Selected single authentication mechanisms.
+            DurationInMinutes:
+              type: integer
+              description: How many minutes the profile is valid.
+            Name:
+              type: string
+              description: Profile name.
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    PolicyDeletePolicyBlock:
+      type: object
+      properties:
+        Result:
+          type: boolean
+          description: Did the policy block delete succeed.
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    PolicyGetNicePlinks:
+      type: object
+      properties:
+        Result:
+          type: array
+          description: The list of policy links in UI Query Response format.
+          items:
+            type: object
+            description: A policy link.
+            properties:
+              Description:
+                type: string
+                description: The policy link description.
+              I18NDescriptionTag:
+                type: string
+                description: Localized version of the description.
+              PolicySet:
+                type: string
+                description: The policy link policy set.
+              LinkType:
+                type: string
+                description: The policy link type.
+              Params:
+                type: array
+                description: The policy link parameters.
+                items:
+                  type: string
+              Filters:
+                type: array
+                description: The policy link filters.
+                items:
+                  type: string
+              AllowedPolicies:
+                type: array
+                description: The policy link allowed policies.
+                items:
+                  type: string
+              EnableCompliant:
+                type: boolean
+                description: The policy link enable compliant.
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    PolicyGetPasswordComplexityRequirements:
+      type: object
+      properties:
+        Result:
+          type: string
+          description: The password complexity requirements for the user.
+        Error:
+          type: object
+          description: |2-
+
+
+                        {
+                            description: "The password complexity requirements for the user.", type: "string"
+                        }
+                        
+    AuthProfileGetProfileMFAScoring:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: returns Maximum and minimun AAL in Success or null in Failure
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    PolicyGetPolicyBlock:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: The policy block.
+          properties:
+            RiskAnalysisLevels:
+              type: object
+              description: The risk analysis mapping.
+            AuthProfiles:
+              type: array
+              description: A list of authentication profiles.
+              items:
+                type: object
+            PolicyModifiers:
+              type: array
+              description: The policy modifiers.
+              items:
+                type: string
+            RevStamp:
+              type: string
+              description: The policy revision stamp.
+            RadiusClientList:
+              type: array
+              description: The list of radius clients.
+              items:
+                type: object
+        Error:
+          type: object
+          description: |2-
+
+
+                        {
+                            description: "The policy block.",
+                            type: "object",
+                            properties:
+                            {
+                                AuthProfiles: { description: "A list of authentication profiles.", type: "array", items: { type: "object" } },
+                                RiskAnalysisLevels: { description: "The risk analysis mapping.", type: "object" },
+                                PolicyModifiers: { description: "The policy modifiers.", type: "array", items: { type: "string" } },
+                                RevStamp: { description: "The policy revision stamp.", type: "string" },
+                                RadiusClientList: { description: "The list of radius clients.", type: "array", items: { type: "object" } }
+                            }
+                        }
+                        
+    PolicySavePolicyBlock3:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: 'Standard JSON response, with error information on failure.'
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+security:
+  - bearerAuth: []

@@ -1,0 +1,159 @@
+# Overview
+The **Change User State** endpoint allows authorized users to change the state of a user account between active and suspended. This is accomplished through a POST request to the path `/CDirectoryService/ChangeUserState`. Only system administrators, users with user management rights, or the user themselves can invoke this API. However, the API will fail if a user attempts to change their own state. Access to this endpoint requires bearer token authentication.
+
+# Key Search Terms
+- Change user state API
+- Manage user state
+- User activation and suspension
+- User management endpoint
+- API for user state change
+- Bearer authentication user API
+- User state transition
+- CDirectoryService user management
+- POST request user state
+- User state change permissions
+
+# Example User Questions
+- How can I change a user's state from active to suspended?
+- What permissions are needed to use the Change User State API?
+- Can a user change their own state using this API?
+- What is the request format for changing a user state?
+- What response should I expect when I change a user's state?
+- How do I handle errors when changing a user state?
+- What are the required fields for the Change User State request?
+- How do I authenticate to use the Change User State endpoint?
+- What does the success response look like for changing a user state?
+- How can I check if a user ID is valid when using this API?
+
+# Developer Notes
+- **Required Parameters**: 
+  - `uuid` (string): The unique ID of the user.
+  - `state` (boolean): The new state for the user (true for active, false for suspended).
+- **Request Structure**: Must be in JSON format with the required fields.
+- **Response Structure**: The API returns a JSON object with a result and error object.
+- **Error Handling**: Check for `ErrorID`, `ErrorCode`, and other nested properties in the response for error details.
+- **Security Considerations**: This endpoint requires bearer token authentication.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **uuid** (string): 
+  - Description: The unique ID of the user, generated upon user creation.
+  - Example: `"uuid": "123e4567-e89b-12d3-a456-426614174000"`
+  
+- **state** (boolean): 
+  - Description: Indicates the desired state of the user. `true` sets the user to active, while `false` suspends the user.
+  - Example: `"state": false`
+
+### Response Parameters
+- **Result** (object): 
+  - Description: Contains the result of a successful API call.
+  - Properties:
+    - **ErrorID** (string): Error ID if any error is received from the API. Default is 'null'.
+    - **ErrorCode** (string): Error code if any error is received from the API. Default is 'null'.
+    - **Exception** (string): Exception message if any exception is received from the API. Default is 'null'.
+    - **MessageID** (string): Message ID for failure response. Default is 'null'.
+    - **Result** (string): The result will be null.
+    - **InnerExceptions** (string): InnerExceptions.
+    - **Message** (string): Error message for failure response. Default is 'null'.
+    - **success** (boolean): Indicates if the API call was successful.
+    - **IsSoftError** (boolean): Indicates if this is a UI warning rather than an actual exception.
+
+- **Error** (object): 
+  - Description: Contains error messages in case of failure.
+  - Properties:
+    - **MissingArgument** (string): Indicates invalid arguments passed to the server.
+    - **InvalidUserId** (string): Indicates that the user with the given unique ID doesn’t exist.
+
+### Sample Request JSON
+```json
+{
+  "uuid": "string_value",
+  "state": false
+}
+```
+
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "MissingArgument": "string_value",
+    "InvalidUserId": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+ENDPOINT: Change user state  
+PATH: /CDirectoryService/ChangeUserState  
+METHOD: POST  
+TAGS: Manage User State  
+DESCRIPTION: Invoke this API when you want to change the user state from disabled to active or vice versa. Only system administrator, users with user management rights, or the user itself can invoke this API. The API will fail, if the user itself will try to change its user state.  
+METADATA:  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+REQUEST BODY: Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * uuid (string): The unique ID of the user. The unique ID is generated when the user is created  
+    * state (boolean): Boolean value to change the user state. True = Active and False = Suspended  
+    Required fields: uuid, state  
+  Sample Request JSON:  
+  ```json
+  {
+  "uuid": "string_value",
+  "state": false
+}
+  ```  
+RESPONSES:  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: CDirectoryServiceChangeUserState  
+  Response Body Properties:  
+    * Result (object): Return object for a successful API call.  
+      Nested properties:  
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'  
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'  
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'  
+        * MessageID (string): Message Id for failure response. By default it is 'null'  
+        * Result (string): The result will be null.  
+        * InnerExceptions (string): InnerExceptions  
+        * Message (string): Error message for failure response. By default it is 'null'  
+        * success (boolean): It will be true for a successful API call.  
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.  
+    * Error (object): Error message text on failure.  
+      Nested properties:  
+        * MissingArgument (string): Invalid arguments passed to the server.  
+        * InvalidUserId (string): User with given unique ID doesn’t exist.  
+  Sample Response JSON:  
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "MissingArgument": "string_value",
+    "InvalidUserId": "string_value"
+  }
+}
+  ```  
+SECURITY: bearerAuth

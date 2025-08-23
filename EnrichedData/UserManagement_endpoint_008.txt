@@ -1,0 +1,263 @@
+# Overview
+This API endpoint allows you to retrieve user information for a specified user. It is accessible via a POST request at the path `/UserMgmt/GetUserInfo`. Only system administrators, users with user management rights, or the user themselves can invoke this API. Note that this is a high CPU-intensive call, so it should be used judiciously, and caching the results is recommended. The endpoint requires bearer token authentication for security.
+
+# Key Search Terms
+- Get user information API
+- User management endpoint
+- Retrieve user data
+- User details API
+- CyberArk Identity user info
+- User information retrieval
+- API for user attributes
+- User data management
+- User profile API
+- Bearer token authentication
+
+# Example User Questions
+- How can I get user information using the API?
+- What are the required permissions to access the user info endpoint?
+- Can I retrieve my own user details through this API?
+- What parameters do I need to provide to get user data?
+- How do I handle errors when calling the GetUserInfo API?
+- What kind of information can I expect in the response?
+- Is there a way to cache the results from this API?
+- How do I authenticate when using this endpoint?
+- What does the response look like for a successful API call?
+- How can I check if a user has a third-party OATH token configured?
+
+# Developer Notes
+- **HTTP Method**: POST
+- **Path**: `/UserMgmt/GetUserInfo`
+- **Security**: Requires bearer token authentication.
+- **Required Parameters**:
+  - `ID` (query, Optional): The unique ID of the user to fetch attributes for. Defaults to the current user if not provided.
+- **Response Structure**:
+  - Status Code: 200 for success.
+  - Response Body includes:
+    - `Result`: Contains user information.
+    - `Error`: Contains error messages if applicable.
+- **Error Handling**: Check for `Error` object in the response for details on invalid user IDs or other issues.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **ID** (string, optional): 
+  - Description: The unique ID of the user to fetch attributes for.
+  - Default: Current user if not provided.
+  - Example: `12345`
+
+### Response Parameters
+- **Result** (object): 
+  - Contains user information.
+  - **Nested Properties**:
+    - **DirectoryServiceId** (string): Unique ID for the directory service.
+    - **ThirdPartyOathConfigured** (boolean): Indicates if a third-party OATH token is configured.
+    - **ErrorID** (string): Error ID if any error occurs.
+    - **EmailAddress** (string): User's email address.
+    - **HasPicture** (boolean): Indicates if a user picture is available.
+    - **Settings** (object): Contains internal state for the Portal Web UI.
+      - **uisection** (object): UI Settings Section.
+        - **doNotShowIdaptiveWelcomeWizard** (boolean)
+        - **floating-nav-part-Settings-expanded** (boolean)
+        - **nav-part-Settings-expanded** (boolean)
+      - **SlackAuthEnabled** (boolean)
+      - **SecurityKeyConfigured** (boolean)
+      - **HasU2fDeviceWithFacetIdMatched** (boolean)
+      - **SlackMemberIdSet** (boolean)
+      - **EnablePurchasedLicenseMenu** (boolean)
+      - **MobileDeviceAuthCapableCount** (integer)
+      - **PreferredCulture** (string)
+      - **DisplayPreferredCulture** (string)
+      - **MfaSetupWizardSettings** (object): Settings for MFA setup.
+        - **ShowU2fInMfaSetupWizard** (boolean)
+        - **ShowSecurityQuestionInMfaSetupWizard** (boolean)
+        - **ShowOathPassCodeInMfaSetupWizard** (boolean)
+        - **ShowSmsMessageInMfaSetupWizard** (boolean)
+        - **RequiredFactorSetupCount** (integer)
+        - **ShowMfaSetupWizard** (boolean)
+      - **OnDeviceAuthenticatorConfigured** (boolean)
+    - **LastPasswordChangeDate** (string)
+    - **DisplayName** (string)
+    - **ErrorCode** (string)
+    - **PasswordExpDate** (string)
+    - **MobileNumber** (string)
+    - **Exception** (string)
+    - **SelfUnlocked** (string)
+    - **LastLastLoginDate** (string)
+    - **DirectoryServiceLocalizedName** (string)
+    - **DirectoryServiceName** (string)
+    - **Message** (string)
+    - **DirectoryServiceType** (string)
+    - **IsSysAdmin** (boolean)
+    - **SecurityQuestion** (string)
+    - **IsSoftError** (boolean)
+    - **CanChangePassword** (boolean)
+    - **Name** (string)
+    - **Id** (string)
+    - **SecurityQuestionsLastUpdate** (string)
+    - **PasswordResetFlag** (integer)
+    - **PhonePinLastChangeDate** (string)
+    - **SqEnabled** (boolean)
+    - **TenantId** (string)
+    - **LastLoginDate** (string)
+    - **InnerExceptions** (string)
+    - **PasswordChangeSoftDays** (integer)
+    - **MessageID** (string)
+    - **PasswordChangeHardHours** (integer)
+- **success** (boolean): Indicates if the API call was successful.
+- **Error** (object): Contains error message text on failure.
+  - **InvalidUserId** (string): Message indicating the user ID was not found.
+
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "Result": {
+      "DirectoryServiceId": "string_value",
+      "ThirdPartyOathConfigured": false,
+      "ErrorID": "string_value",
+      "EmailAddress": "string_value",
+      "HasPicture": false,
+      "Settings": {
+        "uisection": {
+          "doNotShowIdaptiveWelcomeWizard": false,
+          "floating-nav-part-Settings-expanded": false,
+          "nav-part-Settings-expanded": false
+        },
+        "SlackAuthEnabled": false,
+        "SecurityKeyConfigured": false,
+        "HasU2fDeviceWithFacetIdMatched": false,
+        "SlackMemberIdSet": false,
+        "EnablePurchasedLicenseMenu": false,
+        "MobileDeviceAuthCapableCount": 0,
+        "PreferredCulture": "string_value",
+        "DisplayPreferredCulture": "string_value",
+        "MfaSetupWizardSettings": {
+          "ShowU2fInMfaSetupWizard": false,
+          "ShowSecurityQuestionInMfaSetupWizard": false,
+          "ShowOathPassCodeInMfaSetupWizard": false,
+          "ShowSmsMessageInMfaSetupWizard": false,
+          "RequiredFactorSetupCount": 0,
+          "ShowMfaSetupWizard": false
+        },
+        "OnDeviceAuthenticatorConfigured": false
+      },
+      "LastPasswordChangeDate": "string_value",
+      "DisplayName": "string_value",
+      "ErrorCode": "string_value",
+      "PasswordExpDate": "string_value",
+      "MobileNumber": "string_value",
+      "Exception": "string_value",
+      "SelfUnlocked": "string_value",
+      "LastLastLoginDate": "string_value",
+      "DirectoryServiceLocalizedName": "string_value",
+      "DirectoryServiceName": "string_value",
+      "Message": "string_value",
+      "DirectoryServiceType": "string_value",
+      "IsSysAdmin": false,
+      "SecurityQuestion": "string_value",
+      "IsSoftError": false,
+      "CanChangePassword": false,
+      "Name": "string_value",
+      "Id": "string_value",
+      "SecurityQuestionsLastUpdate": "string_value",
+      "PasswordResetFlag": 0,
+      "PhonePinLastChangeDate": "string_value",
+      "SqEnabled": false,
+      "TenantId": "string_value",
+      "LastLoginDate": "string_value",
+      "InnerExceptions": "string_value",
+      "PasswordChangeSoftDays": 0,
+      "MessageID": "string_value",
+      "PasswordChangeHardHours": 0
+    },
+    "success": false
+  },
+  "Error": {
+    "InvalidUserId": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Get user information
+PATH: /UserMgmt/GetUserInfo
+METHOD: POST
+TAGS: Manage User Data
+DESCRIPTION: Invoke this API to get the user information for a given user. Only system administrator, users with user management rights, or the user itself can invoke this API. NOTE: This is a high CPU intensive call, so it should be used appropriately. (Cache the result as needed).
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * ID (query, Optional): The unique ID of the user to fetch attributes for. The unique ID is generated when the user is created.(default=current user)
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UserMgmtGetUserInfo
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * Result (object): The user information is returned as the response to the API
+          Nested properties:
+            * DirectoryServiceId (string): The unique ID for the directory service. This ID is created when at the time of the directory service integration with the CyberArk Identity. There is a unique ID available for CDS to.
+            * ThirdPartyOathConfigured (boolean): Has a third party OATH token been configured for this user? - A Boolean flag that specifies if third-party OATH token has been configured for the user
+            * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'
+            * EmailAddress (string): User email address
+            * HasPicture (boolean): Specifies if there is a picture available for this user in cloud directory service.
+            * Settings (object): Contains internal state for the Portal Web UI; this property can be ignored.
+              Nested properties:
+                * uisection (object): UI Settings Section
+                  Nested properties:
+                    * doNotShowIdaptiveWelcomeWizard (boolean): donot show Idaptive Welcome Wizard
+                    * floating-nav-part-Settings-expanded (boolean): expand floating-nav-part settings
+                    * nav-part-Settings-expanded (boolean): expand nav-part settings
+                * SlackAuthEnabled (boolean): Is Slack Auth Enabled?
+                * SecurityKeyConfigured (boolean): Has the user configured a U2F Security Key?
+                * HasU2fDeviceWithFacetIdMatched (boolean): Has U2fDevice with FacetId matched?
+                * SlackMemberIdSet (boolean): Is Slack MemberId Set?
+                * EnablePurchasedLicenseMenu (boolean): Does the user have the right to view licenses?
+                * MobileDeviceAuthCapableCount (integer): Mobile Device Auth Capable Count
+                * PreferredCulture (string): User's preferred culture if any in culture code format (e.g. fr)
+                * DisplayPreferredCulture (string): User's preferred culture if any in display format (e.g. French - français)
+                * MfaSetupWizardSettings (object): Contains settings that guide MFA setup
+                  Nested properties:
+                    * ShowU2fInMfaSetupWizard (boolean): Want to show U2f in Mfa Setup Wizard?
+                    * ShowSecurityQuestionInMfaSetupWizard (boolean): Want to show security question in Mfa Setup Wizard?
+                    * ShowOathPassCodeInMfaSetupWizard (boolean): Want to show OathPassCode in Mfa Setup Wizard?
+                    * ShowSmsMessageInMfaSetupWizard (boolean): Want to show SmsMessage in Mfa Setup Wizard?
+                    * RequiredFactorSetupCount (integer): Required Factor Setup Count
+                    * ShowMfaSetupWizard (boolean): Want to show Mfa Setup Wizard?
+                * OnDeviceAuthenticatorConfigured (boolean): Is OnDeviceAuthenticator configured?
+            * LastPasswordChangeDate (string): The date-time when the user has last changed the password.
+            * DisplayName (string): Display name of the user.
+            * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'
+            * PasswordExpDate (string): The expiry date-time of the user's password.
+            * MobileNumber (string): User mobile phone number
+            * Exception (string): Exception message if any exception is received from the API. By default it is 'null'
+            * SelfUnlocked (string): Self Unlock
+            * LastLastLoginDate (string): Date-time user prior last logged in to the CyberArk Identity portal
+            * DirectoryServiceLocalizedName (string): Directory service name localized to user's preferred language
+            * DirectoryServiceName (string): Directory service name
+            * Message (string): Error message for failure response. By default it is 'null'
+            * DirectoryServiceType (string): The directory service type to which the user belongs. Ex- CDS (Cloud directory service).
+            * IsSysAdmin (boolean): Specifies if the user is a system administrator.
+            * SecurityQuestion (string): Specifies if any security question has been added to the user. The value will be 'yes' if the question is added. Else it will be 'null'.
+            * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+            * CanChangePassword (boolean): A Boolean flag that specifies whether the user can change the password.
+            * Name (string): User name
+            * Id (string): The unique ID of the user. The unique ID is generated when the user is created.
+            * SecurityQuestionsLastUpdate (string): Date-time user has last updated the security question
+            * PasswordResetFlag (integer): An integer that specifies if the password reset is required for the user. The integer can be interpreted as below: 0: no reset needed 1: Reset required 2: Reset optional 3: Reset warning
+            * PhonePinLastChangeDate (string): Date-time user last set their phone PIN
+            * SqEnabled (boolean): Specifies if the security question MFA setup has been enabled for the user.
+            * TenantId (string): The ID of the tenant to which the user belongs.
+            * LastLoginDate (string): Date-time user last logged in
+            * InnerExceptions (string): InnerExceptions
+            * PasswordChangeSoftDays (integer): Days before a user should be warned to change a near to expiring password
+            * MessageID (string): Message Id for failure response. By default it is 'null'
+            * PasswordChangeHardHours (integer): Hours before a user should be prompted to change an near to expiring password
+        * success (boolean): The success will be true or false
+    * Error (object): Error message text on failure. Below message would be returned if provided user is invalid.
+      Nested properties:
+        * InvalidUserId (string): User with given Id not found.
+```

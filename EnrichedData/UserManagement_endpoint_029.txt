@@ -1,0 +1,100 @@
+# Overview
+The **Exempt a user from MFA** endpoint allows system administrators or users with user management permissions to exempt a specified user from Multi-Factor Authentication (MFA) for a defined period. This is useful in scenarios where MFA may hinder access temporarily. The endpoint uses the **POST** HTTP method and is accessed via the path **/CDirectoryService/ExemptUserFromMfa**. Security is enforced through bearer token authentication.
+
+# Key Search Terms
+- Exempt user from MFA
+- Multi-Factor Authentication exemption
+- User management API
+- System administrator MFA control
+- Bearer token authentication
+- User UUID exemption
+- API for MFA settings
+- Temporary MFA exemption
+- User permissions management
+
+# Example User Questions
+- How can I exempt a user from MFA temporarily?
+- What is the endpoint to manage MFA exemptions for users?
+- Can I specify a time duration for MFA exemption?
+- What permissions do I need to exempt a user from MFA?
+- What is the default timespan for MFA exemption?
+- How do I use the ExemptUserFromMfa API?
+- What response can I expect when I exempt a user from MFA?
+- How do I handle errors when exempting a user from MFA?
+- What is the required parameter for the user UUID in the MFA exemption API?
+- How do I authenticate when using the MFA exemption endpoint?
+
+# Developer Notes
+- **Required Parameters:**
+  - `ID` (query, Required): User UUID to exempt from MFA.
+- **Optional Parameters:**
+  - `timespan` (query, Optional): Amount of time to exempt the user from MFA (default is 10 minutes).
+- **Response Structure:**
+  - Status Code: 200
+  - Content Type: */*
+  - Response Schema: UserMgmtRemoveUsers
+- **Error Handling:**
+  - The response may include an error object with a message if the exemption fails.
+- **Security Considerations:**
+  - The endpoint requires bearer token authentication.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+## Request Parameters
+- **ID**
+  - **Type:** String (UUID)
+  - **Description:** The unique identifier of the user to be exempted from MFA.
+  - **Constraints:** Required field.
+  - **Example:** `123e4567-e89b-12d3-a456-426614174000`
+
+- **timespan**
+  - **Type:** Integer (minutes)
+  - **Description:** The duration for which the user will be exempt from MFA.
+  - **Constraints:** Optional field; defaults to 10 minutes if not provided.
+  - **Example:** `15` (for a 15-minute exemption)
+
+## Response Parameters
+- **Response Body**
+  - **Result**
+    - **Type:** Object
+    - **Description:** Standard result object indicating success.
+  - **Error**
+    - **Type:** Object
+    - **Description:** Contains error message text on failure; may be null.
+  
+### Sample Response JSON
+```json
+{
+  "Result": {},
+  "Error": {}
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Exempt a user from MFA
+PATH: /CDirectoryService/ExemptUserFromMfa
+METHOD: POST
+TAGS: Additional User Management APIs
+DESCRIPTION: You must be a system administrator or have user management permissions. User is exempt from MFA login for a specified amount of time.
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * ID (query, Required): User UUID to except from MFA
+  * timespan (query, Optional): Amount of time to exempt the user from MFA (default=10 minutes)
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UserMgmtRemoveUsers
+  Response Body Properties:
+    * Result (object): Standard result
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+```

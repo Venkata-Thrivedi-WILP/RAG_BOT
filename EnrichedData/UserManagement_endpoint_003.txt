@@ -1,0 +1,149 @@
+# Overview  
+The **Advance Bulk User Import** endpoint allows system administrators and users with user management rights to create users in bulk within the CyberArk Identity cloud directory. This is achieved by submitting a CSV file that contains user information. The endpoint is accessed via a **POST** request to the path **/CDirectoryService/SubmitUploadedFile**. It is important to note that this API is the second part of a two-step process; the first step involves calling the **GetUsersFromCsvFile** endpoint to initiate the import. The request requires specific security/authentication via a bearer token.
+
+# Key Search Terms  
+- Bulk User Import API  
+- CyberArk Identity  
+- Submit Uploaded File  
+- User Management API  
+- CSV User Upload  
+- API for Creating Users  
+- Admin User Import  
+- Bearer Authentication  
+- Scheduled Task for User Creation  
+- ImportBulkUser
+
+# Example User Questions  
+- How can I bulk import users into CyberArk Identity?  
+- What is the endpoint for submitting a CSV file for user creation?  
+- What parameters do I need to provide for bulk user import?  
+- How do I send SMS and email invites during user import?  
+- What is the response structure for the bulk user import API?  
+- How do I handle errors when importing users in bulk?  
+- What authentication is required for the Advance Bulk User Import API?  
+- Can I check the status of the bulk user import?  
+- What is the purpose of the ReturnID in the request?  
+- How do I format the request body for the bulk user import?
+
+# Developer Notes  
+- **Required Parameters**:  
+  - Query Parameter: `importType` (must be "ImportBulkUser")  
+  - Request Body:  
+    - `ReturnID` (string, required)  
+    - `AdminEmail` (string, required)  
+    - `SendSmsInvite` (boolean, required)  
+    - `SendEmailInvite` (boolean, required)  
+- **Request Structure**:  
+  - Content Type: `application/json`  
+- **Response Structure**:  
+  - Status Code: 200 for successful requests  
+- **Error Handling**:  
+  - The response includes detailed error information if the request fails.  
+- **Security Considerations**:  
+  - Authentication is required via bearer token.
+
+# Detailed Explanation of Available Data, Request and Response Parameters  
+
+### Request Parameters  
+- **Query Parameters**:  
+  - `importType` (string, required): Specifies the type of import. Must be "ImportBulkUser".  
+- **Request Body**:  
+  - `ReturnID` (string, required): The return ID received from the preceding API call `/GetUsersFromCsvFile`.  
+  - `AdminEmail` (string, required): The email address of the admin or user with user management rights.  
+  - `SendSmsInvite` (boolean, required): Indicates whether to send SMS invites to users created via this API.  
+  - `SendEmailInvite` (boolean, required): Indicates whether to send email invites to users created via this API.  
+
+**Sample Request JSON**:  
+```json
+{
+  "ReturnID": "string_value",
+  "AdminEmail": "string_value",
+  "SendSmsInvite": false,
+  "SendEmailInvite": false
+}
+```
+
+### Response Parameters  
+- **Response Body**:  
+  - `Result` (object): Contains the result of the API call.  
+    - `ErrorID` (string): Error ID if any error is received. Default is 'null'.  
+    - `ErrorCode` (string): Error code if any error is received. Default is 'null'.  
+    - `Exception` (string): Exception message if an exception is received. Default is 'null'.  
+    - `MessageID` (string): Message ID for failure response. Default is 'null'.  
+    - `Result` (string): The result message for the API call. Example: "Your job for creating users has been submitted successfully."  
+    - `InnerExceptions` (string): Inner exceptions if any received. Default is 'null'.  
+    - `Message` (string): Error message for failure response. Default is 'null'.  
+    - `success` (boolean): Indicates success of the API call.  
+    - `IsSoftError` (boolean): Indicates if this is a UI warning popup.  
+  - `Error` (object): Contains error message text on failure.  
+    - `ErrorMessage` (string): Message indicating file upload failure.  
+
+**Sample Response JSON**:  
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "ErrorMessage": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT**: Advance Bulk User Import  
+**PATH**: /CDirectoryService/SubmitUploadedFile  
+**METHOD**: POST  
+**TAGS**: Bulk Import  
+**DESCRIPTION**: Use this API to create users in bulk in the CyberArk Identity cloud directory. Only system administrators and users with user management rights can invoke this API. This API is the second part of the two API calls to upload a bulk of users in the cloud directory. Refer to GetUsersFromCsvFile for the first part, which initiates the import. This API creates a scheduled task to process the uploaded CSV file containing the users information for the bulk import and creation. When this API is invoked, admin submits the file uploaded to cloud for bulk user import. This API request takes a query parameter 'importType' which should be 'ImportBulkUser' in this particular case. In request body, the email address of the admin making the import and the returnId from preceeding API call are mandatory to be passed.  
+**METADATA**:  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**PARAMETERS**:  
+  * importType (query, Required): Bulk import type to process. Default type is Bulk User Import i.e. "ImportBulkUser"  
+**REQUEST BODY**: Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * ReturnID (string): Return id recieved in response from preceeding API call '/GetUsersFromCsvFile'  
+    * AdminEmail (string): Email address of the admin or user with user management rights whois trying to create these users on the cloud  
+    * SendSmsInvite (boolean): Indicate if you want to send all the users created via this API an sms invite to enroll their mobile device in the portal  
+    * SendEmailInvite (boolean): Indicate if you want to send all the users created via this API an email invite to the portal  
+    **Required fields**: ReturnID, AdminEmail, SendSmsInvite, SendEmailInvite  
+  **Sample Request JSON**:  
+  ```json
+  {
+  "ReturnID": "string_value",
+  "AdminEmail": "string_value",
+  "SendSmsInvite": false,
+  "SendEmailInvite": false
+}
+  ```  
+**RESPONSES**:  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: CDirectoryServiceSubmitUploadedFile  
+  Response Body Properties:  
+    * Result (object): Return object for a successful API call  
+      Nested properties:  
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'  
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'  
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'  
+        * MessageID (string): Message Id for failure response. By default it is 'null'  
+        * Result (string): The result for the API call. Ex: 'Your job for creating users has been submitted successfully. An email will be sent to you after the job has been completed.'  
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'  
+        * Message (string): Error message for failure response. By default it is 'null'  
+        * success (boolean): It will be true for a successful API call  
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup  
+    * Error (object): Error message text on failure, below message would be returned if file did not get uploaded  
+      Nested properties:  
+        * ErrorMessage (string): File upload fail.  
+**SECURITY**: bearerAuth  

@@ -1,0 +1,138 @@
+# Overview
+The **Get User Attributes** endpoint allows users to retrieve detailed information about a specific user within the system. This functionality is accessed via a **POST** request to the path **/CDirectoryService/GetUserAttributes**. To use this endpoint, a valid bearer token is required for authentication, ensuring that only authorized users can access sensitive user data.
+
+# Key Search Terms
+- Get User Attributes
+- User details API
+- Retrieve user information
+- User profile endpoint
+- User attributes management
+- CDirectoryService
+- User data retrieval
+- API user attributes
+- Bearer token authentication
+
+# Example User Questions
+- How can I retrieve user attributes using the API?
+- What information can I get about a user from the Get User Attributes endpoint?
+- Is there a way to check if a user is in the Everybody role?
+- What details are included in the user profile response?
+- How do I authenticate to access user attributes?
+- Can I find out when a user last changed their password?
+- What is the format of the response from the Get User Attributes API?
+- How do I know if a user's password never expires?
+- What parameters do I need to send in the request?
+- How can I access a user's mobile number through the API?
+
+# Developer Notes
+- **Required Parameters**: The request must include a valid bearer token for authentication.
+- **Request Structure**: The request body is not specified in the documentation, indicating that it may not require additional parameters beyond authentication.
+- **Response Structure**: 
+  - **200 Status Code**: Returns user details in the response body.
+  - **Error Handling**: An error object may be returned if the request fails.
+- **Security Considerations**: Ensure that the bearer token is securely managed and not exposed.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **Authorization**: Bearer token (required for authentication)
+
+### Response Parameters
+- **Result (object)**: Contains detailed user information.
+  - **InEverybodyRole (boolean)**: Indicates if the user is in the Everybody role.
+  - **Description (string)**: A description of the user.
+  - **Name (string)**: The user's full name.
+  - **MobileNumber (string)**: The user's mobile phone number.
+  - **LastPasswordChangeDate (string)**: The date and time the user last changed their password.
+  - **OfficeNumber (string)**: The user's office phone number.
+  - **PictureUri (string)**: The file system path to the user's picture.
+  - **ReportsTo (string)**: The UUID of the user that this user reports to.
+  - **HomeNumber (string)**: The user's home phone number.
+  - **DisplayName (string)**: The user's display name.
+  - **Alias (string)**: The login suffix for the user.
+  - **State (string)**: The current state of the user (e.g., locked, enabled, expired).
+  - **PasswordNeverExpire (boolean)**: Indicates if the user's password is set to never expire.
+  - **Uuid (string)**: The unique identifier for the user.
+  - **Mail (string)**: The user's email address.
+- **Error (object)**: Contains error message text on failure, which may be null.
+
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "InEverybodyRole": false,
+    "Description": "string_value",
+    "Name": "string_value",
+    "MobileNumber": "string_value",
+    "LastPasswordChangeDate": "string_value",
+    "OfficeNumber": "string_value",
+    "PictureUri": "string_value",
+    "ReportsTo": "string_value",
+    "HomeNumber": "string_value",
+    "DisplayName": "string_value",
+    "Alias": "string_value",
+    "State": "string_value",
+    "PasswordNeverExpire": false,
+    "Uuid": "string_value",
+    "Mail": "string_value"
+  },
+  "Error": {}
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Get user attributes
+PATH: /CDirectoryService/GetUserAttributes
+METHOD: POST
+TAGS: Manage User Attributes
+METADATA:
+  * x-idap-anon: False
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: CDirectoryServiceGetUserAttributes
+  Response Body Properties:
+    * Result (object): Cloud user details
+      Nested properties:
+        * InEverybodyRole (boolean): Is user in the Everybody role?
+        * Description (string): User description
+        * Name (string): User name
+        * MobileNumber (string): User mobile phone number
+        * LastPasswordChangeDate (string): Date/time user last changed their password
+        * OfficeNumber (string): User office phone number
+        * PictureUri (string): File system path to user picture file
+        * ReportsTo (string): User reports to user UUID.
+        * HomeNumber (string): User home phone number
+        * DisplayName (string): User display name
+        * Alias (string): Login suffix of the user
+        * State (string): User state (locked, enabled, expired)
+        * PasswordNeverExpire (boolean): Does the user's password never expire?
+        * Uuid (string): User UUID
+        * Mail (string): User email
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "InEverybodyRole": false,
+    "Description": "string_value",
+    "Name": "string_value",
+    "MobileNumber": "string_value",
+    "LastPasswordChangeDate": "string_value",
+    "OfficeNumber": "string_value",
+    "PictureUri": "string_value",
+    "ReportsTo": "string_value",
+    "HomeNumber": "string_value",
+    "DisplayName": "string_value",
+    "Alias": "string_value",
+    "State": "string_value",
+    "PasswordNeverExpire": false,
+    "Uuid": "string_value",
+    "Mail": "string_value"
+  },
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+```

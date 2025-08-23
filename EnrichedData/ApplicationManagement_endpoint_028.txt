@@ -1,0 +1,126 @@
+# Overview  
+This endpoint allows users to add and update tags for secured items associated with their account. It uses the HTTP POST method and is accessed via the path `/UPRest/UpsertTagsForSecuredItem`. To utilize this endpoint, users must provide a valid bearer token for authentication.
+
+# Key Search Terms  
+- Add secured item tags  
+- Update secured item tags  
+- Tag management API  
+- Application management endpoint  
+- Bearer authentication  
+- JSON request body  
+- API response structure  
+- Secured item key  
+- Tag names array  
+- Error handling in API  
+
+# Example User Questions  
+- How can I add tags to my secured items?  
+- What is the process to update tags for a secured item?  
+- What authentication is required for the UpsertTagsForSecuredItem endpoint?  
+- Can I remove tags from my secured items using this API?  
+- What should I include in the request body for adding tags?  
+- How do I handle errors when using the tag management API?  
+- What is the expected response format for the UpsertTagsForSecuredItem endpoint?  
+- Are there any required fields for the request to add tags?  
+- How do I know if my tag update was successful?  
+- What type of data can I send in the request body?  
+
+# Developer Notes  
+- **Required Parameters:**  
+  - `tagnames`: An array of tag names to be associated with the secured item.  
+  - `itemkey`: A string representing the secured item key.  
+
+- **Request Structure:**  
+  - Content Type: `application/json`  
+  - Example Request JSON:  
+    ```json
+    {
+      "tagnames": [
+        "string_value"
+      ],
+      "itemkey": "string_value"
+    }
+    ```
+
+- **Response Structure:**  
+  - Status Code: `200`  
+  - Response Content Type: `*/*`  
+  - Example Response JSON:  
+    ```json
+    {
+      "Result": {},
+      "Error": {}
+    }
+    ```
+
+- **Error Handling:**  
+  - The response may include an `Error` object with a message if the operation fails.  
+
+- **Security Considerations:**  
+  - This endpoint requires bearer authentication.  
+
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **tagnames**  
+  - **Type:** Array  
+  - **Description:** A list of tag names to be associated with the secured item.  
+  - **Constraints:** Must be provided as an array of strings.  
+  - **Example:** `["tag1", "tag2"]`  
+
+- **itemkey**  
+  - **Type:** String  
+  - **Description:** The key of the secured item to which the tags will be added or updated.  
+  - **Constraints:** Must be a valid string.  
+  - **Example:** `"secured_item_123"`  
+
+## Response Parameters  
+- **Result**  
+  - **Type:** Object  
+  - **Description:** Indicates whether the operation was successful.  
+  - **Example:** `{}` (empty object on success)  
+
+- **Error**  
+  - **Type:** Object  
+  - **Description:** Contains error message text if the operation fails, may be null.  
+  - **Example:** `{"message": "Error description"}` or `null`  
+
+# Raw Endpoint Documentation (Formatted)  
+ENDPOINT: Add and update secured item tags for the current user.  
+PATH: /UPRest/UpsertTagsForSecuredItem  
+METHOD: POST  
+TAGS: Application Management  
+METADATA:  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+REQUEST BODY: Required  
+  Content Type: application/json  
+  Schema Properties:  
+    * tagnames (array): list of tag names  
+      Array items:  
+    * itemkey (string): Secured item key  
+    Required fields: tagnames, itemkey  
+  Sample Request JSON:  
+  ```json  
+  {  
+    "tagnames": [  
+      "string_value"  
+    ],  
+    "itemkey": "string_value"  
+  }  
+  ```  
+RESPONSES:  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: UPRestDeleteTag  
+  Response Body Properties:  
+    * Result (object): Whether the operation is successful or not.  
+    * Error (object): Error message text on failure, may be null  
+  Sample Response JSON:  
+  ```json  
+  {  
+    "Result": {},  
+    "Error": {}  
+  }  
+  ```  
+SECURITY: bearerAuth  

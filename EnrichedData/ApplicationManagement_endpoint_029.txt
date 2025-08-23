@@ -1,0 +1,164 @@
+# Overview  
+This endpoint retrieves all available data for the user portal in a single call. It uses the POST HTTP method and can be accessed at the path `/UPRest/GetUPData`. The call caches the list of applications but does not cache tag information. To access this endpoint, a bearer authentication token is required.
+
+# Key Search Terms  
+- User portal data retrieval  
+- GetUPData API  
+- Application management endpoint  
+- Cache applications  
+- User applications list  
+- Bearer authentication  
+- POST request for user data  
+- Application details API  
+- User-specific application data  
+- API response structure  
+
+# Example User Questions  
+- How can I retrieve all applications for a specific user?  
+- What information does the GetUPData endpoint provide?  
+- Is there a way to bypass the cache when fetching user portal data?  
+- What are the required parameters for the GetUPData API?  
+- How do I authenticate when calling the user portal data endpoint?  
+- Can I get details about application types and categories?  
+- What does the response from the GetUPData API look like?  
+- How do I know if an application is set for automatic installation?  
+- What is the significance of the 'UsernameRO' field in the response?  
+- How can I check if an application is a self-service application?  
+
+# Developer Notes  
+- **Required Parameters:**  
+  - `force` (query, Required): Whether to use the cache. If set to true, the call does not use the cache.  
+  - `username` (query, Required): Target user name.  
+
+- **Request Body:**  
+  - Content Type: `application/json`  
+  - Schema Properties: Required  
+
+- **Response Structure:**  
+  - Status Code: `200`  
+  - Content Type: `*/*`  
+  - Response Schema: `UPRestGetUPData`  
+
+- **Error Handling:**  
+  - The response may contain an `Error` object with an error message text on failure, which may be null.  
+
+- **Security Considerations:**  
+  - Bearer authentication is required to access this endpoint.  
+
+# Detailed Explanation of Available Data, Request and Response Parameters  
+## Request Parameters  
+- **force** (query, Required)  
+  - Type: Boolean  
+  - Description: Determines whether to use the cache. Set to `true` to bypass the cache.  
+  - Example: `?force=true`  
+
+- **username** (query, Required)  
+  - Type: String  
+  - Description: The target user's name for whom the application data is being retrieved.  
+  - Example: `?username=johndoe`  
+
+## Response Parameters  
+- **Result** (object): A list of applications with the following nested properties:  
+  - **Shortcut** (boolean): Indicates if the application has been set for optional installation.  
+  - **_RowKey** (string): Application ID.  
+  - **Url** (string): URL of the application.  
+  - **Description** (string): Description of the application.  
+  - **Category** (string): Category of the application.  
+  - **AdminTag** (string): Admin tag for the application.  
+  - **Name** (string): Name of the application.  
+  - **TemplateName** (string): Template name of the application.  
+  - **WebAppType** (string): Type of the web application.  
+  - **PasswordIsSet** (boolean): Indicates if the password has been set.  
+  - **DisplayName** (string): Display name of the application.  
+  - **UsernameRO** (boolean): Indicates if the username is read-only.  
+  - **WebAppTypeDisplayName** (string): Display name of the web application type.  
+  - **Personal** (boolean): Indicates if the application is a self-service application.  
+  - **AppTypeDisplayName** (string): Display name of the application type.  
+  - **AppType** (string): Type of the application.  
+  - **Intranet** (boolean): Indicates if the application is an intranet app.  
+  - **AppKey** (string): Key for the application.  
+  - **Automatic** (boolean): Indicates if the application has been set for automatic installation.  
+  - **Rank** (integer): Rank of the application.  
+  - **Icon** (string): Path of the application icon image.  
+  - **Username** (string): Username for the application.  
+
+- **Error** (object): Contains error message text on failure, may be null.  
+
+### Sample Response JSON  
+```json
+{
+  "Result": {
+    "Shortcut": false,
+    "_RowKey": "string_value",
+    "Url": "string_value",
+    "Description": "string_value",
+    "Category": "string_value",
+    "AdminTag": "string_value",
+    "Name": "string_value",
+    "TemplateName": "string_value",
+    "WebAppType": "string_value",
+    "PasswordIsSet": false,
+    "DisplayName": "string_value",
+    "UsernameRO": false,
+    "WebAppTypeDisplayName": "string_value",
+    "Personal": false,
+    "AppTypeDisplayName": "string_value",
+    "AppType": "string_value",
+    "Intranet": false,
+    "AppKey": "string_value",
+    "Automatic": false,
+    "Rank": 0,
+    "Icon": "string_value",
+    "Username": "string_value"
+  },
+  "Error": {}
+}
+```
+
+# Raw Endpoint Documentation (Formatted)  
+**ENDPOINT:** Gets all available data for the user portal in one call.  
+**PATH:** /UPRest/GetUPData  
+**METHOD:** POST  
+**TAGS:** Application Management  
+**DESCRIPTION:** This call caches the list of applications but does not cache tag information.  
+**METADATA:**  
+  * x-idap-anon: False  
+  * x-codegen-request-body-name: payload  
+**PARAMETERS:**  
+  * force (query, Required): Whether to use the cache. If set to true, the call does not use the cache.  
+  * username (query, Required): Target user name.  
+**REQUEST BODY:** Required  
+  Content Type: application/json  
+  Schema Properties:  
+**RESPONSES:**  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: UPRestGetUPData  
+  Response Body Properties:  
+    * Result (object): A list of applications  
+      Nested properties:  
+        * Shortcut (boolean): Whether the application has been set for optional installation  
+        * _RowKey (string): Application ID  
+        * Url (string): Application Url  
+        * Description (string): Application description  
+        * Category (string): Application category  
+        * AdminTag (string): Application admin tag  
+        * Name (string): Application name  
+        * TemplateName (string): Application template name  
+        * WebAppType (string): Application web-app-type  
+        * PasswordIsSet (boolean): Whether the password has been set  
+        * DisplayName (string): Application display name  
+        * UsernameRO (boolean): Whether user name is read-only  
+        * WebAppTypeDisplayName (string): Display name of web-app-type  
+        * Personal (boolean): Whether the application is a self-service application.  
+        * AppTypeDisplayName (string): Display name of application type  
+        * AppType (string): Application type  
+        * Intranet (boolean): Whether the application is an intranet app  
+        * AppKey (string): Application key  
+        * Automatic (boolean): Whether the application has been set for automatic installation  
+        * Rank (integer): Application rank  
+        * Icon (string): Path of application icon image  
+        * Username (string): Application username  
+    * Error (object): Error message text on failure, may be null  
+**SECURITY:** bearerAuth  

@@ -1,0 +1,336 @@
+# Overview
+This API endpoint allows system administrators and users with user management rights to retrieve a list of user roles and their associated administrative rights. It uses the POST HTTP method and is accessed at the path `/UserMgmt/GetUsersRolesAndAdministrativeRights`. To invoke this API, users must authenticate using bearer token security.
+
+# Key Search Terms
+- Get user roles
+- Administrative rights API
+- User management endpoint
+- Retrieve user permissions
+- User roles and rights
+- System administrator API
+- User data management
+- API for user roles
+- Fetch administrative rights
+- User roles retrieval
+
+# Example User Questions
+- How can I get the roles and administrative rights for a specific user?
+- What API do I use to manage user roles?
+- How do I retrieve user permissions using the API?
+- What are the required parameters for fetching user roles?
+- Can I see the administrative rights associated with a user?
+- What security is needed to access user management data?
+- How do I handle errors when calling the user roles API?
+- What does the response look like when I query user roles?
+- How can I sort the results when fetching user roles?
+- What are the limits on the number of results I can retrieve?
+
+# Developer Notes
+- **Required Parameters:**
+  - **ID (query)**: The unique ID of the user to fetch administrative rights.
+  
+- **Request Body:**
+  - Must be in JSON format and include the `Args` object with the following required fields:
+    - `Limit` (integer): Maximum number of results to return.
+    - `PageNumber` (integer): Page number of results to return.
+    - `PageSize` (integer): Number of entities to return per page.
+    - `Caching` (integer): Caching options (-1 for live data with cache write, 0 for cache read/write).
+    - `SortBy` (string): Comma-separated list of column names to sort by.
+
+- **Response Structure:**
+  - Status Code: 200 for successful calls.
+  - Contains detailed information about user roles and administrative rights.
+  
+- **Error Handling:**
+  - The response includes error messages and codes for failed requests.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **ID (query)**: 
+  - Type: String
+  - Description: Unique identifier for the user.
+  
+### Request Body
+- **Args (object)**: 
+  - Required
+  - Properties:
+    - **Limit (integer)**: Maximum number of results to return.
+      - Example: `10`
+    - **PageNumber (integer)**: The page number to return.
+      - Example: `1`
+    - **PageSize (integer)**: Number of entities to return per page.
+      - Example: `20`
+    - **Caching (integer)**: Caching options.
+      - Example: `0`
+    - **SortBy (string)**: Comma-separated list of columns to sort by.
+      - Example: `"RoleName,ID"`
+
+### Response Parameters
+- **Result (object)**: 
+  - Contains the result of the API call.
+  - Properties:
+    - **ErrorID (string)**: Error ID if any error occurs.
+    - **ErrorCode (string)**: Error code if any error occurs.
+    - **Exception (string)**: Exception message if any exception occurs.
+    - **MessageID (string)**: Message ID for failure responses.
+    - **Result (object)**: 
+      - Properties:
+        - **ReturnID (string)**: Return ID for the successful API call.
+        - **Count (integer)**: Number of records returned.
+        - **Columns (array)**: List of column definitions.
+          - Each item includes:
+            - **TableKey (string)**: Key type (e.g., 'Primary').
+            - **Description (string)**: Brief description of the column.
+            - **Name (string)**: Name of the column.
+            - **Type (string)**: Numeric indicator of the data type.
+            - **IsHidden (boolean)**: Indicates if the column is hidden.
+            - **Title (string)**: Title of the column.
+        - **Results (object)**: Contains the rows from the table.
+          - **Entities (array)**: List of entity definitions.
+          - **Row (object)**: Contains details about the user role.
+            - **OrgPath (string)**: The Role OrgPath.
+            - **RoleName (string)**: The Role Name.
+            - **AdministrativeRights (object)**: List of administrative rights.
+              - Properties include:
+                - **Scope (string)**: The role scope.
+                - **Path (string)**: File describing the administrative right.
+                - **Description (string)**: Localized name of the administrative right.
+        - **FullCount (integer)**: Total number of rows.
+        - **IsAggregate (boolean)**: Indicates if the result is aggregated.
+    - **InnerExceptions (string)**: Any inner exceptions received.
+    - **Message (string)**: Error message for failure responses.
+    - **success (boolean)**: Indicates success of the API call.
+    - **IsSoftError (boolean)**: Indicates if it's a soft error.
+
+### Sample Request JSON
+```json
+{
+  "Args": {
+    "Limit": 0,
+    "PageNumber": 0,
+    "PageSize": 0,
+    "Caching": 0,
+    "SortBy": "string_value"
+  }
+}
+```
+
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "ReturnID": "string_value",
+      "Count": 0,
+      "Columns": [
+        {
+          "TableKey": "string_value",
+          "Description": "string_value",
+          "Name": "string_value",
+          "Format": "string_value",
+          "TableName": "string_value",
+          "DDName": "string_value",
+          "DDTitle": "string_value",
+          "Type": "string_value",
+          "IsHidden": false,
+          "Width": 0,
+          "Title": "string_value",
+          "ForeignKey": "string_value"
+        }
+      ],
+      "Results": {
+        "Entities": [
+          {
+            "IsForeignKey": "string_value",
+            "Type": "string_value",
+            "Key": "string_value"
+          }
+        ],
+        "Row": {
+          "OrgPath": "string_value",
+          "RoleName": "string_value",
+          "Role": "string_value",
+          "ID": "string_value",
+          "AdministrativeRights": {
+            "Scope": "string_value",
+            "Path": "string_value",
+            "Description": "string_value"
+          },
+          "description": "string_value",
+          "Name": "string_value"
+        }
+      },
+      "FullCount": 0,
+      "IsAggregate": false
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "InvalidID": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Get user roles and administrative rights
+PATH: /UserMgmt/GetUsersRolesAndAdministrativeRights
+METHOD: POST
+TAGS: Manage User Data
+DESCRIPTION: This API is used to show a list of user roles and administrative rights associated with the roles. Only system administrators, users with user management rights can invoke this API. In response, it will return userid along with associated administrative rights.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+PARAMETERS:
+  * ID (query, Required): The unique ID of the user to fetch administrative rights
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * Args (object): The script arguments
+      Nested properties:
+        * Limit (integer): The maximum number of results to return for the specified page.
+        * PageNumber (integer): The number of pages of results to return.
+        * PageSize (integer): The number of entities to return per page.
+        * Caching (integer): Can be set to the following values: -1: returns live data but writes to the cache for query results. 0: use the cache for both read/write with 'caching in minutes as TTL of the results.
+        * SortBy (string): Comma-separated list of column names to sort by.
+    Required fields: Args
+  Sample Request JSON:
+  ```json
+  {
+  "Args": {
+    "Limit": 0,
+    "PageNumber": 0,
+    "PageSize": 0,
+    "Caching": 0,
+    "SortBy": "string_value"
+  }
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UserMgmtGetUsersRolesAndAdministrativeRights
+  Response Body Properties:
+    * Result (object): Return object for a successful API call.
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default it is 'null'
+        * Exception (string): Exception message if any exception is received from the API. By default it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (object): Result includes Count and Columns definition.
+          Nested properties:
+            * ReturnID (string): ReturnID for the successful api call. By default it is null
+            * Count (integer): It is the number of records that the call returns.
+            * Columns (array): Array list of definition of all Columns.
+              Array items:
+                * TableKey (string): specifies whether column is a key and if so what kind of key it is. It can be primary key or foreign key.Ex: 'Primary'
+                * Description (string): It is the brief description of the column. Ex: 'Row Identifier (primary key)'
+                * Name (string): It is the name of the column.
+                * Format (string): Currently It is not applicable. By default it is null.
+                * TableName (string): It is the name of the table. By default it is null.
+                * DDName (string): It is the Data dictionary name of the column. Ex: 'ID'
+                * DDTitle (string): It is the Data dictionary title of the column. Ex: 'ID'
+                * Type (string): It is the numeric indicator of the type of data in the column. Ex: '12'
+                * IsHidden (boolean): specifies whether column is hidden or not. default: false
+                * Width (integer): Currently It is not applicable. By default it is 0.
+                * Title (string): Title of the column. Ex: 'ID'
+                * ForeignKey (string): specifies whether column holds a foreign key or not. By default it is null.
+            * Results (object): Results the rows from the table.
+              Nested properties:
+                * Entities (array): Array list of definition of all Columns.
+                  Array items:
+                    * IsForeignKey (string): Specifies whether the entity has foreign key or not. By default it is false.
+                    * Type (string): It is type of the entity. Ex: Application
+                    * Key (string): Unique Id of the Entity. Ex:'cb9b5761-6cfe-45a5-8ecf-ce9fa9e0ff82'
+                * Row (object): Row consists of Entities list and Specifies the details
+                  Nested properties:
+                    * OrgPath (string): The Role OrgPath.
+                    * RoleName (string): The Role Name
+                    * Role (string): The role UUID
+                    * ID (string): The role UUID
+                    * AdministrativeRights (object): List of objects that have
+                      Nested properties:
+                        * Scope (string): The role Scope
+                        * Path (string): file that describes the administrative right
+                        * Description (string): localized name of the administrative right
+                    * description (string): The role description
+                    * Name (string): The role name
+            * FullCount (integer): It specifies number of Rows count.
+            * IsAggregate (boolean): It is an attribute.
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default it is 'null'
+        * Message (string): Error message for failure response. By default it is 'null'
+        * success (boolean): The success will be true or false
+        * IsSoftError (boolean): SoftError if true indicates this is not actually an exception but an UI warning popup.
+    * Error (object): Error message text on failure.
+      Nested properties:
+        * InvalidID (string): 'This error occurs when the user id is not correct. By default, the below error message will be displayed: User id not found; they may have been deleted or the directory may be unavailable'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": {
+      "ReturnID": "string_value",
+      "Count": 0,
+      "Columns": [
+        {
+          "TableKey": "string_value",
+          "Description": "string_value",
+          "Name": "string_value",
+          "Format": "string_value",
+          "TableName": "string_value",
+          "DDName": "string_value",
+          "DDTitle": "string_value",
+          "Type": "string_value",
+          "IsHidden": false,
+          "Width": 0,
+          "Title": "string_value",
+          "ForeignKey": "string_value"
+        }
+      ],
+      "Results": {
+        "Entities": [
+          {
+            "IsForeignKey": "string_value",
+            "Type": "string_value",
+            "Key": "string_value"
+          }
+        ],
+        "Row": {
+          "OrgPath": "string_value",
+          "RoleName": "string_value",
+          "Role": "string_value",
+          "ID": "string_value",
+          "AdministrativeRights": {
+            "Scope": "string_value",
+            "Path": "string_value",
+            "Description": "string_value"
+          },
+          "description": "string_value",
+          "Name": "string_value"
+        }
+      },
+      "FullCount": 0,
+      "IsAggregate": false
+    },
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "InvalidID": "string_value"
+  }
+}
+```

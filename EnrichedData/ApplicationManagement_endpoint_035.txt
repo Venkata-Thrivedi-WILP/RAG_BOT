@@ -1,0 +1,82 @@
+# Overview  
+This endpoint allows you to retrieve the amount of storage space consumed by the current user for file storage. It is accessed via a POST request to the path `/UPRest/UpRestGetConsumedStorageForSecuredItem`. To use this endpoint, authentication is required through bearer token security.
+
+# Key Search Terms  
+- Get consumed storage space  
+- User storage information  
+- File storage usage  
+- Secured Item storage  
+- API storage endpoint  
+- User Portal storage  
+- Bearer authentication storage  
+- Application management API  
+- Storage space consumed  
+
+# Example User Questions  
+- How can I check my consumed storage space?  
+- What is the total file storage used by my account?  
+- How do I retrieve my storage usage information?  
+- Can I find out how much space I have left for secured items?  
+- What API endpoint do I use to get my storage consumption?  
+- How do I authenticate to access storage data?  
+- What does the response look like for storage consumption?  
+- Is there an error message if the storage retrieval fails?  
+- How is storage space calculated for users?  
+
+# Developer Notes  
+- **Required Parameters**: None specified in the documentation.  
+- **Request Structure**: A POST request to the endpoint with bearer token authentication.  
+- **Response Structure**: The response will include a status code and a body containing either the consumed storage data or an error message.  
+- **Error Handling**: The response may include an error object if the request fails.  
+- **Security Considerations**: Ensure that bearer token authentication is properly implemented.
+
+# Detailed Explanation of Available Data, Request and Response Parameters  
+### Request Parameters  
+- No specific request parameters are mentioned in the documentation.
+
+### Response Parameters  
+- **Status Code**: `200`  
+  - Indicates a successful request.  
+- **Response Body**:  
+  - **Result (object)**: Contains the storage information.  
+    - **StorageSpaceConsumed (number)**: Total amount of space consumed per user for file storage.  
+  - **Error (object)**: Contains error message text on failure, may be null.  
+
+#### Sample Response JSON  
+```json
+{
+  "Result": {
+    "StorageSpaceConsumed": 0
+  },
+  "Error": {}
+}
+```
+
+# Raw Endpoint Documentation (Formatted)  
+ENDPOINT: Get consumed storage space for the current user.  
+PATH: /UPRest/UpRestGetConsumedStorageForSecuredItem  
+METHOD: POST  
+TAGS: Application Management  
+DESCRIPTION: This endpoint is called when clicks to add a Secured Item from the User Portal.  
+METADATA:  
+  * x-idap-anon: False  
+RESPONSES:  
+  Status Code: 200  
+  Description: API-Result  
+  Content Type: */*  
+  Response Schema: UpRestGetConsumedStorageForSecuredItem  
+  Response Body Properties:  
+    * Result (object): File storage consumed per user.  
+      Nested properties:  
+        * StorageSpaceConsumed (number): Total amount of space consumed per user for file storage.  
+    * Error (object): Error message text on failure, may be null.  
+  Sample Response JSON:  
+  ```json
+  {
+  "Result": {
+    "StorageSpaceConsumed": 0
+  },
+  "Error": {}
+}
+  ```  
+SECURITY: bearerAuth  

@@ -1,0 +1,109 @@
+# Overview
+The **Update Secured Item Credentials** endpoint allows users to update the credentials associated with a secured item. This is achieved through a POST request to the path `/UPRest/UpdateCredsForSecuredItem`. The endpoint requires authentication via a bearer token, ensuring that only authorized users can modify secured item credentials.
+
+# Key Search Terms
+- Update secured item credentials
+- Secured item credentials API
+- POST /UPRest/UpdateCredsForSecuredItem
+- Application Management API
+- Bearer authentication
+- Update user password
+- Custom fields for secured items
+- API request body schema
+- Error handling in API responses
+
+# Example User Questions
+- How can I update my secured item credentials using the API?
+- What is the endpoint for changing my username and password?
+- How do I include custom fields when updating secured item credentials?
+- What should I expect in the response after updating secured item credentials?
+- Is bearer authentication required for updating secured item credentials?
+- What happens if I provide an incorrect username or password?
+- Can I add notes when updating secured item credentials?
+- What is the structure of the request body for updating secured item credentials?
+- How do I handle errors when using the Update Secured Item Credentials endpoint?
+
+# Developer Notes
+- **HTTP Method**: POST
+- **Path**: `/UPRest/UpdateCredsForSecuredItem`
+- **Security**: Requires bearer authentication.
+- **Required Parameters**: The request body must be in JSON format and include the following fields:
+  - `Password` (string): User password
+  - `CustomFields` (string): Custom user fields
+  - `Notes` (string): Notes for secured item
+  - `Username` (string): Username
+- **Response Structure**: 
+  - Status Code: 200
+  - Response includes:
+    - `Result` (object): Indicates whether the operation was successful.
+    - `Error` (object): Contains error message text on failure, may be null.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+### Request Parameters
+- **Password** (string): 
+  - Description: The password for the user.
+  - Example: `"Password": "mySecurePassword123"`
+  
+- **CustomFields** (string): 
+  - Description: Any custom fields associated with the user.
+  - Example: `"CustomFields": "customValue"`
+  
+- **Notes** (string): 
+  - Description: Additional notes related to the secured item.
+  - Example: `"Notes": "This is a note for the secured item."`
+  
+- **Username** (string): 
+  - Description: The username for the account.
+  - Example: `"Username": "user@example.com"`
+
+### Response Parameters
+- **Result** (object): 
+  - Description: Indicates whether the operation was successful.
+  - Example: `"Result": {}`
+
+- **Error** (object): 
+  - Description: Contains error message text if the operation fails, may be null.
+  - Example: `"Error": {"message": "Invalid username or password."}`
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Update secured item credentials.
+PATH: /UPRest/UpdateCredsForSecuredItem
+METHOD: POST
+TAGS: Application Management
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * Password (string): User password
+    * CustomFields (string): Custom user fields
+    * Notes (string): Notes for secured item
+    * Username (string): Username
+  Sample Request JSON:
+  ```json
+  {
+  "Password": "string_value",
+  "CustomFields": "string_value",
+  "Notes": "string_value",
+  "Username": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestDeleteTag
+  Response Body Properties:
+    * Result (object): Whether the operation is successful or not.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+```

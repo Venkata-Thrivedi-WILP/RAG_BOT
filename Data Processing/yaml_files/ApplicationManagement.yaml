@@ -1,0 +1,2395 @@
+openapi: 3.0.1
+info:
+  version: 22.7.201-a104ccbac3
+  title: Application Management
+  termsOfService: 'https://www.idaptive.com/eula/'
+servers:
+  - url: 'https://{tenant_url}/'
+    variables:
+      tenant_url:
+        default: example.id.cyberark.cloud
+paths:
+  /SaasManage/GetTemplatesAndCategories:
+    post:
+      tags:
+        - Application Management
+      summary: Get application templates and categories
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaasManageGetTemplatesAndCategories'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /SaasManage/IsApplicationAvailableInCatalog:
+    post:
+      tags:
+        - Application Management
+      summary: Checks if Application is still available in the catalog.
+      parameters:
+        - name: appKey
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaasManageIsApplicationAvailableInCatalog'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /SaasManage/ImportAppFromTemplate:
+    post:
+      tags:
+        - Application Management
+      summary: Import apps from predefined templates
+      description: |-
+        <p><ul><li>This API retrieves the template and creates an application instance that can be deployed to users.</li>
+                    <li>Only system administrators and users with application management rights can invoke this API.</li>
+                    <li>Refer guides section https://identity-developer.cyberark.com/docs/manage-access-to-applications-1#create-an-application </li></ul></p>
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ID:
+                  type: array
+                  description: <p><ul><li>It is the template name of Application configured in the CyberArk Admin Portal.</li>Can provide multiple template names in the array<li></li></ul></p>
+                  items:
+                    type: string
+              required:
+                - ID
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaasManageImportAppFromTemplate'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /SaasManage/DeleteApplication:
+    post:
+      tags:
+        - Application Management
+      summary: Delete application.
+      description: |-
+        <p>Use this API to delete apps added by admin user.
+                    <ul><li>The API gets invoked when the admin user wants to delete apps from admin portal.</li>
+                    </ul></p>
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                _RowKey:
+                  type: array
+                  description: Application key.
+                  items:
+                    type: string
+              required:
+                - _RowKey
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaasManageDeleteApplication'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /SaasManage/GetApplication:
+    post:
+      tags:
+        - Application Management
+      summary: Get application details
+      description: |-
+        <p><ul>
+                     <li>CyberArk Identity maintains a catalog of application templates that facilitate the process of enabling SSO.</li> 
+                    <li>Invoke this API to retrieve the metadata information/template of the Application.</li>
+                    <li>Only system administrator, users with application management rights can invoke this API.</li>
+                    </ul></p>
+      parameters:
+        - name: _RowKey
+          in: query
+          description: '<p><ul><li>It is the name or Unique ID of the application created. It is also known as App key.</li><li> Can fetch the AppKey from the Admin Portal once we add an application.</li><li>Can also fetch the RowKey using RedRock query.</li><li>Note: RowKey can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC. </li></ul></p>'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaasManageGetApplication'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /SaasManage/CloneAnApplication:
+    post:
+      tags:
+        - Application Management
+      summary: Clone an existing application.
+      description: |-
+        <p><ul>
+                    <li>Use this API to clone admin added app.</li> 
+                    <li>The API gets invoked when the admin user wants to clone app from admin portal.</li>
+                    </ul></p>
+      parameters:
+        - name: Key
+          in: query
+          description: |-
+            <p><ul><li>It is the name or Unique ID of the application, also known as App key.</li>
+                        <li>Can also fetch the Key using RedRock query.</li>
+                        <li>Note: Key can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC.</li>
+                        </ul></p>
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaasManageCloneAnApplicaton'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /SaasManage/GetAppIDByServiceName:
+    post:
+      tags:
+        - Application Management
+      summary: Gets the ID of an app from its service name
+      parameters:
+        - name: name
+          in: query
+          description: service name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaasManageGetAppIDByServiceName'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /SaasManage/SetApplicationPermissions:
+    post:
+      tags:
+        - Application Management
+      summary: Set application permissions
+      description: |-
+        <p><ul>
+                    <li>You must be a system administrator or have 'Grant' permission on the resource or have global 'Grant' permission on resources.</li> 
+                    <li>Invoke this API to set permissions for perticular app.</li>
+                    </ul></p>
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                RowKey:
+                  type: string
+                  description: Application key.
+                ID:
+                  type: string
+                  description: 'ID of the resource, Set to null for global permissions.'
+                Grants:
+                  type: object
+                  description: 'Array of permissions to be set. Each item must include Principal: User name or role name, PType: User, Role.., Rights: ManageSession, Edit, Delete, Grant, AgentAuth.'
+                  properties:
+                    Rights:
+                      type: string
+                      description: 'Permissions: Grant, View, Admin, LimitedAdmin.'
+                    Principal:
+                      type: string
+                      description: User name or role name.
+                    Type:
+                      type: string
+                      description: It is user role when new user is added.
+                    PrincipalId:
+                      type: string
+                      description: Uuid of the principal.
+                    PType:
+                      type: string
+                      description: 'Principal type: User, Role etc..'
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaasManageSetApplicationPermissions'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /SaasManage/GetOpenIdClientSecret:
+    post:
+      tags:
+        - Application Management
+        - Client Secret
+      summary: Get Client Secret for an OIDC Web App
+      description: |
+        - This API securely retrieves the client secret for an OIDC web app. 
+        - The response includes the client secret in encrypted form as 'e' if encryption is successful, or in plain text as 'p' if encryption fails.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                OIDCAppKey:
+                  type: string
+                  description: RowKey of the application.
+                PublicKey:
+                  type: string
+                  description: An RSA-OAEP public key to encrypt the secret.
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaasManageGetOpenIdClientSecret'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /SaasManage/UpdateApplicationDE:
+    post:
+      tags:
+        - Application Management
+      summary: Update application.
+      description: |-
+        <p><ul><li>This API is invoked to update several fields related to an application and is also used to assign roles for accessing the applications.</li>
+                    <li>Only system administrator, users with application management rights can invoke this API.</li>
+                    <li>Refer guides section https://identity-developer.cyberark.com/docs/manage-access-to-applications-1#update-an-application </li></ul></p>
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ShowRegistration:
+                  type: boolean
+                  description: It specifies whether to show registration link or not on the UI. By default it is false.
+                _RowKey:
+                  type: string
+                  description: '<p><ul><li>It is the name or Unique ID of the application created. It is also known as App key.</li><li> Can fetch the AppKey from the CyberArk Admin Portal once we add an application.</li><li>Can also fetch the RowKey using RedRock query.</li><li>Note: RowKey can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC. </li><li>Ex: 52d1cec-63b7-4415-b4e0-facacb555d4e</li></ul></p>'
+                Handler:
+                  type: string
+                  description: 'The application handler is responsible for processing the request and generating a response. Ex: cloudlib Centrify.Saas.apphandlers.UserPass'
+                IconUri:
+                  type: string
+                  description: It is the absolute path of the Application icon.
+                Script:
+                  type: string
+                  description: 'It is the script used to add complex logic for attribute mappings of SAML response. Applicable only for SAML web based application '
+                AppRoles:
+                  type: object
+                  description: It is used to assign or un-assign roles for accessing the application.
+                  properties:
+                    Publish:
+                      type: array
+                      description: Array of Roles to be assigned for accessing the application.
+                      items:
+                        type: object
+                        description: The object contains a list of roles which needs to be assigned for an application.
+                        properties:
+                          RoleType:
+                            type: string
+                            description: 'It is the type of role. Ex: PrincipalList'
+                          Role:
+                            type: string
+                            description: 'It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query. Ex: 447acf32_5bb8_45d5_8649_4f31dd5d888e'
+                          ID:
+                            type: string
+                            description: 'It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query. Ex: 447acf32_5bb8_45d5_8649_4f31dd5d888e'
+                          Application:
+                            type: string
+                            description: It is the name or Unique ID of the application created. It is also known as App key.
+                          Automatic:
+                            type: boolean
+                            description: Specifies whether the application has been set for automatic installation or not. By default it is true.
+                          Name:
+                            type: string
+                            description: It is the name of the Role which needs to be assigned to application.
+                    UnPublish:
+                      type: array
+                      description: Array of Roles to be un-assigned for accessing the application.
+                      items:
+                        type: object
+                        description: The object contains a list of roles which needs to be un-assigned for an application.
+                        properties:
+                          RoleType:
+                            type: string
+                            description: It is the type of role.
+                          Role:
+                            type: string
+                            description: 'It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query.'
+                          ID:
+                            type: string
+                            description: 'It is the Unique Id of the role. Role name, id and type information can be fetched from the Redrock query.'
+                          Application:
+                            type: string
+                            description: It is the name or Unique ID of the application created. It is also known as App key.
+                          Automatic:
+                            type: boolean
+                            description: Automatic
+                          Name:
+                            type: string
+                            description: It is the name of the Role which needs to be un-assigned to application.
+                SamlAttributes:
+                  type: string
+                  description: This attributes are applicable only to SAML web based application. By default it is null
+                Description:
+                  type: string
+                  description: It is the description about the application added.
+                Name:
+                  type: string
+                  description: It is the name of the Application.
+              required:
+                - _RowKey
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaasManageUpdateApplicationDE'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/CreateTagWithNoApp:
+    post:
+      tags:
+        - Application Management
+      summary: Create a tag with no apps for the current user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tagname:
+                  type: string
+                  description: tag name
+              required:
+                - tagname
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestCreateTagWithNoApp'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/DeleteTag:
+    post:
+      tags:
+        - Application Management
+      summary: Delete a tag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tagname:
+                  type: string
+                  description: tag name
+              required:
+                - tagname
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestDeleteTag'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/DownloadImportAccountsLogFile:
+    post:
+      tags:
+        - Application Management
+      summary: Downloads logs for the imported accounts file.
+      parameters:
+        - name: fileKey
+          in: query
+          description: The unique identifier for imported file.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestDownloadImportAccountsLogFile'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /UPRest/GetAppByKey:
+    post:
+      tags:
+        - Application Management
+      summary: Get an application's data.
+      parameters:
+        - name: appkey
+          in: query
+          description: Application key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                markAppVisited:
+                  type: string
+                  description: Should the application be mark as visited.
+                  default: 'false'
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestGetAppByKey'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/GetCredentialsProviderListForImport:
+    post:
+      tags:
+        - Application Management
+      summary: Returns list of credential providers.
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestGetCredentialsProviderListForImport'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /UPRest/GetRecentImportedAccountsFile:
+    post:
+      tags:
+        - Application Management
+      summary: Returns list of details for recently uploaded files.
+      parameters:
+        - name: fileCount
+          in: query
+          description: The number of recent files.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestGetRecentImportedAccountsFile'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /UPRest/GetResultantAppsForUser:
+    post:
+      tags:
+        - Application Management
+      summary: Get applications for user
+      description: |-
+        <p><ul><li>Invoke this API to retrieve the resultant applications where user has access to. </li>
+                     <li>Only system administrator, users with application management rights and user management rights can invoke this API.</li>
+                     <li>NOTE: This call caches the list of applications and roles. Personal apps are not included in the result. </li></ul></p>
+      parameters:
+        - name: userUuid
+          in: query
+          description: The unique ID of the user who is having access to applications should be provided. The unique ID is generated when the user is created or invited.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestGetResultantAppsForUser'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /UPRest/GetTagsForApp:
+    post:
+      tags:
+        - Application Management
+      summary: Get tags for application
+      description: |-
+        <p><ul><li>This API retrieves the tags applied for an application. Tags allow users to organize applications by type. </li>
+                    <li>Only system administrators and users with application management rights can invoke this API.</li>
+                    <li>Refer guides section https://identity-developer.cyberark.com/docs/manage-applications-for-usersnew#create-user-tags-for-an-application </li></ul></p>
+      parameters:
+        - name: appkey
+          in: query
+          description: '<p><ul><li>It is the name or Unique ID of the application.</li><li> Can fetch the AppKey from the Admin Portal once we add an application.</li><li>Can also fetch the RowKey using RedRock query.</li><li>Note: RowKey can be name or App key of the application but cannot be Application Id value for applications like OAuth or OIDC. </li></ul></p>'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestGetTagsForApp'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /UPRest/RenameTag:
+    post:
+      tags:
+        - Application Management
+      summary: Rename a tag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newTagname:
+                  type: string
+                  description: new tag name
+                tagname:
+                  type: string
+                  description: tag name
+              required:
+                - newTagname
+                - tagname
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestCreateTagWithNoApp'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/SetUserCredsForApp:
+    post:
+      tags:
+        - Application Management
+      summary: Set user credentials for an application.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Password:
+                  type: string
+                  description: Application password
+                PublicKeyHash:
+                  type: string
+                  description: SHA256 Hex of the public key used to encrypt the password
+                appkey:
+                  type: string
+                  description: Application key
+                Username:
+                  type: string
+                  description: Application user name
+                ConnectorId:
+                  type: string
+                  description: ID of the connector were a public key used to encrypt exists
+              required:
+                - Password
+                - appkey
+                - Username
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestCreateTagWithNoApp'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/UpdateCapturedUserApplication:
+    post:
+      tags:
+        - Application Management
+      summary: update captured user application .
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                appName:
+                  type: string
+                  description: Application Name
+                appkey:
+                  type: string
+                  description: Application key
+                appDescription:
+                  type: string
+                  description: Application Description
+                notes:
+                  type: string
+                  description: Application notes
+                appUrl:
+                  type: string
+                  description: Application Url
+              required:
+                - appkey
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestDeleteTag'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/UpdateCredsForSecuredItem:
+    post:
+      tags:
+        - Application Management
+      summary: Update secured item credentials.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Password:
+                  type: string
+                  description: User password
+                CustomFields:
+                  type: string
+                  description: Custom user fields
+                Notes:
+                  type: string
+                  description: Notes for secured item
+                Username:
+                  type: string
+                  description: Username
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestDeleteTag'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/UpdatePersonalApplication:
+    post:
+      tags:
+        - Application Management
+      summary: Update personal user application.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                appName:
+                  type: string
+                  description: Application Name
+                appkey:
+                  type: string
+                  description: Application key
+                appDescription:
+                  type: string
+                  description: Application Description
+                notes:
+                  type: string
+                  description: Application notes
+                appUrl:
+                  type: string
+                  description: Application Url
+              required:
+                - appkey
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestCreateTagWithNoApp'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/UpdateUserApplication:
+    post:
+      tags:
+        - Application Management
+      summary: update user application for the current user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                appkey:
+                  type: string
+                  description: Application key
+                notes:
+                  type: string
+                  description: Application Notes
+              required:
+                - appkey
+                - notes
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestCreateTagWithNoApp'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/UploadPersonalAppIcon:
+    post:
+      tags:
+        - Application Management
+      summary: Upload personal app icon.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                appkey:
+                  type: string
+                  description: Personal app key
+              required:
+                - appkey
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestCreateTagWithNoApp'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/UploadSecuredItemIcon:
+    post:
+      tags:
+        - Application Management
+      summary: Upload secured item icon.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sItemkey:
+                  type: string
+                  description: Name of secured item
+              required:
+                - sItemkey
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestCreateTagWithNoApp'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/UpsertTagsForApp:
+    post:
+      tags:
+        - Application Management
+      summary: Add and update application tags for the current user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                appkey:
+                  type: string
+                  description: Application key
+                tagnames:
+                  type: array
+                  description: list of tag names
+                  items:
+                    type: string
+              required:
+                - appkey
+                - tagnames
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestCreateTagWithNoApp'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/UpsertTagsForSecuredItem:
+    post:
+      tags:
+        - Application Management
+      summary: Add and update secured item tags for the current user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tagnames:
+                  type: array
+                  description: list of tag names
+                  items:
+                    type: string
+                itemkey:
+                  type: string
+                  description: Secured item key
+              required:
+                - tagnames
+                - itemkey
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestDeleteTag'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/GetUPData:
+    post:
+      tags:
+        - Application Management
+      summary: Gets all available data for the user portal in one call.
+      description: This call caches the list of applications but does not cache tag information.
+      parameters:
+        - name: force
+          in: query
+          description: 'Whether to use the cache. If set to true, the call does not use the cache.'
+          required: true
+          schema:
+            type: string
+        - name: username
+          in: query
+          description: Target user name.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestGetUPData'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/ValidateUsernameIsAllowed:
+    post:
+      tags:
+        - Application Management
+      summary: Verify if username provided for personal app or secured item is allowed.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userName:
+                  type: string
+                  description: WPM user name
+              required:
+                - userName
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestCreateTagWithNoApp'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/GetTotpCodesForSecuredPassword:
+    post:
+      tags:
+        - Application Management
+      summary: Get TOTP codes for a Secured Password.
+      description: |
+        - Get n TOTP codes for a Secured Password.
+        - The default value for n is 3, but it can be configured.
+        - The response includes the period for TOTP calculation and a list of TOTP tokens in Base64 format.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sItemkey:
+                  type: string
+                  description: Secured Item's' Unique ID.
+                actionType:
+                  type: string
+                  description: 'Optional. The action item for audit events includes the type of action (AutoFill, IBECopy, ContextMenuCopy). By default, it is set to ''null''.'
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestGetTotpCodesForSecuredPassword'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /UPRest/SaveTotpSeedForSecuredPassword:
+    post:
+      tags:
+        - Application Management
+      summary: Set TOTP seed for a secured password.
+      description: |
+        - This API sets the TOTP seed for a secured password.
+        - If you do not provide a value for <b>totpSecret</b>, then the system clears the secret for the secured password.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sItemkey:
+                  type: string
+                  description: The Secured Item's Unique ID.
+                algorithm:
+                  type: string
+                  description: The algorithm used for TOTP verification code generation. The default algorithm is SHA1.
+                digits:
+                  type: number
+                  description: This defines the number of verification code digits.
+                issuer:
+                  type: string
+                  description: Issuer of the TOTP authentication key.
+                label:
+                  type: string
+                  description: Label for the TOTP authentication key.
+                totpSecret:
+                  type: string
+                  description: This is the TOTP authentication key secret for an application.
+                type:
+                  type: string
+                  description: Optional. This specifies the type of OTP being used.
+                period:
+                  type: number
+                  description: Verification code validity period. The default validity period is 30 seconds.
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestSaveTotpSeedForSecuredPassword'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /UPRest/UpRestSaveFilesForSecuredItem:
+    post:
+      tags:
+        - Application Management
+      summary: Add/Update/Delete files for a Secured Item.
+      description: This endpoint is called when the user clicks Save to save the file attachment from the User Portal.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Metadata:
+                  type: array
+                  description: Holds file metadata.
+                  items:
+                    type: object
+                    properties:
+                      Name:
+                        type: string
+                        description: Filename.
+                      Id:
+                        type: string
+                        description: Unique file identifier.
+                      Hidden:
+                        type: boolean
+                        description: Enables or disables the file.
+                      Size:
+                        type: number
+                        description: File size.
+                File:
+                  type: object
+                  description: File is in the form-data.  (Not as a parameter.)
+              required:
+                - File
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SaveFilesForSecuredItem'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+      x-codegen-request-body-name: payload
+  /UPRest/GetSecureFiles:
+    post:
+      tags:
+        - Application Management
+      summary: Returns a list of secured files attached to a Secured Item.
+      description: This endpoint is called when the user clicks on a Secured Item from the User Portal.
+      parameters:
+        - name: sItemkey
+          in: query
+          description: Secured item _RowKye.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UPRestGetRecentImportedAccountsFile'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+  /UPRest/UpRestGetConsumedStorageForSecuredItem:
+    post:
+      tags:
+        - Application Management
+      summary: Get consumed storage space for the current user.
+      description: This endpoint is called when clicks to add a Secured Item from the User Portal.
+      responses:
+        '200':
+          description: API-Result
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/UpRestGetConsumedStorageForSecuredItem'
+      security:
+        - bearerAuth: []
+      servers:
+        - url: 'https://{tenant_url}/'
+          variables:
+            tenant_url:
+              default: example.id.cyberark.cloud
+      x-idap-anon: false
+tags:
+  - name: Application Management
+    description: Manage applications and SaaS
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    SaasManageGetTemplatesAndCategories:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: A list of application templates
+          properties:
+            Category:
+              type: string
+              description: Application category
+            DisplayName:
+              type: string
+              description: Application template display name
+            AppType:
+              type: string
+              description: Application type
+            AppTypeDisplayName:
+              type: string
+              description: Display name of application type
+            Icon:
+              type: string
+              description: Path of application icon image
+            WebAppType:
+              type: string
+              description: Application web-app-type
+            Description:
+              type: string
+              description: Application description
+            Name:
+              type: string
+              description: Application template name
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    SaasManageIsApplicationAvailableInCatalog:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: False if app is not found in tenants application table OR appKey's template is not found in the global catalog. True otherwise
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    SaasManageImportAppFromTemplate:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Return object for a successful API call.
+          properties:
+            ErrorID:
+              type: string
+              description: Error ID if any error is received from the API. By default it is 'null'
+            ErrorCode:
+              type: string
+              description: Error code if any error is received from the API. By default it is 'null'
+            Exception:
+              type: string
+              description: Exception message if any exception is received from the API. By default it is 'null'
+            MessageID:
+              type: string
+              description: Message Id for failure response. By default it is 'null'
+            Result:
+              type: array
+              description: Array of below properties.
+              items:
+                type: object
+                description: The object contains a list of questions setup by the admin.
+                properties:
+                  _RowKey:
+                    type: string
+                    description: ' It is the name or Unique ID of the application. It is also known as App key. Ex: 1c585369-b077-44f8-972f-78d0ffd9ac87'
+                  Exception:
+                    type: string
+                    description: 'By default Exception will be null, unless there is an actual exception happened in retrieving the response.'
+                  ID:
+                    type: string
+                    description: 'It is the template name of Application configured in the CyberArk Admin Portal. Ex: Dropbox'
+                  success:
+                    type: boolean
+                    description: The success will be true if application is found else it's false.
+            InnerExceptions:
+              type: string
+              description: InnerExceptions
+            Message:
+              type: string
+              description: Error message for failure response. By default it is 'null'
+            success:
+              type: boolean
+              description: The success will be true or false.
+            IsSoftError:
+              type: boolean
+              description: SoftError if true indicates this is not actually an exception but an UI warning popup.
+        Error:
+          type: object
+          description: Error message text on failure.
+          properties:
+            Invalid_ID:
+              type: string
+              description: 'This error message is displayed when the invalid Id is provided. Error message: ''This application has been removed from the application catalog.'''
+    SaasManageDeleteApplication:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: The below response is received when request is successful.
+          properties:
+            ErrorID:
+              type: string
+              description: Error Id of occured error during api execution.
+            ErrorCode:
+              type: string
+              description: Error message of Error occured.
+            Exception:
+              type: string
+              description: If any exception has occured.
+            MessageID:
+              type: string
+              description: Message id.
+            Result:
+              type: object
+              description: This gives array of application keys with success flag.
+              properties:
+                _RowKey:
+                  type: string
+                  description: Application key.
+                success:
+                  type: boolean
+                  description: Whether the application is deleted or not.
+            InnerExceptions:
+              type: string
+              description: 'Inner Exception, if any, within exception.'
+            Message:
+              type: string
+              description: Message if any exception.
+            success:
+              type: boolean
+              description: Whether the application is deleted or not.
+            IsSoftError:
+              type: string
+              description: Error type is soft or not.
+        Error:
+          type: object
+          description: This error message is displayed when the application is of portal type.
+          properties:
+            ErrorMessage:
+              type: string
+              description: Application could not be deleted. Applications with type of Portal are system applications.
+    SaasManageGetApplication:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: ' Return object for a successful API call. The response of the API varies w.r.t type and category of the application. Below mentioned properties are response fields of one such type.</a>'
+          properties:
+            Result:
+              type: object
+              description: This API returns Application-related information as the response. Note that the response of the API varies w.r.t type and Category of the Application.
+              properties:
+                LocalizationMappings:
+                  type: array
+                  description: These Mappings bring all the language localization capabilities.
+                  items:
+                    type: object
+                    description: 'The object contains a list '
+                    properties:
+                      Modified:
+                        type: boolean
+                        description: 'It is set to true if any mappings are modified. Else false. By default, it is false.'
+                      Default:
+                        type: string
+                        description: 'It is set to true if there any default mappings. Else false. By default, it is false.'
+                      Code:
+                        type: string
+                        description: 'It is the code used to identify the language. '
+                      Description:
+                        type: string
+                        description: It is the description about the application in the specified language.
+                      Name:
+                        type: string
+                        description: 'The Application''s name in the specified language. Example: User Portal is ''Portail utilisateur'' in french'
+                CertificateSubjectName:
+                  type: string
+                  description: 'This is the Application''s subject name of the certificate. It is specific to the tenant. Ex: CN=ABC0000 Application Signing Certificate '
+                Icon:
+                  type: string
+                  description: 'It is the absolute path of the application''s icon image. Ex: ''vfslow/lib/branding/Idaptive/userportal.png'' '
+                ACL:
+                  type: boolean
+                  description: ACL(access control list) is a list of rules that specifies whether users have access to an application or any resource. It is true if the user has access to the Application. Else false.
+                UseLoginPwUseScript:
+                  type: string
+                  description: 'It specifies whether to use the user''s login password with the mapping script or not. By default, it is false'
+                DefaultAuthProfile:
+                  type: string
+                  description: 'It is the default profile extracted from the Auth Challenge Definition. By default, it is ''AlwaysAllowed.'' '
+                AdminTag:
+                  type: string
+                  description: 'It is the admin tag provided for the Application. It is the same as the Category of the Application. Ex: Finance'
+                TemplateName:
+                  type: string
+                  description: 'It is the template name of the Application. The templates can be internal as well as for external applications. Ex: Dropbox'
+                _TableName:
+                  type: string
+                  description: 'The Tablename where application-related details are stored. By default, it is ''application'''
+                Handler:
+                  type: string
+                  description: 'The application handler is responsible for processing the request and generating a response. Ex: cloudlib; Centrify.Saas.apphandlers.UserPass '
+                AdminPasswordIsSet:
+                  type: boolean
+                  description: 'This property will be true if the admin password exists. Else false. By default, it is false.'
+                UserNameStrategy:
+                  type: string
+                  description: 'It is the strategy used for mapping username. Possible types of strategies are ADAttribute, Fixed, SetByUser, UseScript, SetByProvisioning, None'
+                DisplayName:
+                  type: string
+                  description: It is the display name of the application.
+                _STAMP:
+                  type: string
+                  description: 'It is the unique Id created when an application is created/added in the database. Ex: fd4e9ee9-a9a8-4433-80fb-51eac4d12824'
+                UseLoginPwAdAttr:
+                  type: boolean
+                  description: 'This property will be true if there is additional authentication for the Application. Else false. Default Value: false'
+                ShowInUP:
+                  type: string
+                  description: 'This property is true, then the App is displayed in the user portal. Else false. By default, it is true.'
+                AppTypeDisplayName:
+                  type: string
+                  description: 'There are different types of applications that you can add and deploy to your users. It is the Application''s type display Name. Ex: Web - User Password '
+                WebAppType:
+                  type: string
+                  description: 'It is the type of web application. Like Portal, SAML, OpenIDConnect, OAuth etc.'
+                UseDefaultSigningCert:
+                  type: boolean
+                  description: 'This property will be true if there is a default signing certificate for the Application. Else false. Default Value: true'
+                _PartitionKey:
+                  type: string
+                  description: 'partition key is a unique identifier for the partition within a given table, specified by the PartitionKey property. Ex: ABC0123'
+                AppType:
+                  type: string
+                  description: 'This specifies the type of application like Web, Mobile or Unknown.'
+                State:
+                  type: string
+                  description: 'Specifies the Application''s state like whether it is active or not. By default, it is ''active'''
+                RegistrationMessage:
+                  type: string
+                  description: 'It is the Registration message of the Application if any added while creating the Application. By default, it is null.'
+                ParentDisplayName:
+                  type: string
+                  description: 'It is the display name of the parent application. Here parent app is overridden from another app. By default, it is null.'
+                RegistrationLinkMessage:
+                  type: string
+                  description: 'It is the message in the registration link of the Application. By default, it is ''null'''
+                PortalApp:
+                  type: boolean
+                  description: 'It is set to true if the App belongs to CyberArk. By default, it is false.'
+                Generic:
+                  type: boolean
+                  description: 'This property tells Whether the Application is a generic application or not. By default, it is false.'
+                Description:
+                  type: string
+                  description: It is the description about the application added.
+                AuthChallengeDefinitionId:
+                  type: string
+                  description: 'It is the UniqueId which tells the Authentication requirements to launch the app. Ex: 25ec7578-3397-474c-b0d9-f884b98717dd'
+                UserNameArg:
+                  type: string
+                  description: InnerExceptions
+                PasswordIsSet:
+                  type: boolean
+                  description: 'This property will be true f there is a Password set for the Application. Else false. Default Value: false'
+                Name:
+                  type: string
+                  description: It is the name of the Application.
+                Reference:
+                  type: string
+                  description: ' It is the unique Reference Id of the application template.Ex: 36960'
+                AuthRules:
+                  type: object
+                  description: Auth rules extracted from the Authentication Challenge Definition.
+                  properties:
+                    _Value:
+                      type: string
+                      description: Can be null or empty.
+                    Enabled:
+                      type: boolean
+                      description: It is set to true if rule is enabled else false.
+                    _UniqueKey:
+                      type: string
+                      description: It is the unique Id of the Authentication rule.
+                    _Type:
+                      type: string
+                      description: 'Ex: RowSet'
+                Thumbprint:
+                  type: string
+                  description: 'It is the thumbprint of Certificate for the application. Ex: C1222EFC3D1A54E47AD227C3CDAAE9F4804C82cd'
+                _RowKey:
+                  type: string
+                  description: 'It is the name or Unique Id of the Application. It is also known as App key. Ex: ''52d1cec-63b7-4415-b4e0-facacb555d4e'''
+                Category:
+                  type: string
+                  description: ' It is the Category which application belongs to. Following are the Categories available. <ul><li>Featured</li>    <li>Analytics</li>  <li>Collaboration</li>  <li>Communication</li>  <li>CRM</li>  <li>Customer Service</li>  <li>DevOps</li>  <li>Education</li>  <li>ERP</li>  <li>Finance</li>  <li>Government</li>  <li>Health Care</li>  <li>HR</li>  <li>IT and Administration</li>  <li>Marketing</li>  <li>News and Research</li>  <li>Other</li>  <li>Product Management</li>  <li>Productivity</li>  <li>Project Management</li>  <li>Sales</li>  <li>Security</li>  <li>Social Media</li>  <li>Software Development</li>  <li>Travel</li></ul>'
+                Url:
+                  type: string
+                  description: 'When we are adding external applications, it''s the actual URL of that Application. Ex:https://www.dropbox.com/saml_login'
+            success:
+              type: boolean
+              description: The success will be true or false
+        Error:
+          type: object
+          description: Error message text on failure.
+          properties:
+            Invalid_RowKey:
+              type: string
+              description: 'This error message is displayed when the invalid rowkey is provided. Error message: ''Please try again or contact your system administrator for assistance.'''
+    SaasManageCloneAnApplicaton:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Returns an object for a successful API call. Below mentioned properties are response fields of one such type.</a>
+          properties:
+            ErrorID:
+              type: string
+              description: Error Id of occured error during api execution.
+            ErrorCode:
+              type: string
+              description: Error message of Error occured.
+            Exception:
+              type: string
+              description: If any exception has occured.
+            MessageID:
+              type: string
+              description: Message id.
+            Result:
+              type: object
+              description: This gives new application key and old application ID with success flag.
+              properties:
+                _RowKey:
+                  type: string
+                  description: The new app key for cloned app.
+                ID:
+                  type: string
+                  description: This is key of existing application.
+                success:
+                  type: boolean
+                  description: whether the apllication is cloned or not.
+            InnerExceptions:
+              type: string
+              description: 'Inner Exception, if any, within exception.'
+            Message:
+              type: string
+              description: Message if any exception.
+            success:
+              type: boolean
+              description: whether the apllication is cloned or not.
+            IsSoftError:
+              type: string
+              description: Error type is soft or not.
+        Error:
+          type: object
+          description: This error message is displayed when app is either portal or global app or template is not found for clonning.
+          properties:
+            ErrorMessage:
+              type: string
+              description: The application does not support for cloning.
+    SaasManageGetAppIDByServiceName:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: 'Resulting object, if any, of the call'
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    SaasManageSetApplicationPermissions:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Returns an object for a successful API call.
+          properties:
+            ErrorID:
+              type: string
+              description: Error Id of occured error during api execution.
+            ErrorCode:
+              type: string
+              description: Error message of Error occured.
+            Exception:
+              type: string
+              description: If any exception has occured.
+            MessageID:
+              type: string
+              description: Message id of message.
+            Result:
+              type: object
+              description: |-
+                This API returns Application-related information as the response. 
+                                                                                Note that the response of the API varies w.r.t type and Category of the Application.
+            InnerExceptions:
+              type: string
+              description: 'Inner Exception, if any, within exception.'
+            Message:
+              type: string
+              description: Message if any exception.
+            success:
+              type: boolean
+              description: The success will be true or false.
+            IsSoftError:
+              type: string
+              description: Error is soft or not.
+        Error:
+          type: object
+          description: This error message is displayed when you dont have grant access or writable policy or admin rights.
+          properties:
+            ErrorMessage:
+              type: string
+              description: You are not authorized to perform this operation.Please contact your IT helpdesk.
+    SaasManageGetOpenIdClientSecret:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Return object for a successful API call.
+          properties:
+            success:
+              type: boolean
+              description: The success status is either true or false.
+            Result:
+              type: object
+              description: The result includes the client secret for the application.
+              properties:
+                e:
+                  type: string
+                  description: The client secret in encrypted format if the encryption is successful.
+                p:
+                  type: string
+                  description: The client secret in plain text format if the encryption is unsuccessful.
+            Message:
+              type: string
+              description: Error message for failure response. By default it is 'null'.
+            MessageID:
+              type: string
+              description: 'The message ID for a failure response. By default, it is null.'
+            IsSoftError:
+              type: boolean
+              description: 'If true, SoftError indicates a UI warning popup rather than an exception.'
+            Exception:
+              type: string
+              description: 'The exception message if an exception is received from the API. By default, it is null.'
+            ErrorID:
+              type: string
+              description: 'The error ID if an error occurs. By default, it is null.'
+            ErrorCode:
+              type: string
+              description: 'The error code if an error occurs. By default, it is null.'
+            InnerExceptions:
+              type: string
+              description: InnerExceptions
+        Error:
+          type: object
+          description: Error message text on failure.
+          properties:
+            UnAuthorized:
+              type: string
+              description: 'When the user does not have the required permissions, you will see the error message - You are not authorized to perform this operation. Please contact your IT helpdesk.'
+    SaasManageUpdateApplicationDE:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Return object for a successful API call.
+          properties:
+            ErrorID:
+              type: string
+              description: Error ID if any error is received from the API. By default it is 'null'
+            ErrorCode:
+              type: string
+              description: Error code if any error is received from the API. By default it is 'null'
+            Exception:
+              type: string
+              description: Exception message if any exception is received from the API. By default it is 'null'
+            MessageID:
+              type: string
+              description: Message Id for failure response. By default it is 'null'
+            Result:
+              type: object
+              description: Result for the update application request.
+              properties:
+                State:
+                  type: integer
+                  description: If State is '0' then application fields are updated as expected.
+            InnerExceptions:
+              type: string
+              description: InnerExceptions
+            Message:
+              type: string
+              description: Error message for failure response. By default it is 'null'
+            success:
+              type: boolean
+              description: The success will be true or false.
+            IsSoftError:
+              type: boolean
+              description: SoftError if true indicates this is not actually an exception but an UI warning popup.
+        Error:
+          type: object
+          description: Error message text on failure.
+          properties:
+            Invalid_RowKey:
+              type: string
+              description: 'This error message is displayed when the invalid rowkey is provided. Error message: ''The application does not exist or has been deleted.'''
+    UPRestCreateTagWithNoApp:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Whether the operation is successful or not.
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    UPRestDeleteTag:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Whether the operation is successful or not.
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    UPRestDownloadImportAccountsLogFile:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: File containing logs for imported accounts.
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    UPRestGetAppByKey:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Application data
+          properties:
+            Shortcut:
+              type: boolean
+              description: Whether the application has been set for optional installation
+            Url:
+              type: string
+              description: Application Url
+            AdminTag:
+              type: string
+              description: Application admin tag
+            Description:
+              type: string
+              description: Application description
+            Category:
+              type: string
+              description: Application category
+            Name:
+              type: string
+              description: Application name
+            TemplateName:
+              type: string
+              description: Application template name
+            PasswordIsSet:
+              type: boolean
+              description: Whether the password has been set
+            WebAppType:
+              type: string
+              description: Application web-app-type
+            DisplayName:
+              type: string
+              description: Application display name
+            UsernameRO:
+              type: boolean
+              description: Whether user name is read-only
+            WebAppTypeDisplayName:
+              type: string
+              description: Display name of web-app-type
+            AppTypeDisplayName:
+              type: string
+              description: Display name of application type
+            Intranet:
+              type: boolean
+              description: Whether the application is an intranet app
+            AppType:
+              type: string
+              description: Application type
+            AppKey:
+              type: string
+              description: Application key
+            Rank:
+              type: integer
+              description: Application rank
+            Icon:
+              type: string
+              description: Path of application icon image
+            Username:
+              type: string
+              description: Application username
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    UPRestGetCredentialsProviderListForImport:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: List of credential providers.
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    UPRestGetRecentImportedAccountsFile:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: List of details for recently uploaded files.
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    UPRestGetResultantAppsForUser:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Return object for a successful API call.
+          properties:
+            ErrorID:
+              type: string
+              description: Error ID if any error is received from the API. By default it is 'null'
+            ErrorCode:
+              type: string
+              description: Error code if any error is received from the API. By default it is 'null'
+            Exception:
+              type: string
+              description: Exception message if any exception is received from the API. By default it is 'null'
+            MessageID:
+              type: string
+              description: Message Id for failure response. By default it is 'null'
+            Result:
+              type: object
+              description: Result includes Count and Columns definition.
+              properties:
+                ReturnID:
+                  type: string
+                  description: ReturnID for the successful api call. By default it is null
+                Count:
+                  type: integer
+                  description: It is the number of records that the call returns.
+                Columns:
+                  type: array
+                  description: Array list of definition of all Columns.
+                  items:
+                    type: object
+                    description: The object contains a list of column definition.
+                    properties:
+                      TableKey:
+                        type: string
+                        description: 'specifies whether column is a key and if so what kind of key it is. It can be primary key or foreign key. Ex: ''Primary'''
+                      Description:
+                        type: string
+                        description: 'It is the brief description of the column. Ex: ''Row Identifier (primary key)'''
+                      Name:
+                        type: string
+                        description: It is the name of the column.
+                      Format:
+                        type: string
+                        description: Currently It is not applicable. By default it is null.
+                      TableName:
+                        type: string
+                        description: It is the name of the table. By default it is null.
+                      DDName:
+                        type: string
+                        description: 'It is the Data dictionary name of the column. Ex: ''ID'''
+                      DDTitle:
+                        type: string
+                        description: 'It is the Data dictionary title of the column. Ex: ''ID'''
+                      Type:
+                        type: string
+                        description: 'It is the numeric indicator of the type of data in the column. Ex: ''12'' '
+                      IsHidden:
+                        type: boolean
+                        description: 'specifies whether column is hidden or not. default: false'
+                      Width:
+                        type: integer
+                        description: Currently It is not applicable. By default it is 0.
+                      Title:
+                        type: string
+                        description: 'Title of the column. Ex: ''ID'''
+                      ForeignKey:
+                        type: string
+                        description: specifies whether column holds a foreign key or not. By default it is null.
+                Results:
+                  type: object
+                  description: Results the rows from the table.
+                  properties:
+                    Shortcut:
+                      type: boolean
+                      description: Specifies whether the application has been set for optional installation or not. by default it is false.
+                    Entities:
+                      type: array
+                      description: Array list of definition of all Columns.
+                      items:
+                        type: object
+                        description: Entities List
+                        properties:
+                          IsForeignKey:
+                            type: string
+                            description: Specifies whether the entity has foreign key or not. By default it is false.
+                          Type:
+                            type: string
+                            description: 'It is type of the entity. Ex: Application'
+                          Key:
+                            type: string
+                            description: 'Unique Id of the Entity. Ex:''cb9b5761-6cfe-45a5-8ecf-ce9fa9e0ff82'''
+                    Url:
+                      type: string
+                      description: 'When we are adding external applications, it''s the actual URL of that Application. Ex:https://www.dropbox.com/saml_login'
+                    BypassLoginMFA:
+                      type: boolean
+                      description: Specifies whether the application can bypass the login MFA or not. By default it is false.
+                    Row:
+                      type: string
+                      description: 'Row consists of Entities list and Specifies the details about user accessible applications; each entry is a dictionary including ''Type'' (User, Role), ''ID'' (role/user UUID), and ''Name'' (role name or ''User'' if user is granted direct access)'
+                    Category:
+                      type: string
+                      description: ' It is the Category which application belongs to. Following are the Categories available. <ul><li>Featured</li>    <li>Analytics</li>  <li>Collaboration</li>  <li>Communication</li>  <li>CRM</li>  <li>Customer Service</li>  <li>DevOps</li>  <li>Education</li>  <li>ERP</li>  <li>Finance</li>  <li>Government</li>  <li>Health Care</li>  <li>HR</li>  <li>IT and Administration</li>  <li>Marketing</li>  <li>News and Research</li>  <li>Other</li>  <li>Product Management</li>  <li>Productivity</li>  <li>Project Management</li>  <li>Sales</li>  <li>Security</li>  <li>Social Media</li>  <li>Software Development</li>  <li>Travel</li></ul>'
+                    AdminTag:
+                      type: string
+                      description: 'It is the admin tag provided for the Application. It is the same as the Category of the Application. Ex: Finance'
+                    Name:
+                      type: string
+                      description: It is the name of the Application.
+                    TemplateName:
+                      type: string
+                      description: 'It is the template name of the Application. The templates can be internal as well as for external applications. Ex: Dropbox'
+                    WebAppType:
+                      type: string
+                      description: 'It is the type of web application. Like Portal, SAML, OpenIDConnect, OAuth etc.'
+                    PasswordIsSet:
+                      type: boolean
+                      description: 'This property will be true f there is a Password set for the Application. Else false. Default Value: false'
+                    CertBasedAuthEnabled:
+                      type: boolean
+                      description: Specifies whether Certificate based Authentication is enabled or not. By default it is false.
+                    DisplayName:
+                      type: string
+                      description: It is the display name of the application.
+                    RegistrationMessage:
+                      type: string
+                      description: 'It is the Registration message of the Application if any configured while creating the Application. By default, it is null.'
+                    AuthChallengeDefinitionId:
+                      type: string
+                      description: 'It is the UniqueId which tells the Authentication requirements to launch the app. Ex: 25ec7578-3397-474c-b0d9-f884b98717dd'
+                    DerivedCredsSupported:
+                      type: boolean
+                      description: Specifies whether any derived credentials are supported or not. By default it is false.
+                    IsCredsAccessible:
+                      type: boolean
+                      description: Specifies whether credentials are accessible for the application or not. By default it is false.
+                    UsernameRO:
+                      type: boolean
+                      description: specifies whether user name is read-only or not. By default it is false.
+                    ParentDisplayName:
+                      type: string
+                      description: 'It is the display name of the parent application. Here parent app is overridden from another app. By default, it is null.'
+                    WebAppTypeDisplayName:
+                      type: string
+                      description: 'It is the Display name of application. Ex: web-application-type'
+                    IsNewApp:
+                      type: boolean
+                      description: It specifies whether the application is newly added or not.
+                    RegistrationLinkMessage:
+                      type: string
+                      description: 'It is the message in the registration link of the Application. By default, it is ''null'''
+                    AppTypeDisplayName:
+                      type: string
+                      description: 'There are different types of applications that you can add and deploy to your users. It is the Application''s type display Name. Ex: Web - User Password '
+                    AppType:
+                      type: string
+                      description: 'This specifies the type of application like Web, Mobile or Unknown.'
+                    Intranet:
+                      type: boolean
+                      description: Specifies whether the application is an intranet app or not.
+                    AppKey:
+                      type: string
+                      description: 'It is the Unique ID of the application, also known as app key.'
+                    Automatic:
+                      type: boolean
+                      description: Specifies whether the application has been set for automatic installation or not. By default it is true.
+                    Rank:
+                      type: integer
+                      description: It is the rank of the Application.
+                    ID:
+                      type: string
+                      description: 'It is the Unique ID of the application, also known as app key.'
+                    Icon:
+                      type: string
+                      description: 'It is the absolute path of the application''s icon image. Ex: https://example.com/vfslow/lib/branding/Idaptive/userportal.png '
+                    Username:
+                      type: string
+                      description: Username. By default it is null.
+                FullCount:
+                  type: integer
+                  description: It specifies number of tables.
+                IsAggregate:
+                  type: boolean
+                  description: It is an attribute.
+            InnerExceptions:
+              type: string
+              description: InnerExceptions
+            Message:
+              type: string
+              description: Error message for failure response. By default it is 'null'
+            success:
+              type: boolean
+              description: The success will be true or false
+            IsSoftError:
+              type: boolean
+              description: SoftError if true indicates this is not actually an exception but an UI warning popup.
+        Error:
+          type: object
+          description: Error message text on failure.
+          properties:
+            UnAuthorized:
+              type: string
+              description: 'This error message is displayed when the invalid user Id is provided or if user does not have rights. Error message: ''You are not authorized to perform this operation. Please contact your IT helpdesk.'''
+    UPRestGetTagsForApp:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Return object for a successful API call.
+        Error:
+          type: object
+          description: Error message text on failure.
+          properties:
+            AppKey_NotProvided:
+              type: string
+              description: 'This error message is displayed when the invalid rowkey is provided. Error message: ''Parameter ''appkey'' must be specified.'''
+    UPRestGetUPData:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: A list of applications
+          properties:
+            Shortcut:
+              type: boolean
+              description: Whether the application has been set for optional installation
+            _RowKey:
+              type: string
+              description: Application ID
+            Url:
+              type: string
+              description: Application Url
+            Description:
+              type: string
+              description: Application description
+            Category:
+              type: string
+              description: Application category
+            AdminTag:
+              type: string
+              description: Application admin tag
+            Name:
+              type: string
+              description: Application name
+            TemplateName:
+              type: string
+              description: Application template name
+            WebAppType:
+              type: string
+              description: Application web-app-type
+            PasswordIsSet:
+              type: boolean
+              description: Whether the password has been set
+            DisplayName:
+              type: string
+              description: Application display name
+            UsernameRO:
+              type: boolean
+              description: Whether user name is read-only
+            WebAppTypeDisplayName:
+              type: string
+              description: Display name of web-app-type
+            Personal:
+              type: boolean
+              description: Whether the application is a self-service application.
+            AppTypeDisplayName:
+              type: string
+              description: Display name of application type
+            AppType:
+              type: string
+              description: Application type
+            Intranet:
+              type: boolean
+              description: Whether the application is an intranet app
+            AppKey:
+              type: string
+              description: Application key
+            Automatic:
+              type: boolean
+              description: Whether the application has been set for automatic installation
+            Rank:
+              type: integer
+              description: Application rank
+            Icon:
+              type: string
+              description: Path of application icon image
+            Username:
+              type: string
+              description: Application username
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null'
+    UPRestGetTotpCodesForSecuredPassword:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Return object for a successful API call.
+          properties:
+            success:
+              type: boolean
+              description: The success status is either true or false.
+            Result:
+              type: object
+              description: Result includes TOTP Codes.
+              properties:
+                Period:
+                  type: integer
+                  description: Verification code validity period.
+                TOTPCodes:
+                  type: object
+                  description: Results the n TOTP codes.Here the n value is 3.
+                  properties:
+                    '1':
+                      type: string
+                      description: First TOTP Code.
+                    '2':
+                      type: string
+                      description: Second TOTP Code.
+                    '3':
+                      type: string
+                      description: Third TOTP Code.
+                EpochTimeInSec:
+                  type: integer
+                  description: 'The epoch time for TOTP codes is the number of 30-second periods since January 1, 1970, which determines the current TOTP code.'
+            Message:
+              type: string
+              description: Error message for failure response. By default it is 'null'.
+            MessageID:
+              type: string
+              description: Message Id for failure response. By default it is 'null'.
+            IsSoftError:
+              type: boolean
+              description: SoftError if true indicates this is not actually an exception but an UI warning popup.
+            Exception:
+              type: string
+              description: Exception message if any exception is received from the API. By default it is 'null'.
+            ErrorID:
+              type: string
+              description: Error ID if any error is received from the API. By default it is 'null'.
+            ErrorCode:
+              type: string
+              description: Error code if any error is received from the API. By default it is 'null'.
+            InnerExceptions:
+              type: string
+              description: InnerExceptions
+        Error:
+          type: object
+          description: Error message text on failure.
+          properties:
+            UnAuthorized:
+              type: string
+              description: 'This error message is displayed when user does not have rights. Error message: ''You are not authorized to perform this operation. Please contact your IT helpdesk.'''
+    UPRestSaveTotpSeedForSecuredPassword:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Return object for a successful API call.
+          properties:
+            success:
+              type: boolean
+              description: The success status is either true or false.
+            Result:
+              type: object
+              description: Result for a response.By default it is 'null'.
+            Message:
+              type: string
+              description: Error message for failure response. By default it is 'null'.
+            MessageID:
+              type: string
+              description: Message Id for failure response. By default it is 'null'.
+            IsSoftError:
+              type: boolean
+              description: SoftError if true indicates this is not actually an exception but an UI warning popup.
+            Exception:
+              type: string
+              description: Exception message if any exception is received from the API. By default it is 'null'.
+            ErrorID:
+              type: string
+              description: Error ID if any error is received from the API. By default it is 'null'.
+            ErrorCode:
+              type: string
+              description: Error code if any error is received from the API. By default it is 'null'.
+            InnerExceptions:
+              type: string
+              description: InnerExceptions
+        Error:
+          type: object
+          description: Error message text on failure.
+          properties:
+            UnAuthorized:
+              type: string
+              description: 'This error message is displayed when user does not have rights. Error message: ''You are not authorized to perform this operation. Please contact your IT helpdesk.'''
+    SaveFilesForSecuredItem:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: Indicates whether the operation is successful.
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null.'
+    UpRestGetConsumedStorageForSecuredItem:
+      type: object
+      properties:
+        Result:
+          type: object
+          description: File storage consumed per user.
+          properties:
+            StorageSpaceConsumed:
+              type: number
+              description: Total amount of space consumed per user for file storage.
+        Error:
+          type: object
+          description: 'Error message text on failure, may be null.'
+security:
+  - bearerAuth: []

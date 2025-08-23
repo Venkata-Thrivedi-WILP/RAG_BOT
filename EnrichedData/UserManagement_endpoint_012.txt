@@ -1,0 +1,192 @@
+# Overview
+The **Update User Profile** endpoint allows authorized users to update the properties of an existing cloud user. This API is accessible via a **POST** request to the path **/User/UpdateProfile**. Only system administrators, users with user management rights, or the user themselves can invoke this API. The profile information that can be updated includes username, email address, display name, mobile number, and more. It is important to note that the user for whom the update is made must be a cloud user. Additionally, this API can update other attributes present in the system. 
+
+**Security Requirement:** This endpoint requires bearer token authentication.
+
+# Key Search Terms
+- Update user profile API
+- Manage user data endpoint
+- Cloud user properties update
+- User management API
+- User profile modification
+- Bearer token authentication
+- JSON request body
+- User ID requirement
+- Email verification in user profile
+
+# Example User Questions
+- How can I update a user's profile information?
+- What fields can I modify using the Update User Profile API?
+- Who is authorized to use the Update User Profile endpoint?
+- What is the required format for the user's email address?
+- How do I handle errors when updating a user profile?
+- Is email verification mandatory when updating a user profile?
+- What response can I expect after a successful profile update?
+- Can I update a user's display name through this API?
+- What happens if I provide an invalid user ID?
+- How do I specify additional attributes when updating a user profile?
+
+# Developer Notes
+- **Required Parameters:**
+  - `ID`: The unique ID of the cloud user to update (required).
+  
+- **Request Structure:**
+  - Content Type: `application/json`
+  - Request Body must include the required fields and can include additional attributes.
+
+- **Response Structure:**
+  - Status Code: 200 for a successful update.
+  - The response includes a result object with success status and error details if applicable.
+
+- **Error Handling:**
+  - The API will return specific error messages for invalid user IDs, invalid names, or if the ID is not provided.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+
+## Request Parameters
+- **HomeNumber** (string): Home number of the user.
+- **DisplayName** (string): Name of the user, suitable for display to end users.
+- **ID** (string): The Unique ID of the cloud user to update (required).
+- **OfficeNumber** (string): Office number of the user.
+- **MobileNumber** (string): Mobile phone number of the user.
+- **VerifyEmail** (boolean): Enforce user to verify the registered email address.
+- **Mail** (string): Email address of the user. Required if either mobile number is not provided or 'SendEmailInvite' is true, or Identity Verification has to be done, or VerifyEmail is true.
+- **Description** (string): Additional information related to the user.
+- **Name** (string): User's name in the format 'name@suffix', must not contain restricted characters, and must match an existing User Service suffix.
+
+### Sample Request JSON
+```json
+{
+  "HomeNumber": "string_value",
+  "DisplayName": "string_value",
+  "ID": "string_value",
+  "OfficeNumber": "string_value",
+  "MobileNumber": "string_value",
+  "VerifyEmail": false,
+  "Mail": "string_value",
+  "Description": "string_value",
+  "Name": "string_value"
+}
+```
+
+## Response Parameters
+- **Result** (object): Return object for a successful API call.
+  - **ErrorID** (string): Error ID if any error is received from the API (default is 'null').
+  - **ErrorCode** (string): Error code if any error is received from the API (default is 'null').
+  - **Exception** (string): Exception message if an exception is received from the API (default is 'null').
+  - **MessageID** (string): Message ID for failure response (default is 'null').
+  - **Result** (string): The result for the API call.
+  - **InnerExceptions** (string): Inner exceptions if any received from the API (default is 'null').
+  - **Message** (string): Error message for failure response (default is 'null').
+  - **success** (boolean): True for a successful API call.
+  - **IsSoftError** (boolean): Indicates if this is a UI warning popup.
+
+- **Error** (object): Error message text on failure.
+  - **EmptyUserId** (string): Message when provided UserId is empty or null.
+  - **InvalidName** (string): Message when an invalid name is provided.
+  - **InvalidUserId** (string): Message when an invalid UserId is provided.
+
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "EmptyUserId": "string_value",
+    "InvalidName": "string_value",
+    "InvalidUserId": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Update user profile
+PATH: /User/UpdateProfile
+METHOD: POST
+TAGS: Manage User Data
+DESCRIPTION: Use this API to update an existing cloud user properties. Only system administrators, users with user management rights, or the user itself can invoke this API. The profile information includes username, email address, display name, mobile number, etc. The user for which update is made must be a cloud user. This API updates also additional attributes which are present in the system. All the parameters other than those mentioned in the body args are treated as additional attributes.
+METADATA:
+  * x-idap-anon: False
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * HomeNumber (string): Home number of the user
+    * DisplayName (string): Name of the the user, suitable for display to end users
+    * ID (string): The Unique Id of the Cloud user to update. The unique ID is generated when the user is created.
+    * OfficeNumber (string): Office number of the user
+    * MobileNumber (string): Mobile phone number of the user
+    * VerifyEmail (boolean): Enforce user to verify the registered email address
+    * Mail (string): Email address of the user. Note this field is required if either mobile number is not provided or 'SendEmailInvite' is true, or Identity Verification has to be done, or VerifyEmail is true
+    * Description (string): Can provide some information related to the user.
+    * Name (string): This is the name of the user which must be of the form 'name@suffix', not contain restricted characters, and must match an existing User Service suffix. Format:username@suffix. You must be a system administrator or have user management permissions to change this field.
+    Required fields: ID
+  Sample Request JSON:
+  ```json
+  {
+  "HomeNumber": "string_value",
+  "DisplayName": "string_value",
+  "ID": "string_value",
+  "OfficeNumber": "string_value",
+  "MobileNumber": "string_value",
+  "VerifyEmail": false,
+  "Mail": "string_value",
+  "Description": "string_value",
+  "Name": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UserUpdateProfile
+  Response Body Properties:
+    * Result (object): Return object for a successful API call
+      Nested properties:
+        * ErrorID (string): Error ID if any error is received from the API. By default, it is 'null'
+        * ErrorCode (string): Error code if any error is received from the API. By default, it is 'null'
+        * Exception (string): Exception message if an exception is received from the API. By default, it is 'null'
+        * MessageID (string): Message Id for failure response. By default it is 'null'
+        * Result (string): The result for the API call
+        * InnerExceptions (string): Inner Exceptions if any received from the API. By default, it is 'null'
+        * Message (string): Error message for failure response. By default, it is 'null'
+        * success (boolean): It will be true for a successful API call
+        * IsSoftError (boolean): SoftError if true indicates this is not an exception but a UI warning popup
+    * Error (object): Error message text on failure, below message, would be returned if provided user id or name is invalid/empty
+      Nested properties:
+        * EmptyUserId (string): When provided UserId is empty or null, you would see this message 'Parameter 'ID' must be specified.'
+        * InvalidName (string): When Invalid name is provided, you would see this message 'User name is invalid; user names must be of the form 'name@suffix', not contain restricted characters, and suffix must match an existing User Service suffix.'
+        * InvalidUserId (string): When Invalid UserId is provided, you would see this message 'You are not authorized to perform this operation'
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "Exception": "string_value",
+    "MessageID": "string_value",
+    "Result": "string_value",
+    "InnerExceptions": "string_value",
+    "Message": "string_value",
+    "success": false,
+    "IsSoftError": false
+  },
+  "Error": {
+    "EmptyUserId": "string_value",
+    "InvalidName": "string_value",
+    "InvalidUserId": "string_value"
+  }
+}
+  ```
+SECURITY: bearerAuth
+```

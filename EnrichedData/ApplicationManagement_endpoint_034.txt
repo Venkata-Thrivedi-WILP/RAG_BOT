@@ -1,0 +1,103 @@
+# Overview
+This endpoint allows users to retrieve a list of secured files attached to a specific Secured Item. It is accessed via a POST request to the path `/UPRest/GetSecureFiles`. To use this endpoint, users must provide a valid `sItemkey` parameter, which represents the unique identifier for the secured item. Additionally, the endpoint requires bearer token authentication for security purposes.
+
+# Key Search Terms
+- Secured files endpoint
+- Retrieve secured files
+- Get secure files API
+- Secured Item files
+- Application Management API
+- POST /UPRest/GetSecureFiles
+- Bearer authentication
+- User Portal secured items
+- API response structure
+- Error handling in API
+
+# Example User Questions
+- How can I get a list of secured files for a specific item?
+- What is the endpoint to retrieve files attached to a secured item?
+- What parameters do I need to call the GetSecureFiles API?
+- How do I authenticate when using the secured files endpoint?
+- What does the response look like for the GetSecureFiles request?
+- Can I get an error message if the request fails?
+- What is the purpose of the `sItemkey` parameter?
+- How do I use the User Portal to access secured files?
+- What HTTP method is used for retrieving secured files?
+- What security measures are in place for this API?
+
+# Developer Notes
+- **Required Parameters**:
+  - `sItemkey` (query, Required): This is the unique identifier for the secured item.
+  
+- **Request Structure**:
+  - Method: POST
+  - Path: `/UPRest/GetSecureFiles`
+  - Authentication: Bearer token required.
+
+- **Response Structure**:
+  - Status Code: 200
+  - Content Type: `*/*`
+  - Response Schema: `UPRestGetRecentImportedAccountsFile`
+  
+- **Response Body Properties**:
+  - `Result` (object): Contains a list of details for recently uploaded files.
+  - `Error` (object): Contains error message text on failure, may be null.
+
+- **Error Handling**: The response will include an error message if the request fails.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+
+## Request Parameters
+- **sItemkey**
+  - **Type**: String
+  - **Description**: The unique identifier for the secured item.
+  - **Constraints**: Required for the request.
+
+## Response Parameters
+- **Response Body**
+  - **Result** (object)
+    - **Description**: A list of details for recently uploaded files.
+    - **Example**: 
+      ```json
+      {
+        "FileName": "example.pdf",
+        "UploadDate": "2023-10-01T12:00:00Z"
+      }
+      ```
+  - **Error** (object)
+    - **Description**: Contains error message text if the request fails, may be null.
+    - **Example**: 
+      ```json
+      {
+        "Message": "Invalid sItemkey provided."
+      }
+      ```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Returns a list of secured files attached to a Secured Item.
+PATH: /UPRest/GetSecureFiles
+METHOD: POST
+TAGS: Application Management
+DESCRIPTION: This endpoint is called when the user clicks on a Secured Item from the User Portal.
+METADATA:
+  * x-idap-anon: False
+PARAMETERS:
+  * sItemkey (query, Required): Secured item _RowKye.
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: UPRestGetRecentImportedAccountsFile
+  Response Body Properties:
+    * Result (object): List of details for recently uploaded files.
+    * Error (object): Error message text on failure, may be null
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {},
+  "Error": {}
+}
+  ```
+SECURITY: bearerAuth
+```

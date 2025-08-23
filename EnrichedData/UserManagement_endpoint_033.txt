@@ -1,0 +1,227 @@
+# Overview
+The **Send Identity Verification** endpoint is used to verify a user's identity against CyberArk Identity. This API is invoked after successfully creating a user authentication session with the **start authentication API**. It requires the **SessionId** and **MechanismId** returned from the **/startAuthentication** API as request parameters. The endpoint supports various actions, including starting an out-of-band mechanism, advancing an in-band mechanism, or polling for user responses.
+
+- **HTTP Method:** POST  
+- **Path:** /CDirectoryService/SendIdentityVerification  
+- **Security/Authentication Requirements:** This endpoint requires valid **SessionId** and **MechanismId** from a prior authentication session.
+
+# Key Search Terms
+- Send Identity Verification API
+- CyberArk Identity verification
+- User authentication API
+- Identity verification endpoint
+- OOB mechanism authentication
+- In-band authentication
+- API authentication session
+- MechanismId and SessionId
+- JSON request body for identity verification
+- API response structure for identity verification
+
+# Example User Questions
+- How do I verify a user's identity using the Send Identity Verification API?
+- What parameters do I need to send in the request body for identity verification?
+- How can I handle errors when using the Send Identity Verification endpoint?
+- What actions can I perform with the Send Identity Verification API?
+- How do I retrieve the SessionId and MechanismId for identity verification?
+- What does a successful response look like from the Send Identity Verification API?
+- How do I initiate an out-of-band mechanism using this API?
+- Can I poll for user responses with the Send Identity Verification endpoint?
+- What should I include in the request body for identity verification?
+- What are the required fields for the Send Identity Verification API?
+
+# Developer Notes
+- **Required Parameters:**
+  - **Action**: Specifies the action to be performed (e.g., `Answer`, `StartOOB`, `Poll`).
+  - **MechanismId**: The ID of the mechanism being advanced, obtained from the **/CDirectoryService/StartAuthentication** response.
+  - **SessionId**: The ID of the authentication session, also from the **/CDirectoryService/StartAuthentication** response.
+  - **TenantId**: The tenant ID where the user is authenticating, consistent with the tenant used in the **/CDirectoryService/StartAuthentication**.
+
+- **Request Structure:**
+  - Content Type: application/json
+  - Required fields: Action, MechanismId, SessionId, TenantId
+
+- **Error Handling:** The API will return an error object if the request contains incorrect parameters such as an invalid MechanismId, SessionId, or Answer.
+
+# Detailed Explanation of Available Data, Request and Response Parameters
+
+### Request Parameters
+- **Action** (string): Specifies the action to perform.
+  - Options:
+    - `Answer`: Advance an in-band or answerable OOB mechanism.
+    - `StartOOB`: Initiate an out-of-band mechanism.
+    - `Poll`: Wait for a user to pass or fail an OOB mechanism.
+  
+- **Answer** (string): User-provided value to advance in-band or answerable OOB mechanisms (e.g., password, OTP).
+
+- **MechanismId** (string): The mechanism ID to advance, provided in the **/CDirectoryService/StartAuthentication** response.
+
+- **SessionId** (string): The ID of the authentication session, provided in the **/CDirectoryService/StartAuthentication** response.
+
+- **TenantId** (string): The tenant ID for user authentication, consistent with the tenant used in the **/CDirectoryService/StartAuthentication**.
+
+### Sample Request JSON
+```json
+{
+  "Action": "string_value",
+  "Answer": "string_value",
+  "MechanismId": "string_value",
+  "SessionId": "string_value",
+  "TenantId": "string_value"
+}
+```
+
+### Response Parameters
+- **Status Code:** 200
+- **Description:** API-Result
+- **Content Type:** */*
+  
+#### Response Schema
+- **Result** (object): Indicates if the API request was successful.
+  - **success** (boolean): True for a successful API call.
+  - **Result** (object): Contains the result from the Identity Cloud.
+    - **Summary** (string): Status of the successful response.
+  - **Message** (string): Message detailing the result.
+  - **MessageID** (string): Identifier for the message.
+  - **Exception** (string): Exception details if any.
+  - **ErrorID** (string): Identifier for the error.
+  - **ErrorCode** (string): Code representing the error.
+  - **IsSoftError** (string): Indicates if the error is soft.
+  - **InnerExceptions** (string): Details of any inner exceptions.
+
+- **Error** (object): Displays error messages for incorrect parameters.
+  - **success** (boolean): True for a successful API call.
+  - **Result** (object): Contains the result from the Identity Cloud.
+    - **Summary** (string): Status of the failed response.
+  - **Message** (string): Message detailing the error.
+  - **MessageID** (string): Identifier for the error message.
+  - **Exception** (string): Exception details if any.
+  - **ErrorID** (string): Identifier for the error.
+  - **ErrorCode** (string): Code representing the error.
+  - **IsSoftError** (string): Indicates if the error is soft.
+  - **InnerExceptions** (string): Details of any inner exceptions.
+
+### Sample Response JSON
+```json
+{
+  "Result": {
+    "success": false,
+    "Result": {
+      "Summary": "string_value"
+    },
+    "Message": "string_value",
+    "MessageID": "string_value",
+    "Exception": "string_value",
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "IsSoftError": "string_value",
+    "InnerExceptions": "string_value"
+  },
+  "Error": {
+    "success": false,
+    "Result": {
+      "Summary": "string_value"
+    },
+    "Message": "string_value",
+    "MessageID": "string_value",
+    "Exception": "string_value",
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "IsSoftError": "string_value",
+    "InnerExceptions": "string_value"
+  }
+}
+```
+
+# Raw Endpoint Documentation (Formatted)
+```
+ENDPOINT: Send Identity Verification
+PATH: /CDirectoryService/SendIdentityVerification
+METHOD: POST
+TAGS: Send Identity Verification
+DESCRIPTION: Use this API to verify identity against CyberArk Identity. - Once start authentication API is invoked and a user authentication session has been created successfully, the SendIdentityVerification API is invoked to further advance the user authentication process. - SessionId and MechanismId returned as part of the “/startAuthentication” API are passed as request parameters to this API. - Actions can be passed as one of the following options: startoob pool answer
+METADATA:
+  * x-idap-anon: True
+  * x-codegen-request-body-name: payload
+REQUEST BODY: Required
+  Content Type: application/json
+  Schema Properties:
+    * Action (string): Depending on the type of mechanism you are advancing, use one of the following actions: * `Answer` (advance an in-band or answerable OOB mechanism) * `StartOOB` (initiate an out-of-band mechanism) * `Poll` (wait for a user to pass or fail an OOB mechanism)
+    * Answer (string): This is the user-provided value to advance in-band or answerable 008 mechanisms. For example, a password, or OTP.
+    * MechanismId (string): This is the mechanism ID you are advancing. This is provided in the [/CDirectoryService/StartAuthentication] response.
+    * SessionId (string): The ID of the authentication session in which the mechanism was created. This is provided in the [/CDirectoryService/StartAuthentication].
+    * TenantId (string): The tenant ID where the user is authenticating. This value should be consistent with the tenant used in the [/CDirectoryService/StartAuthentication].
+    Required fields: Action, MechanismId, SessionId, TenantId
+  Sample Request JSON:
+  ```json
+  {
+  "Action": "string_value",
+  "Answer": "string_value",
+  "MechanismId": "string_value",
+  "SessionId": "string_value",
+  "TenantId": "string_value"
+}
+  ```
+RESPONSES:
+  Status Code: 200
+  Description: API-Result
+  Content Type: */*
+  Response Schema: CDirectoryServiceSendIdentityVerification
+  Response Body Properties:
+    * Result (object): The response structure below displays if the API request was successful.
+      Nested properties:
+        * success (boolean): This is true for a successful API call.
+        * Result (object): The result received from the Identity Cloud was successful.
+          Nested properties:
+            * Summary (string): This is the status of a successful response.
+        * Message (string): Message
+        * MessageID (string): MessageID
+        * Exception (string): Exception
+        * ErrorID (string): ErrorID
+        * ErrorCode (string): ErrorCode
+        * IsSoftError (string): IsSoftError
+        * InnerExceptions (string): InnerExceptions
+    * Error (object): The error message below displays when the API request contains the wrong mechanism ID/session ID/Answer.
+      Nested properties:
+        * success (boolean): This is true for a successful API call.
+        * Result (object): The result received from the Identity Cloud.
+          Nested properties:
+            * Summary (string): This is the status of a failed response such as StartNextChallenge, error.
+        * Message (string): Message
+        * MessageID (string): MessageID
+        * Exception (string): Exception
+        * ErrorID (string): ErrorID
+        * ErrorCode (string): ErrorCode
+        * IsSoftError (string): IsSoftError
+        * InnerExceptions (string): InnerExceptions
+  Sample Response JSON:
+  ```json
+  {
+  "Result": {
+    "success": false,
+    "Result": {
+      "Summary": "string_value"
+    },
+    "Message": "string_value",
+    "MessageID": "string_value",
+    "Exception": "string_value",
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "IsSoftError": "string_value",
+    "InnerExceptions": "string_value"
+  },
+  "Error": {
+    "success": false,
+    "Result": {
+      "Summary": "string_value"
+    },
+    "Message": "string_value",
+    "MessageID": "string_value",
+    "Exception": "string_value",
+    "ErrorID": "string_value",
+    "ErrorCode": "string_value",
+    "IsSoftError": "string_value",
+    "InnerExceptions": "string_value"
+  }
+}
+  ```
+```

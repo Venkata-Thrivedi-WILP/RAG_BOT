@@ -1,0 +1,182 @@
+[
+  {
+    "category": "Basic endpoint recall",
+    "question": "Which specific endpoint is used to delete an application that has been added by an administrator?",
+    "answer": "To delete an application, you must use the `POST /SaasManage/DeleteApplication` endpoint. According to the documentation, this endpoint is specifically for deleting applications added by an admin user and requires the application's `_RowKey` in the request body.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "Basic endpoint recall",
+    "question": "What is the endpoint to get a list of all application templates available in the catalog, along with their categories?",
+    "answer": "To get a list of all available application templates and their associated categories, you should make a POST request to the `/SaasManage/GetTemplatesAndCategories` endpoint. This endpoint does not require any parameters and returns a comprehensive list of templates that can be used to create new application instances.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "Basic endpoint recall",
+    "question": "Which specific endpoint is used to get all available data for the user portal, including applications and user information, in a single, efficient call?",
+    "answer": "The endpoint `POST /UPRest/GetUPData` is designed to retrieve all available data for the user portal in a single API call. This is an efficient method for fetching applications and other user-specific data. The request requires the `username` of the target user and includes a `force` parameter to bypass the cache for fresh data.",
+    "difficulty": "hard"
+  },
+  {
+    "category": "Request parameter identification",
+    "question": "When checking if a user is locked out by policy using the `/UserMgmt/IsUserLockedOutByPolicy` endpoint, what is the mandatory query parameter you must provide?",
+    "answer": "To check if a user is locked out by policy, you must provide the `user` query parameter to the `/UserMgmt/IsUserLockedOutByPolicy` endpoint. This parameter is required and can accept either the user's name or their unique ID (UUID) to identify the user in question.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "Request parameter identification",
+    "question": "To retrieve all the applications a specific user has access to, which endpoint do you use and what specific parameter must be provided?",
+    "answer": "To retrieve all applications a user has access to, you must call the `POST /UPRest/GetResultantAppsForUser` endpoint. The request requires you to provide the `userUuid` as a query parameter, which is the unique ID of the user whose application access list you want to retrieve.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "Request parameter identification",
+    "question": "When exempting a user from MFA requirements using `/CDirectoryService/ExemptUserFromMfa`, what are the required and optional parameters, and what is the default behavior of the optional parameter?",
+    "answer": "When calling `POST /CDirectoryService/ExemptUserFromMfa`, the required query parameter is `ID`, which is the user's UUID. There is also an optional query parameter named `timespan`. If the `timespan` parameter is not provided, the system defaults to exempting the user from MFA for 10 minutes.",
+    "difficulty": "hard"
+  },
+  {
+    "category": "Request body schema understanding",
+    "question": "To create a new user using the `/CDirectoryService/CreateUser` endpoint, what are the minimum required fields in the JSON request body?",
+    "answer": "According to the API documentation for `POST /CDirectoryService/CreateUser`, the request body is a JSON object that must, at a minimum, include the `Name` (the user's login name, like user@suffix) and `Mail` (the user's email address) fields to successfully create a new user.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "Request body schema understanding",
+    "question": "When using the `/SaasManage/SetApplicationPermissions` endpoint, what are the key properties required within the `Grants` object in the request body to define a permission?",
+    "answer": "To define a permission grant using `POST /SaasManage/SetApplicationPermissions`, the `Grants` object in the request body must contain the `Principal` (the user or role name), `PType` (the principal type, such as 'User' or 'Role'), and `Rights` (the permissions being granted, such as 'View' or 'Grant').",
+    "difficulty": "medium"
+  },
+  {
+    "category": "Request body schema understanding",
+    "question": "When adding a new custom attribute to the user schema via `/ExtData/UpdateSchema`, what is the correct structure of the request body and why is it necessary to include existing attributes?",
+    "answer": "To add a new attribute using `POST /ExtData/UpdateSchema`, the request body must contain a JSON object with a `columns` array. This array must include all existing attributes plus the new attribute you are adding. It is necessary to include the full list of attributes because this endpoint overwrites the entire schema for the specified table. Failing to include existing attributes would result in their deletion.",
+    "difficulty": "hard"
+  },
+  {
+    "category": "Response schema comprehension",
+    "question": "After successfully cloning an application with `/SaasManage/CloneAnApplication`, what key piece of information is returned in the `Result` object of the response that identifies the new application?",
+    "answer": "When an application is successfully cloned using `POST /SaasManage/CloneAnApplication`, the `Result` object in the JSON response contains a `_RowKey` field. This `_RowKey` is the unique identifier or App Key for the newly created cloned application.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "Response schema comprehension",
+    "question": "When you call `/UserMgmt/GetUsersRolesAndAdministrativeRights` for a user, what is the structure of the information returned in the response?",
+    "answer": "The response from `POST /UserMgmt/GetUsersRolesAndAdministrativeRights` contains a detailed structure within the `Result` object. It lists each role the user is a member of and, for each role, enumerates the specific administrative rights granted, such as 'User Management' or 'Application Management', providing a clear breakdown of the user's permissions.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "Response schema comprehension",
+    "question": "When retrieving an application's details with `/SaasManage/GetApplication`, what are at least five key fields you can expect in the `Result` object for a standard web application, and what do they represent?",
+    "answer": "When calling `POST /SaasManage/GetApplication`, the `Result` object contains extensive details. Five key fields include: `_RowKey` (the unique App Key), `Name` (the human-readable application name), `WebAppType` (e.g., 'SAML', 'UserPass'), `Description` (a summary of the application's purpose), and `Category` (its classification in the app catalog, like 'Productivity').",
+    "difficulty": "hard"
+  },
+  {
+    "category": "Authentication/security requirements",
+    "question": "What is the standard method of authentication required by the majority of the endpoints in the User Management, Application Management, and Policy Management APIs?",
+    "answer": "The APIs predominantly require Bearer Authentication. The client must include an `Authorization` header with a valid JSON Web Token (JWT) in the format `Bearer <JWT_TOKEN>` for the request to be authenticated and authorized.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "Authentication/security requirements",
+    "question": "Which endpoint in the User Management API is explicitly designed for unauthenticated use, and what is its purpose?",
+    "answer": "The `POST /CDirectoryService/StartAuthentication` endpoint is designed to be used without prior authentication. Its purpose is to initiate the user authentication process by providing a username, which then returns the available authentication challenges for that user.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "Authentication/security requirements",
+    "question": "Explain the purpose of the `RevStamp` field in the context of the `/Policy/SavePolicyBlock3` endpoint and why it is crucial for security and data integrity in a multi-administrator environment.",
+    "answer": "The `RevStamp` (Revision Stamp) is a concurrency control mechanism. When you fetch a policy using `/Policy/GetPolicyBlock`, you receive its current `RevStamp`. To save changes using `/Policy/SavePolicyBlock3`, you must send back that exact `RevStamp`. The server verifies that the stamp matches the one on record. If it doesn't, it means another administrator has modified the policy, and the update is rejected. This is crucial for preventing accidental overwrites and ensuring policy integrity.",
+    "difficulty": "hard"
+  },
+  {
+    "category": "Conditional/branching logic",
+    "question": "How does the `/AuthProfile/SaveProfile` endpoint differentiate between creating a new authentication profile and updating an existing one?",
+    "answer": "The `POST /AuthProfile/SaveProfile` endpoint uses the presence of a `Uuid` field within the `settings` object of the request body to determine its action. If a `Uuid` is provided, the endpoint updates the existing profile matching that UUID. If the `Uuid` is omitted, it creates a new authentication profile.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "Conditional/branching logic",
+    "question": "What is the functional difference between the `/CDirectoryService/ChangeUserState` and `/CDirectoryService/SetUserState` endpoints for managing a user's status?",
+    "answer": "`POST /CDirectoryService/ChangeUserState` provides a simple toggle using a boolean `state` parameter to switch a user between active (true) and suspended (false). In contrast, `POST /CDirectoryService/SetUserState` offers more granular control, allowing you to set the state to specific values like 'Locked', 'Disabled', or 'Expired', in addition to 'None' for re-enabling.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "Conditional/branching logic",
+    "question": "When inviting users with `/UserMgmt/InviteUsers`, how can you conditionally send a single invitation to a group's email address instead of to every individual member of that group?",
+    "answer": "When using `POST /UserMgmt/InviteUsers` to invite a group, you can control the invitation behavior with the `GroupInvite` boolean flag in the request body. If `GroupInvite` is set to `true`, the system sends a single invitation to the group's designated email address. If it's `false` or omitted, invitations are sent to each individual member of the group.",
+    "difficulty": "hard"
+  },
+  {
+    "category": "Concurrency handling",
+    "question": "What field is essential for safely updating a policy to prevent conflicts when multiple administrators might be making changes?",
+    "answer": "The `RevStamp` field is essential. It acts as a revision stamp to ensure you are updating the latest version of a policy, thus preventing concurrent edit conflicts.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "Concurrency handling",
+    "question": "Why is it critical to first call `/Policy/GetPolicyBlock` before attempting to save changes to an existing policy with `/Policy/SavePolicyBlock3`?",
+    "answer": "It is critical because `/Policy/GetPolicyBlock` provides the current `RevStamp` for the policy. This `RevStamp` must be included in the request to `/Policy/SavePolicyBlock3` to prove that the changes are based on the most recent version of the policy, which is the core mechanism for handling concurrent updates safely.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "Concurrency handling",
+    "question": "Imagine two administrators try to update the same policy simultaneously. Admin A fetches the policy first, then Admin B fetches it. Admin B saves their changes successfully. What happens when Admin A tries to save their changes, and why?",
+    "answer": "When Admin A tries to save their changes using `POST /Policy/SavePolicyBlock3`, the request will fail. This is because the `RevStamp` Admin A possesses is now outdated, as Admin B's successful save operation has generated a new `RevStamp` on the server. The server will reject Admin A's request to prevent overwriting Admin B's changes, thus ensuring data integrity.",
+    "difficulty": "hard"
+  },
+  {
+    "category": "Multi-step workflows",
+    "question": "What are the two main API calls required to perform a bulk user import from a CSV file, and what is the purpose of each step?",
+    "answer": "The first step is to call `POST /CDirectoryService/GetUsersFromCsvFile`, which uploads the CSV file and validates it, returning a `ReturnID`. The second step is to call `POST /CDirectoryService/SubmitUploadedFile`, providing the `ReturnID` from the first call, which schedules and finalizes the import process.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "Multi-step workflows",
+    "question": "Describe the complete process for cloning an existing application and then immediately retrieving the full details of the newly cloned application.",
+    "answer": "First, you call `POST /SaasManage/CloneAnApplication`, providing the `Key` of the source application. The response will contain the `_RowKey` of the new clone. Second, you take that new `_RowKey` and use it as a parameter in a call to `POST /SaasManage/GetApplication` to retrieve all the details of the cloned application.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "Multi-step workflows",
+    "question": "Explain the detailed workflow for adding a new custom attribute to the user schema and then setting a value for that new attribute for a specific user.",
+    "answer": "This is a multi-step process. First, call `POST /ExtData/GetSchema` to retrieve all existing user attributes. Second, add your new attribute definition to that list and call `POST /ExtData/UpdateSchema` with the complete list to update the schema. Third, to set a value for a user, call `POST /ExtData/SetColumns`, providing the user's `ID`, the table name ('Users'), and a `Columns` object containing the new attribute's name and its value.",
+    "difficulty": "hard"
+  },
+  {
+    "category": "Error handling / failure scenarios",
+    "question": "When deleting multiple users with `/UserMgmt/RemoveUsers`, what is a critical precaution mentioned in the documentation that will cause the entire operation to fail?",
+    "answer": "The documentation for `POST /UserMgmt/RemoveUsers` explicitly states that the API call will fail if any of the user IDs specified in the request belong to the currently authenticated user who is making the call. This is a protective measure.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "Error handling / failure scenarios",
+    "question": "If you attempt to update an application's roles using `/SaasManage/UpdateApplicationDE` but provide a role ID that does not exist, what kind of response should you expect?",
+    "answer": "While the API might not return a specific error code for a non-existent role ID in the documentation, a robust system would either fail the entire request with a message indicating an invalid role or partially succeed while reporting an error for the specific invalid role. The `success` flag in the response would likely be `false` or the `Result` object would contain error details.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "Error handling / failure scenarios",
+    "question": "What happens if you try to delete a user via `/UserMgmt/RemoveUsers` who belongs to an external directory service like Active Directory, and what is the implication?",
+    "answer": "According to the documentation for `POST /UserMgmt/RemoveUsers`, for users from external directory services, this operation only removes them from the CyberArk Identity cloud. It does not delete the user from the source directory (e.g., Active Directory). The implication is that the user account will still exist in its original directory service.",
+    "difficulty": "hard"
+  },
+  {
+    "category": "Cross-endpoint design understanding",
+    "question": "Which two endpoints from the Application Management API would you use to manage the lifecycle of an application tag, from creation to deletion?",
+    "answer": "To create a tag, you would use `POST /UPRest/CreateTagWithNoApp`. To delete a tag, you would use `POST /UPRest/DeleteTag`. These two endpoints handle the basic lifecycle of a tag itself.",
+    "difficulty": "easy"
+  },
+  {
+    "category": "Cross-endpoint design understanding",
+    "question": "How do the endpoints `/ExtData/GetSchema` and `/ExtData/GetColumns` work together to provide a complete picture of a user's custom attributes?",
+    "answer": "`/ExtData/GetSchema` provides the blueprint of all possible custom attributes available in the user table (the column names and types). `/ExtData/GetColumns`, on the other hand, retrieves the actual values of those attributes for a specific user. You need both to understand what attributes can exist and what values a particular user has.",
+    "difficulty": "medium"
+  },
+  {
+    "category": "Cross-endpoint design understanding",
+    "question": "Explain how you would use a combination of endpoints from both User Management and Application Management to verify a user's access to a specific application and then retrieve that application's details.",
+    "answer": "First, you would use `POST /UPRest/GetResultantAppsForUser` from the Application Management API, providing the user's UUID to get a list of all applications they can access. You would check if the target application's App Key is in this list. If it is, you would then use that App Key in a call to `POST /SaasManage/GetApplication` to retrieve the full configuration and details of that specific application.",
+    "difficulty": "hard"
+  }
+]
